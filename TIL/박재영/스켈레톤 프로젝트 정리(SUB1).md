@@ -1,4 +1,4 @@
-# 스켈레톤 프로젝트 정리
+# 스켈레톤 프로젝트 정리(SUB1)
 
 ## 이더리움
 
@@ -166,3 +166,22 @@ vagrant help                //vagrant관련 명령어 정보 출력
     ```
     geth --networkid 921 --maxpeers 2 --datadir ~/dev/eth_localdata --allow-insecure-unlock --port 30303 --http --http.port 8545 --http.addr localhost --http.corsdomain "*" --miner.threads 1
     ```
+
+### 2. 이더리움 계정생성
+
+* 2-1 계정 생성
+  
+![계정 생성](./img/%EA%B3%84%EC%A0%95%20%EC%83%9D%EC%84%B1.PNG)
+
+* 2-2 코인베이스 설정
+
+1. 코인베이스 생성
+
+![코인베이스 생성](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%83%9D%EC%84%B1.PNG)
+
+
+2. 코인베이스 계정 주소 변경
+
+![코인베이스 계정 주소 변경](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EA%B3%84%EC%A0%95%20%EC%A3%BC%EC%86%8C%20%EB%B3%80%EA%B2%BD.PNG)
+
+* 2-3 마이닝 시작
