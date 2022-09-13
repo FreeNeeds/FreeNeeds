@@ -2,29 +2,33 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
+const user = JSON.parse(sessionStorage.getItem('user'));
+const initialState = user
+  ? { status: { isSigned: true }, user }
+  : { status: { isSigned: false }, user: null };
 
 export default new Vuex.Store({
-  state: {
-    isSigned: false, // 로그인 여부
-    user: {
-      id: 0, // 사용자 아이디 저장
-      walletAddress: null
-    },
-  },
+  state: initialState,
   mutations: {
     setIsSigned(state, isSigned) {
-      state.isSigned = isSigned;
+      state.status.isSigned = isSigned;
     },
-    setUserId(state, id) {
-      state.user.id = id;
-    },
+    setUser(state, data) {
+      if (data.accessToken) {
+        sessionStorage.setItem('user',JSON.stringify(data));
+        state.user = data
+      }
+    }
+    ,
+    /*
     setWalletAddress(state, address) {
       state.user.walletAddress = address;
-    },
+    },*/
     logout(state) {
-      state.isSigned = false;
-      state.user.id = 0;
-      state.user.walletAddress = null;
+      sessionStorage.removeItem('user')
+      state.status.isSigned = false
+      state.user = null
+      //state.user.walletAddress = null;
     }
   },
   actions: {},

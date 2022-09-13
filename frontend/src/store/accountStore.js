@@ -1,4 +1,4 @@
-import { requestLogin } from "../common/api/accountAPI";
+import { requestLogin } from "../api/accountAPI";
 
 const state = {
   token: null
