@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cerfificate")
@@ -14,10 +15,14 @@ public class Certificate {
     @GeneratedValue
     private Long certificateId;
 
+    @NotNull
     private String date;
+
+    @NotNull
     private String name;
 
     @ManyToOne
+    @JoinColumn(name="resumeId", referencedColumnName = "resumeId")
     private Resume resume;
 
 }
