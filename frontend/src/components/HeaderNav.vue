@@ -5,7 +5,7 @@
         <div class="navbar-nav justify-content-between align-items-center">
           <div id="logo"><img src="../assets/images/ssafy-logo.png" alt=""></div>
           <div>
-            <span id="findProject" class="nav-item menuBar">프로젝트 찾기</span>
+            <span @click="routeProjectPage" id="findProject" class="nav-item menuBar">프로젝트 찾기</span>
             <span id="findFreelancer" class="nav-item menuBar">프리랜서 찾기</span>
           </div>
           <div>
@@ -36,6 +36,11 @@
         loginBtn.setAttribute('style','display: inline')
       }
     },
+    methods : {
+      routeProjectPage() {
+        this.$router.push("/project")
+      }
+    }
   }
 </script>
   
