@@ -125,18 +125,13 @@
           </b-card-text>
         </b-card>
       </div>
-
-
-
-
-
-
-
-
+      <FooterNav></FooterNav>
   </b-container>
 </template>
 <script>
   import HeaderNav from '@/components/HeaderNav.vue'
+  import FooterNav from '@/components/FooterNav.vue'
+
   export default {
     data() {
       return {
@@ -154,7 +149,7 @@
     },
     components: {
         HeaderNav,
-
+        FooterNav
     },
 
   }

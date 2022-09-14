@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <b-container>
     <HeaderNav></HeaderNav>
-    <b-container>
-      <div id="banner"></div>
-      <FilterBtn></FilterBtn>
-      <ProjectList></ProjectList>
-      <SearchBar></SearchBar>
-    </b-container>
+    <div id="banner"></div>
+    <FilterBtn></FilterBtn>
+    <ProjectList></ProjectList>
+    <SearchBar></SearchBar>
     <FooterNav></FooterNav>
-  </div>
+  </b-container>
 </template>
 
 <script>
