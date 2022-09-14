@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="container" style="text-align:center">
     <div class="register-wrapper">
       <h2>기업 회원가입</h2>
@@ -94,56 +93,6 @@
             id="registerCNumberInput"
             class="regist-input-wrapper"
           />
-=======
-  <div class="container">
-    <div class="row">
-      <div id="register-form" class="col-md-6 mx-auto bg-white">
-        <router-link to="/">Escrow | STARMIX</router-link>
-        <div class="mt-4">
-          <div class="form-group">
-            <label for="email">이메일</label>
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              v-model="user.email"
-              placeholder="이메일"
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">이름</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              v-model="user.name"
-              placeholder="이름"
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              v-model="user.password"
-              placeholder="비밀번호"
-            />
-          </div>
-          <div class="form-group">
-            <label for="password-confirm">비밀번호 확인</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password-confirm"
-              v-model="user.passwordConfirm"
-              placeholder="비밀번호 확인"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary" v-on:click="register">
-            회원가입
-          </button>
->>>>>>> 6c7c7cb4232b706152a8af7ce2503f8da97891fe
         </div>
       </div>
       <div class="register-item-wrapper">
@@ -269,7 +218,6 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
 <style>
 .regist-terms-input-form .form-check-input {
   zoom: 1.5;
@@ -335,6 +283,3 @@ export default {
   height: 100%;
 }
 </style>
-=======
-<style></style>
->>>>>>> 6c7c7cb4232b706152a8af7ce2503f8da97891fe
