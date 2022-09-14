@@ -1,65 +1,52 @@
 <template>
-  <div class="container" style="text-align:center">
-    <div class="register-wrapper">
-      <h2>기업 회원가입</h2>
-      <div class="register-item-wrapper">
-        <label for="registerCIdInput" class="register-input-label"
-          >아이디</label
-        >
-        <div class="regist-input-decoration">
-          <input
-            type="text"
-            id="registerCIdInput"
-            class="regist-input-wrapper"
-          />
-        </div>
-      </div>
-      <div class="register-item-wrapper">
-        <label for="registerCPasswordInput" class="register-input-label"
-          >비밀번호</label
-        >
-        <div class="regist-input-decoration">
-          <input
-            type="password"
-            id="registerCPasswordInput"
-            class="regist-input-wrapper password-input-wrapper"
-          />
-        </div>
-      </div>
-      <div class="register-item-wrapper">
-        <label for="registerCPasswordConfirmInput" class="register-input-label"
-          >비밀번호 확인</label
-        >
-        <div class="regist-input-decoration">
-          <input
-            type="password"
-            id="registerCPasswordConfirmInput"
-            class="regist-input-wrapper  password-input-wrapper"
-          />
-        </div>
-      </div>
-      <div class="register-item-wrapper">
-        <label for="registerCNameInput" class="register-input-label"
-          >기업명</label
-        >
-        <div class="regist-input-decoration">
-          <input
-            type="text"
-            id="registerCNameInput"
-            class="regist-input-wrapper"
-          />
-        </div>
-      </div>
-      <div class="register-item-wrapper">
-        <label for="registerCNumberInput" class="register-input-label"
-          >전화번호</label
-        >
-        <div class="regist-input-decoration">
-          <input
-            type="text"
-            id="registerCNumberInput"
-            class="regist-input-wrapper"
-          />
+  <div class="container">
+    <div class="row">
+      <div id="register-form" class="col-md-6 mx-auto bg-white">
+        <router-link to="/">Escrow | STARMIX</router-link>
+        <div class="mt-4">
+          <div class="form-group">
+            <label for="email">이메일</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              v-model="user.email"
+              placeholder="이메일"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">이름</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="user.name"
+              placeholder="이름"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              v-model="user.password"
+              placeholder="비밀번호"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password-confirm">비밀번호 확인</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password-confirm"
+              v-model="user.passwordConfirm"
+              placeholder="비밀번호 확인"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" v-on:click="register">
+            회원가입
+          </button>
         </div>
       </div>
     </div>
@@ -105,37 +92,4 @@ export default {
 };
 </script>
 
-<style>
-.register-wrapper {
-  margin-top: 10%;
-  width: 50%;
-  border: 1px solid black;
-  display: inline-block;
-  text-align: left;
-}
-.register-item-wrapper {
-  margin-top: 20px;
-}
-.regist-input-wrapper {
-  padding: 10px;
-  font-size: 20px;
-  width: 100%;
-  border: none;
-  outline: none;
-}
-.regist-input-wrapper:focus {
-  border: none;
-}
-.register-input-label {
-  display: block;
-}
-.password-input-wrapper {
-  width: 80%;
-}
-.regist-input-decoration {
-  border: 1px solid #c7c8d2;
-  border-radius: 8px;
-  background-color: white;
-  padding: 3px;
-}
-</style>
+<style></style>
