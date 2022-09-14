@@ -14,11 +14,10 @@ import javax.validation.constraints.Size;
 @Setter
 @ApiModel("UserLoginPostRequest")
 public class UserLoginPostReq {
-	@Size(min = 4,max = 16)
+
 	@ApiModelProperty(name = "유저 ID", example = "ssafy_web")
 	String username;
 
-	@Size(min = 9,max = 16)
 	@ApiModelProperty(name = "유저 Password", example = "your_password")
 	String password;
 }
