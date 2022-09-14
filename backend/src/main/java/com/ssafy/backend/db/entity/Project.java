@@ -2,11 +2,10 @@ package com.ssafy.backend.db.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,7 +21,6 @@ public class Project {
     private String title;
 
     @NotNull
-    @Column(length = 255)
     private String content;
 
     @NotNull
@@ -46,21 +44,18 @@ public class Project {
     private String skill;
 
     @NotNull
-    @Column(length = 255)
     private String period;
 
     @NotNull
     private int recruitNumber;
 
     @NotNull
-    @Column(length = 255)
     private String deadline;
 
     @NotNull
     private int careerPeriod;
 
     @NotNull
-    @Column(length = 255)
     private String task;
 
     @NotNull
@@ -70,4 +65,10 @@ public class Project {
     @NotNull
     @Column(length = 32)
     private String price;
+
+    //FK : 회사 시리얼
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name="companyId", referencedColumnName = "companyId")
+    private Company company;
 }
