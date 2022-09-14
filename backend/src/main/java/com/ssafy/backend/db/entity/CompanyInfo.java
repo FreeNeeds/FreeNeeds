@@ -14,15 +14,20 @@ import javax.validation.constraints.NotNull;
 public class CompanyInfo {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long companyInfoId;
+
     @NotNull
     private String ceo;
+
     @NotNull
     private String address;
+
     @NotNull
     private String companyCall;
+
     @NotNull
     private String registrationNumber;
+
     @NotNull
     private String registrationFile;
 }
