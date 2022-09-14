@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tech")
@@ -14,9 +15,11 @@ public class Tech {
     @GeneratedValue
     private Long techId;
 
+    @NotNull
     private String name;
 
     @ManyToOne
+    @JoinColumn(name="resumeId", referencedColumnName = "resumeId")
     private Resume resume;
 
 }
