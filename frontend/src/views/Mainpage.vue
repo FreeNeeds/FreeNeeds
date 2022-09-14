@@ -125,7 +125,9 @@
           </b-card-text>
         </b-card>
       </div>
+
       <FooterNav></FooterNav>
+
   </b-container>
 </template>
 <script>

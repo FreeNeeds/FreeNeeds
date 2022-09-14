@@ -5,6 +5,7 @@ import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
 import Project from "@/views/Project"
+import Freelancer from "@/views/Freelancer.vue"
 
 Vue.use(VueRouter);
 
@@ -40,7 +41,12 @@ const routes = [
     path: "/project",
     name: "project",
     component: Project
-  }
+  },
+  {
+    path: "/freelancer",
+    name: "freelancer",
+    component: Freelancer
+  },
 ];
 
 const router = new VueRouter({
