@@ -1,14 +1,14 @@
 <template>
   <div>
-    <MainpageNav></MainpageNav>
+    <HeaderNav></HeaderNav>
   </div>
 </template>
 <script>
-  import MainpageNav from '@/components/Mainpage/MainpageNav.vue'
+  import HeaderNav from '@/components/HeaderNav.vue'
   
   export default {
     components: {
-        MainpageNav
+        HeaderNav
     }
   }
 </script>
