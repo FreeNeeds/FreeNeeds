@@ -170,18 +170,64 @@ vagrant help                //vagrant관련 명령어 정보 출력
 ### 2. 이더리움 계정생성
 
 * 2-1 계정 생성
-  
+  1. 계정 생성
+```
+personal.newAccount(패스워드)
+```
 ![계정 생성](./img/%EA%B3%84%EC%A0%95%20%EC%83%9D%EC%84%B1.PNG)
+  2. 계정 확인
+```
+eth.accounts
+```
+
 
 * 2-2 코인베이스 설정
 
-1. 코인베이스 생성
+  1. 코인베이스 생성
+```
+eth.coinbase
+```
 
-![코인베이스 생성](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%83%9D%EC%84%B1.PNG)
+  ![코인베이스 생성](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%83%9D%EC%84%B1.PNG)
 
 
-2. 코인베이스 계정 주소 변경
+  1. 코인베이스 계정 주소 변경
+```
+miner.setEtherbase("계정 주소")
+```
 
-![코인베이스 계정 주소 변경](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EA%B3%84%EC%A0%95%20%EC%A3%BC%EC%86%8C%20%EB%B3%80%EA%B2%BD.PNG)
+  ![코인베이스 계정 주소 변경](./img/%EC%BD%94%EC%9D%B8%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EA%B3%84%EC%A0%95%20%EC%A3%BC%EC%86%8C%20%EB%B3%80%EA%B2%BD.PNG)
 
 * 2-3 마이닝 시작
+
+  1. 마이닝 시작 명령어
+   ```
+   miner.start(1)
+   ```
+
+  2. 마이닝 진행 상태 확인
+   ```
+   eth.mining
+   ```
+  3. 마이닝 종료
+  ```
+  miner.stop()
+  ```
+
+* 마이닝 결과 확인
+  1. 계정 잔액 확인
+   ```
+   eth.getBalance(eth.accounts[0])
+   ```
+  2. 생성된 블록 수 조회
+   ```
+   eth.blockNumber
+   ```
+  3. 블록 상세정보 조회
+   ```
+   eth.getBlock(eth.blockNumber)
+   ```
+
+### 3. 이더리움 트랜잭션 생성
+
+* 3-1 트랜잭션 생성
