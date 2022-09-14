@@ -14,18 +14,25 @@ import javax.validation.constraints.NotNull;
 public class Company {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long companyId;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_info_id")
     private CompanyInfo companyInfo;
+
     @NotNull
+    @Column(length = 16)
     private String username;
+
     @NotNull
     private String email;
+
     @NotNull
     private String name;
+
     @NotNull
     private String phone;
+
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
