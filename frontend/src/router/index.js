@@ -5,7 +5,7 @@ import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
 import Project from "@/views/Project";
-
+import IndexSignup from "@/views/IndexSignup";
 Vue.use(VueRouter);
 
 /**
@@ -41,6 +41,11 @@ const routes = [
     path: "/project",
     name: "project",
     component: Project
+  },
+  {
+    path: "/register",
+    name: "indexsignup",
+    component: IndexSignup
   }
 ];
 

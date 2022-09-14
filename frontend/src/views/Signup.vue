@@ -1,5 +1,7 @@
 <template>
   <div class="container" style="text-align:center">
+    {{ this.testdata }}
+    <input type="text" @change="gettestdata" v-model="fortest" />
     <div class="register-wrapper">
       <h2 v-if="signupType == 'Company'" class="regist-header">
         기업 회원가입
@@ -191,7 +193,7 @@
 <script>
 import { signup } from "../api/user.js";
 import * as yup from "yup";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: {
@@ -199,6 +201,7 @@ export default {
   },
   data() {
     return {
+      fortest: "",
       termsCheck: false,
       email: "",
       emailDomain: "",
@@ -230,6 +233,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["testdata"]),
     isPasswordSame() {
       return this.user.password != this.user.passwordConfirm;
     }
@@ -241,7 +245,10 @@ export default {
     console.log(this.signupType);
   },
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["settestdata"]),
+    gettestdata() {
+      this.settestdata(this.fortest);
+    },
     checkIdDuplicate() {
       this.isDuplicatedId = !this.isDuplicatedId;
     },
