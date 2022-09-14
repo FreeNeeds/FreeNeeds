@@ -131,7 +131,28 @@
           </div>
         </div>
       </div>
-      <div></div>
+      <div class="regist-terms-input-form">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            서비스 <router-link to="/">이용약관</router-link>에 동의합니다.
+          </label>
+        </div>
+      </div>
+      <div class="regist-submit-btn-wrapper">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          @click="registCompany"
+        >
+          <div style="padding-left:50px;padding-right:50px">회원가입</div>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -198,28 +219,42 @@ export default {
 </script>
 
 <style>
+.regist-terms-input-form .form-check-input {
+  zoom: 1.5;
+}
+.regist-terms-input-form .form-check-label {
+  zoom: 1.5;
+}
 .regist-email-input-wrapper {
   padding: 10px;
   font-size: 20px;
-  width: 40%;
+  width: 100%;
   border: none;
   outline: none;
 }
 .eye-wrapper {
-  margin-left: 25%;
-  margin-top: 25%;
+  margin-left: 40%;
+  margin-top: 15%;
   height: 50%;
   weight: 50%;
 }
 .register-wrapper {
   margin-top: 10%;
-  width: 50%;
+  width: 500px;
   border: 1px solid black;
   display: inline-block;
   text-align: left;
 }
 .register-item-wrapper {
   margin-top: 20px;
+}
+.regist-terms-input-form {
+  margin-top: 30px;
+  text-align: center;
+}
+.regist-submit-btn-wrapper {
+  margin-top: 30px;
+  text-align: center;
 }
 .regist-input-wrapper {
   padding: 10px;
