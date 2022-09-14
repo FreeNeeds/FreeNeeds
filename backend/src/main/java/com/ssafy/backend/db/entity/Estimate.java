@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "estimate")
@@ -15,13 +16,23 @@ public class Estimate {
     @GeneratedValue
     private Long estimateId;
 
+    @NotNull
     private Float profession;
+
+    @NotNull
     private Float ontime;
+
+    @NotNull
     private Float active;
+
+    @NotNull
     private Float communication;
+
+    @NotNull
     private Float reEmployment;
 
     @ManyToOne
+    @JoinColumn(name="freelancerId", referencedColumnName = "id")
     private User user;
 
 }
