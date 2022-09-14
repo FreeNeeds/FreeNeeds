@@ -4,7 +4,8 @@ import Signup from "@/views/Signup.vue";
 import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
-
+import Project from "@/views/Project";
+import IndexSignup from "@/views/IndexSignup";
 Vue.use(VueRouter);
 
 /**
@@ -14,17 +15,18 @@ const routes = [
   {
     path: "/",
     name: "main",
-    component: Mainpage,
+    component: Mainpage
   },
   {
     name: "login",
     path: "/login",
-    component: Login,
+    component: Login
   },
   {
-    path: "/register",
+    path: "/register/:signupType",
     name: "signup",
     component: Signup,
+    props: true
   },
   {
     path: "/logout",
@@ -33,16 +35,27 @@ const routes = [
       store.commit("logout");
       alert("로그아웃 되었습니다.");
       next("/");
-    },
+    }
   },
+  {
+    path: "/project",
+    name: "project",
+    component: Project
+  },
+  {
+    path: "/register",
+    name: "indexsignup",
+    component: IndexSignup
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
+/*
 router.beforeEach((to, from, next) => {
   let isSigned = store.state.isSigned;
   let isAvailableToGuest =
@@ -50,12 +63,12 @@ router.beforeEach((to, from, next) => {
     to.path.startsWith("/explorer");
 
   // 로그인도 하지 않았고 게스트에게 허용된 주소가 아니라면 로그인 화면으로 이동한다.
-  if (!isSigned && !isAvailableToGuest) {
+  if (to.meta.IsLogin && !isSigned && !isAvailableToGuest) {
     alert("로그인을 하신 뒤에 사용이 가능합니다.");
     next("/login");
   } else {
     next();
   }
 });
-
+*/
 export default router;
