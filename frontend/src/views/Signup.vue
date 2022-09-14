@@ -1,7 +1,10 @@
 <template>
   <div class="container" style="text-align:center">
     <div class="register-wrapper">
-      <h2>기업 회원가입</h2>
+      <h2 v-if="signupType == 'Company'" class="regist-header">
+        기업 회원가입
+      </h2>
+      <h2 v-else class="regist-header">프리랜서 회원가입</h2>
       <div class="register-item-wrapper">
         <label for="registerCIdInput" class="register-input-label"
           >아이디</label
@@ -89,8 +92,14 @@
         <div v-show="isPasswordSame">입력한 비밀번호가 다릅니다.</div>
       </div>
       <div class="register-item-wrapper">
-        <label for="registerCNameInput" class="register-input-label"
+        <label
+          v-if="signupType == 'Company'"
+          for="registerCNameInput"
+          class="register-input-label"
           >기업명</label
+        >
+        <label v-else for="registerCNameInput" class="register-input-label"
+          >이름</label
         >
         <div class="regist-input-decoration">
           <input
@@ -185,6 +194,9 @@ import * as yup from "yup";
 import { mapActions } from "vuex";
 
 export default {
+  props: {
+    signupType: String
+  },
   data() {
     return {
       termsCheck: false,
@@ -222,9 +234,17 @@ export default {
       return this.user.password != this.user.passwordConfirm;
     }
   },
+  mounted() {
+    console.log(this.signupType);
+  },
+  created() {
+    console.log(this.signupType);
+  },
   methods: {
     ...mapActions([""]),
-    checkIdDuplicate() {},
+    checkIdDuplicate() {
+      this.isDuplicatedId = !this.isDuplicatedId;
+    },
     changePasswordConfirmVisible() {
       this.passwordConfirmvisible = !this.passwordConfirmvisible;
       var passwordElement = document.getElementById(
@@ -267,11 +287,17 @@ export default {
       } else if (
         !this.validationPattern.eamilCheckPattern.test(this.user.emailadress)
       ) {
-        alert("이메일 형태가 아닙니다. 다시 확인해주세요");
+        alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
       } else if (this.isDuplicatedId === false) {
-        alert("아이디 중복검사를 해주세요");
+        alert("아이디 중복검사를 해주세요.");
         return;
+      } else if (!this.termsCheck) {
+        alert("이용약관에 동의해주세요.");
+        return;
+      }
+      if (this.signupType == "Company") {
+      } else {
       }
     },
     register() {
@@ -325,7 +351,7 @@ export default {
 .register-wrapper {
   margin-top: 10%;
   width: 500px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: inline-block;
   text-align: left;
 }
@@ -365,5 +391,8 @@ export default {
 #emailSelectBar {
   width: 100%;
   height: 100%;
+}
+.regist-header {
+  margin-bottom: 50px;
 }
 </style>
