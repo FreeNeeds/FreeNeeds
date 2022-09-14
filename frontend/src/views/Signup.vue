@@ -6,12 +6,26 @@
         <label for="registerCIdInput" class="register-input-label"
           >아이디</label
         >
-        <div class="regist-input-decoration">
-          <input
-            type="text"
-            id="registerCIdInput"
-            class="regist-input-wrapper"
-          />
+        <div class="row">
+          <div class="col-9">
+            <div class="regist-input-decoration">
+              <input
+                v-model="user.id"
+                type="text"
+                id="registerCIdInput"
+                class="regist-input-wrapper"
+              />
+            </div>
+          </div>
+          <div class="col-3">
+            <button
+              type="button"
+              class="btn btn-outline-primary id-duplicate-confirm-btn"
+              @click="checkIdDuplicate"
+            >
+              중복검사
+            </button>
+          </div>
         </div>
       </div>
       <div class="register-item-wrapper">
@@ -22,6 +36,7 @@
           <div class="row">
             <div class="col-10">
               <input
+                v-model="user.password"
                 type="password"
                 id="registerCPasswordInput"
                 class="regist-input-wrapper  password-input-wrapper"
@@ -48,6 +63,7 @@
           <div class="row">
             <div class="col-10">
               <input
+                v-model="user.passwordConfirm"
                 type="password"
                 id="registerCPasswordConfirmInput"
                 class="regist-input-wrapper  password-input-wrapper"
@@ -70,6 +86,7 @@
             <img ref="@/assets/images/eyeclose.png" />
           </div> -->
         </div>
+        <div v-show="isPasswordSame">입력한 비밀번호가 다릅니다.</div>
       </div>
       <div class="register-item-wrapper">
         <label for="registerCNameInput" class="register-input-label"
@@ -77,6 +94,7 @@
         >
         <div class="regist-input-decoration">
           <input
+            v-model="user.name"
             type="text"
             id="registerCNameInput"
             class="regist-input-wrapper"
@@ -89,6 +107,7 @@
         >
         <div class="regist-input-decoration">
           <input
+            v-model="user.number"
             type="text"
             id="registerCNumberInput"
             class="regist-input-wrapper"
@@ -103,6 +122,7 @@
           <div class="row">
             <div class="col-6">
               <input
+                v-model="email"
                 type="text"
                 id="registerCNumberInput"
                 class="regist-email-input-wrapper"
@@ -116,6 +136,7 @@
             </div>
             <div class="col-5">
               <select
+                v-model="emailDomain"
                 name="emailadress"
                 id="emailSelectBar"
                 class="form-select"
@@ -134,6 +155,7 @@
       <div class="regist-terms-input-form">
         <div class="form-check">
           <input
+            v-model="termsCheck"
             class="form-check-input"
             type="checkbox"
             value=""
@@ -159,21 +181,50 @@
 
 <script>
 import { signup } from "../api/user.js";
+import * as yup from "yup";
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
+      termsCheck: false,
+      email: "",
+      emailDomain: "",
+      isDuplicatedEmail: false,
+      isDuplicatedId: false,
+      isAuthorized: false,
       user: {
-        email: "",
+        id: "",
         name: "",
+        number: "",
         password: "",
         passwordConfirm: ""
       },
+      validationPattern: {
+        pwdCheckPattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+-])(?=.*[0-9]).{9,16}$/,
+        idCheckPattern: /^[a-zA-Z0-9].{1,16}$/,
+        eamilCheckPattern: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
+      },
+      schema: yup.object().shape({
+        name: yup.string().required("이름을 입력해주세요."),
+        number: yup.number().required("전화번호를 입력해주세요."),
+        emailadress: yup.string().required("이메일을 입력해주세요."),
+        id: yup.string().required("아이디를 입력해주세요."),
+        password: yup.string().required("비밀번호를 입력해주세요.")
+      }),
+
       passwordvisible: false,
       passwordConfirmvisible: false
     };
   },
+  computed: {
+    isPasswordSame() {
+      return this.user.password != this.user.passwordConfirm;
+    }
+  },
   methods: {
+    ...mapActions([""]),
+    checkIdDuplicate() {},
     changePasswordConfirmVisible() {
       this.passwordConfirmvisible = !this.passwordConfirmvisible;
       var passwordElement = document.getElementById(
@@ -192,6 +243,35 @@ export default {
         passwordElement.type = "text";
       } else {
         passwordElement.type = "password";
+      }
+    },
+    registCompany() {
+      console.log(this.user);
+      this.user.emailadress = `${this.email}@${this.emailDomain}`;
+      this.schema.isValid(this.user).then((valid, msg) => {
+        if (!valid) {
+          alert("모든 정보를 입력해 주세요");
+          return;
+        }
+      });
+      if (!this.validationPattern.idCheckPattern.test(this.user.id)) {
+        alert("아이디는 영문자 또는 숫자만 가능합니다.");
+        return;
+      } else if (
+        !this.validationPattern.pwdCheckPattern.test(this.user.password)
+      ) {
+        alert(
+          "비밀번호는 영문자+숫자+특수문자 조합으로 9~16자리를 사용해야합니다."
+        );
+        return;
+      } else if (
+        !this.validationPattern.eamilCheckPattern.test(this.user.emailadress)
+      ) {
+        alert("이메일 형태가 아닙니다. 다시 확인해주세요");
+        return;
+      } else if (this.isDuplicatedId === false) {
+        alert("아이디 중복검사를 해주세요");
+        return;
       }
     },
     register() {
@@ -219,6 +299,10 @@ export default {
 </script>
 
 <style>
+.id-duplicate-confirm-btn {
+  width: 100%;
+  height: 100%;
+}
 .regist-terms-input-form .form-check-input {
   zoom: 1.5;
 }
