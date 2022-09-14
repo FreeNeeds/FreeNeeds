@@ -5,19 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
 @Setter
-public class User{
+public class Company {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long companyId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_info_id")
+    private CompanyInfo companyInfo;
 
     @NotNull
     @Column(length = 16)
