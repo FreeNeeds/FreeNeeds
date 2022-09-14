@@ -4,6 +4,7 @@ import Signup from "@/views/Signup.vue";
 import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
+import Project from "@/views/Project"
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
       next("/");
     },
   },
+  {
+    path: "/project",
+    name: "project",
+    component: Project
+  }
 ];
 
 const router = new VueRouter({
@@ -43,6 +49,7 @@ const router = new VueRouter({
   routes,
 });
 
+/*
 router.beforeEach((to, from, next) => {
   let isSigned = store.state.isSigned;
   let isAvailableToGuest =
@@ -57,5 +64,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
+*/
 export default router;
