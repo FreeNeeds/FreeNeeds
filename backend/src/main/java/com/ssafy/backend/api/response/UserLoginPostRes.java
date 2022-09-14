@@ -29,7 +29,7 @@ public class UserLoginPostRes extends BaseResponseBody{
 		res.setMessage(message);
 		res.setAccessToken(accessToken);
 
-		res.setId(user.getId());
+		res.setId(user.getUserId());
 		res.setUsername(user.getUsername());
 		res.setEmail(user.getEmail());
 		res.setName(user.getName());
