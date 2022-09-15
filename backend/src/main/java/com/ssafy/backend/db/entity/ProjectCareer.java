@@ -59,6 +59,6 @@ public class ProjectCareer {
     private String price;
 
     @ManyToOne
-    @JoinColumn(name="freelancerId", referencedColumnName = "id")
+    @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
 }

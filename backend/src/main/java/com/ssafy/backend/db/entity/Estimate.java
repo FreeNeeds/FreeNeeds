@@ -32,7 +32,7 @@ public class Estimate {
     private Float reEmployment;
 
     @ManyToOne
-    @JoinColumn(name="freelancerId", referencedColumnName = "id")
+    @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
 
 }
