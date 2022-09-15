@@ -3,7 +3,6 @@
     <HeaderNav></HeaderNav>
     <div id="banner"></div>
     <FilterBtn></FilterBtn>
-    <ProjectList></ProjectList>
     <SearchBar></SearchBar>
     <FooterNav></FooterNav>
   </b-container>

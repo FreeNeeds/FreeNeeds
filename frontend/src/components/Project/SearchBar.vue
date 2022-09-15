@@ -26,7 +26,7 @@ export default {
     background-color: white;
     position: absolute;
     top : 297px;
-    left : 25%;
+    left : 29%;
   }
   #searchBar {
     border:none;
@@ -35,5 +35,4 @@ export default {
     margin-left : 15px;
   }
   #searchBar:focus {outline:none;}
-
 </style>
