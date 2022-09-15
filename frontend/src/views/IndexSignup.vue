@@ -60,4 +60,12 @@ export default {};
   background-color: #f6f6f6;
   color: black;
 }
+.freelancer-selectbox:hover {
+  background-color: #3c3c3c;
+  color: white;
+}
+.company-selectbox:hover {
+  background-color: #f6f6f6;
+  color: black;
+}
 </style>
