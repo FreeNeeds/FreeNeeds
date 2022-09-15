@@ -3,10 +3,10 @@
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <div class="navbar-nav justify-content-between align-items-center">
-          <div id="logo"><img src="../assets/images/ssafy-logo.png" alt=""></div>
+          <div id="logo" @click="routeMainPage"><img  src="../assets/images/ssafy-logo.png" alt=""></div>
           <div>
             <span @click="routeProjectPage" id="findProject" class="nav-item menuBar">프로젝트 찾기</span>
-            <span id="findFreelancer" class="nav-item menuBar">프리랜서 찾기</span>
+            <span @click="routeFreelancerPage" id="findFreelancer" class="nav-item menuBar">프리랜서 찾기</span>
           </div>
           <div>
             <span id="loginBtn" class="nav-item auth-group">로그인</span>
@@ -18,7 +18,7 @@
       </div>
     </nav>
   </div>
-  
+
 </template>
 
 <script>
@@ -39,11 +39,17 @@
     methods : {
       routeProjectPage() {
         this.$router.push("/project")
+      },
+      routeFreelancerPage(){
+        this.$router.push("/freelancer")
+      },
+      routeMainPage(){
+        this.$router.push("/")
       }
     }
   }
 </script>
-  
+
 <style>
   .container-fluid {
     margin-top: 1% !important;
