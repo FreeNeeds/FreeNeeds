@@ -1,14 +1,20 @@
 <template>
   <div>
-    <button id="filterBtn">
+    <button id="filterBtn" data-bs-toggle="modal" data-bs-target="#FilterModal">
     필터
     </button>
+    <FilterModal></FilterModal>
   </div> 
 </template>
 
 <script>
+  import FilterModal from '@/components/Project/FilterModal.vue';
+  
   export default {
     name: 'FilterBtn',
+    components : {
+      FilterModal
+    }
   }
 </script>
 
