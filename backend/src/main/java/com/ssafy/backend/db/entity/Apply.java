@@ -14,16 +14,15 @@ import javax.validation.constraints.NotNull;
 public class Apply {
     @Id
     @GeneratedValue
-    private Long userProjectId;
+    private Long applyId;
 
     @NotNull
-    @Column(length = 255)
     private String state;
 
-    //FK : 프리랜서 시리얼
+    //FK : 유저(프리랜서) 시리얼
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name="freelancerId", referencedColumnName = "id")
+    @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
 
     //FK : 프로젝트 시리얼

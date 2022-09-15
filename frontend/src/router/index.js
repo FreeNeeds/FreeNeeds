@@ -9,6 +9,23 @@ import Project from "@/views/Project"
 import Freelancer from "@/views/Freelancer.vue"
 import IndexSignup from "@/views/IndexSignup";
 
+
+/** 마이페이지 */
+import Mypage from "@/views/MyPage";
+
+/** 프리랜서 마이페이지 */
+import ApplyStatus from "@/components/FreelancerMypage/ApplyStatus";
+import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
+import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
+import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
+
+/** 기업 마이페이지 */
+import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
+import CompanyMessage from "@/components/EnterpriseMypage/CompanyMessage";
+import CompanyWallet from "@/components/EnterpriseMypage/CompanyWallet";
+import ProjectRegist from "@/components/EnterpriseMypage/ProjectRegist";
+import ProjectStatus from "@/components/EnterpriseMypage/ProjectStatus";
+
 Vue.use(VueRouter);
 
 /**
@@ -55,6 +72,67 @@ const routes = [
     path: "/register",
     name: "indexsignup",
     component: IndexSignup
+  },
+  {
+    path: "/mypage/:accountType",
+    name: "mypage",
+    component: Mypage,
+    props: true,
+    redirect: to => {
+      const { hash, params, query } = to;
+      if (params.accountType == "company" || params.accountType == "Company") {
+        return "/mypage/company/projectstatus";
+      } else {
+        return "/mypage/freelancer/applystatus";
+      }
+    },
+    children: [
+      {
+        path: "applystatus",
+        name: "applystatus",
+        component: ApplyStatus
+      },
+      {
+        path: "managecareer",
+        name: "managecareer",
+        component: ManageCareer
+      },
+      {
+        path: "freelancermessage",
+        name: "freelancermessage",
+        component: FreelancerMessage
+      },
+      {
+        path: "freelancerwallet",
+        name: "freelancerwallet",
+        component: FreelancerWallet
+      },
+      {
+        path: "projectstatus",
+        name: "projectstatus",
+        component: ProjectStatus
+      },
+      {
+        path: "projectregist",
+        name: "projectregist",
+        component: ProjectRegist
+      },
+      {
+        path: "companyinfoadmin",
+        name: "companyinfoadmin",
+        component: CompanyInfoAdmin
+      },
+      {
+        path: "companywallet",
+        name: "companywallet",
+        component: CompanyWallet
+      },
+      {
+        path: "companymessage",
+        name: "companymessage",
+        component: CompanyMessage
+      }
+    ]
   }
 ];
 
