@@ -4,8 +4,11 @@ import Signup from "@/views/Signup.vue";
 import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
-import Project from "@/views/Project";
+
+import Project from "@/views/Project"
+import Freelancer from "@/views/Freelancer.vue"
 import IndexSignup from "@/views/IndexSignup";
+
 
 /** 마이페이지 */
 import Mypage from "@/views/MyPage";
@@ -22,6 +25,7 @@ import CompanyMessage from "@/components/EnterpriseMypage/CompanyMessage";
 import CompanyWallet from "@/components/EnterpriseMypage/CompanyWallet";
 import ProjectRegist from "@/components/EnterpriseMypage/ProjectRegist";
 import ProjectStatus from "@/components/EnterpriseMypage/ProjectStatus";
+
 Vue.use(VueRouter);
 
 /** 프리랜서 프로젝트 현황 컴포넌트 */
@@ -63,6 +67,12 @@ const routes = [
     path: "/project",
     name: "project",
     component: Project
+  },
+  {
+
+    path: "/freelancer",
+    name: "freelancer",
+    component: Freelancer
   },
   {
     path: "/register",
