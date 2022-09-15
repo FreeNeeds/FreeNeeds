@@ -20,7 +20,7 @@
               </p>
             </div>
             <!-- Grid column -->
-  
+
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
@@ -45,7 +45,7 @@
               </p>
             </div>
             <!-- Grid column -->
-  
+
             <!-- Grid column -->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
@@ -70,7 +70,7 @@
               </p>
             </div>
             <!-- Grid column -->
-  
+
             <!-- Grid column -->
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <!-- Links -->
@@ -83,7 +83,7 @@
         </div>
       </section>
       <!-- Section: Links  -->
-  
+
       <!-- Copyright -->
       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
         © 2022 Copyright:
@@ -95,25 +95,27 @@
     </footer>
   </div>
 </template>
-  
+
 <script>
 export default {};
 </script>
 
 <style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
-.btn_gotop { 
-display: block; 
-position: fixed; 
-bottom: 35px; /* 탑버튼을 화면의 가장 아래에서 몇 픽셀 떨어뜨릴 것인지 정하세요*/ 
-right: 30px; /* 탑버튼을 화면의 가장 오른쪽에서 몇 픽셀 떨어뜨릴 것인지 정하세요*/ 
-z-index: 999; 
-border: 1px solid rgba(0,0,0,0.25); 
-outline: none; 
-background-color: white; 
-color: rgba(0,0,0,0.7); 
-cursor: pointer; 
-padding: 15px 20px; 
-border-radius: 100%; 
-} 
+.btn_gotop {
+display: block;
+position: fixed;
+bottom: 35px; /* 탑버튼을 화면의 가장 아래에서 몇 픽셀 떨어뜨릴 것인지 정하세요*/
+right: 30px; /* 탑버튼을 화면의 가장 오른쪽에서 몇 픽셀 떨어뜨릴 것인지 정하세요*/
+z-index: 999;
+border: 1px solid rgba(84, 109, 49, 0.25);
+outline: none;
+background-color: rgb(248, 248, 248);
+color: rgba(200, 136, 136, 0.7);
+cursor: pointer;
+padding: 15px 20px;
+border-radius: 100%;
+}
+
+
 </style>
