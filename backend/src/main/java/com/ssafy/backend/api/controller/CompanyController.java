@@ -22,7 +22,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @PostMapping()
-    @ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 기업이 회원가입 한다.")
+    @ApiOperation(value = "기업 회원가입", notes = "<strong>아이디와 패스워드</strong>를 통해 기업이 회원가입 한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
