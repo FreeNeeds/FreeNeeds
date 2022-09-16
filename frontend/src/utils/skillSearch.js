@@ -41,6 +41,7 @@ const searchSkillFunc = (payload) => {
         }
       }
     }
+    if (sk === 'ASP.NET') console.log(max_,maxRes)
     if (max_ > maxRes) {
       strRes = [sk]
       maxRes = max_
