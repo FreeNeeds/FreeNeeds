@@ -1,8 +1,10 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.UserProfileFetchReq;
+import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.db.entity.Profile;
+import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
 
 import java.util.Optional;
@@ -20,4 +22,6 @@ public interface UserService {
 	Profile getProfileByUserId(Long userId);
 
 	void updateUserProfile(String username, UserProfileFetchReq userProfile);
+
+	ProjectCareer createProjectCareer(User user, UserProjectRegisterPostReq registerProjectInfo);
 }

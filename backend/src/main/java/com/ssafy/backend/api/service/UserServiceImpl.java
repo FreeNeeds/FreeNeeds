@@ -1,13 +1,18 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.UserProfileFetchReq;
+import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.db.entity.Profile;
+import com.ssafy.backend.db.entity.Project;
+import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.ProfileRepository;
+import com.ssafy.backend.db.repository.ProjectCareerRepository;
 import com.ssafy.backend.db.repository.UserRepository;
 import com.ssafy.backend.db.repository.UserRepositorySupport;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +30,8 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 
 	private final ProfileRepository profileRepository;
+
+	private final ProjectCareerRepository projectCareerRepository;
 
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
@@ -74,5 +81,22 @@ public class UserServiceImpl implements UserService {
 		profile.setSkill(userProfile.getSkill());
 
 		profileRepository.save(profile);
+	}
+
+	@Override
+	public ProjectCareer createProjectCareer(User user, UserProjectRegisterPostReq registerProjectInfo) {
+		ProjectCareer projectCareer = new ProjectCareer();
+
+		projectCareer.setCategory(registerProjectInfo.getCategory());
+		projectCareer.setDomain(registerProjectInfo.getDomain());
+		projectCareer.setSkill(registerProjectInfo.getSkill());
+		projectCareer.setCompanyName(registerProjectInfo.getCompanyName());
+		projectCareer.setTitle(registerProjectInfo.getTitle());
+		projectCareer.setContent(registerProjectInfo.getContent());
+		projectCareer.setStart_date(registerProjectInfo.getStart_date());
+		projectCareer.setEnd_date(registerProjectInfo.getEnd_date());
+		projectCareer.setUser(user);
+
+		return projectCareerRepository.save(projectCareer);
 	}
 }

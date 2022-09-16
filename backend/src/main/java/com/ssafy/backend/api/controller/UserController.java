@@ -1,12 +1,14 @@
 package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.UserProfileFetchReq;
+import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProfileRes;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.Profile;
+import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +54,7 @@ public class UserController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<UserProfileRes> getUserInfo(@ApiIgnore Authentication authentication) {
+	public ResponseEntity<UserProfileRes> getUserProfile(@ApiIgnore Authentication authentication) {
 		/**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
 		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -81,6 +83,27 @@ public class UserController {
 		userService.updateUserProfile(username, userProfile);
 
 		System.out.println(userProfile.getIntroduce());
+
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@PostMapping("/project")
+	@ApiOperation(value = "유저 프로젝트 이력 등록", notes = "유저의 프로젝트 이력을 등록한다. ")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> registerUserProject(
+			@ApiIgnore Authentication authentication,
+			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserProjectRegisterPostReq registerProjectInfo) {
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		String userId = userDetails.getUsername();
+		User user = userService.getUserByUsername(userId).get();
+		
+		//userId와 입력된 프로젝트 이력 정보 등록
+		ProjectCareer projectCareer = userService.createProjectCareer(user, registerProjectInfo);
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
