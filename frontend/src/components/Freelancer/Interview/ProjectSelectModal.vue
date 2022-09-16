@@ -43,8 +43,8 @@ export default {};
   width: 600px;
   margin: 0 auto;
   border-radius: 15px;
-  height: 800px;
-  overflow-y: auto;
+  height: 2000px;
+  position: fixed;
 }
 #CloseBtnWrapper {
   text-align: right;

@@ -125,8 +125,8 @@
       @click="selectProject"
       type="button"
       class="project-select btn btn-primary rounded-pill"
-      data-bs-toggle="modal"
-      data-bs-target="#ProjectSelectModal"
+      data-bs-dismiss="modal"
+      aria-label="Close"
     >
       선 택
     </button>
@@ -175,7 +175,9 @@ export default {
     freelancerdata: Object
   },
   methods: {
-    selectProject() {}
+    selectProject() {
+      $("#ProjectSelectModal").modal("show");
+    }
   },
   components: {
     ProjectSelectModal
