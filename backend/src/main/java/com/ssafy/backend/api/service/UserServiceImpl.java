@@ -113,4 +113,9 @@ public class UserServiceImpl implements UserService {
 
 		return res;
 	}
+
+	@Override
+	public void deleteUserProjectCareer(Long projectCareerId) {
+		projectCareerRepository.deleteById(projectCareerId);
+	}
 }

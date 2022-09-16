@@ -28,4 +28,6 @@ public interface UserService {
 	ProjectCareer createProjectCareer(User user, UserProjectRegisterPostReq registerProjectInfo);
 
 	List<UserProjectCareerRes> getProjectCareerAllList(User user);
+
+	void deleteUserProjectCareer(Long projectCareerId);
 }
