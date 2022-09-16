@@ -30,7 +30,9 @@ public interface CompanyService {
 
     CompanyInfo createCompanyInfo(Company company, CompanyInfoPostReq companyInfoPostReq);
 
-    CompanyInfo updateCompanyInfo(Long CompanyId, Map<Object, Object> objectMap);
+    CompanyInfo updateCompanyInfo(Long companyId, Map<Object, Object> objectMap);
+
+    Company updateCompany(Long companyId, Map<Object, Object> objectMap);
 
     Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId);
 }

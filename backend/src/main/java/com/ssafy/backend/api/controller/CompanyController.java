@@ -4,6 +4,7 @@ import com.ssafy.backend.api.request.CompanyInfoPostReq;
 import com.ssafy.backend.api.request.CompanyRegisterPostReq;
 import com.ssafy.backend.api.response.CompanyInfoRes;
 import com.ssafy.backend.api.response.CompanyRes;
+import com.ssafy.backend.api.response.CompanyUpdateRes;
 import com.ssafy.backend.api.service.CompanyService;
 import com.ssafy.backend.common.auth.SsafyCompanyDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
@@ -60,7 +61,18 @@ public class CompanyController {
         return ResponseEntity.status(200).body(CompanyRes.of(200,"Success", company));
     }
 
-    @PostMapping("/information")
+    @PatchMapping("/{companyId}")
+    @ApiOperation(value = "회원정보수정", notes = "기업id로 기업 회원정보를 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> updateCompany(@PathVariable Long companyId, @RequestBody Map<Object, Object> objectMap) {
+        Company company = companyService.updateCompany(companyId, objectMap);
+        return ResponseEntity.status(200).body(CompanyUpdateRes.of(200, "Success", company));
+    }
+
+
+      @PostMapping("/information")
     @ApiOperation(value = "기업정보 생성", notes = "기업 id로 기업정보를 생성한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),

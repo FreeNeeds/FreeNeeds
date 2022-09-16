@@ -126,4 +126,15 @@ public class CompanyServiceImpl implements CompanyService{
         });
         return companyInfoRepository.save(companyInfo);
     }
+
+    @Override
+    public Company updateCompany(Long companyId, Map<Object, Object> objectMap) {
+        Company company = companyRepository.findById(companyId).get();
+        objectMap.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Company.class, (String) key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, company, value);
+        });
+        return companyRepository.save(company);
+    }
 }
