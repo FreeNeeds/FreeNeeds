@@ -4,6 +4,7 @@ import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProfileRes;
+import com.ssafy.backend.api.response.UserProjectCareerRes;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
@@ -17,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -106,5 +109,24 @@ public class UserController {
 		ProjectCareer projectCareer = userService.createProjectCareer(user, registerProjectInfo);
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@GetMapping("/project/{username}")
+	@ApiOperation(value = "유저 프로젝트 이력 조회", notes = "로그인한 회원의 프로젝트 이력을 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<List<UserProjectCareerRes>> getUserProjectCareerList(@PathVariable String username) {
+		//username(id)로 user 정보 가져오기
+		User user = userService.getUserByUsername(username).get();
+
+		//user 정보로 해당되는 프로젝트 이력 리스트 가져오기
+		List<UserProjectCareerRes> res = userService.getProjectCareerAllList(user);
+
+		//찾아온 정보를 UserProfileRes에 담아 값 전달하기
+		return ResponseEntity.status(200).body(res);
 	}
 }

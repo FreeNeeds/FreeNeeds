@@ -3,8 +3,8 @@ package com.ssafy.backend.api.service;
 import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.api.response.UserProjectCareerRes;
 import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.ProfileRepository;
@@ -12,10 +12,11 @@ import com.ssafy.backend.db.repository.ProjectCareerRepository;
 import com.ssafy.backend.db.repository.UserRepository;
 import com.ssafy.backend.db.repository.UserRepositorySupport;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -98,5 +99,18 @@ public class UserServiceImpl implements UserService {
 		projectCareer.setUser(user);
 
 		return projectCareerRepository.save(projectCareer);
+	}
+
+	@Override
+	public List<UserProjectCareerRes> getProjectCareerAllList(User user) {
+		List<ProjectCareer> projectCareerList = projectCareerRepository.findAllByUser(user);
+
+		List<UserProjectCareerRes> res = new ArrayList<>();
+
+		for (ProjectCareer projectCareer : projectCareerList) {
+			res.add(UserProjectCareerRes.of(projectCareer));
+		}
+
+		return res;
 	}
 }
