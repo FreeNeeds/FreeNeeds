@@ -47,7 +47,7 @@ public class CompanyController {
     }
 
     @GetMapping()
-    @ApiOperation(value = "기업회원조회", notes = "토큰으로 username을 받아와 기업회원정보를 조회한다.")
+    @ApiOperation(value = "기업회원조회", notes = "토큰을 이용해 기업회원정보를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -72,8 +72,8 @@ public class CompanyController {
     }
 
 
-      @PostMapping("/information")
-    @ApiOperation(value = "기업정보 생성", notes = "기업 id로 기업정보를 생성한다.")
+    @PostMapping("/information")
+    @ApiOperation(value = "기업정보 생성", notes = "토큰을 이용해 기업정보를 생성한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
@@ -95,13 +95,15 @@ public class CompanyController {
         return ResponseEntity.status(200).body(CompanyInfoRes.of(200, "기업정보 조회 성공", companyInfo));
     }
 
-    @PatchMapping("/information/{companyId}")
-    @ApiOperation(value = "기업정보 수정", notes = "토큰으로 받아온 username으로 기업정보를 불러와 수정한다.")
+    @PatchMapping("/information")
+    @ApiOperation(value = "기업정보 수정", notes = "토큰을 이용해 기업정보를 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> updateCompanyInfo(@PathVariable Long companyId, @RequestBody Map<Object, Object> objectMap) {
-        CompanyInfo companyInfo = companyService.updateCompanyInfo(companyId, objectMap);
+    public ResponseEntity<? extends BaseResponseBody> updateCompanyInfo(@ApiIgnore Authentication authentication, @RequestBody Map<Object, Object> objectMap) {
+        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
+        String username = companyDetails.getUsername();
+        CompanyInfo companyInfo = companyService.updateCompanyInfo(username, objectMap);
         return ResponseEntity.status(200).body(CompanyInfoRes.of(200, "기업정보 수정 성공", companyInfo));
     }
 }

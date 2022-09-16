@@ -94,11 +94,6 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public Optional<Company> getCompanyByCompanyId(Long companyId) {
-        return companyRepository.findById(companyId);
-    }
-
-    @Override
     public Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId) {
         Optional<CompanyInfo> companyInfo = companyInfoRepository.findCompanyInfoByCompanyId(companyId);
         return companyInfo;
@@ -117,8 +112,8 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public CompanyInfo updateCompanyInfo(Long companyId, Map<Object, Object> objectMap) {
-        CompanyInfo companyInfo = companyInfoRepository.findCompanyInfoByCompanyId(companyId).get();
+    public CompanyInfo updateCompanyInfo(String username, Map<Object, Object> objectMap) {
+        CompanyInfo companyInfo = companyInfoRepository.findCompanyInfoByCompanyUsername(username).get();
         objectMap.forEach((key, value) -> {
             Field field = ReflectionUtils.findField(CompanyInfo.class, (String) key);
             field.setAccessible(true);
