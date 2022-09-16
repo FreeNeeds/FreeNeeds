@@ -5,10 +5,9 @@ import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
 
-import Project from "@/views/Project"
-import Freelancer from "@/views/Freelancer.vue"
+import Project from "@/views/Project";
+import Freelancer from "@/views/Freelancer.vue";
 import IndexSignup from "@/views/IndexSignup";
-
 
 /** 마이페이지 */
 import Mypage from "@/views/MyPage";
@@ -18,6 +17,7 @@ import ApplyStatus from "@/components/FreelancerMypage/ApplyStatus";
 import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
 import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
 import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetail";
 
 /** 기업 마이페이지 */
 import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
@@ -63,10 +63,14 @@ const routes = [
     component: Project
   },
   {
-
     path: "/freelancer",
     name: "freelancer",
     component: Freelancer
+  },
+  {
+    path: "/freelancer/detail",
+    name: "freelancerdetail",
+    component: FreelancerDetail
   },
   {
     path: "/register",
