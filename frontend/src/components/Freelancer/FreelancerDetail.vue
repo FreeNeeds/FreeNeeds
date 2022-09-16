@@ -81,15 +81,9 @@
       </div>
       <!-- 프로젝트 이력서 nav -->
     </div>
-    <div id="interview-btn-wrap">
-      <button
-        id="interview-btn"
-        type="button"
-        class="btn btn-outline-secondary"
-      >
-        인터뷰 요청하기
-      </button>
-    </div>
+
+    <InterviewBtn></InterviewBtn>
+
     <FooterNav></FooterNav>
   </b-container>
 </template>
@@ -99,8 +93,19 @@ import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectList from "@/components/Freelancer/FreelancerProject/FreelancerProjectList.vue";
 import FreelancerResume from "@/components/Freelancer/FreelancerResume.vue";
+import InterviewBtn from "@/components/Freelancer/Interview/InterviewBtn.vue";
+
 export default {
-  components: { HeaderNav, FooterNav, FreelancerProjectList, FreelancerResume }
+  components: {
+    HeaderNav,
+    FooterNav,
+    FreelancerProjectList,
+    FreelancerResume,
+    InterviewBtn
+  },
+  Methods: {
+    openProjectModal() {}
+  }
 };
 </script>
 
@@ -127,14 +132,7 @@ export default {
   width: 800px;
   padding: 20px;
 }
-#interview-btn-wrap {
-  margin: 0 auto;
-  width: 800px;
-  text-align: right;
-  margin-top: 20px;
-}
-#freelancer-title {
-}
+
 #freelancer-name {
   margin-top: 10px;
 }
@@ -145,9 +143,5 @@ export default {
 }
 #freelancer-intro {
   margin-top: 20px;
-}
-#freelancer-intro-title {
-}
-#freelancer-intro-contents {
 }
 </style>
