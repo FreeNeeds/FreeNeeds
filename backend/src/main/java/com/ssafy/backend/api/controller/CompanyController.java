@@ -77,10 +77,11 @@ public class CompanyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> createCompanyInfo(@RequestBody @ApiParam(value="기업정보생성", required = true) @Validated CompanyInfoPostReq companyInfoPostReq) {
-        Long companyId = companyInfoPostReq.getCompanyId();
-        Optional<Company> company = companyService.getCompanyByCompanyId(companyId);
-        CompanyInfo companyInfo = companyService.createCompanyInfo(company.get(), companyInfoPostReq);
+    public ResponseEntity<? extends BaseResponseBody> createCompanyInfo(@ApiIgnore Authentication authentication, @RequestBody @ApiParam(value="기업정보생성", required = true) @Validated CompanyInfoPostReq companyInfoPostReq) {
+        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
+        String username = companyDetails.getUsername();
+        Company company = companyService.getCompanyByUsername(username).get();
+        CompanyInfo companyInfo = companyService.createCompanyInfo(company, companyInfoPostReq);
         return ResponseEntity.status(200).body(CompanyInfoRes.of(200, "Success", companyInfo));
     }
 
