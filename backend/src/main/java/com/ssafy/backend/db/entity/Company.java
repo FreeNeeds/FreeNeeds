@@ -16,10 +16,6 @@ public class Company {
     @GeneratedValue
     private Long companyId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_info_id")
-    private CompanyInfo companyInfo;
-
     @NotNull
     @Column(length = 16)
     private String username;
