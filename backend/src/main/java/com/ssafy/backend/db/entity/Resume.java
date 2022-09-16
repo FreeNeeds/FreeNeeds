@@ -16,14 +16,6 @@ public class Resume {
     @GeneratedValue
     private Long resumeId;
 
-    @NotNull
-    private String title;
-
-    private String introduce;
-
-    @NotNull
-    private Integer career_period;
-
     @OneToOne
     @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
