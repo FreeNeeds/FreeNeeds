@@ -7,6 +7,8 @@ import com.ssafy.backend.db.entity.ProjectTech;
 import com.ssafy.backend.db.entity.Tech;
 import com.ssafy.backend.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,9 +61,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public List<Project> getProjects() {
+    public Page<Project> getProjects(Pageable pageable) {
         // 프로젝트 전체 조회
-        return projectRepository.findAll();
+        return projectRepository.findAll(pageable);
     }
 
     @Override
