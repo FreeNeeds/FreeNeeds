@@ -13,7 +13,7 @@
             >
               <div>
                 <div class="mypage-menu-item-title">
-                  {{ item.title }}
+                  {{ item.name }}
                 </div>
                 <hr />
               </div>
@@ -54,7 +54,7 @@ export default {
 
     for (let i = 0; i < keys.length; i++) {
       let menuObject = {};
-      menuObject.title = target[keys[i]].name;
+      menuObject.name = target[keys[i]].name;
       menuObject.path = target[keys[i]].path;
       this.menulist.push(menuObject);
     }
@@ -86,7 +86,7 @@ export default {
   text-decoration: none;
   /* color: #b4b4b4; */
 }
-.router-link-active {
+.mypage-menu-items-wrapper > .router-link-active {
   color: #3f79d1;
   font-weight: bold;
 }

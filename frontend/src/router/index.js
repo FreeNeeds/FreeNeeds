@@ -5,10 +5,9 @@ import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
 
-import Project from "@/views/Project"
-import Freelancer from "@/views/Freelancer.vue"
+import Project from "@/views/Project";
+import Freelancer from "@/views/Freelancer.vue";
 import IndexSignup from "@/views/IndexSignup";
-
 
 /** 마이페이지 */
 import Mypage from "@/views/MyPage";
@@ -18,6 +17,7 @@ import ApplyStatus from "@/components/FreelancerMypage/ApplyStatus";
 import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
 import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
 import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetail";
 
 /** 기업 마이페이지 */
 import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
@@ -27,6 +27,12 @@ import ProjectRegist from "@/components/EnterpriseMypage/ProjectRegist";
 import ProjectStatus from "@/components/EnterpriseMypage/ProjectStatus";
 
 Vue.use(VueRouter);
+
+/** 프리랜서 프로젝트 현황 컴포넌트 */
+import ApplyProject from "@/components/FreelancerMypage/ApplyStatus/ApplyProject";
+import RequestedProject from "@/components/FreelancerMypage/ApplyStatus/RequestedProject";
+import SignedProject from "@/components/FreelancerMypage/ApplyStatus/SignedProject";
+import UnderContract from "@/components/FreelancerMypage/ApplyStatus/UnderContract";
 
 /**
  * 아래의 router를 변경하여 구현할 수 있습니다.
@@ -63,10 +69,14 @@ const routes = [
     component: Project
   },
   {
-
     path: "/freelancer",
     name: "freelancer",
     component: Freelancer
+  },
+  {
+    path: "/freelancer/detail",
+    name: "freelancerdetail",
+    component: FreelancerDetail
   },
   {
     path: "/register",
@@ -90,7 +100,30 @@ const routes = [
       {
         path: "applystatus",
         name: "applystatus",
-        component: ApplyStatus
+        component: ApplyStatus,
+        redirect: "/mypage/freelancer/applystatus/requestedproject",
+        children: [
+          {
+            path: "requestedproject",
+            name: "requestedproject",
+            component: RequestedProject
+          },
+          {
+            path: "applyproject",
+            name: "applyproject",
+            component: ApplyProject
+          },
+          {
+            path: "undercontract",
+            name: "undercontract",
+            component: UnderContract
+          },
+          {
+            path: "signedproject",
+            name: "signedproject",
+            component: SignedProject
+          }
+        ]
       },
       {
         path: "managecareer",
