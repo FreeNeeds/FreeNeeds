@@ -37,4 +37,14 @@ public class UserRepositorySupport{
 
         return profile;
     }
+
+    public Profile findProfileByUsername(String username) {
+        Profile profile = jpaQueryFactory.select(qProfile).from(qProfile)
+                .where(qProfile.user.username.eq(username))
+                .fetchOne();
+
+        return profile;
+    }
+
+
 }

@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUserProfile(Long userId, UserProfileFetchReq userProfile) {
-		Profile profile = userRepositorySupport.findProfileByUserId(userId);
+	public void updateUserProfile(String username, UserProfileFetchReq userProfile) {
+		Profile profile = userRepositorySupport.findProfileByUsername(username);
 
 		profile.setTitle(userProfile.getTitle());
 		profile.setIntroduce(userProfile.getIntroduce());

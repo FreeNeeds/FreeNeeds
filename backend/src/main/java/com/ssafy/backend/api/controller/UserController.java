@@ -68,7 +68,7 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserProfileRes.of(user, profile));
 	}
 
-	@PutMapping("/profile")
+	@PutMapping("/profile/{username}")
 	@ApiOperation(value = "유저 프로필 수정", notes = "유저 프로필을 수정 후 응답한다")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
@@ -76,12 +76,11 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<? extends BaseResponseBody> updateUserProfile(
-			@ApiIgnore Authentication authentication,
+			@PathVariable String username,
 			@RequestBody @ApiParam(value = "유저 프로필 정보", required = true) UserProfileFetchReq userProfile) {
-		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-		User user = userDetails.getUser();
+		userService.updateUserProfile(username, userProfile);
 
-		userService.updateUserProfile(user.getUserId(), userProfile);
+		System.out.println(userProfile.getIntroduce());
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}

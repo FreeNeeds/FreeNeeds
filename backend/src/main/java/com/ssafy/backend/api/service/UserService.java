@@ -19,5 +19,5 @@ public interface UserService {
 
 	Profile getProfileByUserId(Long userId);
 
-	void updateUserProfile(Long userId, UserProfileFetchReq userProfile);
+	void updateUserProfile(String username, UserProfileFetchReq userProfile);
 }
