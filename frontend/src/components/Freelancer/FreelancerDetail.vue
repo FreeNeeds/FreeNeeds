@@ -67,7 +67,7 @@
           aria-labelledby="nav-home-tab"
           tabindex="0"
         >
-          프로젝트 내용
+          <FreelancerProjectList></FreelancerProjectList>
         </div>
         <div
           class="project-resume-contents-data tab-pane fade"
@@ -81,6 +81,15 @@
       </div>
       <!-- 프로젝트 이력서 nav -->
     </div>
+    <div id="interview-btn-wrap">
+      <button
+        id="interview-btn"
+        type="button"
+        class="btn btn-outline-secondary"
+      >
+        인터뷰 요청하기
+      </button>
+    </div>
     <FooterNav></FooterNav>
   </b-container>
 </template>
@@ -88,8 +97,9 @@
 <script>
 import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
+import FreelancerProjectList from "@/components/Freelancer/FreelancerProject/FreelancerProjectList.vue";
 export default {
-  components: { HeaderNav, FooterNav }
+  components: { HeaderNav, FooterNav, FreelancerProjectList }
 };
 </script>
 
@@ -115,6 +125,12 @@ export default {
   margin: 0 auto;
   width: 800px;
   padding: 20px;
+}
+#interview-btn-wrap {
+  margin: 0 auto;
+  width: 800px;
+  text-align: right;
+  margin-top: 20px;
 }
 #freelancer-title {
 }
