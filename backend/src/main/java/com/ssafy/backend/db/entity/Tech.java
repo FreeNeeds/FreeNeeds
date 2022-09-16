@@ -11,15 +11,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class Tech {
+
     @Id
-    @GeneratedValue
-    private Long techId;
-
-    @NotNull
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name="resumeId", referencedColumnName = "resumeId")
-    private Resume resume;
+    @Column(name = "tech_name")
+    private String techName;
 
 }
