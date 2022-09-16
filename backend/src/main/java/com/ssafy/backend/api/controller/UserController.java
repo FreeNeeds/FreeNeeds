@@ -1,5 +1,6 @@
 package com.ssafy.backend.api.controller;
 
+import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProfileRes;
 import com.ssafy.backend.api.service.UserService;
@@ -65,5 +66,23 @@ public class UserController {
 		
 		//찾아온 정보를 UserProfileRes에 담아 값 전달하기
 		return ResponseEntity.status(200).body(UserProfileRes.of(user, profile));
+	}
+
+	@PutMapping("/profile")
+	@ApiOperation(value = "유저 프로필 수정", notes = "유저 프로필을 수정 후 응답한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "실패"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> updateUserProfile(
+			@ApiIgnore Authentication authentication,
+			@RequestBody @ApiParam(value = "유저 프로필 정보", required = true) UserProfileFetchReq userProfile) {
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		User user = userDetails.getUser();
+
+		userService.updateUserProfile(user.getUserId(), userProfile);
+
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 }

@@ -1,5 +1,6 @@
 package com.ssafy.backend.api.service;
 
+import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.db.entity.Profile;
 import com.ssafy.backend.db.entity.User;
@@ -18,4 +19,5 @@ public interface UserService {
 
 	Profile getProfileByUserId(Long userId);
 
+	void updateUserProfile(Long userId, UserProfileFetchReq userProfile);
 }

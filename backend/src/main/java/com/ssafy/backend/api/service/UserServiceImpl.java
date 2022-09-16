@@ -1,8 +1,10 @@
 package com.ssafy.backend.api.service;
 
+import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.db.entity.Profile;
 import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.repository.ProfileRepository;
 import com.ssafy.backend.db.repository.UserRepository;
 import com.ssafy.backend.db.repository.UserRepositorySupport;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,9 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserRepositorySupport userRepositorySupport;
 	private final PasswordEncoder passwordEncoder;
-	
+
+	private final ProfileRepository profileRepository;
+
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		//중복 확인
@@ -58,5 +62,17 @@ public class UserServiceImpl implements UserService {
 	public Profile getProfileByUserId(Long userId) {
 		Profile profile = userRepositorySupport.findProfileByUserId(userId);
 		return profile;
+	}
+
+	@Override
+	public void updateUserProfile(Long userId, UserProfileFetchReq userProfile) {
+		Profile profile = userRepositorySupport.findProfileByUserId(userId);
+
+		profile.setTitle(userProfile.getTitle());
+		profile.setIntroduce(userProfile.getIntroduce());
+		profile.setCreer_period(userProfile.getCreer_period());
+		profile.setSkill(userProfile.getSkill());
+
+		profileRepository.save(profile);
 	}
 }
