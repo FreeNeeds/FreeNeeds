@@ -1,15 +1,18 @@
 package com.ssafy.backend.common.auth;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ssafy.backend.api.service.CompanyService;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.util.JwtTokenUtil;
 import com.ssafy.backend.common.util.ResponseBodyWriteUtil;
+import com.ssafy.backend.db.entity.Company;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,10 +29,12 @@ import com.ssafy.backend.db.entity.User;
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private UserService userService;
+    private CompanyService companyService;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, CompanyService companyService) {
         super(authenticationManager);
         this.userService = userService;
+        this.companyService = companyService;
     }
 
     @Override
@@ -72,14 +77,28 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (userId != null) {
                 // jwt 토큰에 포함된 계정 정보(userId) 통해 실제 디비에 해당 정보의 계정이 있는지 조회.
-                User user = userService.getUserByUsername(userId).get();
-                if(user != null) {
-                    // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
-                    SsafyUserDetails userDetails = new SsafyUserDetails(user);
-                    UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userId,
-                            null, userDetails.getAuthorities());
-                    jwtAuthentication.setDetails(userDetails);
-                    return jwtAuthentication;
+                Optional<User> checkRoleUser = userService.getUserByUsername(userId);
+                if (checkRoleUser.isPresent()) {
+                    User user = userService.getUserByUsername(userId).get();
+                    if(user != null) {
+                        // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
+                        SsafyUserDetails userDetails = new SsafyUserDetails(user);
+                        UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userId,
+                                null, userDetails.getAuthorities());
+                        jwtAuthentication.setDetails(userDetails);
+                        return jwtAuthentication;
+                    }
+                }
+                else {
+                    Company company = companyService.getCompanyByUsername(userId).get();
+                    if (company != null) {
+                        // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
+                        SsafyCompanyDetails companyDetails = new SsafyCompanyDetails(company);
+                        UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userId,
+                                null, companyDetails.getAuthorities());
+                        jwtAuthentication.setDetails(companyDetails);
+                        return jwtAuthentication;
+                    }
                 }
             }
             return null;
