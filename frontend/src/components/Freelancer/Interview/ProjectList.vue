@@ -1,11 +1,11 @@
 <template>
-  <div class="card-group">
+  <div>
     <ProjectCard></ProjectCard>
   </div>
 </template>
 
 <script>
-import ProjectCard from "@/components/ProjectCard/ProjectCard.vue";
+import ProjectCard from "@/components/Freelancer/Interview/ProjectCard.vue";
 export default {
   components: {
     ProjectCard
