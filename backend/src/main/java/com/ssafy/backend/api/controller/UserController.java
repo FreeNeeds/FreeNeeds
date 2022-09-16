@@ -68,7 +68,7 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserProfileRes.of(user, profile));
 	}
 
-	@PutMapping("/profile/{username}")
+	@PatchMapping("/profile/{username}")
 	@ApiOperation(value = "유저 프로필 수정", notes = "유저 프로필을 수정 후 응답한다")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
