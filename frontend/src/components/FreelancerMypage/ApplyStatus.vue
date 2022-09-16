@@ -15,7 +15,7 @@
         </router-link>
       </div>
     </div>
-    <hr style="margin-top:1px" />
+    <hr style="margin-top:1px; margin-bottom: 0;" />
     <router-view></router-view>
   </div>
 </template>
