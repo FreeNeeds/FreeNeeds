@@ -1,10 +1,11 @@
 package com.ssafy.backend.api.service;
 
+import com.ssafy.backend.api.request.CompanyInfoPostReq;
 import com.ssafy.backend.api.request.CompanyRegisterPostReq;
-import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.db.entity.Company;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.entity.CompanyInfo;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -15,5 +16,21 @@ public interface CompanyService {
 
     void validateDuplicateMember(CompanyRegisterPostReq companyRegisterInfo);
 
+    void validateDuplicateEmail(CompanyRegisterPostReq companyRegisterInfo);
+
+    void validateDuplicateName(CompanyRegisterPostReq companyRegisterInfo);
+
     Optional<Company> getCompanyByUsername(String username);
+
+    Optional<Company> getCompanyByEmail(String email);
+
+    Optional<Company> getCompanyByName(String name);
+
+    Optional<Company> getCompanyByCompanyId(Long companyId);
+
+    CompanyInfo createCompanyInfo(Company company, CompanyInfoPostReq companyInfoPostReq);
+
+    CompanyInfo updateCompanyInfo(Long CompanyId, Map<Object, Object> objectMap);
+
+    Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId);
 }
