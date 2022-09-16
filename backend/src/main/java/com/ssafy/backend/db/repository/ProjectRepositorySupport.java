@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.QProject;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 

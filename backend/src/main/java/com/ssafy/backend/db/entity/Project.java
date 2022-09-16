@@ -1,6 +1,7 @@
 package com.ssafy.backend.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -16,7 +17,7 @@ import java.util.Date;
 
 public class Project {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectId;
 
     @NotNull
@@ -90,6 +91,7 @@ public class Project {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="companyId", referencedColumnName = "companyId")
+    @JsonIgnore
     private Company company;
 
 
