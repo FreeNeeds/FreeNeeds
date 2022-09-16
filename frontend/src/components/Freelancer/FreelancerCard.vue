@@ -1,7 +1,8 @@
 <template>
   <b-card
+    @click="MoveFreelancerDetail"
     class="freelancer-contents"
-    img-src="../assets/imga노란색.png"
+    img-src="https://placekitten.com/300/300"
     img-left
     title="이름|경력"
     sub-title="담당업무 | 직무분야"
@@ -15,7 +16,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    MoveFreelancerDetail() {
+      this.$router.push("/freelancer/detail");
+    }
+  }
+};
 </script>
 
 <style>

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import FreelancerCard from "@/components/FreelancerCard/FreelancerCard.vue";
+import FreelancerCard from "@/components/Freelancer/FreelancerCard.vue";
 
 export default {
   components: {
@@ -39,5 +39,9 @@ export default {
   max-height: 250px;
   margin: 0 auto;
   margin-top: 30px;
+}
+
+.freelancer-contents:hover {
+  background-color: #b4b4b4;
 }
 </style>
