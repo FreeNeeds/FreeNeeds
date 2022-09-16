@@ -1,10 +1,11 @@
 package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.UserRegisterPostReq;
-import com.ssafy.backend.api.response.UserRes;
+import com.ssafy.backend.api.response.UserProfileRes;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
+import com.ssafy.backend.db.entity.Profile;
 import com.ssafy.backend.db.entity.User;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -42,15 +43,15 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@GetMapping("/me")
-	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.") 
+	@GetMapping("/profile")
+	@ApiOperation(value = "유저 프로필 정보 조회", notes = "로그인한 회원의 프로필 정보를 조회한다.")
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
         @ApiResponse(code = 401, message = "인증 실패"),
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<UserRes> getUserInfo(@ApiIgnore Authentication authentication) {
+	public ResponseEntity<UserProfileRes> getUserInfo(@ApiIgnore Authentication authentication) {
 		/**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
 		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -59,6 +60,10 @@ public class UserController {
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUsername(userId).get();
 
-		return ResponseEntity.status(200).body(UserRes.of(user));
+		//userId로 프로필 테이블에서 일치하는 정보 찾아오기
+		Profile profile = userService.getProfileByUserId(user.getUserId());
+		
+		//찾아온 정보를 UserProfileRes에 담아 값 전달하기
+		return ResponseEntity.status(200).body(UserProfileRes.of(user, profile));
 	}
 }

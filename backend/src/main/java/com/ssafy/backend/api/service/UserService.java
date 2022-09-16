@@ -1,6 +1,7 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.db.entity.Profile;
 import com.ssafy.backend.db.entity.User;
 
 import java.util.Optional;
@@ -14,4 +15,7 @@ public interface UserService {
 	void validateDuplicateMember(UserRegisterPostReq userRegisterInfo);
 
 	public Optional<User> getUserByUserId(Long userId);
+
+	Profile getProfileByUserId(Long userId);
+
 }

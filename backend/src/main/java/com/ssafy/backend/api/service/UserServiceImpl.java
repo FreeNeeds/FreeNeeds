@@ -1,6 +1,7 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.db.entity.Profile;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.UserRepository;
 import com.ssafy.backend.db.repository.UserRepositorySupport;
@@ -52,4 +53,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> getUserByUserId(Long userId) {return userRepository.findById(userId);}
+
+	@Override
+	public Profile getProfileByUserId(Long userId) {
+		Profile profile = userRepositorySupport.findProfileByUserId(userId);
+		return profile;
+	}
 }
