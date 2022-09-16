@@ -28,4 +28,7 @@ public class ProjectRepositorySupport extends QuerydslRepositorySupport {
     public List<Project> findProjectsByProjectId(Long pId){
         return jpaQueryFactory.selectFrom(qProject).where(qProject.projectId.eq(pId)).fetch();
     }
+
+
+
 }
