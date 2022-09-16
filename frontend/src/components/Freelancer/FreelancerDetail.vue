@@ -76,7 +76,7 @@
           aria-labelledby="nav-profile-tab"
           tabindex="0"
         >
-          이력서 내용
+          <FreelancerResume></FreelancerResume>
         </div>
       </div>
       <!-- 프로젝트 이력서 nav -->
@@ -98,8 +98,9 @@
 import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectList from "@/components/Freelancer/FreelancerProject/FreelancerProjectList.vue";
+import FreelancerResume from "@/components/Freelancer/FreelancerResume.vue";
 export default {
-  components: { HeaderNav, FooterNav, FreelancerProjectList }
+  components: { HeaderNav, FooterNav, FreelancerProjectList, FreelancerResume }
 };
 </script>
 
