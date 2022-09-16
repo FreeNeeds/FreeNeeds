@@ -73,7 +73,7 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserProfileRes.of(user, profile));
 	}
 
-	@PatchMapping("/profile/{username}")
+	@PatchMapping("/profile")
 	@ApiOperation(value = "유저 프로필 수정", notes = "유저 프로필을 수정 후 응답한다")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
@@ -81,11 +81,16 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<? extends BaseResponseBody> updateUserProfile(
-			@PathVariable String username,
+			@ApiIgnore Authentication authentication,
 			@RequestBody @ApiParam(value = "유저 프로필 정보", required = true) UserProfileFetchReq userProfile) {
-		userService.updateUserProfile(username, userProfile);
+		/**
+		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
+		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
+		 */
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		String username = userDetails.getUsername();
 
-		System.out.println(userProfile.getIntroduce());
+		userService.updateUserProfile(username, userProfile);
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
