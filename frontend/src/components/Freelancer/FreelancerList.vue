@@ -19,9 +19,6 @@ export default {
 </script>
 
 <style>
-#freelancer-list {
-}
-
 .freelancer-contents {
   max-width: 800px;
   max-height: 250px;
