@@ -5,7 +5,7 @@
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
-    data-bs-backdrop="false"
+    data-bs-backdrop="true"
     style="background-color: rgba(0, 0, 0, 0.5);"
   >
     <div class="modal-dialog modal-lg" id="InterviewModalWrapper">

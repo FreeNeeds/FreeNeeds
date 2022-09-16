@@ -121,13 +121,22 @@
         </div>
       </div>
     </div>
-    <button type="button" class="project-select btn btn-primary rounded-pill">
+    <button
+      @click="selectProject"
+      type="button"
+      class="project-select btn btn-primary rounded-pill"
+      data-bs-toggle="modal"
+      data-bs-target="#ProjectSelectModal"
+    >
       선 택
     </button>
+    <ProjectSelectModal></ProjectSelectModal>
   </div>
 </template>
 
 <script>
+import ProjectSelectModal from "@/components/Freelancer/Interview/ProjectSelectModal.vue";
+
 export default {
   data() {
     return {
@@ -164,6 +173,12 @@ export default {
   },
   props: {
     freelancerdata: Object
+  },
+  methods: {
+    selectProject() {}
+  },
+  components: {
+    ProjectSelectModal
   }
 };
 </script>

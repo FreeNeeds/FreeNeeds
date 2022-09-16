@@ -1,6 +1,7 @@
 <template>
   <div>
     <ProjectCard></ProjectCard>
+    <ProjectCard></ProjectCard>
   </div>
 </template>
 
