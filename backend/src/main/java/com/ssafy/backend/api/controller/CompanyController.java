@@ -46,7 +46,7 @@ public class CompanyController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @GetMapping()
+    @GetMapping("/me")
     @ApiOperation(value = "기업회원조회", notes = "토큰을 이용해 기업회원정보를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -61,13 +61,15 @@ public class CompanyController {
         return ResponseEntity.status(200).body(CompanyRes.of(200,"Success", company));
     }
 
-    @PatchMapping("/{companyId}")
-    @ApiOperation(value = "회원정보수정", notes = "기업id로 기업 회원정보를 수정한다.")
+    @PatchMapping("/me")
+    @ApiOperation(value = "회원정보수정", notes = "토큰을 이용해 기업회원정보를 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> updateCompany(@PathVariable Long companyId, @RequestBody Map<Object, Object> objectMap) {
-        Company company = companyService.updateCompany(companyId, objectMap);
+    public ResponseEntity<? extends BaseResponseBody> updateCompany(@ApiIgnore Authentication authentication, @RequestBody Map<Object, Object> objectMap) {
+        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
+        String username = companyDetails.getUsername();
+        Company company = companyService.updateCompany(username, objectMap);
         return ResponseEntity.status(200).body(CompanyUpdateRes.of(200, "Success", company));
     }
 
@@ -85,13 +87,13 @@ public class CompanyController {
         return ResponseEntity.status(200).body(CompanyInfoRes.of(200, "Success", companyInfo));
     }
 
-    @GetMapping("/information/{companyId}")
+    @GetMapping("/information/{username}")
     @ApiOperation(value = "기업정보 조회", notes = "기업 id로 기업정보를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> getCompanyInfo(@PathVariable Long companyId) {
-        CompanyInfo companyInfo = companyService.getCompanyInfoByCompanyId(companyId).get();
+    public ResponseEntity<? extends BaseResponseBody> getCompanyInfo(@PathVariable String username) {
+        CompanyInfo companyInfo = companyService.getCompanyInfoByCompanyUsername(username).get();
         return ResponseEntity.status(200).body(CompanyInfoRes.of(200, "기업정보 조회 성공", companyInfo));
     }
 
