@@ -88,7 +88,7 @@ public class CompanyController {
     }
 
     @GetMapping("/information/{username}")
-    @ApiOperation(value = "기업정보 조회", notes = "기업 id로 기업정보를 조회한다.")
+    @ApiOperation(value = "기업정보 조회", notes = "username으로 기업정보를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
