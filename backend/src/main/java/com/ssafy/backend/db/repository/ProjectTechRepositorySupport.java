@@ -6,6 +6,9 @@ import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.ProjectTech;
 import com.ssafy.backend.db.entity.QProjectTech;
 import com.ssafy.backend.db.entity.Tech;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +48,30 @@ public class ProjectTechRepositorySupport extends QuerydslRepositorySupport{
                 .where(qProjectTech.tech.in(techList))
                 .distinct()
                 .fetch();
+    }
+
+    public Page<Project> getProjectListByTechsPaging(List<Tech> techList, Pageable pageable){
+
+
+        QProjectTech qProjectTech = QProjectTech.projectTech;
+
+        List<Project> content = jpaQueryFactory
+                .select(qProjectTech.project)
+                .from(qProjectTech)
+                .where(qProjectTech.tech.in(techList))
+                .distinct()
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Long count = jpaQueryFactory
+                .select(qProjectTech.project.count())
+                .from(qProjectTech)
+                .where(qProjectTech.tech.in(techList))
+                .distinct()
+                .fetchOne();
+
+        return new PageImpl<>(content,pageable,count);
     }
 
 }

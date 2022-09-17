@@ -7,9 +7,11 @@ import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.Company;
 import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.Tech;
+import com.ssafy.backend.db.repository.ProjectTechRepositorySupport;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -44,17 +46,17 @@ public class ProjectController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @GetMapping()
-    @ApiOperation(value = "프로젝트 전체 조회", notes = "프로젝트 전체 목록을 조회합니다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<?> getProjectList() {
-        return new ResponseEntity<List<Project>>(projectService.getProjects(), HttpStatus.OK);
-    }
+//    @GetMapping()
+//    @ApiOperation(value = "프로젝트 전체 조회", notes = "프로젝트 전체 목록을 조회합니다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<?> getProjectList(Pageable pageable) {
+//        return new ResponseEntity<List<Project>>(projectService.getProjects(), HttpStatus.OK);
+//    }
 
     @GetMapping("/{projectId}")
     @ApiOperation(value = "프로젝트 상세 정보 조회", notes = "프로젝트 id값으로 상세 정보를 조회합니다.")
@@ -106,5 +108,17 @@ public class ProjectController {
     })
     public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
         return new ResponseEntity<List<Project>>(projectService.getProjectsByTechs(techList), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    @ApiOperation(value = "프로젝트 전체 조회", notes = "프로젝트 전체 목록을 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public List<Project> getProjectList(Pageable pageable) {
+        return projectService.getProjects(pageable).getContent();
     }
 }
