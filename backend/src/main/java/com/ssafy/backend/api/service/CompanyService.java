@@ -26,11 +26,11 @@ public interface CompanyService {
 
     Optional<Company> getCompanyByName(String name);
 
-    Optional<Company> getCompanyByCompanyId(Long companyId);
-
     CompanyInfo createCompanyInfo(Company company, CompanyInfoPostReq companyInfoPostReq);
 
-    CompanyInfo updateCompanyInfo(Long CompanyId, Map<Object, Object> objectMap);
+    CompanyInfo updateCompanyInfo(String username, Map<Object, Object> objectMap);
+
+    Company updateCompany(Long companyId, Map<Object, Object> objectMap);
 
     Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId);
 }

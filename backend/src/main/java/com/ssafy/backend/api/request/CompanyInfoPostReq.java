@@ -13,10 +13,6 @@ import javax.validation.constraints.NotNull;
 @ApiModel("CompanyInfoPostRequest")
 public class CompanyInfoPostReq {
 
-    @NotNull
-    @ApiModelProperty(name="기업 ID", example="1")
-    Long companyId;
-
     @NotBlank
     @ApiModelProperty(name="대표자 이름", example="김싸피")
     private String ceo;
