@@ -10,4 +10,7 @@ public interface CompanyInfoRepository extends JpaRepository<CompanyInfo, Long> 
 
     @Query("from CompanyInfo c inner join fetch c.company where c.company.companyId = :companyId")
     Optional<CompanyInfo> findCompanyInfoByCompanyId(Long companyId);
+
+    @Query("from CompanyInfo c inner join fetch c.company where c.company.username = :username")
+    Optional<CompanyInfo> findCompanyInfoByCompanyUsername(String username);
 }
