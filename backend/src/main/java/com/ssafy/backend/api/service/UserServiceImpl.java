@@ -118,4 +118,10 @@ public class UserServiceImpl implements UserService {
 	public void deleteUserProjectCareer(Long projectCareerId) {
 		projectCareerRepository.deleteById(projectCareerId);
 	}
+
+	@Override
+	public Long getResumeIdByUserId(Long userId) {
+		Long resume_id = userRepositorySupport.findResumeIdByUserId(userId);
+		return resume_id;
+	}
 }

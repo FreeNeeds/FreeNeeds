@@ -3,14 +3,14 @@ package com.ssafy.backend.api.controller;
 import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
-import com.ssafy.backend.api.response.UserProfileRes;
-import com.ssafy.backend.api.response.UserProjectCareerRes;
+import com.ssafy.backend.api.response.*;
+import com.ssafy.backend.api.service.CareerService;
+import com.ssafy.backend.api.service.CertificateService;
+import com.ssafy.backend.api.service.EducationService;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
-import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.ProjectCareer;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.entity.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,11 @@ import java.util.List;
 public class UserController {
 
 	private final UserService userService;
-	
+
+	private final EducationService educationService;
+	private final CareerService careerService;
+	private final CertificateService certificateService;
+
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
     @ApiResponses({
@@ -142,4 +146,53 @@ public class UserController {
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
+
+	@GetMapping("/resume/{username}")
+	@ApiOperation(value = "유저 이력사항 조회", notes = "로그인한 회원의 이력사항을 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<UserResumeRes> getUserResumeList(@PathVariable String username) {
+		//username(id)로 user 정보 가져오기
+		User user = userService.getUserByUsername(username).get();
+
+		//user_id로 이력서에서 resume_id 찾기
+		Long resume_id = userService.getResumeIdByUserId(user.getUserId());
+
+		//resume_id로 학력 받아오기
+		UserEducationRes education = educationService.getEducationByResumeId(resume_id);
+
+		//resume_id로 경력 받아오기
+		List<UserCareerRes> careerList = careerService.getCareerAllListByResumeId(resume_id);
+
+		//resume_id로 자격 받아오기
+		List<UserCertificateRes> certificateList = certificateService.getCertificateAllListByResumeId(resume_id);
+
+		//찾아온 정보를 UserResumeRes에 담아 값 전달하기
+		return ResponseEntity.status(200).body(UserResumeRes.of(education, careerList, certificateList));
+	}
+
+	//	@PostMapping("/resume")
+//	@ApiOperation(value = "유저 이력 사항 등록", notes = "유저의 이력 사항을 등록한다. ")
+//	@ApiResponses({
+//			@ApiResponse(code = 200, message = "성공"),
+//			@ApiResponse(code = 401, message = "인증 실패"),
+//			@ApiResponse(code = 404, message = "사용자 없음"),
+//			@ApiResponse(code = 500, message = "서버 오류")
+//	})
+//	public ResponseEntity<? extends BaseResponseBody> registerUserResume(
+//			@ApiIgnore Authentication authentication,
+//			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserResumeRegisterPostReq registerResumeInfo) {
+//		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+//		String userId = userDetails.getUsername();
+//		User user = userService.getUserByUsername(userId).get();
+//
+//		//userId와 입력된 이력사항 정보 등록
+//		Resume resume = userService.createResume(user, registerResumeInfo);
+//
+//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//	}
 }
