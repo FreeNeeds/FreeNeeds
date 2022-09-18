@@ -2,7 +2,7 @@
   <div class="modal text-center" id="FilterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);" >
     <div class="modal-dialog" id="FilterModalWrapper">
       <div class="modal-content" id="FilterModalContent">
-        <button type="button" id="FilterModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button @click="clickFilterModalCloseBtn" type="button" id="FilterModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <button @click="applyFilter" type="button" id="FilterModalApplyBtn" data-bs-dismiss="modal" aria-label="Close">
           <div id="FilterModalApplyBtnLetter">필터 적용</div>
         </button>
@@ -102,7 +102,8 @@
         RegionLst: regionKey,
         RegionDetailLst : [],
         activeFilterCategoryLst : [],
-        activeFilterFormLst : []
+        activeFilterFormLst : [],
+        preActiveMap : {'category' : [], 'form' : [], 'skill' : [], 'region' : ['전체','전체']}
       }
     },
     mounted() {
@@ -232,6 +233,51 @@
           this.FilterSkillLst.join(),
           [regionBig,regionDetail].join()
         )
+        
+        this.preActiveMap = {'category' : [], 'form' : [], 'skill' : [], 'region' : []}
+        for (let i = 0; i < this.activeFilterCategoryLst.length; i++) this.preActiveMap['category'].push(this.activeFilterCategoryLst[i])
+        for (let i = 0; i < this.activeFilterFormLst.length; i++) this.preActiveMap['form'].push(this.activeFilterFormLst[i])
+        for (let i = 0; i < this.FilterSkillLst.length; i++) this.preActiveMap['skill'].push(this.FilterSkillLst[i])
+        for (let i = 0; i < [regionBig,regionDetail].length; i++) this.preActiveMap['region'].push([regionBig,regionDetail][i])
+      },
+      clickFilterModalCloseBtn() {
+        let regionBig = document.querySelector('#regionSearchCtnr')
+        let regionDetail = document.querySelector('#regionDetailSearchCtnr')
+        let inputBox = document.querySelector('#skillSearchBar')
+        
+        for (let activeFilter of this.activeFilterCategoryLst){
+          let filterBtnTmp = document.querySelector('#' + activeFilter)
+          filterBtnTmp.classList.remove('activeFilter') 
+        }
+        for (let activeFilter of this.activeFilterFormLst){
+          activeFilter = activeFilter.split('/')[0]
+          activeFilter = activeFilter.split('(')[0]
+          let filterBtnTmp = document.querySelector('#' + activeFilter)
+          filterBtnTmp.classList.remove('activeFilter') 
+        }
+        this.activeFilterCategoryLst = []
+        this.activeFilterFormLst = []
+        this.FilterSkillLst = []
+        inputBox.innerText = ''
+        regionBig.innerText = this.preActiveMap['region'][0]
+        regionDetail.innerText = this.preActiveMap['region'][1]
+        
+        for (let i = 0; i < this.preActiveMap['category'].length; i++) 
+          this.activeFilterCategoryLst.push(this.preActiveMap['category'][i])
+        for (let i = 0; i < this.preActiveMap['form'].length; i++) 
+          this.activeFilterFormLst.push(this.preActiveMap['form'][i])
+        for (let i = 0; i < this.preActiveMap['skill'].length; i++) 
+          this.FilterSkillLst.push(this.preActiveMap['skill'][i])
+        for (let activeFilter of this.activeFilterCategoryLst){
+          let filterBtnTmp = document.querySelector('#' + activeFilter)
+          filterBtnTmp.classList.add('activeFilter')
+        }
+        for (let activeFilter of this.activeFilterFormLst){
+          activeFilter = activeFilter.split('/')[0]
+          activeFilter = activeFilter.split('(')[0]
+          let filterBtnTmp = document.querySelector('#' + activeFilter)
+          filterBtnTmp.classList.add('activeFilter') 
+        }
       }
     },
     components : {
