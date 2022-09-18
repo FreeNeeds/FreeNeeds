@@ -1,6 +1,8 @@
 package com.ssafy.backend.api.controller;
 
+import com.ssafy.backend.api.request.ApplyDeleteReq;
 import com.ssafy.backend.api.request.ApplyReq;
+import com.ssafy.backend.api.response.ApplyPostPutRes;
 import com.ssafy.backend.api.response.ApplyRes;
 import com.ssafy.backend.api.service.ApplyService;
 import com.ssafy.backend.api.service.ProjectService;
@@ -28,6 +30,22 @@ public class ApplyController {
 
     private final ProjectService projectService;
 
+    @GetMapping
+    @ApiOperation(value = "지원상태조회", notes = "지원상태조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> getApply(@RequestParam(name = "userId") Long userId, @RequestParam(name = "projectId") Long projectId) {
+        Optional<User> user = userService.getUserByUserId(userId);
+        Project project = projectService.getProjectByProjectId(projectId);
+        if (user.isPresent()) {
+            Apply apply = applyService.getApply(user.get(), project);
+            String state = apply.getState();
+            return ResponseEntity.status(200).body(ApplyRes.of(200, "success", state));
+        }
+        throw new IllegalArgumentException("존재하지 않는 유저입니다.");
+    }
+
     @PostMapping
     @ApiOperation(value = "지원하기", notes = "프리랜서가 기업프로젝트에 지원함")
     @ApiResponses({
@@ -41,7 +59,7 @@ public class ApplyController {
         Project project = projectService.getProjectByProjectId(projectId);
         if (user.isPresent()) {
             Apply apply = applyService.createApply(state, user.get(), project);
-            return ResponseEntity.status(200).body(ApplyRes.of(200, "success", apply));
+            return ResponseEntity.status(200).body(ApplyPostPutRes.of(200, "success", apply));
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }
@@ -59,7 +77,7 @@ public class ApplyController {
         Project project = projectService.getProjectByProjectId(projectId);
         if (user.isPresent()) {
             Apply apply = applyService.updateApply(state, user.get(), project);
-            return ResponseEntity.status(200).body(ApplyRes.of(200, "success", apply));
+            return ResponseEntity.status(200).body(ApplyPostPutRes.of(200, "success", apply));
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }
@@ -69,9 +87,9 @@ public class ApplyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> deleteApply(@RequestBody @ApiParam(value = "지원취소", required = true) ApplyReq applyReq) {
-        Long userId = applyReq.getUserId();
-        Long projectId = applyReq.getProjectId();
+    public ResponseEntity<? extends BaseResponseBody> deleteApply(@RequestBody @ApiParam(value = "지원취소", required = true) ApplyDeleteReq applyDeleteReq) {
+        Long userId = applyDeleteReq.getUserId();
+        Long projectId = applyDeleteReq.getProjectId();
         Optional<User> user = userService.getUserByUserId(userId);
         Project project = projectService.getProjectByProjectId(projectId);
         if (user.isPresent()) {

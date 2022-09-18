@@ -16,6 +16,12 @@ public class ApplyServiceImpl implements ApplyService{
     private final ApplyRepository applyRepository;
 
     @Override
+    public Apply getApply(User user, Project project) {
+        Apply apply = applyRepository.findApplyByUserAndProject(user, project).get();
+        return apply;
+    }
+
+    @Override
     public Apply createApply(String state, User user, Project project) {
         Apply apply = new Apply();
         apply.setState(state);
