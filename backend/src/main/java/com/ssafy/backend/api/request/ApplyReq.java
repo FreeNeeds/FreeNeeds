@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ApiModel("FeedbackRegisterPostRequest")
-public class ApplyPostReq {
+public class ApplyReq {
     @NotNull
     @ApiModelProperty(name = "유저 id", example = "1")
     Long userId;

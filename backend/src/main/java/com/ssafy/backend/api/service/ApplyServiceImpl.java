@@ -1,6 +1,7 @@
 package com.ssafy.backend.api.service;
 
 
+import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.Apply;
 import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.User;
@@ -21,5 +22,19 @@ public class ApplyServiceImpl implements ApplyService{
         apply.setUser(user);
         apply.setProject(project);
         return applyRepository.save(apply);
+    }
+
+    @Override
+    public Apply updateApply(String state, User user, Project project) {
+        Apply apply = applyRepository.findApplyByUserAndProject(user, project).get();
+        apply.setState(state);
+        return applyRepository.save(apply);
+    }
+
+    @Override
+    public BaseResponseBody deleteApply(User user, Project project) {
+        Long applyId = applyRepository.findApplyByUserAndProject(user, project).get().getApplyId();
+        applyRepository.deleteById(applyId);
+        return BaseResponseBody.of(200, "Success");
     }
 }
