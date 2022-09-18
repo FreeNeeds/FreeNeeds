@@ -57,9 +57,12 @@ public class ApplyController {
         String state = applyReq.getState();
         Optional<User> user = userService.getUserByUserId(userId);
         Project project = projectService.getProjectByProjectId(projectId);
+        if (applyService.alreadyApply(user.get(),project)) {
+            throw new IllegalArgumentException("이미 지원한 상태입니다.");
+        }
         if (user.isPresent()) {
             Apply apply = applyService.createApply(state, user.get(), project);
-            return ResponseEntity.status(200).body(ApplyPostPutRes.of(200, "success", apply));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }
@@ -77,7 +80,7 @@ public class ApplyController {
         Project project = projectService.getProjectByProjectId(projectId);
         if (user.isPresent()) {
             Apply apply = applyService.updateApply(state, user.get(), project);
-            return ResponseEntity.status(200).body(ApplyPostPutRes.of(200, "success", apply));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }

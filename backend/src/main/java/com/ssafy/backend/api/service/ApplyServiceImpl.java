@@ -43,4 +43,9 @@ public class ApplyServiceImpl implements ApplyService{
         applyRepository.deleteById(applyId);
         return BaseResponseBody.of(200, "Success");
     }
+
+    @Override
+    public boolean alreadyApply(User user, Project project) {
+        return applyRepository.findApplyByUserAndProject(user, project).isPresent();
+    }
 }
