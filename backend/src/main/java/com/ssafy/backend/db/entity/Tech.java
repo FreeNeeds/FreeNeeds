@@ -1,7 +1,6 @@
 package com.ssafy.backend.db.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,16 +9,14 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tech")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Tech {
+
     @Id
-    @GeneratedValue
-    private Long techId;
-
-    @NotNull
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name="resumeId", referencedColumnName = "resumeId")
-    private Resume resume;
+    @Column(name = "tech_name",length = 50)
+    private String techName;
 
 }
