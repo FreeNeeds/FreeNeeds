@@ -3,6 +3,7 @@ package com.ssafy.backend.api.controller;
 import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.api.request.UserResumeRegisterPostReq;
 import com.ssafy.backend.api.response.*;
 import com.ssafy.backend.api.service.CareerService;
 import com.ssafy.backend.api.service.CertificateService;
@@ -176,26 +177,37 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserResumeRes.of(education, careerList, certificateList));
 	}
 
-	//	@PostMapping("/resume")
-//	@ApiOperation(value = "유저 이력 사항 등록", notes = "유저의 이력 사항을 등록한다. ")
-//	@ApiResponses({
-//			@ApiResponse(code = 200, message = "성공"),
-//			@ApiResponse(code = 401, message = "인증 실패"),
-//			@ApiResponse(code = 404, message = "사용자 없음"),
-//			@ApiResponse(code = 500, message = "서버 오류")
-//	})
-//	public ResponseEntity<? extends BaseResponseBody> registerUserResume(
-//			@ApiIgnore Authentication authentication,
-//			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserResumeRegisterPostReq registerResumeInfo) {
-//		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-//		String userId = userDetails.getUsername();
-//		User user = userService.getUserByUsername(userId).get();
-//
-//		//userId와 입력된 이력사항 정보 등록
-//		Resume resume = userService.createResume(user, registerResumeInfo);
-//
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-//	}
+	@PostMapping("/resume")
+	@ApiOperation(value = "유저 이력 사항 등록", notes = "유저의 이력 사항을 등록한다. ")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> registerUserResume(
+			@ApiIgnore Authentication authentication,
+			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserResumeRegisterPostReq registerResumeInfo) {
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		String userId = userDetails.getUsername();
+		User user = userService.getUserByUsername(userId).get();
+
+		//먼저 userId를 resume 테이블에 등록
+		Resume resume = userService.createResume(user);
+		System.out.println("========== resumeId:"+resume.getResumeId());
+
+		//등록된 resume_id로 education 테이블에 학력 정보 등록
+		userService.createEducation(resume, registerResumeInfo.getEducation());
+		System.out.println("Edu========== resumeId:"+resume.getResumeId()+"/ userId: "+resume.getUser().getUserId());
+
+		//등록된 resume_id로 career 테이블에 경력 정보 등록
+		userService.createCareer(resume, registerResumeInfo.getCareerList());
+
+		//등록된 resume_id로 certificate 테이블에 자격 정보 등록
+		userService.createCertificate(resume, registerResumeInfo.getCertificateList());
+
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
 
 
 

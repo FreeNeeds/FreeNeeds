@@ -3,11 +3,10 @@ package com.ssafy.backend.api.service;
 import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.api.request.UserResumeRegisterPostReq;
+import com.ssafy.backend.api.response.UserEducationRes;
 import com.ssafy.backend.api.response.UserProjectCareerRes;
-import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.Project;
-import com.ssafy.backend.db.entity.ProjectCareer;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -39,4 +38,12 @@ public interface UserService {
 
 
 	Page<User> getFreelancers(Pageable pageable);
+
+	Resume createResume(User user);
+
+	void createEducation(Resume resume, Education education);
+
+	void createCareer(Resume resume, List<Career> careerList);
+
+	void createCertificate(Resume resume, List<Certificate> certificateList);
 }
