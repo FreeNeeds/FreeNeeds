@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 public class Education {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bachelorId;
 
     @NotNull
