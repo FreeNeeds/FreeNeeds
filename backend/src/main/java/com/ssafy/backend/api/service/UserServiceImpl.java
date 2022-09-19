@@ -12,6 +12,8 @@ import com.ssafy.backend.db.repository.ProjectCareerRepository;
 import com.ssafy.backend.db.repository.UserRepository;
 import com.ssafy.backend.db.repository.UserRepositorySupport;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -117,5 +119,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserProjectCareer(Long projectCareerId) {
 		projectCareerRepository.deleteById(projectCareerId);
+	}
+
+	@Override
+	public Long getResumeIdByUserId(Long userId) {
+		Long resume_id = userRepositorySupport.findResumeIdByUserId(userId);
+		return resume_id;
+	}
+
+	@Override
+	public Page<User> getFreelancers(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 }

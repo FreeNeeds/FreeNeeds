@@ -144,12 +144,15 @@ export default {
     }
   },
   props: {
-    freelancerdata: Object
+    //nprojectData: Object
   }
 };
 </script>
 
 <style>
+.project-card-title {
+  padding-top: 8px;
+}
 .project-card-devide-row {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -171,11 +174,6 @@ export default {
   background-color: #254ec9;
   color: white;
   text-align: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -50px;
-  margin-top: -20px;
 }
 .project-card-line {
   height: 3px;
@@ -202,9 +200,10 @@ export default {
   border: 1px solid #3f8bff;
 }
 .project-card-domain {
-  position: absolute;
+  padding-top: 8px;
+  /* position: absolute;
   top: 50%;
-  margin-top: -12px;
+  margin-top: -12px; */
 }
 .project-card-skill-title {
   width: 100px;
@@ -216,9 +215,10 @@ export default {
   color: white;
 }
 .project-card-skill {
-  position: absolute;
+  padding-top: 8px;
+  /* position: absolute;
   top: 50%;
-  margin-top: -12px;
+  margin-top: -12px; */
 }
 .project-card-content-wrapper {
   color: #b1b1b1;

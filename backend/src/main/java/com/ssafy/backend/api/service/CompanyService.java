@@ -30,7 +30,9 @@ public interface CompanyService {
 
     CompanyInfo updateCompanyInfo(String username, Map<Object, Object> objectMap);
 
-    Company updateCompany(Long companyId, Map<Object, Object> objectMap);
+    Company updateCompany(String username, Map<Object, Object> objectMap);
 
     Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId);
+
+    Optional<CompanyInfo> getCompanyInfoByCompanyUsername(String username);
 }

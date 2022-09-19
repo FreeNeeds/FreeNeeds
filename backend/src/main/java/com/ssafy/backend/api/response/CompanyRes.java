@@ -13,13 +13,13 @@ import lombok.Setter;
 @ApiModel("CompanyResponse")
 public class CompanyRes extends BaseResponseBody {
 
-    String username;
+    Company company;
 
     public static CompanyRes of(Integer statusCode, String message, Company company) {
         CompanyRes res = new CompanyRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
-        res.setUsername(company.getUsername());
+        res.setCompany(company);
         return res;
     }
 }
