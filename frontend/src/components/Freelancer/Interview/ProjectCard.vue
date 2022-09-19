@@ -125,8 +125,6 @@
       @click="selectProject"
       type="button"
       class="project-select btn btn-primary rounded-pill"
-      data-bs-toggle="modal"
-      data-bs-target="#ProjectSelectModal"
     >
       선 택
     </button>
@@ -136,6 +134,7 @@
 
 <script>
 import ProjectSelectModal from "@/components/Freelancer/Interview/ProjectSelectModal.vue";
+import BootstrapVue from "bootstrap-vue";
 
 export default {
   data() {
@@ -175,7 +174,12 @@ export default {
     freelancerdata: Object
   },
   methods: {
-    selectProject() {}
+    selectProject() {
+      var selectProjectModal = new bootstrap.Modal(document.getElementById('ProjectSelectModal'), {
+        keyboard: false
+      });
+      selectProjectModal.show();
+    }
   },
   components: {
     ProjectSelectModal
