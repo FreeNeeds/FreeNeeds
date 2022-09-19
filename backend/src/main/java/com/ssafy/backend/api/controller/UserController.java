@@ -1,5 +1,6 @@
 package com.ssafy.backend.api.controller;
 
+import com.ssafy.backend.api.request.ProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
@@ -8,12 +9,14 @@ import com.ssafy.backend.api.service.CareerService;
 import com.ssafy.backend.api.service.CertificateService;
 import com.ssafy.backend.api.service.EducationService;
 import com.ssafy.backend.api.service.UserService;
+import com.ssafy.backend.common.auth.SsafyCompanyDetails;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +39,8 @@ public class UserController {
 	private final EducationService educationService;
 	private final CareerService careerService;
 	private final CertificateService certificateService;
+
+
 
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
@@ -210,5 +215,49 @@ public class UserController {
 	})
 	public List<User> getFreelancerList(Pageable pageable) {
 		return userService.getFreelancers(pageable).getContent();
+	}
+
+	@GetMapping("/filter")
+	@ApiOperation(value = "프리랜서 필터링 조회", notes = "프리랜서를 기술로 필터링해 리스트로 가져옵니다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
+		return new ResponseEntity<List<User>>(userService.getFreelancersByTechs(techList), HttpStatus.OK);
+	}
+
+	@PostMapping("/tech/{username}")
+	@ApiOperation(value = "프리랜서 기술 등록", notes = "프리랜서가 선택한 기술들을 프로필에 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProfileTech(
+			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
+		userService.createProfiletech(username,techList);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+
+	@PostMapping("/profile")
+	@ApiOperation(value = "프로필 등록", notes = "프로필을 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProfile(
+			@RequestBody @ApiParam(value="프로필 정보", required = true) UserProfileFetchReq userProfileFetchReq, @ApiIgnore Authentication authentication) {
+
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		User user = userDetails.getUser();
+		userService.createProfile(userProfileFetchReq,user);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 }

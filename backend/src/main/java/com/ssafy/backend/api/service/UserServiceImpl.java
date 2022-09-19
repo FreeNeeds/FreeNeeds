@@ -4,13 +4,8 @@ import com.ssafy.backend.api.request.UserProfileFetchReq;
 import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProjectCareerRes;
-import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.ProjectCareer;
-import com.ssafy.backend.db.entity.User;
-import com.ssafy.backend.db.repository.ProfileRepository;
-import com.ssafy.backend.db.repository.ProjectCareerRepository;
-import com.ssafy.backend.db.repository.UserRepository;
-import com.ssafy.backend.db.repository.UserRepositorySupport;
+import com.ssafy.backend.db.entity.*;
+import com.ssafy.backend.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +30,14 @@ public class UserServiceImpl implements UserService {
 	private final ProfileRepository profileRepository;
 
 	private final ProjectCareerRepository projectCareerRepository;
+
+	private final TechRepository techRepository;
+
+	private final ProfileTechRepository profileTechRepository;
+
+	private final ProfileTechRepositorySupport profileTechRepositorySupport;
+
+	private final ProfileRepositorySupport profileRepositorySupport;
 
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
@@ -130,5 +133,39 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Page<User> getFreelancers(Pageable pageable) {
 		return userRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<User> getFreelancersByTechs(List<String> techList) {
+		List<Tech> nlist = new ArrayList<>();
+		for(String t : techList){
+			Tech temp = techRepository.findById(t).get();
+			nlist.add(temp);
+		}
+
+		return profileTechRepositorySupport.getFreelancerListByTechs(nlist);
+	}
+
+	@Override
+	public void createProfiletech(String username, List<String> techList) {
+
+		for(String t : techList){
+			ProfileTech temp = new ProfileTech();
+			temp.setProfile(userRepositorySupport.findProfileByUsername(username));
+			temp.setTech((Tech) techRepository.findById(t).get());
+			profileTechRepository.save(temp);
+		}
+	}
+
+	@Override
+	public Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user) {
+		Profile profile = Profile.builder()
+				.title(userProfileFetchReq.getTitle())
+				.introduce(userProfileFetchReq.getIntroduce())
+				.creer_period(userProfileFetchReq.getCreer_period())
+				.skill(userProfileFetchReq.getSkill())
+				.user(user)
+				.build();
+		return profileRepository.save(profile);
 	}
 }
