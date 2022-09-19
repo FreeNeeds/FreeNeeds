@@ -175,7 +175,6 @@ export default {
   background-color: #254ec9;
   color: white;
   text-align: center;
-  position: absolute;
 }
 .project-card-line {
   height: 3px;
