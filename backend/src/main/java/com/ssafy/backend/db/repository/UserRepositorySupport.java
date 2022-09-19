@@ -20,6 +20,8 @@ public class UserRepositorySupport{
 
     QProfile qProfile = QProfile.profile;
 
+    QProjectCareer qProjectCareer = QProjectCareer.projectCareer;
+
     public Optional<User> findUserByUsername(String username) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.username.eq(username)).fetchOne();
@@ -41,5 +43,13 @@ public class UserRepositorySupport{
                 .fetchOne();
 
         return profile;
+    }
+
+    public ProjectCareer findProjectCareerByUsername(String username) {
+        ProjectCareer projectCareer = jpaQueryFactory.select(qProjectCareer).from(qProjectCareer)
+                .where(qProjectCareer.user.username.eq(username))
+                .fetchOne();
+
+        return projectCareer;
     }
 }
