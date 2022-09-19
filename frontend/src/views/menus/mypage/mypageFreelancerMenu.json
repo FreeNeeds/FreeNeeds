@@ -1,0 +1,27 @@
+{
+  "ApplyStatus": {
+    "name": "나의 지원현황",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus",
+    "children": []
+  },
+  "manageCareer": {
+    "name": "커리어 관리",
+    "hidden": false,
+    "path": "/mypage/freelancer/managecareer",
+    "children": []
+  },
+
+  "freelancerWallet": {
+    "name": "나의 지갑",
+    "hidden": false,
+    "path": "/mypage/freelancer/freelancerwallet",
+    "children": []
+  },
+  "freelancermessage": {
+    "name": "메세지",
+    "hidden": false,
+    "path": "/mypage/freelancer/freelancermessage",
+    "children": []
+  }
+}

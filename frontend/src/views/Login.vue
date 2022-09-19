@@ -38,6 +38,7 @@ import { login } from "../api/user.js";
 import { findByUserId as findWallet } from "../api/wallet.js";
 
 export default {
+  name: "Login",
   data() {
     return {
       user: {
@@ -55,8 +56,10 @@ export default {
         this.user.password,
         function(response) {
           scope.$store.commit("setIsSigned", true);
-          scope.$store.commit("setUserId", response.data.id);
-
+          scope.$store.commit("setUser", response.data);
+          
+          
+          /*
           findWallet(
             response.data.id,
             function(response) {
@@ -72,8 +75,8 @@ export default {
                 //alert("지갑 정보를 찾지 못했습니다.");
               }
             }
-          );
-
+          );*/
+          
           scope.$router.push("/");
         },
         function(error) {
