@@ -45,7 +45,9 @@ public interface UserService {
 
 	List<User> getFreelancersByTechs(List<String> techList);
 
-	void createProfiletech(String username, List<String> techList);
+	void createProfileTech(String username, List<String> techList);
 
 	Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user);
+
+	void createProjectCareerTech(String username, List<String> techList);
 }
