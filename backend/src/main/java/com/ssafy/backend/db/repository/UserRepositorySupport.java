@@ -1,10 +1,7 @@
 package com.ssafy.backend.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.QProfile;
-import com.ssafy.backend.db.entity.QUser;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.entity.*;
 
 import java.util.Optional;
 
@@ -22,6 +19,8 @@ public class UserRepositorySupport{
     QUser qUser = QUser.user;
 
     QProfile qProfile = QProfile.profile;
+
+    QResume qResume = QResume.resume;
 
     public Optional<User> findUserByUsername(String username) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
@@ -47,4 +46,11 @@ public class UserRepositorySupport{
     }
 
 
+    public Long findResumeIdByUserId(Long userId) {
+        Long resume_id = jpaQueryFactory.select(qResume.resumeId).from(qResume)
+                .where(qResume.user.userId.eq(userId))
+                .fetchOne();
+
+        return resume_id;
+    }
 }
