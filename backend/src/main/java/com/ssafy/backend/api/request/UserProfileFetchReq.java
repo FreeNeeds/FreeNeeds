@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("UserProfileFetchReq")
+@ApiModel("UserProfilePatchReq")
 public class UserProfileFetchReq {
     @ApiModelProperty(name="한줄소개")
     String title;

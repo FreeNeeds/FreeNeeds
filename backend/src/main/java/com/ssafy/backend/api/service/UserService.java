@@ -5,7 +5,6 @@ import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProjectCareerRes;
 import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
 import org.springframework.data.domain.Page;
@@ -38,5 +37,12 @@ public interface UserService {
 
 
 
+
 	Page<User> getFreelancers(Pageable pageable);
+
+	List<User> getFreelancersByTechs(List<String> techList);
+
+	void createProfiletech(String username, List<String> techList);
+
+	Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user);
 }
