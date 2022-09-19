@@ -30,4 +30,6 @@ public interface UserService {
 	List<UserProjectCareerRes> getProjectCareerAllList(User user);
 
 	void deleteUserProjectCareer(Long projectCareerId);
+
+    Long getResumeIdByUserId(Long userId);
 }
