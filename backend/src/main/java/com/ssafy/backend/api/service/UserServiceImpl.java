@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
 
 	private final ProjectCareerRepository projectCareerRepository;
 
+	private final ResumeRepository resumeRepository;
+	private final EducationRepository educationRepository;
+	private final CareerRepository careerRepository;
+	private final CertificateRepository certificateRepository;
+
 	private final TechRepository techRepository;
 
 	private final ProfileTechRepository profileTechRepository;
@@ -125,8 +130,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Long getResumeIdByUserId(Long userId) {
-		Long resume_id = userRepositorySupport.findResumeIdByUserId(userId);
+	public Long getResumeIdByUser(User user) {
+		Resume resume = resumeRepository.findResumeByUser(user);
+		Long resume_id = resume.getResumeId();
 		return resume_id;
 	}
 
@@ -136,6 +142,47 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Resume createResume(User user) {
+		Resume resume = new Resume();
+
+		resume.setUser(user);
+		resumeRepository.save(resume);
+
+		return resume;
+	}
+
+	@Override
+	public void createEducation(Resume resume, Education education) {
+		Education resumeEducation = new Education();
+
+		resumeEducation.setResume(resume);
+		resumeEducation.setHighschool(education.getHighschool());
+		resumeEducation.setHighschool_start_date(education.getHighschool_start_date());
+		resumeEducation.setHighschool_end_date(education.getHighschool_end_date());
+		resumeEducation.setUniversity(education.getUniversity());
+		resumeEducation.setUniversity_start_date(education.getUniversity_start_date());
+		resumeEducation.setUniversity_end_date(education.getUniversity_end_date());
+		resumeEducation.setMajor(education.getMajor());
+
+		educationRepository.save(resumeEducation);
+	}
+
+	@Override
+	public void createCareer(Resume resume, List<Career> careerList) {
+		for (Career career : careerList) {
+			Career resumeCareer = new Career();
+
+			resumeCareer.setResume(resume);
+			resumeCareer.setCompanyName(career.getCompanyName());
+			resumeCareer.setDepartment(career.getDepartment());
+			resumeCareer.setPosition(career.getPosition());
+			resumeCareer.setStart_date(career.getStart_date());
+			resumeCareer.setEnd_date(career.getEnd_date());
+
+			careerRepository.save(resumeCareer);
+		}
+	}
+
 	public List<User> getFreelancersByTechs(List<String> techList) {
 		List<Tech> nlist = new ArrayList<>();
 		for(String t : techList){
@@ -158,6 +205,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void createCertificate(Resume resume, List<Certificate> certificateList) {
+		for (Certificate certificate : certificateList) {
+			Certificate resumeCertificate = new Certificate();
+
+			resumeCertificate.setResume(resume);
+			resumeCertificate.setDate(certificate.getDate());
+			resumeCertificate.setName(certificate.getName());
+			resumeCertificate.setCertification(certificate.getCertification());
+
+			certificateRepository.save(resumeCertificate);
+		}
+	}
+
 	public Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user) {
 		Profile profile = Profile.builder()
 				.title(userProfileFetchReq.getTitle())
