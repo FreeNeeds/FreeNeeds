@@ -4,6 +4,7 @@
     <div id="banner"></div>
     <FilterBtn></FilterBtn>
     <SearchBar></SearchBar>
+    <ProjectList></ProjectList>
     <FooterNav></FooterNav>
   </b-container>
 </template>
