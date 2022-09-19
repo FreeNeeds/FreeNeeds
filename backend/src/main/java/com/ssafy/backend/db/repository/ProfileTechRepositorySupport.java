@@ -19,10 +19,6 @@ public class ProfileTechRepositorySupport extends QuerydslRepositorySupport {
     }
 
     public List<User> getFreelancerListByTechs(List<Tech> techList){
-
-
-        QProfileTech qProfileTech = QProfileTech.profileTech;
-
         List<User> profiles = jpaQueryFactory
                 .select(qProfileTech.profile.user)
                 .from(qProfileTech)
@@ -31,5 +27,14 @@ public class ProfileTechRepositorySupport extends QuerydslRepositorySupport {
                 .fetch();
 
         return profiles;
+    }
+
+    public List<Tech> getTechListByProfileId(Long profileId) {
+        // 프로필에 해당하는 기술 리스트
+        return jpaQueryFactory
+                .select(qProfileTech.tech)
+                .from(qProfileTech)
+                .where(qProfileTech.profile.profileId.eq(profileId))
+                .fetch();
     }
 }

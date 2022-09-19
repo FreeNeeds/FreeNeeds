@@ -2,10 +2,7 @@ package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.*;
 import com.ssafy.backend.api.response.*;
-import com.ssafy.backend.api.service.CareerService;
-import com.ssafy.backend.api.service.CertificateService;
-import com.ssafy.backend.api.service.EducationService;
-import com.ssafy.backend.api.service.UserService;
+import com.ssafy.backend.api.service.*;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.*;
@@ -35,6 +32,8 @@ public class UserController {
 	private final EducationService educationService;
 	private final CareerService careerService;
 	private final CertificateService certificateService;
+	private final ProjectCareerService projectCareerService;
+	private final ProfileService profileService;
 
 
 
@@ -233,8 +232,8 @@ public class UserController {
 		return new ResponseEntity<List<User>>(userService.getFreelancersByTechs(techList), HttpStatus.OK);
 	}
 
-	@PostMapping("/tech/{username}")
-	@ApiOperation(value = "프리랜서 기술 등록", notes = "프리랜서가 선택한 기술들을 프로필에 등록한다")
+	@PostMapping("/profile/tech/{username}")
+	@ApiOperation(value = "프리랜서 프로필 기술 등록", notes = "프리랜서가 선택한 기술들을 프로필에 등록한다")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
 			@ApiResponse(code = 401, message = "인증 실패"),
@@ -243,10 +242,23 @@ public class UserController {
 	})
 	public ResponseEntity<?> registerProfileTech(
 			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
-		userService.createProfiletech(username,techList);
+		userService.createProfileTech(username,techList);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 
+	@GetMapping("/profile/tech/{profileId}")
+	@ApiOperation(value = "프리랜서 프로필 기술 조회", notes = "프리랜서가 선택한 기술들을 프로필에서 조회한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProfileTechList(
+			@ApiParam(value="프로필 id", required = true) @PathVariable("profileId") Long profileId) {
+
+		return new ResponseEntity<List<Tech>>(profileService.getTechsByProfileId(profileId), HttpStatus.OK);
+	}
 
 	@PostMapping("/profile")
 	@ApiOperation(value = "프로필 등록", notes = "프로필을 등록한다")
@@ -263,5 +275,33 @@ public class UserController {
 		User user = userDetails.getUser();
 		userService.createProfile(userProfileFetchReq,user);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@PostMapping("/project/tech/{username}")
+	@ApiOperation(value = "프리랜서 프로젝트 이력 기술 등록", notes = "프리랜서가 선택한 기술들을 프로젝트 이력에 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProjectCareerTech(
+			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
+		userService.createProjectCareerTech(username,techList);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@GetMapping("/project/tech/{projectCareerId}")
+	@ApiOperation(value = "프리랜서 프로젝트 이력 기술 조회", notes = "프리랜서가 선택한 기술들을 프로젝트 이력에서 조회한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProjectCareerTechList(
+			@ApiParam(value="프로젝트 이력 id", required = true) @PathVariable("projectCareerId") Long projectCareerId) {
+
+		return new ResponseEntity<List<Tech>>(projectCareerService.getTechsByProjectCareerId(projectCareerId), HttpStatus.OK);
 	}
 }

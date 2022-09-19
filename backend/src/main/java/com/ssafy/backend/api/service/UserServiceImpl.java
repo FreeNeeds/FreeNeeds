@@ -44,6 +44,8 @@ public class UserServiceImpl implements UserService {
 
 	private final ProfileRepositorySupport profileRepositorySupport;
 
+	private final ProjectCareerTechRepository projectCareerTechRepository;
+
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		//중복 확인
@@ -194,7 +196,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createProfiletech(String username, List<String> techList) {
+	public void createProfileTech(String username, List<String> techList) {
 
 		for(String t : techList){
 			ProfileTech temp = new ProfileTech();
@@ -227,5 +229,18 @@ public class UserServiceImpl implements UserService {
 				.user(user)
 				.build();
 		return profileRepository.save(profile);
+	}
+
+	@Override
+	public void createProjectCareerTech(String username, List<String> techList) {
+		for(String t : techList){
+			ProjectCareerTech temp = new ProjectCareerTech();
+//			ProfileTech temp = new ProfileTech();
+			temp.setProjectCareer(userRepositorySupport.findProjectCareerByUsername(username));
+			temp.setTech((Tech) techRepository.findById(t).get());
+//			temp.setProfile(userRepositorySupport.findProfileByUsername(username));
+//			temp.setTech((Tech) techRepository.findById(t).get());
+			projectCareerTechRepository.save(temp);
+		}
 	}
 }
