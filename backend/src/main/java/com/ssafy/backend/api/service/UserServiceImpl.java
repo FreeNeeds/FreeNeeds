@@ -122,8 +122,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Long getResumeIdByUserId(Long userId) {
-		Long resume_id = userRepositorySupport.findResumeIdByUserId(userId);
+	public Long getResumeIdByUser(User user) {
+		Resume resume = resumeRepository.findResumeByUser(user);
+		Long resume_id = resume.getResumeId();
 		return resume_id;
 	}
 
@@ -187,5 +188,4 @@ public class UserServiceImpl implements UserService {
 			certificateRepository.save(resumeCertificate);
 		}
 	}
-
 }

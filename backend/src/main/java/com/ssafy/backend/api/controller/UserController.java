@@ -1,9 +1,6 @@
 package com.ssafy.backend.api.controller;
 
-import com.ssafy.backend.api.request.UserProfileFetchReq;
-import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
-import com.ssafy.backend.api.request.UserRegisterPostReq;
-import com.ssafy.backend.api.request.UserResumeRegisterPostReq;
+import com.ssafy.backend.api.request.*;
 import com.ssafy.backend.api.response.*;
 import com.ssafy.backend.api.service.CareerService;
 import com.ssafy.backend.api.service.CertificateService;
@@ -161,8 +158,8 @@ public class UserController {
 		//username(id)로 user 정보 가져오기
 		User user = userService.getUserByUsername(username).get();
 
-		//user_id로 이력서에서 resume_id 찾기
-		Long resume_id = userService.getResumeIdByUserId(user.getUserId());
+		//user로 이력서에서 resume_id 찾기
+		Long resume_id = userService.getResumeIdByUser(user);
 
 		//resume_id로 학력 받아오기
 		UserEducationRes education = educationService.getEducationByResumeId(resume_id);
@@ -208,9 +205,6 @@ public class UserController {
 
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
-
-
-
 
 	@GetMapping()
 	@ApiOperation(value = "프리랜서 전체 조회", notes = "프리랜서 전체 목록을 조회합니다.")
