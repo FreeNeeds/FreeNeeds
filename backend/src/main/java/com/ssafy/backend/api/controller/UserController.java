@@ -13,6 +13,7 @@ import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -195,4 +196,19 @@ public class UserController {
 //
 //		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 //	}
+
+
+
+
+	@GetMapping()
+	@ApiOperation(value = "프리랜서 전체 조회", notes = "프리랜서 전체 목록을 조회합니다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public List<User> getFreelancerList(Pageable pageable) {
+		return userService.getFreelancers(pageable).getContent();
+	}
 }
