@@ -1,8 +1,7 @@
 package com.ssafy.backend.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.backend.db.entity.QUser;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.db.entity.*;
 
 import java.util.Optional;
 
@@ -19,10 +18,39 @@ public class UserRepositorySupport{
     private final JPAQueryFactory jpaQueryFactory;
     QUser qUser = QUser.user;
 
+    QProfile qProfile = QProfile.profile;
+
+    QResume qResume = QResume.resume;
+
     public Optional<User> findUserByUsername(String username) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.username.eq(username)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
+    }
+
+    public Profile findProfileByUserId(Long userId) {
+        Profile profile = jpaQueryFactory.select(qProfile).from(qProfile)
+                .where(qProfile.user.userId.eq(userId))
+                .fetchOne();
+
+        return profile;
+    }
+
+    public Profile findProfileByUsername(String username) {
+        Profile profile = jpaQueryFactory.select(qProfile).from(qProfile)
+                .where(qProfile.user.username.eq(username))
+                .fetchOne();
+
+        return profile;
+    }
+
+
+    public Long findResumeIdByUserId(Long userId) {
+        Long resume_id = jpaQueryFactory.select(qResume.resumeId).from(qResume)
+                .where(qResume.user.userId.eq(userId))
+                .fetchOne();
+
+        return resume_id;
     }
 }

@@ -14,7 +14,7 @@
     name: 'FilterBtn',
     components : {
       FilterModal
-    }
+    },
   }
 </script>
 
