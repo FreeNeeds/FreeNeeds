@@ -5,8 +5,11 @@ import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
 import com.ssafy.backend.api.request.UserRegisterPostReq;
 import com.ssafy.backend.api.response.UserProjectCareerRes;
 import com.ssafy.backend.db.entity.Profile;
+import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.ProjectCareer;
 import com.ssafy.backend.db.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,4 +35,8 @@ public interface UserService {
 	void deleteUserProjectCareer(Long projectCareerId);
 
     Long getResumeIdByUserId(Long userId);
+
+
+
+	Page<User> getFreelancers(Pageable pageable);
 }
