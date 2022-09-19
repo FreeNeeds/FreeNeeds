@@ -1,0 +1,20 @@
+{
+  "projectStatus": {
+    "name": "전체",
+    "hidden": false,
+    "path": "/mypage/freelancer/freelancerwallet/all",
+    "children": []
+  },
+  "projectRegist": {
+    "name": "입금",
+    "hidden": false,
+    "path": "/mypage/freelancer/freelancerwallet/deposit",
+    "children": []
+  },
+  "companyInfoAdmin": {
+    "name": "출금",
+    "hidden": false,
+    "path": "/mypage/freelancer/freelancerwallet/withdraw",
+    "children": []
+  }
+}
