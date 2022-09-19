@@ -20,8 +20,6 @@ public class UserRepositorySupport{
 
     QProfile qProfile = QProfile.profile;
 
-    QResume qResume = QResume.resume;
-
     public Optional<User> findUserByUsername(String username) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.username.eq(username)).fetchOne();
@@ -43,14 +41,5 @@ public class UserRepositorySupport{
                 .fetchOne();
 
         return profile;
-    }
-
-
-    public Long findResumeIdByUserId(Long userId) {
-        Long resume_id = jpaQueryFactory.select(qResume.resumeId).from(qResume)
-                .where(qResume.user.userId.eq(userId))
-                .fetchOne();
-
-        return resume_id;
     }
 }
