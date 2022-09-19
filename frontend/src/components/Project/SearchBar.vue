@@ -26,7 +26,7 @@ export default {
     background-color: white;
     position: absolute;
     top : 297px;
-    left : 29%;
+    left : 27%;
   }
   #searchBar {
     border:none;
