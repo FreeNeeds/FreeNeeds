@@ -1,0 +1,26 @@
+{
+  "projectStatus": {
+    "name": "제의받은 프로젝트",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus/requestedproject",
+    "children": []
+  },
+  "projectRegist": {
+    "name": "지원한 프로젝트",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus/applyproject",
+    "children": []
+  },
+  "companyInfoAdmin": {
+    "name": "계약중인 프로젝트",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus/undercontract",
+    "children": []
+  },
+  "companyWallet": {
+    "name": "체결된 프로젝트",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus/signedproject",
+    "children": []
+  }
+}

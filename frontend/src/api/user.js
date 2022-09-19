@@ -23,14 +23,14 @@ function signup(email, name, password, success, fail) {
     .catch(fail);
 }
 
-function login(email, password, success, fail) {
+function login(username, password, success, fail) {
   const body = {
-    email: email,
+    username: username,
     password: password
   };
 
   instance
-    .post("/api/users/login", JSON.stringify(body))
+    .post("/auth/login", JSON.stringify(body))
     .then(success)
     .catch(fail);
 }

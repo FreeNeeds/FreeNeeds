@@ -1,16 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Signup from "@/views/Signup.vue";
-import Home from "@/views/Home.vue";
+import Mainpage from "@/views/Mainpage.vue";
 import Login from "@/views/Login.vue";
 import store from "@/store";
-import Shop from "@/views/Shop.vue";
-import MyPage from "@/views/MyPage.vue";
-import Item from "@/views/Item.vue";
-import Explorer from "@/views/Explorer.vue";
-import Escrow from "@/views/Escrow.vue";
+
+import Project from "@/views/Project";
+import Freelancer from "@/views/Freelancer.vue";
+import IndexSignup from "@/views/IndexSignup";
+
+/** 마이페이지 */
+import Mypage from "@/views/MyPage";
+
+/** 프리랜서 마이페이지 */
+import ApplyStatus from "@/components/FreelancerMypage/ApplyStatus";
+import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
+import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
+import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetail";
+
+/** 기업 마이페이지 */
+import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
+import CompanyMessage from "@/components/EnterpriseMypage/CompanyMessage";
+import CompanyWallet from "@/components/EnterpriseMypage/CompanyWallet";
+import ProjectRegist from "@/components/EnterpriseMypage/ProjectRegist";
+import ProjectStatus from "@/components/EnterpriseMypage/ProjectStatus";
 
 Vue.use(VueRouter);
+
+/** 프리랜서 프로젝트 현황 컴포넌트 */
+import ApplyProject from "@/components/FreelancerMypage/ApplyStatus/ApplyProject";
+import RequestedProject from "@/components/FreelancerMypage/ApplyStatus/RequestedProject";
+import SignedProject from "@/components/FreelancerMypage/ApplyStatus/SignedProject";
+import UnderContract from "@/components/FreelancerMypage/ApplyStatus/UnderContract";
 
 /**
  * 아래의 router를 변경하여 구현할 수 있습니다.
@@ -18,18 +40,19 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
+    name: "main",
+    component: Mainpage
   },
   {
     name: "login",
     path: "/login",
-    component: Login,
+    component: Login
   },
   {
-    path: "/register",
+    path: "/register/:signupType",
     name: "signup",
     component: Signup,
+    props: true
   },
   {
     path: "/logout",
@@ -38,148 +61,121 @@ const routes = [
       store.commit("logout");
       alert("로그아웃 되었습니다.");
       next("/");
-    },
+    }
   },
   {
-    name: "shop",
-    path: "/shop",
-    component: Shop,
-    children: [
-      {
-        path: "",
-        component: () => import("@/components/shop/All.vue"),
-      },
-      {
-        path: "digital",
-        component: () => import("@/components/shop/Digital.vue"),
-      },
-      {
-        path: "child",
-        component: () => import("@/components/shop/Child.vue"),
-      },
-      {
-        path: "hobby",
-        component: () => import("@/components/shop/Hobby.vue"),
-      },
-    ],
-    redirect: () => {
-      return "/shop";
-    },
+    path: "/project",
+    name: "project",
+    component: Project
   },
   {
+    path: "/freelancer",
+    name: "freelancer",
+    component: Freelancer
+  },
+  {
+    path: "/freelancer/detail",
+    name: "freelancerdetail",
+    component: FreelancerDetail
+  },
+  {
+    path: "/register",
+    name: "indexsignup",
+    component: IndexSignup
+  },
+  {
+    path: "/mypage/:accountType",
     name: "mypage",
-    path: "/mypage",
-    component: MyPage,
-    children: [
-      {
-        name: "mypage.wallet.create",
-        path: "wallet_create",
-        component: () => import("../components/mypage/WalletCreate.vue"),
-      },
-      {
-        name: "mypage.wallet.info",
-        path: "wallet_info",
-        component: () => import("../components/mypage/WalletInfo.vue"),
-      },
-      {
-        name: "mypage.items",
-        path: "/mypage/items",
-        component: () => import("../components/mypage/MyItems.vue"),
-      },
-      {
-        name: "mypage.password",
-        path: "/mypage/password",
-        component: () => import("../components/mypage/Password.vue"),
-      },
-    ],
-    redirect: () => {
-      return "/mypage/items";
-    },
-  },
-  {
-    name: "item",
-    path: "/item",
-    component: Item,
-    children: [
-      {
-        name: "item.create",
-        path: "create",
-        component: () => import("../components/item/ItemCreate.vue"),
-      },
-      {
-        name: "item.detail",
-        path: "detail/:id",
-        component: () => import("../components/item/ItemDetail.vue"),
-      },
-      {
-        name: "item.purchase",
-        path: "purchase/:id",
-        component: () => import("../components/item/ItemPurchase.vue"),
-      },
-    ],
-  },
-  {
-    name: "escrow",
-    path: "/escrow",
-    component: Escrow,
-    children: [
-      {
-        name: "escrow.purchase.detail",
-        path: "purchase/detail",
-        component: () => import("@/components/escrow/PurchaseTxDetail.vue"),
-      },
-      {
-        name: "escrow.sale.detail",
-        path: "sale/detail",
-        component: () => import("@/components/escrow/SaleTxDetail.vue"),
-      },
-      {
-        name: "escrow.history",
-        path: "history/:id",
-        component: () => import("@/components/escrow/EscrowHistory.vue")
+    component: Mypage,
+    props: true,
+    redirect: to => {
+      const { hash, params, query } = to;
+      if (params.accountType == "company" || params.accountType == "Company") {
+        return "/mypage/company/projectstatus";
+      } else {
+        return "/mypage/freelancer/applystatus";
       }
-    ],
-  },
-  {
-    name: "explorer",
-    path: "/explorer",
-    component: Explorer,
+    },
     children: [
       {
-        name: "explorer.dashboard",
-        path: "dashboard",
-        component: () => import("../components/explorer/Dashboard.vue"),
+        path: "applystatus",
+        name: "applystatus",
+        component: ApplyStatus,
+        redirect: "/mypage/freelancer/applystatus/requestedproject",
+        children: [
+          {
+            path: "requestedproject",
+            name: "requestedproject",
+            component: RequestedProject
+          },
+          {
+            path: "applyproject",
+            name: "applyproject",
+            component: ApplyProject
+          },
+          {
+            path: "undercontract",
+            name: "undercontract",
+            component: UnderContract
+          },
+          {
+            path: "signedproject",
+            name: "signedproject",
+            component: SignedProject
+          }
+        ]
       },
       {
-        name: "explorer.block",
-        path: "blocks",
-        component: () => import("../components/explorer/BlockListView.vue"),
+        path: "managecareer",
+        name: "managecareer",
+        component: ManageCareer
       },
       {
-        name: "explorer.block.detail",
-        path: "block/:blockNumber",
-        component: () => import("../components/explorer/BlockDetail.vue"),
+        path: "freelancermessage",
+        name: "freelancermessage",
+        component: FreelancerMessage
       },
       {
-        name: "explorer.tx",
-        path: "txes",
-        component: () => import("../components/explorer/TxListView.vue"),
+        path: "freelancerwallet",
+        name: "freelancerwallet",
+        component: FreelancerWallet
       },
       {
-        name: "explorer.tx.detail",
-        path: "tx/:hash",
-        component: () => import("../components/explorer/TxDetail.vue"),
+        path: "projectstatus",
+        name: "projectstatus",
+        component: ProjectStatus
       },
-    ],
-  },
+      {
+        path: "projectregist",
+        name: "projectregist",
+        component: ProjectRegist
+      },
+      {
+        path: "companyinfoadmin",
+        name: "companyinfoadmin",
+        component: CompanyInfoAdmin
+      },
+      {
+        path: "companywallet",
+        name: "companywallet",
+        component: CompanyWallet
+      },
+      {
+        path: "companymessage",
+        name: "companymessage",
+        component: CompanyMessage
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
+/*
 router.beforeEach((to, from, next) => {
   let isSigned = store.state.isSigned;
   let isAvailableToGuest =
@@ -187,12 +183,12 @@ router.beforeEach((to, from, next) => {
     to.path.startsWith("/explorer");
 
   // 로그인도 하지 않았고 게스트에게 허용된 주소가 아니라면 로그인 화면으로 이동한다.
-  if (!isSigned && !isAvailableToGuest) {
+  if (to.meta.IsLogin && !isSigned && !isAvailableToGuest) {
     alert("로그인을 하신 뒤에 사용이 가능합니다.");
     next("/login");
   } else {
     next();
   }
 });
-
+*/
 export default router;
