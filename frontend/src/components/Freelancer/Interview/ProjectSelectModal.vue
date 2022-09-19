@@ -47,6 +47,7 @@ export default {};
   height: 250px;
   overflow-y: auto;
   padding: 50px;
+
 }
 #modal-close-btn-wrapper{
   height:100px;

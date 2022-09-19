@@ -179,7 +179,6 @@ export default {
         keyboard: false
       });
       selectProjectModal.show();
-
     }
   },
   components: {
