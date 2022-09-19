@@ -1,7 +1,15 @@
-<template> </template>
+<template>
+  <div>
+    <freelancer-detail></freelancer-detail>
+  </div>
+</template>
 
 <script>
-export default {};
+import FreelancerDetail from "../Freelancer/FreelancerDetail.vue";
+
+export default {
+  components: { FreelancerDetail }
+};
 </script>
 
 <style></style>

@@ -36,6 +36,14 @@ public class UserServiceImpl implements UserService {
 	private final CareerRepository careerRepository;
 	private final CertificateRepository certificateRepository;
 
+	private final TechRepository techRepository;
+
+	private final ProfileTechRepository profileTechRepository;
+
+	private final ProfileTechRepositorySupport profileTechRepositorySupport;
+
+	private final ProfileRepositorySupport profileRepositorySupport;
+
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		//중복 확인
@@ -175,6 +183,27 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	public List<User> getFreelancersByTechs(List<String> techList) {
+		List<Tech> nlist = new ArrayList<>();
+		for(String t : techList){
+			Tech temp = techRepository.findById(t).get();
+			nlist.add(temp);
+		}
+
+		return profileTechRepositorySupport.getFreelancerListByTechs(nlist);
+	}
+
+	@Override
+	public void createProfiletech(String username, List<String> techList) {
+
+		for(String t : techList){
+			ProfileTech temp = new ProfileTech();
+			temp.setProfile(userRepositorySupport.findProfileByUsername(username));
+			temp.setTech((Tech) techRepository.findById(t).get());
+			profileTechRepository.save(temp);
+		}
+	}
+
 	@Override
 	public void createCertificate(Resume resume, List<Certificate> certificateList) {
 		for (Certificate certificate : certificateList) {
@@ -187,5 +216,16 @@ public class UserServiceImpl implements UserService {
 
 			certificateRepository.save(resumeCertificate);
 		}
+	}
+
+	public Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user) {
+		Profile profile = Profile.builder()
+				.title(userProfileFetchReq.getTitle())
+				.introduce(userProfileFetchReq.getIntroduce())
+				.creer_period(userProfileFetchReq.getCreer_period())
+				.skill(userProfileFetchReq.getSkill())
+				.user(user)
+				.build();
+		return profileRepository.save(profile);
 	}
 }

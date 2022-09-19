@@ -42,4 +42,10 @@ public interface UserService {
 	void createCareer(Resume resume, List<Career> careerList);
 
 	void createCertificate(Resume resume, List<Certificate> certificateList);
+
+	List<User> getFreelancersByTechs(List<String> techList);
+
+	void createProfiletech(String username, List<String> techList);
+
+	Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user);
 }
