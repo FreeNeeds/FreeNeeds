@@ -116,7 +116,7 @@ export default {
       projectData: {
         category: "개발",
         demain: "웹사이트",
-        location: "대한민국 어딘가...",
+        location: "대한민국 어딘가AAAAAAAAAAAAAAAAAAAAAA",
         skill: "Java Mysql SpringBoot",
         title: "AI기반 Firescout 솔루션 ux/ui 디자인",
         content: "AI기반 Firescout 솔루션 ux/ui 디자인",
