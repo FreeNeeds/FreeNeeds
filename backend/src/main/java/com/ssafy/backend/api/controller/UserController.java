@@ -1,19 +1,15 @@
 package com.ssafy.backend.api.controller;
 
-import com.ssafy.backend.api.request.UserProfileFetchReq;
-import com.ssafy.backend.api.request.UserProjectRegisterPostReq;
-import com.ssafy.backend.api.request.UserRegisterPostReq;
+import com.ssafy.backend.api.request.*;
 import com.ssafy.backend.api.response.*;
-import com.ssafy.backend.api.service.CareerService;
-import com.ssafy.backend.api.service.CertificateService;
-import com.ssafy.backend.api.service.EducationService;
-import com.ssafy.backend.api.service.UserService;
+import com.ssafy.backend.api.service.*;
 import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
 import com.ssafy.backend.db.entity.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +32,10 @@ public class UserController {
 	private final EducationService educationService;
 	private final CareerService careerService;
 	private final CertificateService certificateService;
+	private final ProjectCareerService projectCareerService;
+	private final ProfileService profileService;
+
+
 
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
@@ -160,8 +160,8 @@ public class UserController {
 		//username(id)로 user 정보 가져오기
 		User user = userService.getUserByUsername(username).get();
 
-		//user_id로 이력서에서 resume_id 찾기
-		Long resume_id = userService.getResumeIdByUserId(user.getUserId());
+		//user로 이력서에서 resume_id 찾기
+		Long resume_id = userService.getResumeIdByUser(user);
 
 		//resume_id로 학력 받아오기
 		UserEducationRes education = educationService.getEducationByResumeId(resume_id);
@@ -176,29 +176,37 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserResumeRes.of(education, careerList, certificateList));
 	}
 
-	//	@PostMapping("/resume")
-//	@ApiOperation(value = "유저 이력 사항 등록", notes = "유저의 이력 사항을 등록한다. ")
-//	@ApiResponses({
-//			@ApiResponse(code = 200, message = "성공"),
-//			@ApiResponse(code = 401, message = "인증 실패"),
-//			@ApiResponse(code = 404, message = "사용자 없음"),
-//			@ApiResponse(code = 500, message = "서버 오류")
-//	})
-//	public ResponseEntity<? extends BaseResponseBody> registerUserResume(
-//			@ApiIgnore Authentication authentication,
-//			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserResumeRegisterPostReq registerResumeInfo) {
-//		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-//		String userId = userDetails.getUsername();
-//		User user = userService.getUserByUsername(userId).get();
-//
-//		//userId와 입력된 이력사항 정보 등록
-//		Resume resume = userService.createResume(user, registerResumeInfo);
-//
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-//	}
+	@PostMapping("/resume")
+	@ApiOperation(value = "유저 이력 사항 등록", notes = "유저의 이력 사항을 등록한다. ")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> registerUserResume(
+			@ApiIgnore Authentication authentication,
+			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserResumeRegisterPostReq registerResumeInfo) {
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		String userId = userDetails.getUsername();
+		User user = userService.getUserByUsername(userId).get();
 
+		//먼저 userId를 resume 테이블에 등록
+		Resume resume = userService.createResume(user);
+		System.out.println("========== resumeId:"+resume.getResumeId());
 
+		//등록된 resume_id로 education 테이블에 학력 정보 등록
+		userService.createEducation(resume, registerResumeInfo.getEducation());
+		System.out.println("Edu========== resumeId:"+resume.getResumeId()+"/ userId: "+resume.getUser().getUserId());
 
+		//등록된 resume_id로 career 테이블에 경력 정보 등록
+		userService.createCareer(resume, registerResumeInfo.getCareerList());
+
+		//등록된 resume_id로 certificate 테이블에 자격 정보 등록
+		userService.createCertificate(resume, registerResumeInfo.getCertificateList());
+
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
 
 	@GetMapping()
 	@ApiOperation(value = "프리랜서 전체 조회", notes = "프리랜서 전체 목록을 조회합니다.")
@@ -210,5 +218,90 @@ public class UserController {
 	})
 	public List<User> getFreelancerList(Pageable pageable) {
 		return userService.getFreelancers(pageable).getContent();
+	}
+
+	@GetMapping("/filter")
+	@ApiOperation(value = "프리랜서 필터링 조회", notes = "프리랜서를 기술로 필터링해 리스트로 가져옵니다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
+		return new ResponseEntity<List<User>>(userService.getFreelancersByTechs(techList), HttpStatus.OK);
+	}
+
+	@PostMapping("/profile/tech/{username}")
+	@ApiOperation(value = "프리랜서 프로필 기술 등록", notes = "프리랜서가 선택한 기술들을 프로필에 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProfileTech(
+			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
+		userService.createProfileTech(username,techList);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@GetMapping("/profile/tech/{profileId}")
+	@ApiOperation(value = "프리랜서 프로필 기술 조회", notes = "프리랜서가 선택한 기술들을 프로필에서 조회한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProfileTechList(
+			@ApiParam(value="프로필 id", required = true) @PathVariable("profileId") Long profileId) {
+
+		return new ResponseEntity<List<Tech>>(profileService.getTechsByProfileId(profileId), HttpStatus.OK);
+	}
+
+	@PostMapping("/profile")
+	@ApiOperation(value = "프로필 등록", notes = "프로필을 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProfile(
+			@RequestBody @ApiParam(value="프로필 정보", required = true) UserProfileFetchReq userProfileFetchReq, @ApiIgnore Authentication authentication) {
+
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		User user = userDetails.getUser();
+		userService.createProfile(userProfileFetchReq,user);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@PostMapping("/project/tech/{username}")
+	@ApiOperation(value = "프리랜서 프로젝트 이력 기술 등록", notes = "프리랜서가 선택한 기술들을 프로젝트 이력에 등록한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> registerProjectCareerTech(
+			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
+		userService.createProjectCareerTech(username,techList);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+	@GetMapping("/project/tech/{projectCareerId}")
+	@ApiOperation(value = "프리랜서 프로젝트 이력 기술 조회", notes = "프리랜서가 선택한 기술들을 프로젝트 이력에서 조회한다")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProjectCareerTechList(
+			@ApiParam(value="프로젝트 이력 id", required = true) @PathVariable("projectCareerId") Long projectCareerId) {
+
+		return new ResponseEntity<List<Tech>>(projectCareerService.getTechsByProjectCareerId(projectCareerId), HttpStatus.OK);
 	}
 }

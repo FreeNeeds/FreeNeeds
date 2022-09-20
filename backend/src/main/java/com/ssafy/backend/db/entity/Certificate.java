@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 public class Certificate {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long certificateId;
 
     @NotNull

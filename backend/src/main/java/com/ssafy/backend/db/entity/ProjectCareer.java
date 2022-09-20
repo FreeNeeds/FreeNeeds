@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProjectCareer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectCareerId;
 
     @NotNull
@@ -22,12 +22,6 @@ public class ProjectCareer {
 
     @NotNull
     private String domain;
-
-    //@Lob
-    @Column(
-            columnDefinition = "TEXT"
-    )
-    private String skill;
 
     @NotNull
     private String companyName;

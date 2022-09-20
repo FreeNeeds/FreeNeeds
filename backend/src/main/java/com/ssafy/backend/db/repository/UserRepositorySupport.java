@@ -20,7 +20,7 @@ public class UserRepositorySupport{
 
     QProfile qProfile = QProfile.profile;
 
-    QResume qResume = QResume.resume;
+    QProjectCareer qProjectCareer = QProjectCareer.projectCareer;
 
     public Optional<User> findUserByUsername(String username) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
@@ -45,12 +45,11 @@ public class UserRepositorySupport{
         return profile;
     }
 
-
-    public Long findResumeIdByUserId(Long userId) {
-        Long resume_id = jpaQueryFactory.select(qResume.resumeId).from(qResume)
-                .where(qResume.user.userId.eq(userId))
+    public ProjectCareer findProjectCareerByUsername(String username) {
+        ProjectCareer projectCareer = jpaQueryFactory.select(qProjectCareer).from(qProjectCareer)
+                .where(qProjectCareer.user.username.eq(username))
                 .fetchOne();
 
-        return resume_id;
+        return projectCareer;
     }
 }

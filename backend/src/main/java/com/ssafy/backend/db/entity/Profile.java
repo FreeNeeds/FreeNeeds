@@ -1,18 +1,18 @@
 package com.ssafy.backend.db.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Profile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
     private String title;
@@ -21,16 +21,18 @@ public class Profile {
 
     private int creer_period;
 
-
-    //@Lob
-    @Column(
-            columnDefinition = "TEXT"
-    )
-    private String skill;
-
     //FK : 유저(프리랜서) 시리얼
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
+
+    @Builder
+    public Profile(Long profileId, String title, String introduce, int creer_period, User user) {
+        this.profileId = profileId;
+        this.title = title;
+        this.introduce = introduce;
+        this.creer_period = creer_period;
+        this.user = user;
+    }
 }

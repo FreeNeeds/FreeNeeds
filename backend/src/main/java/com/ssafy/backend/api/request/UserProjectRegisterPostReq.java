@@ -20,9 +20,6 @@ public class UserProjectRegisterPostReq {
     @ApiModelProperty(name = "형태", example = "앱")
     String domain;
 
-    @ApiModelProperty(name = "기술", example = "Java, MYSQL")
-    String skill;
-
     @ApiModelProperty(name = "기업명", example = "한국투자공사")
     String companyName;
 

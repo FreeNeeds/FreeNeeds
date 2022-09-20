@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Resume {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long resumeId;
 
     @OneToOne
