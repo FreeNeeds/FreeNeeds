@@ -6,24 +6,30 @@
       </button>
     </div>
     <hr />
-    <div v-for="(item, index) in messages" :key="index">
-      <div class="message-title">
-        {{ item.title }}
+    <div>
+      <div
+        class="accordion-item"
+        v-for="(item, index) in messages"
+        :key="index"
+      >
+        <message-detail :message="item" :index="index"></message-detail>
       </div>
-
-      <div class="message-contents">{{ item.content }}</div>
-      <hr />
     </div>
   </div>
 </template>
 
 <script>
+import MessageDetail from "./FreelancerMessage/MessageDetail.vue";
 export default {
+  components: {
+    MessageDetail
+  },
   data() {
     return {
       selected_messages: [],
       messages: [
         {
+          message_id: 1,
           title: "메세지 1",
           content: "1번 내용",
           open: false,
@@ -34,6 +40,7 @@ export default {
           project_id: 3
         },
         {
+          message_id: 2,
           title: "메세지 2",
           content: "2번 내용",
           open: true,
@@ -44,6 +51,7 @@ export default {
           project_id: 3
         },
         {
+          message_id: 3,
           title: "메세지 3",
           content: "3번 내용",
           open: true,
@@ -73,8 +81,5 @@ export default {
   border-radius: 45px;
   font-weight: bold;
   color: white;
-}
-.message-contents {
-  display: none;
 }
 </style>
