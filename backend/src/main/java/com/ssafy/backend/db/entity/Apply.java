@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class Apply {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applyId;
 
     @NotNull

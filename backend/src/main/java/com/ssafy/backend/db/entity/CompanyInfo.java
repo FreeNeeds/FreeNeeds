@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class CompanyInfo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyInfoId;
 
     @OneToOne(fetch = FetchType.LAZY)
