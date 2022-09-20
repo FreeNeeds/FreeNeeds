@@ -3,8 +3,8 @@
     <HeaderNav></HeaderNav>
     <div id="banner"></div>
     <FilterBtn></FilterBtn>
-    <SearchBar></SearchBar>
-    <ProjectList></ProjectList>
+    <!--<SearchBar></SearchBar>-->
+    <ProjectList :projectCardLst="projectCardLst"></ProjectList>
     <FooterNav></FooterNav>
   </b-container>
 </template>
@@ -17,6 +17,11 @@
   import ProjectList from '@/components/Project/ProjectList.vue';
 
   export default {
+    data() {
+      return {
+        projectCardLst : ["id1","id2","id3","id4","id5"]
+      }
+    },
     components : {
       SearchBar,
       HeaderNav,
