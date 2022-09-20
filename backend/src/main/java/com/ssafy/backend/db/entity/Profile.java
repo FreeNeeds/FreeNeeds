@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 public class Profile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
     private String title;

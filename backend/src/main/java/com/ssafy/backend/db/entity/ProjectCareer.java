@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProjectCareer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectCareerId;
 
     @NotNull
