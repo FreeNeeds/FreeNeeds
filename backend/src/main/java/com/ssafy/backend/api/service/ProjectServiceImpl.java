@@ -39,7 +39,6 @@ public class ProjectServiceImpl implements ProjectService {
                 .category(registerInfo.getCategory())
                 .domain(registerInfo.getDomain())
                 .location(registerInfo.getLocation())
-                .skill(registerInfo.getSkill())
                 .title(registerInfo.getTitle())
                 .content(registerInfo.getContent())
                 .startDate(registerInfo.getStartDate())

@@ -91,7 +91,6 @@ public class UserServiceImpl implements UserService {
 		profile.setTitle(userProfile.getTitle());
 		profile.setIntroduce(userProfile.getIntroduce());
 		profile.setCreer_period(userProfile.getCreer_period());
-		profile.setSkill(userProfile.getSkill());
 
 		profileRepository.save(profile);
 	}
@@ -102,7 +101,6 @@ public class UserServiceImpl implements UserService {
 
 		projectCareer.setCategory(registerProjectInfo.getCategory());
 		projectCareer.setDomain(registerProjectInfo.getDomain());
-		projectCareer.setSkill(registerProjectInfo.getSkill());
 		projectCareer.setCompanyName(registerProjectInfo.getCompanyName());
 		projectCareer.setTitle(registerProjectInfo.getTitle());
 		projectCareer.setContent(registerProjectInfo.getContent());
@@ -225,7 +223,6 @@ public class UserServiceImpl implements UserService {
 				.title(userProfileFetchReq.getTitle())
 				.introduce(userProfileFetchReq.getIntroduce())
 				.creer_period(userProfileFetchReq.getCreer_period())
-				.skill(userProfileFetchReq.getSkill())
 				.user(user)
 				.build();
 		return profileRepository.save(profile);
