@@ -23,12 +23,6 @@ public class ProjectCareer {
     @NotNull
     private String domain;
 
-    //@Lob
-    @Column(
-            columnDefinition = "TEXT"
-    )
-    private String skill;
-
     @NotNull
     private String companyName;
 
