@@ -29,10 +29,6 @@ public class ProjectRegisterPostReq {
     private String location;
 
     @NotBlank
-    @ApiModelProperty(name="기술", example="java, javascript, mysql")
-    private String skill;
-
-    @NotBlank
     @ApiModelProperty(name="제목", example="AI기반 Firescout 솔루션 ux/ui 디자인")
     private String title;
 

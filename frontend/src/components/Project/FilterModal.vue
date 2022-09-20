@@ -63,7 +63,7 @@
                 </ul>
               </div>
               <div class="dropup-center dropup regionSearchCtnrGroup">
-                <button class="dropdown-toggle" id="regionDetailSearchCtnr" data-bs-toggle="dropdown" aria-expanded="false">전체</button>
+                <button  @click="resetScrollRegionDetail" class="dropdown-toggle" id="regionDetailSearchCtnr" data-bs-toggle="dropdown" aria-expanded="false">전체</button>
                 <ul class="dropdown-menu" id="regionDetailBtnGroup">
                   <RegionDetailBtn v-for="region in RegionDetailLst"
                   :key="region"
@@ -185,15 +185,17 @@
         regionBtn.innerText = value
         if (value != "전체"){  
           regionDetail.setAttribute('style','display: block')
+          regionDetail.innerText = "전체"
           filterModalContent.scrollTop = filterModalContent.scrollHeight
+          let regionDetailBtnGroupTmp = document.querySelector('#regionDetailBtnGroup')
+          let regionBtn = document.querySelector('#regionSearchCtnr')
           this.RegionDetailLst = []
-          for (let city of regionMap[value]) this.RegionDetailLst.push(city)
+          for (let city of regionMap[regionBtn.innerText]) this.RegionDetailLst.push(city)
           if (this.RegionDetailLst.length > 8) {
-            let regionDetailBtnGroupTmp = document.querySelector('#regionDetailBtnGroup')
             regionDetailBtnGroupTmp.setAttribute('style','height: 300px')
           }
         } else {
-          regionDetail.setAttribute('style','display: none')
+          regionDetailBtn.setAttribute('style','display: none')
         }
       },
       clickRegionDetail(value) {
@@ -278,6 +280,10 @@
           let filterBtnTmp = document.querySelector('#' + activeFilter)
           filterBtnTmp.classList.add('activeFilter') 
         }
+      },
+      resetScrollRegionDetail() {
+        let regionDetailBtnGroupTmp = document.querySelector('#regionDetailBtnGroup')
+        regionDetailBtnGroupTmp.scrollTop = 0
       }
     },
     components : {
@@ -389,7 +395,7 @@
     height: 300px;
     width: 45%;
     overflow-y: scroll;
-    scroll-behavior: smooth;
+    
   }
 
   #regionBtnGroup::-webkit-scrollbar {
@@ -524,6 +530,14 @@
   }
 
   .regionItem {
+    margin-left : 10%;
+    margin-right : 10%;
+    font-size: 1rem;
+    color: #212529;
+    text-align: center;
+  }
+
+  .regionItemDetail {
     margin-left : 10%;
     margin-right : 10%;
     font-size: 1rem;
