@@ -1,6 +1,6 @@
 <template>
   <li @click="clickRegionDetail" :id="region" class="regionLi">
-    <div class="regionItem"> {{ region }} </div>
+    <div class="regionItemDetail"> {{ region }} </div>
   </li> 
 </template>
 
