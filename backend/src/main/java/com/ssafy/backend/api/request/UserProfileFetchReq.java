@@ -21,7 +21,4 @@ public class UserProfileFetchReq {
 
     @ApiModelProperty(name="경력")
     int creer_period;
-
-    @ApiModelProperty(name="기술")
-    String skill;
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Estimate {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long estimateId;
 
     @NotNull

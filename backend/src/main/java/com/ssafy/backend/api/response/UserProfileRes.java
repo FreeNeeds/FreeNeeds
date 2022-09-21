@@ -28,9 +28,6 @@ public class UserProfileRes {
 
 	@ApiModelProperty(name="경력")
 	int creer_period;
-
-	@ApiModelProperty(name="기술")
-	String skill;
 	
 	public static UserProfileRes of(User user, Profile profile) {
 		UserProfileRes res = new UserProfileRes();
@@ -43,7 +40,6 @@ public class UserProfileRes {
 		res.setTitle(profile.getTitle());
 		res.setIntroduce(profile.getIntroduce());
 		res.setCreer_period(profile.getCreer_period());
-		res.setSkill(profile.getSkill());
 
 		return res;
 	}

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 public class Profile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
     private String title;
@@ -21,13 +21,6 @@ public class Profile {
 
     private int creer_period;
 
-
-    //@Lob
-    @Column(
-            columnDefinition = "TEXT"
-    )
-    private String skill;
-
     //FK : 유저(프리랜서) 시리얼
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -35,12 +28,11 @@ public class Profile {
     private User user;
 
     @Builder
-    public Profile(Long profileId, String title, String introduce, int creer_period, String skill, User user) {
+    public Profile(Long profileId, String title, String introduce, int creer_period, User user) {
         this.profileId = profileId;
         this.title = title;
         this.introduce = introduce;
         this.creer_period = creer_period;
-        this.skill = skill;
         this.user = user;
     }
 }
