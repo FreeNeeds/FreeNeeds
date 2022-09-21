@@ -9,7 +9,7 @@ RUN chmod +x ./gradlew
 RUN ./gradlew bootJAR
 
 FROM adoptopenjdk/openjdk12:latest
-COPY --from=builder /var/jenkins_home/workspace/deply/backendbuild/libs/*.jar
+COPY --from=builder /var/jenkins_home/workspace/deply/backend/build/libs/*.jar
  app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
