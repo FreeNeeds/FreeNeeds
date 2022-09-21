@@ -4,6 +4,7 @@
     <div id="freelancer-detail">
       <h1 id="freelancer-title">최고를 꿈꾸는 개발자입니다.</h1>
       <div id="freelancer-name">개발자 이*규 | ★★★★★ | 경력 3년</div>
+
       <!-- 컴포넌트 만들기 -->
       <div id="freelancer-grade" class="card text-bg-dark">
         <div class="card-img-overlay">
@@ -67,6 +68,14 @@
           aria-labelledby="nav-home-tab"
           tabindex="0"
         >
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addProjectModal"
+          >
+            프로젝트 추가
+          </button>
           <FreelancerProjectList></FreelancerProjectList>
         </div>
         <div
@@ -76,6 +85,14 @@
           aria-labelledby="nav-profile-tab"
           tabindex="0"
         >
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addCareerModal"
+          >
+            이력서 수정
+          </button>
           <FreelancerResume></FreelancerResume>
         </div>
       </div>
@@ -83,7 +100,8 @@
     </div>
 
     <InterviewBtn></InterviewBtn>
-
+    <add-project-modal-vue></add-project-modal-vue>
+    <add-career-modal-vue></add-career-modal-vue>
     <FooterNav></FooterNav>
   </b-container>
 </template>
@@ -94,9 +112,22 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectList from "@/components/Freelancer/FreelancerProject/FreelancerProjectList.vue";
 import FreelancerResume from "@/components/Freelancer/FreelancerResume.vue";
 import InterviewBtn from "@/components/Freelancer/Interview/InterviewBtn.vue";
-
+import AddProjectModalVue from "../FreelancerMypage/ManageCareer/AddProjectModal.vue";
+import AddCareerModalVue from "../FreelancerMypage/ManageCareer/AddCareerModal.vue";
 export default {
+  data() {
+    return {
+      freelancerInfo: {
+        user_id: "123"
+      },
+      userInfo: {
+        user_id: "123"
+      }
+    };
+  },
   components: {
+    AddCareerModalVue,
+    AddProjectModalVue,
     HeaderNav,
     FooterNav,
     FreelancerProjectList,
