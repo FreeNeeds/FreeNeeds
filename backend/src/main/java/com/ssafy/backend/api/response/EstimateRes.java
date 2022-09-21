@@ -6,6 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 평점 조회 API ([GET] /api/v1/estimates/{username}) 요청에 대한 응답값 정의.
+ */
 @Getter
 @Setter
 @ApiModel("EstimateResponse")
