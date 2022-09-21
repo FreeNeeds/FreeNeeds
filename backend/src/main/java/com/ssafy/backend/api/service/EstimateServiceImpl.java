@@ -1,11 +1,15 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.EstimateRegisterPostReq;
+import com.ssafy.backend.api.response.EstimateRes;
 import com.ssafy.backend.db.entity.Estimate;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.EstimateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *	평점 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -28,5 +32,18 @@ public class EstimateServiceImpl implements EstimateService{
         estimate.setReEmployment(registerEstimateInfo.getReEmployment());
 
         estimateRepository.save(estimate);
+    }
+
+    @Override
+    public List<EstimateRes> getEstimateAllList(User user) {
+        List<Estimate> estimateList = estimateRepository.findAllByUser(user);
+
+        List<EstimateRes> res = new ArrayList<>();
+
+        for (Estimate estimate : estimateList) {
+            res.add(EstimateRes.of(estimate));
+        }
+
+        return res;
     }
 }
