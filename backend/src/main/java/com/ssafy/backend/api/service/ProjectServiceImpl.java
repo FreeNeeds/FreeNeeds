@@ -1,10 +1,7 @@
 package com.ssafy.backend.api.service;
 
 import com.ssafy.backend.api.request.ProjectRegisterPostReq;
-import com.ssafy.backend.db.entity.Company;
-import com.ssafy.backend.db.entity.Project;
-import com.ssafy.backend.db.entity.ProjectTech;
-import com.ssafy.backend.db.entity.Tech;
+import com.ssafy.backend.db.entity.*;
 import com.ssafy.backend.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,13 +29,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     TechRepository techRepository;
 
+    @Autowired
+    DomainRepository domainRepository;
+
     @Override
-    public Project createProject(ProjectRegisterPostReq registerInfo, Company company) {
+    public void createProject(ProjectRegisterPostReq registerInfo, Company company) {
 
         Project project = Project.builder()
                 .category(registerInfo.getCategory())
-                .domain(registerInfo.getDomain())
-                .location(registerInfo.getLocation())
+                .locationSi(registerInfo.getLocationSi())
+                .locationGu(registerInfo.getLocationGu())
                 .skill(registerInfo.getSkill())
                 .title(registerInfo.getTitle())
                 .content(registerInfo.getContent())
@@ -53,10 +53,19 @@ public class ProjectServiceImpl implements ProjectService {
                 .lowPrice(registerInfo.getLowPrice())
                 .highPrice(registerInfo.getHighPrice())
                 .careerPeriod(registerInfo.getCareerPeriod())
+                .domain(registerInfo.getDomain())
                 .company(company)
                 .build();
+//         projectRepository.flush();
+         projectRepository.save(project);
+//
+//         Domain domain = Domain.builder()
+//                .domainName(registerInfo.getDomain())
+//                .project(project).build();
+//         System.out.println(domain);
+//         domainRepository.save(domain);
+//         domainRepository.flush();
 
-        return projectRepository.save(project);
     }
 
 
@@ -94,15 +103,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> getProjectsByTechs(List<String> techList) {
-        // 기술에 해당하는 프로젝트 리스트 (필터 검색용)
+    public List<Project> getProjectsByTechs(List<String> techList, String locationSi, String locationGu, String category, List<String> domainList) {
+        // 프로젝트 필터링 조회
+
+        // tech리스트 객체화
         List<Tech> nlist = new ArrayList<>();
         for(String t : techList){
             Tech temp = techRepository.findById(t).get();
             nlist.add(temp);
         }
 
-        return projectTechRepositorySupport.getProjectListByTechs(nlist);
+        return projectTechRepositorySupport.getProjectListByTechs(nlist,locationSi,locationGu,category,domainList);
 
     }
 

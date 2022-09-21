@@ -23,10 +23,13 @@ public class ProjectRegisterPostReq {
     @ApiModelProperty(name="형태", example="웹사이트")
     private String domain;
 
+    @NotBlank
+    @ApiModelProperty(name="지역 시", example="대전광역시")
+    private String locationSi;
 
     @NotBlank
-    @ApiModelProperty(name="지역", example="대전광역시 유성구")
-    private String location;
+    @ApiModelProperty(name="지역 구", example="유성구")
+    private String locationGu;
 
     @NotBlank
     @ApiModelProperty(name="기술", example="java, javascript, mysql")
