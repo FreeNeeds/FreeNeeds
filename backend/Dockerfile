@@ -1,4 +1,5 @@
-FROM adoptopenjdk:18-jdk-alpine AS builder
+FROM adoptopenjdk/openjdk12:latest AS builder
+WORKDIR /var/jenkins_home/workspace/deply/backend
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
@@ -7,7 +8,7 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJAR
 
-FROM openjdk:18-jdk-alpine
+FROM adoptopenjdk/openjdk12:latest
 COPY --from=builder build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
