@@ -1,7 +1,6 @@
 <template>
   <b-container>
     <!--상단 네비게이션 바-->
-    <HeaderNav></HeaderNav>
 
     <b-carousel
       id="carousel-1"
@@ -151,7 +150,6 @@
         </b-card-text>
       </b-card>
     </div>
-    <FooterNav></FooterNav>
   </b-container>
 </template>
 <script>
