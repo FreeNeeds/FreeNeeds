@@ -42,7 +42,7 @@ export default {};
   font-size: 60px;
 }
 .index-signup-container {
-  margin-top: 200px;
+  margin-top: 50px;
 }
 .index-signup-selectbox {
   width: 45%;
