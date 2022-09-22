@@ -1,6 +1,10 @@
 <template>
   <div class="project-card-wrapper">
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
+    <img
+      class="wrapperImgProjectCarousel"
+      src="@/assets/images/하얀색.png"
+      alt=""
+    />
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -48,7 +52,7 @@
         </div>
       </div>
     </div>
-    <!--<div class="row project-card-devide-row">
+    <div class="row project-card-devide-row">
       <div class="col-2  ">
         <div class="project-card-category">{{ projectData.category }}</div>
       </div>
@@ -105,8 +109,7 @@
           {{ projectData.location }}
         </div>
       </div>
-    </div>-->
-    <hr>
+    </div>
   </div>
 </template>
 
@@ -228,8 +231,7 @@ export default {
 }
 
 .wrapperImgProjectCarousel {
-  width : 100%;
-  height : 0px;
+  width: 100%;
+  height: 0px;
 }
-
 </style>

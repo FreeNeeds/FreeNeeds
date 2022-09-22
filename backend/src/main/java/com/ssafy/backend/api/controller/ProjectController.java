@@ -42,7 +42,7 @@ public class ProjectController {
             @RequestBody @ApiParam(value="프로젝트 정보", required = true) ProjectRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
         SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
         Company company = companyDetails.getCompany();
-        Project project = projectService.createProject(registerInfo,company);
+        projectService.createProject(registerInfo,company);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
@@ -106,8 +106,8 @@ public class ProjectController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
-        return new ResponseEntity<List<Project>>(projectService.getProjectsByTechs(techList), HttpStatus.OK);
+    public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList, @RequestParam String locationSi, @RequestParam String locationGu, @RequestParam String category, @RequestParam List<String> domain ) {
+        return new ResponseEntity<List<Project>>(projectService.getProjectsByTechs(techList,locationSi,locationGu,category,domain), HttpStatus.OK);
     }
 
     @GetMapping()

@@ -18,7 +18,7 @@ import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
 import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
 import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
 import FreelancerDetail from "@/components/Freelancer/FreelancerDetail";
-
+import ManageCareerMain from "@/components/FreelancerMypage/ManageCareerMain";
 /** 기업 마이페이지 */
 import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
 import CompanyMessage from "@/components/EnterpriseMypage/CompanyMessage";
@@ -33,6 +33,9 @@ import ApplyProject from "@/components/FreelancerMypage/ApplyStatus/ApplyProject
 import RequestedProject from "@/components/FreelancerMypage/ApplyStatus/RequestedProject";
 import SignedProject from "@/components/FreelancerMypage/ApplyStatus/SignedProject";
 import UnderContract from "@/components/FreelancerMypage/ApplyStatus/UnderContract";
+
+/** 프리랜서 커리어관리 컴포넌트 */
+import CorrectInfomation from "@/components/FreelancerMypage/ManageCareer/CorrectInfomation.vue";
 
 /**
  * 아래의 router를 변경하여 구현할 수 있습니다.
@@ -128,7 +131,20 @@ const routes = [
       {
         path: "managecareer",
         name: "managecareer",
-        component: ManageCareer
+        component: ManageCareerMain,
+        redirect: "/mypage/freelancer/managecareer/myCareer",
+        children: [
+          {
+            path: "mycareer",
+            name: "mycareer",
+            component: ManageCareer
+          },
+          {
+            path: "correctmycareer",
+            name: "correctmycareer",
+            component: CorrectInfomation
+          }
+        ]
       },
       {
         path: "freelancermessage",
