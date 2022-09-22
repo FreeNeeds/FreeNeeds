@@ -1,10 +1,8 @@
 <template>
   <b-container>
-    <HeaderNav></HeaderNav>
     <div id="banner"></div>
     <FilterBtn></FilterBtn>
     <FreelancerList></FreelancerList>
-    <FooterNav></FooterNav>
   </b-container>
 </template>
 
