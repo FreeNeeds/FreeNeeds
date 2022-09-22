@@ -267,8 +267,6 @@ export default {
     HeaderNav,
     FooterNav,
     FreelancerProjectCard,
-    FreelancerResume,
-    InterviewBtn,
     FreelancerCardSkill,
     FreelancerDetailNav,
     ProjectCardCarousel
