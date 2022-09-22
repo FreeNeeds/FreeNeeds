@@ -12,16 +12,16 @@
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round" v-if="remainDate != 0">
-          D{{ remainDate }}
+          D - {{ remainDate }}
         </div>
         <div class="project-card-header-round" v-else>
           D-Day
         </div>
       </div>
       <div class="project-card-title col-10 ">
-        {{ projectData.endDate.getFullYear() }} -
-        {{ projectData.endDate.getMonth() + 1 }} -
-        {{ projectData.endDate.getDate() }} 마감
+        {{ projectData.deadline.getFullYear() }} -
+        {{ projectData.deadline.getMonth() + 1 }} -
+        {{ projectData.deadline.getDate() }} 마감
       </div>
     </div>
     <hr class="project-card-line" />
@@ -42,7 +42,7 @@
           <div class="mx-3">예상종료기간</div>
           <div class="mx-3">
             {{ projectData.deadline.getFullYear() }}.{{
-              projectData.deadline.getMonth()
+              projectData.deadline.getMonth() + 1
             }}.{{ projectData.deadline.getDate() }}
           </div>
         </div>
@@ -157,7 +157,7 @@
     },
     mounted() {
       this.remainDate = Math.ceil(
-        (new Date().getTime() - this.projectData.endDate.getTime()) /
+        (this.projectData.deadline.getTime() - new Date().getTime()) /
           (1000 * 60 * 60 * 24) -
           1
       );
