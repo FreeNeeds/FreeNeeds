@@ -1,18 +1,38 @@
 <template>
-  <div id="freelancer-grade" class="card text-bg-dark">
-    <div class="card-img-overlay">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <p class="card-text"><small>Last updated 3 mins ago</small></p>
+  <div class="project-card-wrapper" data-bs-toggle="modal" data-bs-target="">
+    <div class="d-flex my-2">
+      <div class="text-start" style="color: gray">{{ freelancerProjectCard.body.category }}</div>
+    </div>
+    <div class="d-flex mx-2 my-3">
+      <div class="fw-bold" style="font-size: 18px"> {{ freelancerProjectCard.body.title }}</div>
+    </div>
+    <div class="d-flex mx-2 my-3">
+      <div style="color: gray"> {{ freelancerProjectCard.body.startDate }} ~ {{ freelancerProjectCard.body.endDate }} </div>
+    </div>
+    <div class="d-flex mx-2 my-2">
+      <div class="text-start"> {{ freelancerProjectCard.body.content }}</div>
+    </div>
+    <div class="d-flex mx-2 my-2">
+      <FreelancerCardSkill
+      v-for="skillItem in freelancerProjectCard.body.projectCareerTech"
+      :key="skillItem"
+      :skillItem="skillItem"
+      ></FreelancerCardSkill>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
-</script>
+  import FreelancerCardSkill from '../FreelancerCardSkill.vue';
+  export default {
+    name: "FreelancerProjectCard",
+    props : {
+      freelancerProjectCard : Object
+    },
+    components : {
+      FreelancerCardSkill
+    }
+  };
+  </script>
 
 <style></style>
