@@ -1,11 +1,9 @@
 <template>
   <b-container>
-    <HeaderNav></HeaderNav>
     <div id="banner"></div>
     <FilterBtn></FilterBtn>
     <!--<SearchBar></SearchBar>-->
     <ProjectList :projectCardLst="projectCardLst"></ProjectList>
-    <FooterNav></FooterNav>
   </b-container>
 </template>
 

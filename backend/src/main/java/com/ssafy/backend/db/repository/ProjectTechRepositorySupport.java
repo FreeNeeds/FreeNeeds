@@ -2,10 +2,7 @@ package com.ssafy.backend.db.repository;
 
 import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.backend.db.entity.Project;
-import com.ssafy.backend.db.entity.ProjectTech;
-import com.ssafy.backend.db.entity.QProjectTech;
-import com.ssafy.backend.db.entity.Tech;
+import com.ssafy.backend.db.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -37,17 +34,30 @@ public class ProjectTechRepositorySupport extends QuerydslRepositorySupport{
                 .fetch();
     }
 
-    public List<Project> getProjectListByTechs(List<Tech> techList){
+    public List<Project> getProjectListByTechs(List<Tech> techList, String locationSi, String locationGu, String category, List<String> domainList){
 
 
         QProjectTech qProjectTech = QProjectTech.projectTech;
+        QProject qProject = QProject.project;
+//        QDomain qDomain = QDomain.domain;
 
-        return jpaQueryFactory
-                .select(qProjectTech.project)
+        return jpaQueryFactory.select(qProjectTech.project)
                 .from(qProjectTech)
-                .where(qProjectTech.tech.in(techList))
+                .where(qProjectTech.tech.in(techList)
+                        ,qProjectTech.project.locationSi.eq(locationSi)
+                        ,qProjectTech.project.locationGu.eq(locationGu)
+                        ,qProjectTech.project.category.eq(category)
+//                        ,qProjectTech.project.domain
+//                        ,qDomain.in(domainList))
+//                        ,qProjectTech.project.domains.domainName.in(domainList)
+                        ,qProjectTech.project.domain.in(domainList)
+                )
+
                 .distinct()
                 .fetch();
+
+
+
     }
 
     public Page<Project> getProjectListByTechsPaging(List<Tech> techList, Pageable pageable){

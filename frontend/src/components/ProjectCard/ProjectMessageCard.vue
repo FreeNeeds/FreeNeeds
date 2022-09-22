@@ -1,6 +1,10 @@
 <template>
-  <div class="project-card-wrapper" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit>
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
+  <div class="project-card-wrapper">
+    <img
+      class="wrapperImgProjectCarousel"
+      src="@/assets/images/하얀색.png"
+      alt=""
+    />
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -12,16 +16,16 @@
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round" v-if="remainDate != 0">
-          D - {{ remainDate }}
+          D{{ remainDate }}
         </div>
         <div class="project-card-header-round" v-else>
           D-Day
         </div>
       </div>
       <div class="project-card-title col-10 ">
-        {{ projectData.deadline.getFullYear() }} -
-        {{ projectData.deadline.getMonth() + 1 }} -
-        {{ projectData.deadline.getDate() }} 마감
+        {{ projectData.endDate.getFullYear() }} -
+        {{ projectData.endDate.getMonth() + 1 }} -
+        {{ projectData.endDate.getDate() }} 마감
       </div>
     </div>
     <hr class="project-card-line" />
@@ -42,19 +46,13 @@
           <div class="mx-3">예상종료기간</div>
           <div class="mx-3">
             {{ projectData.deadline.getFullYear() }}.{{
-              projectData.deadline.getMonth() + 1
+              projectData.deadline.getMonth()
             }}.{{ projectData.deadline.getDate() }}
           </div>
         </div>
       </div>
     </div>
-    <ProjectDetail
-    :id=projectCardItem
-    :projectDataReceive=projectData
-    :companyDataReceive=companyData
-    >
-    </ProjectDetail>
-    <!--<div class="row project-card-devide-row">
+    <div class="row project-card-devide-row">
       <div class="col-2  ">
         <div class="project-card-category">{{ projectData.category }}</div>
       </div>
@@ -111,75 +109,129 @@
           {{ projectData.location }}
         </div>
       </div>
-    </div>-->
-    <hr>
+    </div>
   </div>
 </template>
 
 <script>
-  import ProjectDetail from '@/components/Project/ProjectDetail.vue';
-
-  export default {
-    data() {
-      return {
-        /**임시 데이터 */
-        projectData: {
-          id: "1",
-          category: "개발",
-          demain: "웹사이트",
-          location: "대한민국 어딘가...",
-          skill: ["Java", "Mysql" ,"SpringBoot"],
-          title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-          content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-          startDate: new Date("2022-09-10"),
-          endDate: new Date("2022-09-16"),
-          startDateSummry : "2022-09-10",
-          endDateSummry : "2022-09-16",
-          deadline: new Date("2022-11-30"),
-          recruitNumber: 3,
-          task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-          workstyle: "재택",
-          workStartTime: "오전 08:00",
-          workEndTime: "오후 16:00",
-          lowPrice: "200만원",
-          highPrice: "300만원",
-          careerPeriod: 3,
-        },
-        companyData : {
-          name: "삼성전자",
-          ceo: "이재용",
-          address: "대전시 유성구 덕명동",
-          call: "042-000-0000"
-        },
-        projectCardItemEdit: "#",
-        remainDate: ""
-      };
-    },
-    mounted() {
-      this.remainDate = Math.ceil(
-        (this.projectData.deadline.getTime() - new Date().getTime()) /
+export default {
+  data() {
+    return {
+      /**임시 데이터 */
+      projectData: {
+        category: "개발",
+        demain: "웹사이트",
+        location: "대한민국 어딘가AAAAAAAAAAAAAAAAAAAAAA",
+        skill: "Java Mysql SpringBoot",
+        title: "AI기반 Firescout 솔루션 ux/ui 디자인",
+        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+        startDate: new Date("2022-09-10"),
+        endDate: new Date("2022-09-16"),
+        deadline: new Date("2022-11-30"),
+        recruitNumber: 3,
+        task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
+        workstyle: "재택",
+        workStartTime: "오전 08:00",
+        workEndTime: "오후 16:00",
+        lowPrice: "200만원",
+        highPrice: "300만원",
+        careerPeriod: 3
+      }
+    };
+  },
+  computed: {
+    remainDate() {
+      return Math.ceil(
+        (new Date().getTime() - this.projectData.endDate.getTime()) /
           (1000 * 60 * 60 * 24) -
           1
       );
-      this.projectCardItemEdit += String(this.projectCardItem)
-    },
-    methods : {
-      clickProjectCardInProjectFind() {
-        this.$router.push({name : "projectDetail", params: {
-                projectData : this.projectData,
-                }});
-      }
-    },
-    props: {
-      //nprojectData: Object
-      projectCardItem : String
-    },
-    components : {
-      ProjectDetail
     }
-  };
+  },
+  props: {
+    //nprojectData: Object
+  }
+};
 </script>
 
 <style>
+.project-card-title {
+  padding-top: 8px;
+}
+.project-card-devide-row {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+.project-card-header-item {
+  margin-bottom: 25px;
+}
+.project-card-wrapper {
+  padding: 2%;
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+}
+.project-card-header-round {
+  padding: 10px;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #254ec9;
+  color: white;
+  text-align: center;
+}
+.project-card-line {
+  height: 3px;
+  background-color: black;
+}
+.project-card-item-round-wrapper {
+  padding-right: 3px;
+  padding-left: 3px;
+}
+.project-card-item-round {
+  padding: 10px 3px 10px 3px;
+  border: 1px solid #cdcecf;
+  border-radius: 20px;
+}
 
+.project-card-category {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  padding-top: 8px;
+  background-color: white;
+  color: #3f8bff;
+  border: 1px solid #3f8bff;
+}
+.project-card-domain {
+  padding-top: 8px;
+  /* position: absolute;
+  top: 50%;
+  margin-top: -12px; */
+}
+.project-card-skill-title {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  padding-top: 8px;
+  background-color: #707070;
+  color: white;
+}
+.project-card-skill {
+  padding-top: 8px;
+  /* position: absolute;
+  top: 50%;
+  margin-top: -12px; */
+}
+.project-card-content-wrapper {
+  color: #b1b1b1;
+}
+
+.wrapperImgProjectCarousel {
+  width: 100%;
+  height: 0px;
+}
 </style>

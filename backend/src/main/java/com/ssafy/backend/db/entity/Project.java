@@ -8,7 +8,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,13 +27,16 @@ public class Project {
     private String category;
 
     @NotNull
-    @Column(length = 16)
-    private String domain;
-
+    @Column(length = 255)
+    private String locationSi;
 
     @NotNull
     @Column(length = 255)
-    private String location;
+    private String locationGu;
+
+    @NotNull
+    @Column(length = 255)
+    private String skill;
 
     @NotNull
     @Column(length = 255)
@@ -82,6 +87,9 @@ public class Project {
     @NotNull
     private int careerPeriod;
 
+    @NotNull
+    @Column(length = 255)
+    private String domain;
 
     //FK : 회사 시리얼
     @ManyToOne
@@ -90,12 +98,17 @@ public class Project {
     @JsonIgnore
     private Company company;
 
+//    @OneToMany(mappedBy = "project")
+//    @JsonIgnore
+//    private List<Domain> domains = new ArrayList<>();
+
 
     @Builder
-    public Project(String category, String domain, String location, String title, String content, Date startDate, Date endDate, Date deadline, int recruitNumber, String task, String workStyle, String workStartTime, String workEndTime, String lowPrice, String highPrice, int careerPeriod, Company company) {
+    public Project(String category, String locationSi, String locationGu, String skill, String title, String content, Date startDate, Date endDate, Date deadline, int recruitNumber, String task, String workStyle, String workStartTime, String workEndTime, String lowPrice, String highPrice, int careerPeriod, Company company, String domain) {
         this.category = category;
-        this.domain = domain;
-        this.location = location;
+        this.locationSi = locationSi;
+        this.locationGu = locationGu;
+        this.skill = skill;
         this.title = title;
         this.content = content;
         this.startDate = startDate;
@@ -110,5 +123,7 @@ public class Project {
         this.highPrice = highPrice;
         this.careerPeriod = careerPeriod;
         this.company = company;
+        this.domain =domain;
+
     }
 }

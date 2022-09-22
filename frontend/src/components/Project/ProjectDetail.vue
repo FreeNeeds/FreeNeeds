@@ -152,15 +152,11 @@
     },
     mounted() {
       this.remainDate = Math.ceil(
-        (new Date().getTime() - this.projectDataReceive.endDate.getTime()) /
+        (this.projectDataReceive.deadline.getTime() - new Date().getTime()) /
           (1000 * 60 * 60 * 24) -
           1
       );
-      if (this.remainDate > 0) {
-        this.remainDate = "D + " + String(this.remainDate)
-      } else {
-        this.remainDate = "D - " + String(this.remainDate)
-      }
+      this.remainDate = "D - " + String(this.remainDate)
       this.periodWork = (this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
           (1000 * 60 * 60 * 24) - 1
       let taskItem = document.querySelector("#taskItem")
@@ -225,7 +221,7 @@
 
   #projectDetailHeadCtnr {
     border-radius: 20px;
-    background-color: lightgray;
+    background-color: rgb(241, 241, 241);
   }
 
   #ProjectDetailModalCloseBtn {

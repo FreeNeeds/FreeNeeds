@@ -8,8 +8,9 @@
               type="checkbox"
               :value="selectedMessage"
               @change="updatecheckmessage"
+              style="zoom:1.5"
             />
-            <div v-if="!message.open">
+            <div v-if="message.open">
               <img src="@/assets/images/envelope-open.png" />
             </div>
             <div v-else>
@@ -41,13 +42,14 @@
         </div>
       </div>
     </div>
+    <hr class="message-hr-decoration" />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
-import ProjectCard from "@/components/ProjectCard/ProjectCard.vue";
+import ProjectCard from "@/components/ProjectCard/ProjectMessageCard.vue";
 export default {
   components: {
     ProjectCard
@@ -96,6 +98,7 @@ export default {
           .slideDown();
         this.setSelectedIndex(index);
       }
+      this.message.open = true;
     }
   },
   mounted() {
@@ -114,10 +117,13 @@ export default {
 </script>
 
 <style>
+.message-hr-decoration {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .message-project-btn-wrapper {
   text-align: center;
-  padding-top: 450px;
-
+  padding-top: 400px;
   display: none;
   position: absolute;
   opacity: 1;
