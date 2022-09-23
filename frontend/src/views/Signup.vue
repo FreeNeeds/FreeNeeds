@@ -13,6 +13,7 @@
           <div class="col-9">
             <div class="regist-input-decoration">
               <input
+                @change="idChange"
                 v-model="user.id"
                 type="text"
                 id="registerCIdInput"
@@ -151,11 +152,11 @@
                 class="form-select"
                 aria-label="Default select example"
               >
-                <option value="gmail.com" selected>gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="hanmail.net">hanmail.net</option>
-                <option value="kakao.com">kakao.com</option>
+                <option value="@gmail.com" selected>gmail.com</option>
+                <option value="@naver.com">naver.com</option>
+                <option value="@daum.net">daum.net</option>
+                <option value="@hanmail.net">hanmail.net</option>
+                <option value="@kakao.com">kakao.com</option>
               </select>
             </div>
           </div>
@@ -241,8 +242,10 @@ export default {
     console.log(this.signupType);
   },
   methods: {
-    ...mapActions(["settestdata", "signupFreelancer"]),
-
+    ...mapActions(["settestdata", "signupFreelancer", "signupCompany"]),
+    idChange() {
+      this.isDuplicatedId = false;
+    },
     gettestdata() {
       this.settestdata(this.fortest);
     },
@@ -293,9 +296,6 @@ export default {
       ) {
         alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
-      } else if (this.isDuplicatedId === false) {
-        alert("아이디 중복검사를 해주세요.");
-        return;
       } else if (!this.termsCheck) {
         alert("이용약관에 동의해주세요.");
         return;
@@ -310,16 +310,10 @@ export default {
       //   passwordConfirm: ""
       // },
       if (this.signupType == "Company") {
+        this.signupCompany(this.user);
       } else {
-        const FreelancerInfo = {
-          email: this.user.email,
-          name: this.user.name,
-          password: this.user.password,
-          phone: this.user.number,
-          username: this.user.id
-        };
         // console.log(FreelancerInfo);
-        this.signupFreelancer(FreelancerInfo);
+        this.signupFreelancer(this.user);
       }
     }
   }

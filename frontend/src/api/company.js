@@ -5,9 +5,16 @@ import { createInstance } from "./index.js";
 const instance = createInstance();
 
 /** 기업 회원 가입 */
-function companySignup(registerInfo, success, fail) {
+function signupCompany(companyInfo, success, fail) {
+  const data = {
+    email: companyInfo.email + companyInfo.emailDomain,
+    name: companyInfo.name,
+    password: companyInfo.password,
+    phone: companyInfo.number,
+    username: companyInfo.id
+  };
   instance
-    .post(`/companies`, registerInfo)
+    .post(`/companies`, data)
     .then(success)
     .catch(fail);
 }
@@ -53,7 +60,7 @@ function changeCompanyUserInfo(userInfo, success, fail) {
 }
 
 export {
-  companySignup,
+  signupCompany,
   setCompanyInfo,
   changeCompanyInfo,
   getCompanyInfo,

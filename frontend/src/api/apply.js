@@ -1,6 +1,7 @@
 // apply.js
 import { createInstance } from "./index.js";
-
+import store from "@/store/index.js";
+// store.state.user.access_token.token와 같은 형식으로 토큰 가져올 수 있음.
 const instance = createInstance();
 
 /** 지원 상태 조회 */

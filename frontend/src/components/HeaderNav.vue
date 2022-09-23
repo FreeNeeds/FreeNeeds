@@ -22,19 +22,28 @@
           </div>
           <div>
             <span
+              v-if="!isLogin"
               id="loginBtn"
               class="nav-item auth-group"
               @click="routerLoginPage"
               >로그인</span
             >
             <span
+              v-if="isLogin"
               id="mypageBtn"
               class="nav-item auth-group"
               @click="routerMyPage"
               >마이페이지</span
             >
-            <span id="logoutBtn" class="nav-item auth-group">로그아웃</span>
             <span
+              v-if="isLogin"
+              id="logoutBtn"
+              class="nav-item auth-group"
+              @click="logout"
+              >로그아웃</span
+            >
+            <span
+              v-if="!isLogin"
               id="signupBtn"
               class="nav-item auth-group"
               @click="routerSignupPage"
@@ -48,26 +57,34 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(["accessToken", "isLogin"])
+  },
   mounted() {
-    const loginBtn = document.querySelector("#loginBtn");
-    const logoutBtn = document.querySelector("#logoutBtn");
-    const mypageBtn = document.querySelector("#mypageBtn");
-    const signupBtn = document.querySelector("#signupBtn");
-    if (this.$store.state.user) {
-      logoutBtn.setAttribute("style", "display: inline");
-      mypageBtn.setAttribute("style", "display: inline");
-    } else {
-      signupBtn.setAttribute("style", "display: inline");
-      loginBtn.setAttribute("style", "display: inline");
-    }
+    // const loginBtn = document.querySelector("#loginBtn");
+    // const logoutBtn = document.querySelector("#logoutBtn");
+    // const mypageBtn = document.querySelector("#mypageBtn");
+    // const signupBtn = document.querySelector("#signupBtn");
+    // if (this.$store.getters.isLogin) {
+    //   logoutBtn.setAttribute("style", "display: inline");
+    //   mypageBtn.setAttribute("style", "display: inline");
+    // } else {
+    //   signupBtn.setAttribute("style", "display: inline");
+    //   loginBtn.setAttribute("style", "display: inline");
+    // }
   },
   methods: {
+    ...mapActions(["logoutA", "goMypage"]),
+    logout() {
+      this.logoutA();
+    },
     routerSignupPage() {
       this.$router.push("/register");
     },
     routerMyPage() {
-      this.$router.push("/mypage/freelancer");
+      this.goMypage();
     },
     routerLoginPage() {
       this.$router.push("/login");
@@ -118,20 +135,20 @@ export default {
 #loginBtn {
   width: 100px;
   margin-right: 50px;
-  display: none;
+  /* display: none; */
 }
 #mypageBtn {
   width: 100px;
   margin-right: 50px;
-  display: none;
+  /* display: none; */
 }
 #signupBtn {
   width: 100px;
   margin-right: 50px;
-  display: none;
+  /* display: none; */
 }
 #logoutBtn {
   width: 100px;
-  display: none;
+  /* display: none; */
 }
 </style>
