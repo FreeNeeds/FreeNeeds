@@ -15,6 +15,12 @@ import java.util.Date;
 @Setter
 @ApiModel("UserProjectCareerResponse")
 public class UserProjectCareerRes {
+    @ApiModelProperty(name="User ProjectCareer Serial ID")
+    Long projectCareerId;
+
+    @ApiModelProperty(name="User Serial ID")
+    Long userId;
+
     @ApiModelProperty(name = "분야", example = "개발")
     String category;
 
@@ -38,6 +44,9 @@ public class UserProjectCareerRes {
 
     public static UserProjectCareerRes of(ProjectCareer projectCareer) {
         UserProjectCareerRes res = new UserProjectCareerRes();
+
+        res.setProjectCareerId(projectCareer.getProjectCareerId());
+        res.setUserId(projectCareer.getUser().getUserId());
 
         res.setCategory(projectCareer.getCategory());
         res.setDomain(projectCareer.getDomain());

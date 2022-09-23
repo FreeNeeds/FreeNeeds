@@ -14,6 +14,12 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserProfileResponse")
 public class UserProfileRes {
+	@ApiModelProperty(name="User Profile Serial ID")
+	Long profileId;
+
+	@ApiModelProperty(name="User Serial ID")
+	Long userId;
+
 	@ApiModelProperty(name="User ID")
 	String username;
 
@@ -33,6 +39,7 @@ public class UserProfileRes {
 		UserProfileRes res = new UserProfileRes();
 
 		//유저 테이블 ID와 이름 정보
+		res.setUserId(user.getUserId());
 		res.setUsername(user.getUsername());
 		res.setName(user.getName());
 
@@ -40,6 +47,7 @@ public class UserProfileRes {
 		res.setTitle(profile.getTitle());
 		res.setIntroduce(profile.getIntroduce());
 		res.setCreer_period(profile.getCreer_period());
+		res.setProfileId(profile.getProfileId());
 
 		return res;
 	}
