@@ -1,4 +1,5 @@
 // userService.js
+import axios from "axios";
 import { createInstance } from "./index.js";
 
 const instance = createInstance();
@@ -6,13 +7,25 @@ const instance = createInstance();
 /** 여기서 부터 만듬 */
 /** 프리랜서 회원가입 */
 function signupFreelancer(userInfo, success, fail) {
-  // console.log(userInfo);
+  console.log(userInfo);
   // console.log("여긴옴?");
-  console.log(instance);
+  // console.log(userInfo);
+  const registerInfo = {
+    email: userInfo.email + userInfo.emailDomain,
+    name: userInfo.name,
+    password: userInfo.password,
+    phone: userInfo.number,
+    username: userInfo.id
+  };
+  console.log(registerInfo);
+
   instance
-    .post("/users", JSON.stringify(userInfo))
-    .then(success)
-    .catch(fail);
+    .post("/users", registerInfo, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(success);
 }
 /** 프리랜서 전체 조회 */
 function getUserList(searchOption, success, fail) {

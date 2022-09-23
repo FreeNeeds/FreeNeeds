@@ -1,92 +1,188 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div id="login-form" class="col-md-6 mx-auto bg-white">
-        <router-link to="/">Escrow | STARMIX</router-link>
-        <div class="mt-4">
-          <div class="form-group">
-            <label for="email">email</label>
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              v-model="user.email"
-              placeholder="이메일"
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              v-model="user.password"
-              placeholder="비밀번호"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary" v-on:click="login">
-            로그인
-          </button>
+  <div class="container" style="text-align:center">
+    <div class="login-wrapper">
+      <h2 v-if="loginType == 'Company'" class="login-header">
+        기업 로그인
+      </h2>
+      <h2 v-else class="login-header">프리랜서 로그인</h2>
+      <div class="login-item-wrapper">
+        <label for="loginCIdInput" class="login-input-label">아이디</label>
+
+        <div class="login-input-decoration">
+          <input
+            v-model="loginInfo.username"
+            type="text"
+            id="loginCIdInput"
+            class="login-input-wrapper"
+          />
         </div>
+      </div>
+      <div class="login-item-wrapper">
+        <label for="loginCPasswordInput" class="login-input-label"
+          >비밀번호</label
+        >
+        <div class="login-input-decoration">
+          <div class="row">
+            <div class="col-10">
+              <input
+                v-model="loginInfo.password"
+                type="password"
+                id="loginCPasswordInput"
+                class="login-input-wrapper  password-input-wrapper"
+              />
+            </div>
+            <div
+              class="col-2"
+              v-if="passwordvisible"
+              @click="changePasswordVisible"
+            >
+              <img src="@/assets/images/eyeopen.png" class="eye-wrapper" />
+            </div>
+            <div class="col-2" v-else @click="changePasswordVisible">
+              <img src="@/assets/images/eyeclose.png" class="eye-wrapper" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-terms-input-form">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            자동 로그인
+          </label>
+        </div>
+      </div>
+      <div class="login-submit-btn-wrapper">
+        <button type="button" class="btn btn-primary btn-lg" @click="login">
+          <div style="padding-left:50px;padding-right:50px">
+            로그인
+          </div>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from "../api/user.js";
-import { findByUserId as findWallet } from "../api/wallet.js";
+import { mapActions } from "vuex";
 
 export default {
-  name: "Login",
+  props: {
+    loginType: String
+  },
   data() {
     return {
-      user: {
-        email: "",
+      loginInfo: {
+        username: "",
         password: ""
-      }
+      },
+      passwordvisible: false
     };
   },
+  computed: {},
+  mounted() {},
+  created() {},
   methods: {
+    ...mapActions(["freelancerLoginA", "companyLoginA"]),
     login() {
-      const scope = this;
-
-      login(
-        this.user.email,
-        this.user.password,
-        function(response) {
-          scope.$store.commit("setIsSigned", true);
-          scope.$store.commit("setUser", response.data);
-          
-          
-          /*
-          findWallet(
-            response.data.id,
-            function(response) {
-              if (response.status == 200) {
-                scope.$store.commit("setWalletAddress", response.data.address);
-              } else {
-                alert("Unexpected status code: " + response.status);
-              }
-            },
-            function(err) {
-              if (err.response != 404) {
-                console.error(err);
-                //alert("지갑 정보를 찾지 못했습니다.");
-              }
-            }
-          );*/
-          
-          scope.$router.push("/");
-        },
-        function(error) {
-          console.error(error);
-          alert("유저 이메일 혹은 비밀번호가 일치하지 않습니다.");
-        }
-      );
+      if (this.loginType == "company") {
+        this.companyLogin();
+      } else {
+        this.freelancerLogin();
+      }
+    },
+    companyLogin() {
+      this.companyLoginA(this.loginInfo);
+    },
+    freelancerLogin() {
+      this.freelancerLoginA(this.loginInfo);
+    },
+    changePasswordVisible() {
+      this.passwordvisible = !this.passwordvisible;
+      var passwordElement = document.getElementById("loginCPasswordInput");
+      if (passwordElement.type == "password") {
+        passwordElement.type = "text";
+      } else {
+        passwordElement.type = "password";
+      }
     }
   }
 };
 </script>
 
-<style></style>
+<style>
+.form-check {
+  text-align: left;
+}
+.id-duplicate-confirm-btn {
+  width: 100%;
+  height: 100%;
+}
+.login-terms-input-form .form-check-input {
+  /* zoom: 1.5; */
+}
+.login-terms-input-form .form-check-label {
+  /* zoom: 1.5; */
+  text-align: left;
+}
+
+.eye-wrapper {
+  margin-left: 40%;
+  margin-top: 15%;
+  height: 50%;
+  weight: 50%;
+}
+.login-wrapper {
+  margin-top: 50px;
+  width: 500px;
+  /* border: 1px solid black; */
+  display: inline-block;
+  text-align: left;
+}
+.login-item-wrapper {
+  margin-top: 20px;
+}
+.login-terms-input-form {
+  margin-top: 30px;
+  text-align: center;
+}
+.login-submit-btn-wrapper {
+  margin-top: 30px;
+  text-align: center;
+}
+.login-input-wrapper {
+  padding: 10px;
+  font-size: 20px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.login-input-wrapper:focus {
+  border: none;
+}
+.login-input-label {
+  display: block;
+}
+.password-input-wrapper {
+  width: 90%;
+}
+.login-input-decoration {
+  border: 1px solid #c7c8d2;
+  border-radius: 8px;
+  background-color: white;
+  padding: 3px;
+}
+#emailSelectBar {
+  width: 100%;
+  height: 100%;
+}
+.login-header {
+  margin-bottom: 50px;
+}
+</style>
