@@ -2,7 +2,7 @@ package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.ApplyDeleteReq;
 import com.ssafy.backend.api.request.ApplyReq;
-import com.ssafy.backend.api.response.ApplyPostPutRes;
+import com.ssafy.backend.api.response.ApplyListRes;
 import com.ssafy.backend.api.response.ApplyRes;
 import com.ssafy.backend.api.service.ApplyService;
 import com.ssafy.backend.api.service.ProjectService;
@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Api(value = "지원 API", tags = {"Apply"})
@@ -35,13 +36,11 @@ public class ApplyController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> getApply(@RequestParam(name = "userId") Long userId, @RequestParam(name = "projectId") Long projectId) {
+    public ResponseEntity<ApplyListRes> getApply(@RequestParam(name = "userId") Long userId) {
         Optional<User> user = userService.getUserByUserId(userId);
-        Project project = projectService.getProjectByProjectId(projectId);
         if (user.isPresent()) {
-            Apply apply = applyService.getApply(user.get(), project);
-            String state = apply.getState();
-            return ResponseEntity.status(200).body(ApplyRes.of(200, "success", state));
+            List<Apply> applyList = applyService.getApply(user.get());
+            return ResponseEntity.status(200).body(ApplyListRes.of(200, "success", applyList));
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }
