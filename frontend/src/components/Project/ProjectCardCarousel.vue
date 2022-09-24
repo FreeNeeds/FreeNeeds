@@ -1,6 +1,6 @@
 <template>
-  <div style="width : 70%; margin : auto" :id="projectCardCarousel.id">
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
+  <div :id="projectCardCarousel.id">
+    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 640px;">
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -68,14 +68,7 @@
         (this.projectData.deadline.getTime() - new Date().getTime()) /
           (1000 * 60 * 60 * 24) -
           1
-      );
-      if (this.projectCardCarousel.id === "ids0") {
-        
-        let tmp = document.querySelector("#" + this.projectCardCarousel.id)
-        console.log(tmp)
-        tmp.classList.add("active")
-      }
-
+      )
     },
   }
 </script>

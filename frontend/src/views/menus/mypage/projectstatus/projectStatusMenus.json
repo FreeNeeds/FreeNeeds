@@ -1,0 +1,20 @@
+{
+  "projectStatus": {
+    "name": "구인중인 프로젝트",
+    "hidden": false,
+    "path": "/mypage/company/projectstatus/recruit",
+    "children": []
+  },
+  "projectRegist": {
+    "name": "진행중인 프로젝트",
+    "hidden": false,
+    "path": "/mypage/company/projectstatus/ongoing",
+    "children": []
+  },
+  "companyInfoAdmin": {
+    "name": "완료된 프로젝트",
+    "hidden": false,
+    "path": "/mypage/company/projectstatus/complete",
+    "children": []
+  }
+}

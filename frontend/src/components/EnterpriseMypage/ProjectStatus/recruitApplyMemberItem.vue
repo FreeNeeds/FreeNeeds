@@ -1,10 +1,12 @@
 <template>
   <b-card
-    class="freelancer-contents"
+    class="freelancer-contents myPageProjectCardWrpr"
     img-src="https://placekitten.com/300/300"
     img-left
-    data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit
     >
+      <div class="hoverProjectCard d-none" style="height : 0px !important;">
+        <button data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn" >상세보기</button>
+      </div>
       <div class="row justify-content-between">
         <b-card-title class="col-6">
           {{ nameErase }}
@@ -48,19 +50,21 @@
           <hr>
         </div>
       </div>
-      <FreelancerDetail
+      <recruitApplyMemberItemDetail
       :id=freelancerCardId
       :freelancerDetailReceive="freelancerCard.body"
       :id_=this.freelancerCard.id
-      ></FreelancerDetail>
+      ></recruitApplyMemberItemDetail>
   </b-card>
 </template>
 
 <script>
-  import FreelancerCardSkill from './FreelancerCardSkill.vue';
+  import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
+  import recruitApplyMemberItemDetail from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetail.vue'
 
   export default {
+    name : 'recruitApplyMemberItem',
     data() {
       return {
         nameErase : "",
@@ -92,66 +96,33 @@
     },
     components : {
     FreelancerCardSkill,
-    FreelancerDetail
+    FreelancerDetail,
+    recruitApplyMemberItemDetail
 }
   };
 </script>
 
 <style>
-  .tech-contents {
-    margin: 3px;
+  .myPageProjectCardWrpr:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
   }
 
-  .freelancer-contents {
-    width: 800px !important;
-    height: 200px !important;
-    margin: 0 auto;
-    margin-top: 30px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  .myPageProjectCardWrpr:hover > .card-body > .hoverProjectCard{
+    display: block !important;
   }
 
-  .freelancer-contents > img {
-    border-radius: 60px;
-    margin : 30px;
-  }
-
-  .freelancer-contents > .card-body > .card-title {
-    margin-top : 10px;
-  }
-
-  .freelancer-contents > .card-body > .container {
-    height : 135px;
-  }
-
-  .freelancer-contents:hover {
-    background-color: white !important;
-  }
-
-  .star-ratings {
-    color: #aaa9a9; 
+  .myPageApplyMemberDetailBtn {
+    border-radius: 40px;
     position: relative;
-    unicode-bidi: bidi-override;
-    width: max-content;
-    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-    -webkit-text-stroke-width: 1.3px;
-    -webkit-text-stroke-color: #2b2a29;
+    top : 63px;
+    left : 120px;
+    z-index: 2;
+    border: 1px solid lightgray;
+    background-color: #3c74c9;
+    font-size: 17px;
+    color : white;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
   }
-  
-  .star-ratings-fill {
-    color: #fff58c;
-    padding: 0;
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    -webkit-text-fill-color: gold;
-  }
-  
-  .star-ratings-base {
-    z-index: 0;
-    padding: 0;
-  }
-
 </style>
