@@ -14,6 +14,7 @@ import FreelancerCard from "@/components/Freelancer/FreelancerCard.vue";
 export default {
   data() {
     return {
+      myProjectLst : [],
       freelancerCardLst : [],
       freelancerCardItem : {
         projectCareerId : "1",
@@ -25,6 +26,28 @@ export default {
         projectCareerTech : ["Java","Vue.js","Oracle"],
         startDate : "2020-04-10",
         endDate : "2020-10-30"
+      },
+      projectData: {
+        id: "1",
+        category: "개발",
+        demain: "웹사이트",
+        location: "대한민국 어딘가...",
+        skill: ["Java", "Mysql" ,"SpringBoot"],
+        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
+        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+        startDate: new Date("2022-09-10"),
+        endDate: new Date("2022-09-16"),
+        startDateSummry : "2022-09-10",
+        endDateSummry : "2022-09-16",
+        deadline: new Date("2022-11-30"),
+        recruitNumber: 3,
+        task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
+        workstyle: "재택",
+        workStartTime: "오전 08:00",
+        workEndTime: "오후 16:00",
+        lowPrice: "200만원",
+        highPrice: "300만원",
+        careerPeriod: 3,
       },
       freelancerDataReceive : {
         user_id : "1",
@@ -88,6 +111,13 @@ export default {
       this.freelancerDataReceive.projectCareer.push({
         id : i,
         body : this.freelancerCardItem
+      })
+    }
+
+    for(let i = 0; i < 5; i++) {
+      this.myProjectLst.push({
+        id : "ids" + String(i),
+        body : this.projectData
       })
     }
   },
