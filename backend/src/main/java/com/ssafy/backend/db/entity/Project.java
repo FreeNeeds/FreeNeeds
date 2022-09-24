@@ -36,6 +36,10 @@ public class Project {
 
     @NotNull
     @Column(length = 255)
+    private String skill;
+
+    @NotNull
+    @Column(length = 255)
     private String title;
 
     @NotNull
@@ -100,18 +104,11 @@ public class Project {
 
 
     @Builder
-<<<<<<< HEAD
     public Project(String category, String locationSi, String locationGu, String skill, String title, String content, Date startDate, Date endDate, Date deadline, int recruitNumber, String task, String workStyle, String workStartTime, String workEndTime, String lowPrice, String highPrice, int careerPeriod, Company company, String domain) {
         this.category = category;
         this.locationSi = locationSi;
         this.locationGu = locationGu;
         this.skill = skill;
-=======
-    public Project(String category, String domain, String location, String title, String content, Date startDate, Date endDate, Date deadline, int recruitNumber, String task, String workStyle, String workStartTime, String workEndTime, String lowPrice, String highPrice, int careerPeriod, Company company) {
-        this.category = category;
-        this.domain = domain;
-        this.location = location;
->>>>>>> 47f4b8cc7d49cdf2bcf7ccc2ea2e2a7d17816b2c
         this.title = title;
         this.content = content;
         this.startDate = startDate;

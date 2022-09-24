@@ -1,7 +1,5 @@
 <template>
   <div class="container" style="text-align:center">
-    {{ this.testdata }}
-    <input type="text" @change="gettestdata" v-model="fortest" />
     <div class="register-wrapper">
       <h2 v-if="signupType == 'Company'" class="regist-header">
         기업 회원가입
@@ -15,6 +13,7 @@
           <div class="col-9">
             <div class="regist-input-decoration">
               <input
+                @change="idChange"
                 v-model="user.id"
                 type="text"
                 id="registerCIdInput"
@@ -133,7 +132,7 @@
           <div class="row">
             <div class="col-6">
               <input
-                v-model="email"
+                v-model="user.email"
                 type="text"
                 id="registerCNumberInput"
                 class="regist-email-input-wrapper"
@@ -147,17 +146,17 @@
             </div>
             <div class="col-5">
               <select
-                v-model="emailDomain"
+                v-model="user.emailDomain"
                 name="emailadress"
                 id="emailSelectBar"
                 class="form-select"
                 aria-label="Default select example"
               >
-                <option value="gmail.com" selected>gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="hanmail.net">hanmail.net</option>
-                <option value="kakao.com">kakao.com</option>
+                <option value="@gmail.com" selected>gmail.com</option>
+                <option value="@naver.com">naver.com</option>
+                <option value="@daum.net">daum.net</option>
+                <option value="@hanmail.net">hanmail.net</option>
+                <option value="@kakao.com">kakao.com</option>
               </select>
             </div>
           </div>
@@ -178,12 +177,10 @@
         </div>
       </div>
       <div class="regist-submit-btn-wrapper">
-        <button
-          type="button"
-          class="btn btn-primary btn-lg"
-          @click="registCompany"
-        >
-          <div style="padding-left:50px;padding-right:50px">회원가입</div>
+        <button type="button" class="btn btn-primary btn-lg" @click="Signup">
+          <div style="padding-left:50px;padding-right:50px">
+            회원가입
+          </div>
         </button>
       </div>
     </div>
@@ -191,7 +188,6 @@
 </template>
 
 <script>
-import { signup } from "../api/user.js";
 import * as yup from "yup";
 import { mapActions, mapGetters } from "vuex";
 
@@ -203,8 +199,7 @@ export default {
     return {
       fortest: "",
       termsCheck: false,
-      email: "",
-      emailDomain: "",
+
       isDuplicatedEmail: false,
       isDuplicatedId: false,
       isAuthorized: false,
@@ -213,6 +208,8 @@ export default {
         name: "",
         number: "",
         password: "",
+        email: "",
+        emailDomain: "",
         passwordConfirm: ""
       },
       validationPattern: {
@@ -245,7 +242,10 @@ export default {
     console.log(this.signupType);
   },
   methods: {
-    ...mapActions(["settestdata"]),
+    ...mapActions(["settestdata", "signupFreelancer", "signupCompany"]),
+    idChange() {
+      this.isDuplicatedId = false;
+    },
     gettestdata() {
       this.settestdata(this.fortest);
     },
@@ -272,7 +272,7 @@ export default {
         passwordElement.type = "password";
       }
     },
-    registCompany() {
+    Signup() {
       console.log(this.user);
       this.user.emailadress = `${this.email}@${this.emailDomain}`;
       this.schema.isValid(this.user).then((valid, msg) => {
@@ -296,35 +296,24 @@ export default {
       ) {
         alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
-      } else if (this.isDuplicatedId === false) {
-        alert("아이디 중복검사를 해주세요.");
-        return;
       } else if (!this.termsCheck) {
         alert("이용약관에 동의해주세요.");
         return;
       }
+      // user: {
+      //   id: "",
+      //   name: "",
+      //   number: "",
+      //   password: "",
+      //   email: "",
+      //   emailDomain: "",
+      //   passwordConfirm: ""
+      // },
       if (this.signupType == "Company") {
+        this.signupCompany(this.user);
       } else {
-      }
-    },
-    register() {
-      var vm = this;
-
-      if (this.user.password === this.user.passwordConfirm) {
-        signup(
-          this.user.email,
-          this.user.name,
-          this.user.password,
-          function() {
-            alert("회원가입이 완료되었습니다.");
-            vm.$router.push("/");
-          },
-          function(error) {
-            console.error(error);
-          }
-        );
-      } else {
-        alert("비밀번호가 일치하지 않습니다.");
+        // console.log(FreelancerInfo);
+        this.signupFreelancer(this.user);
       }
     }
   }
@@ -356,7 +345,7 @@ export default {
   weight: 50%;
 }
 .register-wrapper {
-  margin-top: 10%;
+  margin-top: 50px;
   width: 500px;
   /* border: 1px solid black; */
   display: inline-block;

@@ -29,22 +29,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     TechRepository techRepository;
 
-    @Autowired
-    DomainRepository domainRepository;
-
     @Override
     public void createProject(ProjectRegisterPostReq registerInfo, Company company) {
 
         Project project = Project.builder()
                 .category(registerInfo.getCategory())
-<<<<<<< HEAD
                 .locationSi(registerInfo.getLocationSi())
                 .locationGu(registerInfo.getLocationGu())
                 .skill(registerInfo.getSkill())
-=======
-                .domain(registerInfo.getDomain())
-                .location(registerInfo.getLocation())
->>>>>>> 47f4b8cc7d49cdf2bcf7ccc2ea2e2a7d17816b2c
                 .title(registerInfo.getTitle())
                 .content(registerInfo.getContent())
                 .startDate(registerInfo.getStartDate())
@@ -62,7 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .company(company)
                 .build();
 //         projectRepository.flush();
-         projectRepository.save(project);
+        projectRepository.save(project);
 //
 //         Domain domain = Domain.builder()
 //                .domainName(registerInfo.getDomain())
