@@ -2,18 +2,18 @@
   <div class="container">
     <div class="index-signup-container">
       <div class="row">
-        <div class="index-signup-header">회원가입</div>
+        <div class="index-signup-header">로그인</div>
       </div>
       <div class="row" style="margin-top:50px">
         <div class="d-flex justify-content-between">
           <router-link
-            to="/register/Company"
+            to="/login/Company"
             class="index-signup-selectbox company-selectbox"
           >
             <div class="index-signup-text">기업</div>
           </router-link>
           <router-link
-            to="/register/Freelancer"
+            to="/login/Freelancer"
             class="index-signup-selectbox freelancer-selectbox"
           >
             <div class="index-signup-text">프리랜서</div>
@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import path from "path";
-
 export default {};
 </script>
 

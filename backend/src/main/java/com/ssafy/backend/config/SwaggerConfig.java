@@ -26,7 +26,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Special7333 Project")
+                .title("FreeNeeds Project")
                 .build();
     }
 }
