@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ProjectCard from "../../ProjectCard/ProjectCard.vue";
+import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
 export default {
   components: {
     ProjectCard

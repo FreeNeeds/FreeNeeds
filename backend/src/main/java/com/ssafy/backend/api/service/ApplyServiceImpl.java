@@ -9,6 +9,9 @@ import com.ssafy.backend.db.repository.ApplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service("applyService")
 @RequiredArgsConstructor
 public class ApplyServiceImpl implements ApplyService{
@@ -16,9 +19,8 @@ public class ApplyServiceImpl implements ApplyService{
     private final ApplyRepository applyRepository;
 
     @Override
-    public Apply getApply(User user, Project project) {
-        Apply apply = applyRepository.findApplyByUserAndProject(user, project).get();
-        return apply;
+    public List<Apply> getApply(User user) {
+        return applyRepository.findAll().stream().filter(v -> v.getUser() == user).collect(Collectors.toList());
     }
 
     @Override

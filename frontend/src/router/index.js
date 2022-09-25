@@ -2,12 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Signup from "@/views/Signup.vue";
 import Mainpage from "@/views/Mainpage.vue";
-import Login from "@/views/Login.vue";
+import IndexLogin from "@/views/indexLogin.vue";
 import store from "@/store";
 
 import Project from "@/views/Project";
 import Freelancer from "@/views/Freelancer.vue";
 import IndexSignup from "@/views/IndexSignup";
+import Login from "@/views/Login.vue";
 
 /** 마이페이지 */
 import Mypage from "@/views/MyPage";
@@ -47,14 +48,20 @@ const routes = [
     component: Mainpage
   },
   {
-    name: "login",
+    name: "indexLogin",
     path: "/login",
-    component: Login
+    component: IndexLogin
   },
   {
     path: "/register/:signupType",
     name: "signup",
     component: Signup,
+    props: true
+  },
+  {
+    path: "/login/:loginType",
+    name: "login",
+    component: Login,
     props: true
   },
   {

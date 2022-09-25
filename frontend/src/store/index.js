@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import accounts from "@/store/modules/accounts.js";
 import mypage from "@/store/modules/mypage.js";
 import message from "@/store/modules/message.js";
+import { createVuexPersistedState } from "vue-persistedstate";
 Vue.use(Vuex);
 const user = JSON.parse(sessionStorage.getItem("user"));
 const initialState = user
@@ -33,5 +34,10 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: { accounts, mypage, message }
+  modules: { accounts, mypage, message },
+  plugins: [
+    createVuexPersistedState({
+      storage: window.sessionStorage
+    })
+  ]
 });
