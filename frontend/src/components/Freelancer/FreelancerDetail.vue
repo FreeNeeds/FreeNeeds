@@ -543,6 +543,7 @@ export default {
     border-radius: 20px;
     height: 650px; 
     margin: auto !important;
+    overflow-y: scroll;
   }
 
   #freelancerDetailModalContent::-webkit-scrollbar {
