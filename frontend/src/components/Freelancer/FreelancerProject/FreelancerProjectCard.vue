@@ -1,5 +1,5 @@
 <template>
-  <div class="project-card-wrapper" data-bs-toggle="modal" data-bs-target="">
+  <div class="project-card-wrapper">
     <div class="d-flex my-2">
       <div class="text-start" style="color: gray">{{ freelancerProjectCard.body.category }}</div>
     </div>
