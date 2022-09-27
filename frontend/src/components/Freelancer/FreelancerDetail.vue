@@ -222,8 +222,8 @@
               </div>
               <div class="d-inline-block mx-auto my-3">
                 <FreelancerCardSkill
-                  v-for="skillItem in freelancerDetailReceive.tech"
-                  :key="skillItem"
+                  v-for="(skillItem, index) in freelancerDetailReceive.tech"
+                  :key="`FDR-T-${index}`"
                   :skillItem="skillItem"
                 >
                 </FreelancerCardSkill>
@@ -241,8 +241,8 @@
 
           <div class="row" id="projectDetailNavCtnr">
             <FreelancerDetailNav
-              v-for="FreelancerDetailNavItem in freelancerDetailNavLst"
-              :key="FreelancerDetailNavItem"
+              v-for="(FreelancerDetailNavItem, index) in freelancerDetailNavLst"
+              :key="`FDNL-${index}`"
               :FreelancerDetailNavItem="FreelancerDetailNavItem"
               class="col-2 projectDetailNav"
               @deactive="deactive"
@@ -252,8 +252,9 @@
           <hr class="project-card-line" style="margin-bottom : 40px" />
           <div id="프로젝트item">
             <FreelancerProjectCard
-              v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
-              :key="freelancerProjectCard.id"
+              v-for="(freelancerProjectCard,
+              index) in freelancerDetailReceive.projectCareer"
+              :key="`FDR-PC-${index}`"
               :freelancerProjectCard="freelancerProjectCard"
             >
             </FreelancerProjectCard>
@@ -287,7 +288,7 @@
               class="d-flex mx-3 my-2"
               v-for="(freelancerCareerItem,
               index) in freelancerEducation.careerList"
-              :key="index"
+              :key="`FE-CL-${index}`"
             >
               <div class="freelancerEducationName">
                 {{ freelancerCareerItem.companyName }}
@@ -305,7 +306,7 @@
               style="margin-bottom : 60px"
               v-for="(freelancerCareerItem,
               index) in freelancerEducation.certificateList"
-              :key="index"
+              :key="`FE-CCL-${index}`"
             >
               <div class="freelancerEducationName">
                 {{ freelancerCareerItem.name }}
@@ -340,8 +341,8 @@
         >
           <div class="carousel-inner px-3">
             <ProjectCardCarousel
-              v-for="projectCardCarousel in myProjectLst"
-              :key="projectCardCarousel.id"
+              v-for="(projectCardCarousel, index) in myProjectLst"
+              :key="`MPL-${index}`"
               :projectCardCarousel="projectCardCarousel"
               :projectData="projectData"
               class="carousel-item"
@@ -403,6 +404,8 @@ import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import FreelancerDetailNav from "@/components/Freelancer/FreelancerDetailNav.vue";
 import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
 
+import * as userInstance from "@/api/user.js";
+
 export default {
   name: "FreelancerDetail",
   components: {
@@ -423,6 +426,17 @@ export default {
       reEmployment: 0,
       ratingToPercent: 0,
       myProjectLst: [],
+      freelancerEducation: {
+        education: {
+          highschool: "---",
+          highschool_end_date: "",
+          highschool_start_date: "",
+          major: "",
+          university: "---",
+          university_end_date: "",
+          university_start_date: ""
+        }
+      },
       projectData: {
         id: "1",
         category: "개발",
@@ -447,34 +461,34 @@ export default {
         careerPeriod: 3
       },
       freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"],
-      freelancerEducation: {
-        careerList: [
-          {
-            companyName: "(주)엠로",
-            department: "웹개발부",
-            end_date: "2020-02-01",
-            position: "수석연구원",
-            start_date: "2015-03-01"
-          }
-        ],
-        certificateList: [
-          {
-            certification: "한국산업인력공단",
-            date: "2014-11-01",
-            name: "정보처리기사"
-          }
-        ],
-        education: {
-          highschool: "싸피고등학교",
-          highschool_end_date: "2010-02-01",
-          highschool_start_date: "2007-03-01",
-          major: "컴퓨터공학과",
-          university: "싸피대학교",
-          university_end_date: "2015-02-01",
-          university_start_date: "2010-03-01"
-        }
-      }
+      freelancerDetailLst: ["프로젝트item", "이력서item"]
+      // freelancerEducation: {
+      //   careerList: [
+      //     {
+      //       companyName: "(주)엠로",
+      //       department: "웹개발부",
+      //       end_date: "2020-02-01",
+      //       position: "수석연구원",
+      //       start_date: "2015-03-01"
+      //     }
+      //   ],
+      //   certificateList: [
+      //     {
+      //       certification: "한국산업인력공단",
+      //       date: "2014-11-01",
+      //       name: "정보처리기사"
+      //     }
+      //   ],
+      //   education: {
+      //     highschool: "싸피고등학교",
+      //     highschool_end_date: "2010-02-01",
+      //     highschool_start_date: "2007-03-01",
+      //     major: "컴퓨터공학과",
+      //     university: "싸피대학교",
+      //     university_end_date: "2015-02-01",
+      //     university_start_date: "2010-03-01"
+      //   }
+      // }
     };
   },
   mounted() {
@@ -506,7 +520,28 @@ export default {
         this.reEmployment) /
       this.freelancerDetailReceive.estimate.length;
     this.ratingToPercent = this.ratingToPercent * 20;
-
+    userInstance.getUserResume(
+      this.freelancerDetailReceive.username,
+      res => {
+        this.freelancerEducation = res.data;
+      },
+      err => {
+        const data = {
+          careerList: [],
+          certificateList: [],
+          education: {
+            highschool: "---",
+            highschool_end_date: "",
+            highschool_start_date: "",
+            major: "",
+            university: "---",
+            university_end_date: "",
+            university_start_date: ""
+          }
+        };
+        this.freelancerEducation = data;
+      }
+    );
     for (let i = 0; i < 5; i++) {
       this.myProjectLst.push({
         id: "ids" + String(i),

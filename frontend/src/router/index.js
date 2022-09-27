@@ -149,7 +149,8 @@ const routes = [
           {
             path: "correctmycareer",
             name: "correctmycareer",
-            component: CorrectInfomation
+            component: CorrectInfomation,
+            props: true
           }
         ]
       },

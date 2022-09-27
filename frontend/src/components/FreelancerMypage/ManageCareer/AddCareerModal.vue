@@ -239,7 +239,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    freelancerDetailReceive: Object
+  },
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style>
