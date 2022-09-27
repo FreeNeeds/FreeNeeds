@@ -50,6 +50,7 @@
     </div>
     <ProjectDetail
     :id=projectCardItem
+    :idEdit=projectCardItem
     :projectDataReceive=projectData
     :companyDataReceive=companyData
     >
@@ -137,7 +138,7 @@
           endDateSummry : "2022-09-16",
           deadline: new Date("2022-11-30"),
           recruitNumber: 3,
-          task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
+          task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
           workstyle: "재택",
           workStartTime: "오전 08:00",
           workEndTime: "오후 16:00",
