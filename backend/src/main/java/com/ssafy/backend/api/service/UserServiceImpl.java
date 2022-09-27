@@ -229,11 +229,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createProjectCareerTech(String username, List<String> techList) {
+	public void createProjectCareerTech(Long projectCareerId, List<String> techList) {
 		for(String t : techList){
 			ProjectCareerTech temp = new ProjectCareerTech();
 //			ProfileTech temp = new ProfileTech();
-			temp.setProjectCareer(userRepositorySupport.findProjectCareerByUsername(username));
+			temp.setProjectCareer(projectCareerRepository.findProjectCareerByProjectCareerId(projectCareerId));
 			temp.setTech((Tech) techRepository.findById(t).get());
 //			temp.setProfile(userRepositorySupport.findProfileByUsername(username));
 //			temp.setTech((Tech) techRepository.findById(t).get());
