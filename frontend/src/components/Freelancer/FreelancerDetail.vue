@@ -222,8 +222,8 @@
               </div>
               <div class="d-inline-block mx-auto my-3">
                 <FreelancerCardSkill
-                  v-for="(skillItem, index) in freelancerDetailReceive.tech"
-                  :key="`FDR-T-${index}`"
+                  v-for="skillItem in freelancerDetailReceive.tech"
+                  :key="skillItem"
                   :skillItem="skillItem"
                 >
                 </FreelancerCardSkill>
@@ -240,26 +240,31 @@
           </div>
 
           <div class="row" id="projectDetailNavCtnr">
-            <FreelancerDetailNav
-              v-for="(FreelancerDetailNavItem, index) in freelancerDetailNavLst"
-              :key="`FDNL-${index}`"
-              :FreelancerDetailNavItem="FreelancerDetailNavItem"
-              class="col-2 projectDetailNav"
-              @deactive="deactive"
+            <div
+              @click="clickFreelancerDetailNavProject"
+              class="col-2 projectDetailNav activeProjectDetailNav"
+              :id="FreelancerDetailNavProject"
             >
-            </FreelancerDetailNav>
+              프로젝트
+            </div>
+            <div
+              @click="clickFreelancerDetailNavResume"
+              class="col-2 projectDetailNav"
+              :id="FreelancerDetailNavResume"
+            >
+              이력서
+            </div>
           </div>
           <hr class="project-card-line" style="margin-bottom : 40px" />
-          <div id="프로젝트item">
+          <div :id="projectDetailNavItem">
             <FreelancerProjectCard
-              v-for="(freelancerProjectCard,
-              index) in freelancerDetailReceive.projectCareer"
-              :key="`FDR-PC-${index}`"
+              v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
+              :key="freelancerProjectCard.id"
               :freelancerProjectCard="freelancerProjectCard"
             >
             </FreelancerProjectCard>
           </div>
-          <div id="이력서item" class="deactiveProjectDetailItem">
+          <div :id="resumeDetailNavItem" class="deactiveProjectDetailItem">
             <div class="row mx-2 my-4">
               <div class="projectDetailHeadItem projectDetailItem">학력</div>
             </div>
@@ -286,9 +291,7 @@
             </div>
             <div
               class="d-flex mx-3 my-2"
-              v-for="(freelancerCareerItem,
-              index) in freelancerEducation.careerList"
-              :key="`FE-CL-${index}`"
+              v-for="freelancerCareerItem in freelancerEducation.careerList"
             >
               <div class="freelancerEducationName">
                 {{ freelancerCareerItem.companyName }}
@@ -304,9 +307,7 @@
             <div
               class="d-flex mx-3 mt-2"
               style="margin-bottom : 60px"
-              v-for="(freelancerCareerItem,
-              index) in freelancerEducation.certificateList"
-              :key="`FE-CCL-${index}`"
+              v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
                 {{ freelancerCareerItem.name }}
@@ -328,67 +329,104 @@
         </div>
       </div>
     </div>
-    <div id="freelancerProjectModalCtnr">
-      <div id="freelancerProjectModal">
-        <h5 class="mt-4">
-          <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
-          님에게 제안할 프로젝트를 골라주세요
-        </h5>
-        <div
-          id="carouselExampleControlsNoTouching"
-          class="carousel slide"
-          data-bs-touch="false"
-        >
-          <div class="carousel-inner px-3">
-            <ProjectCardCarousel
-              v-for="(projectCardCarousel, index) in myProjectLst"
-              :key="`MPL-${index}`"
-              :projectCardCarousel="projectCardCarousel"
-              :projectData="projectData"
-              class="carousel-item"
-            ></ProjectCardCarousel>
+    <div class="freelancerProjectModalCtnr" :id="freelancerProjectModalCtnrId">
+      <div class="freelancerProjectModal" :id="freelancerProjectModalId">
+        <div class="d-block" :id="normalProjectFreelancerModal">
+          <button
+            @click="clickSelectProjectFreelancerCloseModal"
+            type="button"
+            id="selectProjectFreelancerCloseModal"
+            class="btn-close"
+          ></button>
+          <h5 class="mt-5">
+            <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
+            님에게 제안할 프로젝트를 골라주세요
+          </h5>
+          <div
+            class="carousel-wrapper-mine mx-auto mt-4"
+            data-bs-touch="false"
+            :id="carouselWrapperMine"
+          >
+            <div class="carousel-mine" :id="carouselMine">
+              <ProjectCardCarousel
+                v-for="projectCardCarousel in myProjectLst"
+                :key="projectCardCarousel.id"
+                :projectCardCarousel="projectCardCarousel"
+                :projectData="projectData"
+              ></ProjectCardCarousel>
+            </div>
+            <button
+              @click="prevBtnClick"
+              class="prev"
+              type="button"
+              data-bs-target="#carouselExampleControlsNoTouching"
+              data-bs-slide="prev"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="black"
+                class="bi bi-chevron-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                />
+              </svg>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              @click="nextBtnClick"
+              class="next"
+              type="button"
+              data-bs-target="#carouselExampleControlsNoTouching"
+              data-bs-slide="next"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="black"
+                class="bi bi-chevron-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
           <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleControlsNoTouching"
-            data-bs-slide="prev"
+            @click="clickSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="black"
-              class="bi bi-chevron-left"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-              />
-            </svg>
-            <span class="visually-hidden">Previous</span>
+            선택
+          </button>
+        </div>
+        <div class="d-none" :id="sureSelectProjectFreelancer">
+          <h5 class="mt-5">
+            <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
+            님에게
+            <h4 class="fw-bold text-primary mt-2 mb-3">
+              "{{ selectProjectFreelancerName }}"
+            </h4>
+            프로젝트를 제안하시겠습니까?
+          </h5>
+          <button
+            @click="clickSureSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3 mx-2"
+          >
+            네
           </button>
           <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleControlsNoTouching"
-            data-bs-slide="next"
+            @click="clickNotYetSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3 mx-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="black"
-              class="bi bi-chevron-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-              />
-            </svg>
-            <span class="visually-hidden">Next</span>
+            아니요
           </button>
         </div>
       </div>
@@ -401,7 +439,6 @@ import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
-import FreelancerDetailNav from "@/components/Freelancer/FreelancerDetailNav.vue";
 import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
 
 import * as userInstance from "@/api/user.js";
@@ -413,12 +450,23 @@ export default {
     FooterNav,
     FreelancerProjectCard,
     FreelancerCardSkill,
-    FreelancerDetailNav,
     ProjectCardCarousel
   },
   data() {
     return {
+      idx: 0,
       nameErase: "",
+      selectProjectFreelancerName: "",
+      freelancerProjectModalId: "freeProModal",
+      freelancerProjectModalCtnrId: "freeProModalCtnr",
+      carouselWrapperMine: "carouselWrpp",
+      carouselMine: "carousel",
+      normalProjectFreelancerModal: "normalProjectFreelancerModal",
+      sureSelectProjectFreelancer: "sureSelectProjectFreelancer",
+      FreelancerDetailNavProject: "FreelancerDetailNavProject",
+      FreelancerDetailNavResume: "FreelancerDetailNav",
+      projectDetailNavItem: "프로젝트item",
+      resumeDetailNavItem: "이력서item",
       profession: 0,
       ontime: 0,
       active: 0,
@@ -426,17 +474,7 @@ export default {
       reEmployment: 0,
       ratingToPercent: 0,
       myProjectLst: [],
-      freelancerEducation: {
-        education: {
-          highschool: "---",
-          highschool_end_date: "",
-          highschool_start_date: "",
-          major: "",
-          university: "---",
-          university_end_date: "",
-          university_start_date: ""
-        }
-      },
+
       projectData: {
         id: "1",
         category: "개발",
@@ -460,38 +498,50 @@ export default {
         highPrice: "300만원",
         careerPeriod: 3
       },
+
       freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"]
-      // freelancerEducation: {
-      //   careerList: [
-      //     {
-      //       companyName: "(주)엠로",
-      //       department: "웹개발부",
-      //       end_date: "2020-02-01",
-      //       position: "수석연구원",
-      //       start_date: "2015-03-01"
-      //     }
-      //   ],
-      //   certificateList: [
-      //     {
-      //       certification: "한국산업인력공단",
-      //       date: "2014-11-01",
-      //       name: "정보처리기사"
-      //     }
-      //   ],
-      //   education: {
-      //     highschool: "싸피고등학교",
-      //     highschool_end_date: "2010-02-01",
-      //     highschool_start_date: "2007-03-01",
-      //     major: "컴퓨터공학과",
-      //     university: "싸피대학교",
-      //     university_end_date: "2015-02-01",
-      //     university_start_date: "2010-03-01"
-      //   }
-      // }
+      freelancerDetailLst: ["프로젝트item", "이력서item"],
+      freelancerEducation: {
+        careerList: [
+          {
+            companyName: "(주)엠로",
+            department: "웹개발부",
+            end_date: "2020-02-01",
+            position: "수석연구원",
+            start_date: "2015-03-01"
+          }
+        ],
+        certificateList: [
+          {
+            certification: "한국산업인력공단",
+            date: "2014-11-01",
+            name: "정보처리기사"
+          }
+        ],
+        education: {
+          highschool: "싸피고등학교",
+          highschool_end_date: "2010-02-01",
+          highschool_start_date: "2007-03-01",
+          major: "컴퓨터공학과",
+          university: "싸피대학교",
+          university_end_date: "2015-02-01",
+          university_start_date: "2010-03-01"
+        }
+      }
     };
   },
   mounted() {
+    let id__ = String(this.id_);
+    this.freelancerProjectModalId += id__;
+    this.freelancerProjectModalCtnrId += id__;
+    this.carouselWrapperMine += id__;
+    this.carouselMine += id__;
+    this.FreelancerDetailNavProject += id__;
+    this.FreelancerDetailNavResume += id__;
+    this.projectDetailNavItem += id__;
+    this.resumeDetailNavItem += id__;
+    this.normalProjectFreelancerModal += id__;
+    this.sureSelectProjectFreelancer += id__;
     for (let i = 0; i < this.freelancerDetailReceive.name.length; i++) {
       if (i == 1) this.nameErase += "*";
       else this.nameErase += this.freelancerDetailReceive.name[i];
@@ -507,6 +557,7 @@ export default {
         i
       ].reEmployment;
     }
+
     this.profession = this.profession / 5;
     this.ontime = this.ontime / 5;
     this.active = this.active / 5;
@@ -550,33 +601,151 @@ export default {
     }
   },
   props: {
-    freelancerDetailReceive: Object
+    freelancerDetailReceive: Object,
+    id_: Number
   },
   methods: {
     openProjectModal() {
       let freelancerProjectModalCtnrTmp = document.querySelector(
-        "#freelancerProjectModalCtnr"
+        "#" + this.freelancerProjectModalCtnrId
+      );
+      let freelancerProjectModalTmp = document.querySelector(
+        "#" + this.freelancerProjectModalId
       );
       freelancerProjectModalCtnrTmp.setAttribute("style", "z-index : 2");
+      freelancerProjectModalTmp.setAttribute("style", "display : block");
     },
-    deactive(value) {
-      for (let i = 0; i < 2; i++) {
-        let removeProjectDetailItem = document.querySelector(
-          "#" + this.freelancerDetailNavLst[i]
-        );
-        let ProjectDetailItem = document.querySelector(
-          "#" + this.freelancerDetailLst[i]
-        );
-        if (ProjectDetailItem.classList.contains("deactiveProjectDetailItem"))
-          ProjectDetailItem.classList.remove("deactiveProjectDetailItem");
-        if (
-          removeProjectDetailItem.classList.contains("activeProjectDetailNav")
-        )
-          removeProjectDetailItem.classList.remove("activeProjectDetailNav");
-        if (this.freelancerDetailLst[i] != value + "item") {
-          ProjectDetailItem.classList.add("deactiveProjectDetailItem");
-        }
+    clickFreelancerDetailNavProject() {
+      let removeProjectDetailItem = document.querySelector(
+        "#" + this.FreelancerDetailNavProject
+      );
+      let removeResumeDetailItem = document.querySelector(
+        "#" + this.FreelancerDetailNavResume
+      );
+      let ResumeDetailItem = document.querySelector(
+        "#" + this.resumeDetailNavItem
+      );
+      let ProjectDetailItem = document.querySelector(
+        "#" + this.projectDetailNavItem
+      );
+      if (
+        !removeProjectDetailItem.classList.contains("activeProjectDetailNav")
+      ) {
+        removeProjectDetailItem.classList.add("activeProjectDetailNav");
+        removeResumeDetailItem.classList.remove("activeProjectDetailNav");
+        ResumeDetailItem.classList.add("deactiveProjectDetailItem");
+        ProjectDetailItem.classList.remove("deactiveProjectDetailItem");
       }
+    },
+    clickFreelancerDetailNavResume() {
+      let removeProjectDetailItem = document.querySelector(
+        "#" + this.FreelancerDetailNavProject
+      );
+      let removeResumeDetailItem = document.querySelector(
+        "#" + this.FreelancerDetailNavResume
+      );
+      let ResumeDetailItem = document.querySelector(
+        "#" + this.resumeDetailNavItem
+      );
+      let ProjectDetailItem = document.querySelector(
+        "#" + this.projectDetailNavItem
+      );
+
+      if (
+        !removeResumeDetailItem.classList.contains("activeProjectDetailNav")
+      ) {
+        removeResumeDetailItem.classList.add("activeProjectDetailNav");
+        removeProjectDetailItem.classList.remove("activeProjectDetailNav");
+        ProjectDetailItem.classList.add("deactiveProjectDetailItem");
+        ResumeDetailItem.classList.remove("deactiveProjectDetailItem");
+      }
+    },
+    prevBtnClick() {
+      if (this.idx === 0) this.idx = this.myProjectLst.length - 1;
+      else this.idx--;
+      document.querySelector("#" + this.carouselMine).style.transform =
+        "translate3d(" + -640 * this.idx + "px, 0, 0)";
+    },
+    nextBtnClick() {
+      if (this.idx === this.myProjectLst.length - 1) this.idx = 0;
+      else this.idx++;
+      document.querySelector("#" + this.carouselMine).style.transform =
+        "translate3d(" + -640 * this.idx + "px, 0, 0)";
+    },
+    clickSelectProjectFreelancer() {
+      this.selectProjectFreelancerName = this.myProjectLst[this.idx].body.title;
+      let normalProjectFreelancerModalTmp = document.querySelector(
+        "#" + this.normalProjectFreelancerModal
+      );
+      let sureSelectProjectFreelancerTmp = document.querySelector(
+        "#" + this.sureSelectProjectFreelancer
+      );
+      let freelancerProjectModalTmp = document.querySelector(
+        "#" + this.freelancerProjectModalId
+      );
+      freelancerProjectModalTmp.setAttribute(
+        "style",
+        "width: 600px; height: 250px; right: 475px; display: block"
+      );
+      normalProjectFreelancerModalTmp.classList.add("d-none");
+      sureSelectProjectFreelancerTmp.classList.remove("d-none");
+    },
+    clickSelectProjectFreelancerCloseModal() {
+      let freelancerProjectModalCtnrTmp = document.querySelector(
+        "#" + this.freelancerProjectModalCtnrId
+      );
+      let freelancerProjectModalTmp = document.querySelector(
+        "#" + this.freelancerProjectModalId
+      );
+      freelancerProjectModalCtnrTmp.setAttribute("style", "z-index : -1");
+      freelancerProjectModalTmp.setAttribute("style", "display : none");
+    },
+    clickSureSelectProjectFreelancer() {
+      let freelancerProjectModalCtnrTmp = document.querySelector(
+        "#" + this.freelancerProjectModalCtnrId
+      );
+      let freelancerProjectModalTmp = document.querySelector(
+        "#" + this.freelancerProjectModalId
+      );
+      let normalProjectFreelancerModalTmp = document.querySelector(
+        "#" + this.normalProjectFreelancerModal
+      );
+      let sureSelectProjectFreelancerTmp = document.querySelector(
+        "#" + this.sureSelectProjectFreelancer
+      );
+      freelancerProjectModalCtnrTmp.setAttribute("style", "z-index : -1");
+      freelancerProjectModalTmp.setAttribute("style", "display : none");
+
+      freelancerProjectModalTmp.setAttribute(
+        "style",
+        "width: 900px; height: 400px; right: 325px;"
+      );
+      normalProjectFreelancerModalTmp.classList.remove("d-none");
+      sureSelectProjectFreelancerTmp.classList.add("d-none");
+    },
+
+    clickNotYetSelectProjectFreelancer() {
+      let freelancerProjectModalCtnrTmp = document.querySelector(
+        "#" + this.freelancerProjectModalCtnrId
+      );
+      let freelancerProjectModalTmp = document.querySelector(
+        "#" + this.freelancerProjectModalId
+      );
+      let normalProjectFreelancerModalTmp = document.querySelector(
+        "#" + this.normalProjectFreelancerModal
+      );
+      let sureSelectProjectFreelancerTmp = document.querySelector(
+        "#" + this.sureSelectProjectFreelancer
+      );
+      freelancerProjectModalCtnrTmp.setAttribute("style", "z-index : -1");
+      freelancerProjectModalTmp.setAttribute("style", "display : none");
+
+      freelancerProjectModalTmp.setAttribute(
+        "style",
+        "width: 900px; height: 400px; right: 325px;"
+      );
+      normalProjectFreelancerModalTmp.classList.remove("d-none");
+      sureSelectProjectFreelancerTmp.classList.add("d-none");
     }
   }
 };
@@ -687,7 +856,7 @@ export default {
   width: 200px !important;
 }
 
-#freelancerProjectModalCtnr {
+.freelancerProjectModalCtnr {
   z-index: -1;
   position: fixed;
   top: 0px;
@@ -696,15 +865,52 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-#freelancerProjectModal {
+.freelancerProjectModal {
   position: fixed;
-  top: 130px;
-  right: 490px;
+  top: 140px;
+  right: 325px;
   background-color: white;
   border-radius: 20px;
   height: 400px;
   border: 1px solid lightgray;
-  width: 600px;
+  width: 900px;
   margin: auto;
+  display: none;
+}
+
+.carousel-wrapper-mine {
+  width: 640px !important;
+  height: 219px !important;
+  overflow: hidden;
+}
+
+.carousel-wrapper-mine > .carousel-mine {
+  display: flex;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.2s;
+}
+
+.prev {
+  position: fixed;
+  top: 265px;
+  left: 360px;
+  height: 219px;
+  background-color: white;
+  border: 0px;
+}
+
+.next {
+  position: fixed;
+  top: 265px;
+  right: 370px;
+  height: 219px;
+  background-color: white;
+  border: 0px;
+}
+
+#selectProjectFreelancerCloseModal {
+  position: fixed;
+  top: 160px;
+  right: 350px;
 }
 </style>

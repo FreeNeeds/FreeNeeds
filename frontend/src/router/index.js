@@ -18,7 +18,6 @@ import ApplyStatus from "@/components/FreelancerMypage/ApplyStatus";
 import ManageCareer from "@/components/FreelancerMypage/ManageCareer";
 import FreelancerMessage from "@/components/FreelancerMypage/FreelancerMessage";
 import FreelancerWallet from "@/components/FreelancerMypage/FreelancerWallet";
-import FreelancerDetail from "@/components/Freelancer/FreelancerDetail";
 import ManageCareerMain from "@/components/FreelancerMypage/ManageCareerMain";
 /** 기업 마이페이지 */
 import CompanyInfoAdmin from "@/components/EnterpriseMypage/CompanyInfoAdmin";
@@ -37,6 +36,12 @@ import UnderContract from "@/components/FreelancerMypage/ApplyStatus/UnderContra
 
 /** 프리랜서 커리어관리 컴포넌트 */
 import CorrectInfomation from "@/components/FreelancerMypage/ManageCareer/CorrectInfomation.vue";
+
+/** 기업 프로젝트 현황*/
+import recruit from "@/components/EnterpriseMypage/ProjectStatus/recruit";
+import ongoing from "@/components/EnterpriseMypage/ProjectStatus/ongoing";
+import complete from "@/components/EnterpriseMypage/ProjectStatus/complete";
+import recruitApplyMember from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMember';
 
 /**
  * 아래의 router를 변경하여 구현할 수 있습니다.
@@ -82,11 +87,6 @@ const routes = [
     path: "/freelancer",
     name: "freelancer",
     component: Freelancer
-  },
-  {
-    path: "/freelancer/detail",
-    name: "freelancerdetail",
-    component: FreelancerDetail
   },
   {
     path: "/register",
@@ -167,7 +167,30 @@ const routes = [
       {
         path: "projectstatus",
         name: "projectstatus",
-        component: ProjectStatus
+        component: ProjectStatus,
+        redirect: "/mypage/company/projectstatus/recruit",
+        children: [
+          {
+            path: "recruit",
+            name: "recruit",
+            component: recruit,
+          },
+          {
+            path: "ongoing",
+            name: "ongoing",
+            component: ongoing
+          },
+          {
+            path: "complete",
+            name: "complete",
+            component: complete
+          },
+        ]
+      },
+      {
+        path: "projectstatus/recruit/apply",
+        name: "apply",
+        component: recruitApplyMember,
       },
       {
         path: "projectregist",

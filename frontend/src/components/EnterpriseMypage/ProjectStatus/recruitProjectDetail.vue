@@ -104,23 +104,6 @@
               <div class="col-8 projectDetailItem"> {{ companyDataReceive.call }}</div>
             </div>
           </div>
-          <div class="row mt-4 justify-content-center">
-            <button @click="openApplyModal" id="ProjectDetailApplyBtn">지원하기</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div :id=applyModalCtnr class="d-none applyModalCtnr">
-      <div id="applyModal">
-        <div :id=leftApply>
-          <h5 class="mt-4">해당 프로젝트에</h5>
-          <h5 class="mb-4">지원하시겠습니까?</h5>
-          <button @click="clickApply" id="ApplyOk" class="ProjectApplyBtn mx-2">네</button>
-          <button @click="clickNoApply" id="ApplyNotYet" class="ProjectApplyBtn mx-2">아니요</button>
-        </div>
-        <div :id=completeApply class="d-none">
-          <h5 class="mt-5">지원이 완료되었습니다!</h5>
-          <button @click="clickCompleteApply" id="ApplyNotYet" class="ProjectApplyBtn my-3">확인</button>
         </div>
       </div>
     </div>
@@ -135,7 +118,7 @@
   import { applyCompany } from '@/api/projectAPI'
 
   export default {
-    name: 'ProjectDetail',
+    name: 'recruitProjectDetail',
     data() {
       return {
         ProjectDetailNavProject : "ProjectDetailNavProject",
@@ -170,33 +153,10 @@
           1
       );
       this.remainDate = "D - " + String(this.remainDate)
-      this.periodWork = (this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
-          (1000 * 60 * 60 * 24) - 1
+      this.periodWork = parseInt((this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
+          (1000 * 60 * 60 * 24))
     },
     methods : {
-      openApplyModal() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        applyModalCtnrTmp.classList.remove('d-none')
-      },
-      clickNoApply() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        applyModalCtnrTmp.classList.add("d-none")
-      },
-      clickApply() {
-        //applyCompany(this.projectDataReceive.id)
-        let completeApplyTmp = document.querySelector('#' + this.completeApply)
-        let leftApplyTmp = document.querySelector('#' + this.leftApply)
-        completeApplyTmp.classList.remove("d-none")
-        leftApplyTmp.classList.add("d-none")
-      },
-      clickCompleteApply() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        let completeApplyTmp = document.querySelector('#' + this.completeApply)
-        let leftApplyTmp = document.querySelector('#' + this.leftApply)
-        applyModalCtnrTmp.classList.add("d-none")
-        completeApplyTmp.classList.add("d-none")
-        leftApplyTmp.classList.remove("d-none")
-      },
       clickProjectDetailNavProject() {
         let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
         let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
@@ -233,137 +193,3 @@
     }
   }
 </script>
-
-<style>
-  #projectDetailCtnr {
-    width : 85%;
-    margin-left : auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-
-  #projectDetailHeadCtnr {
-    border-radius: 20px;
-    background-color: rgb(241, 241, 241);
-  }
-
-  #ProjectDetailModalCloseBtn {
-    position: fixed;
-    top : 55px;
-    right : 400px;
-  }
-
-  #remainDateWrapperInProjectDetail {
-    border-radius: 40px;
-    border: 1px solid lightgray;
-    background-color: #3C74C9;
-    font-size: 15px;
-    color: white;
-    font-weight: bold;
-    display: inline-block;
-    width: 105px;
-  }
-
-  #remainDateInProjectTitle {
-    margin-left: 15px;
-    font-weight: bold;
-    font-size: 26px;
-  }
-
-  .projectDetailHeadItem {
-    font-weight : bold;
-    font-size: 18px;
-  }
-
-  #ProjectDetailModalContent {
-    border-radius: 20px;
-    height: 650px; 
-    margin: auto !important;
-    overflow-y: scroll;
-  }
-
-  #ProjectDetailModalContent::-webkit-scrollbar {
-    width: 0px !important;
-  }
-
-  .projectDetailItem {
-    text-align: left;
-  }
-
-  .projectDetailNav {
-    position: relative;
-    top: 0px;
-    left: 0px;
-    width: 130px !important;
-    font-size: 21px;
-    text-align: center;
-  }
-
-  .projectDetailNav:hover {
-    font-size: 22px;
-    font-weight: bold;
-  }
-
-  .activeProjectDetailNav {
-    font-size: 22px;
-    font-weight: bold;
-  }
-
-  .deactiveProjectDetailItem {
-    display: none;
-  }
-
-  #projectDetailNavCtnr {
-    margin-top : 30px;
-    margin-bottom : 30px;
-  }
-
-  #ProjectDetailApplyBtn {
-    border-radius: 40px;
-    border: 1px solid lightgray;
-    background-color: #6ecdb1;
-    font-size: 15px;
-    font-weight: bold;
-    width: 120px;
-    height: 40px;
-  }
-
-  #ProjectDetailApplyBtn:hover {
-    background-color: #3C74C9;
-    color: white;
-  }
-
-  .ProjectApplyBtn {
-    border-radius: 40px;
-    border: 1px solid lightgray;
-    background-color: #3C74C9;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    width: 120px;
-    height: 40px;
-  }
-
-  #applyModal {
-    position: fixed;
-    top: 130px;
-    right: 600px;
-    background-color: white;
-    border-radius: 20px;
-    height: 170px; 
-    border: 1px solid lightgray;
-    width: 320px;
-    margin: auto;
-  }
-
-  .applyModalCtnr {
-    z-index: 2;
-    position : fixed;
-    top: 0px;
-    width : 100vw;
-    height : 100vh;
-    background-color: rgba(0,0,0,0.1);
-  }
-
-</style>

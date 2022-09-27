@@ -60,6 +60,7 @@
     <FreelancerDetail
       :id="freelancerCardId"
       :freelancerDetailReceive="freelancerCard.body"
+      :id_="this.freelancerCard.id"
     ></FreelancerDetail>
   </b-card>
 </template>

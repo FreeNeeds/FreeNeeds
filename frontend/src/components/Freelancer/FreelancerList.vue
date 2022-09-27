@@ -149,20 +149,6 @@ export default {
         body: this.freelancerDataReceive[i]
       });
     }
-
-    // for (let i = 0; i < 10; i++) {
-    //   this.freelancerCardLst.push({
-    //     id: i,
-    //     body: this.freelancerDataReceive
-    //   });
-    // }
-
-    // for (let i = 0; i < 7; i++) {
-    //   this.freelancerDataReceive.projectCareer.push({
-    //     id: i,
-    //     body: this.freelancerCardItem
-    //   });
-    // }
   },
   methods: {},
   components: {

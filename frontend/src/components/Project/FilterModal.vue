@@ -422,6 +422,7 @@ export default {
   width: 105px;
   height: 40px;
 }
+
 #FilterModalApplyBtn:hover {
   background-color: #3c74c9;
   color: white;
