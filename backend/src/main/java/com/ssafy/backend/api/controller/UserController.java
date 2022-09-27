@@ -102,7 +102,7 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<? extends BaseResponseBody> registerUserProject(
+	public ResponseEntity<Long> registerUserProject(
 			@ApiIgnore Authentication authentication,
 			@RequestBody @ApiParam(value="프로젝트 이력 정보", required = true) UserProjectRegisterPostReq registerProjectInfo) {
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
@@ -112,7 +112,8 @@ public class UserController {
 		//userId와 입력된 프로젝트 이력 정보 등록
 		ProjectCareer projectCareer = userService.createProjectCareer(user, registerProjectInfo);
 
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		return ResponseEntity.status(200).body(projectCareer.getProjectCareerId());
 	}
 
 	@GetMapping("/project/{username}")
@@ -277,7 +278,7 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 
-	@PostMapping("/project/tech/{username}")
+	@PostMapping("/project/tech/{projectCareerId}")
 	@ApiOperation(value = "프리랜서 프로젝트 이력 기술 등록", notes = "프리랜서가 선택한 기술들을 프로젝트 이력에 등록한다")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
@@ -286,8 +287,8 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<?> registerProjectCareerTech(
-			@ApiParam(value="username", required = true) @PathVariable("username") String username, @RequestParam List<String> techList) {
-		userService.createProjectCareerTech(username,techList);
+			@ApiParam(value="projectCareerId", required = true) @PathVariable("projectCareerId") Long projectCareerId, @RequestParam List<String> techList) {
+		userService.createProjectCareerTech(projectCareerId,techList);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 
