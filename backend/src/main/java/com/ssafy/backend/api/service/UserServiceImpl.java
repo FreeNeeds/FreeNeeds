@@ -26,24 +26,18 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserRepositorySupport userRepositorySupport;
 	private final PasswordEncoder passwordEncoder;
-
 	private final ProfileRepository profileRepository;
-
 	private final ProjectCareerRepository projectCareerRepository;
-
+	private final ProjectCareerRepositorySupport projectCareerRepositorySupport;
 	private final ResumeRepository resumeRepository;
+	private final ResumeRepositorySupport resumeRepositorySupport;
 	private final EducationRepository educationRepository;
 	private final CareerRepository careerRepository;
 	private final CertificateRepository certificateRepository;
-
 	private final TechRepository techRepository;
-
 	private final ProfileTechRepository profileTechRepository;
-
 	private final ProfileTechRepositorySupport profileTechRepositorySupport;
-
 	private final ProfileRepositorySupport profileRepositorySupport;
-
 	private final ProjectCareerTechRepository projectCareerTechRepository;
 
 	@Override
@@ -112,8 +106,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserProjectCareerRes> getProjectCareerAllList(User user) {
-		List<ProjectCareer> projectCareerList = projectCareerRepository.findAllByUser(user);
+	public List<UserProjectCareerRes> getProjectCareerAllList(String username) {
+		List<ProjectCareer> projectCareerList = projectCareerRepositorySupport.findAllByUsername(username);
 
 		List<UserProjectCareerRes> res = new ArrayList<>();
 
@@ -127,13 +121,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserProjectCareer(Long projectCareerId) {
 		projectCareerRepository.deleteById(projectCareerId);
-	}
-
-	@Override
-	public Long getResumeIdByUser(User user) {
-		Resume resume = resumeRepository.findResumeByUser(user);
-		Long resume_id = resume.getResumeId();
-		return resume_id;
 	}
 
 	@Override
@@ -239,5 +226,12 @@ public class UserServiceImpl implements UserService {
 //			temp.setTech((Tech) techRepository.findById(t).get());
 			projectCareerTechRepository.save(temp);
 		}
+	}
+
+	@Override
+	public Long getResumeIdByUsername(String username) {
+		Long resume_id = resumeRepositorySupport.findResumeIdByUsername(username);
+
+		return resume_id;
 	}
 }

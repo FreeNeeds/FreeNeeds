@@ -5,6 +5,7 @@ import com.ssafy.backend.api.response.EstimateRes;
 import com.ssafy.backend.db.entity.Estimate;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.EstimateRepository;
+import com.ssafy.backend.db.repository.EstimateRepositorySupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class EstimateServiceImpl implements EstimateService{
 
     private final EstimateRepository estimateRepository;
+    private final EstimateRepositorySupport estimateRepositorySupport;
 
     @Override
     public void createEstimate(User user, EstimateRegisterPostReq registerEstimateInfo) {
@@ -35,8 +37,8 @@ public class EstimateServiceImpl implements EstimateService{
     }
 
     @Override
-    public List<EstimateRes> getEstimateAllList(User user) {
-        List<Estimate> estimateList = estimateRepository.findAllByUser(user);
+    public List<EstimateRes> getEstimateAllList(String username) {
+        List<Estimate> estimateList = estimateRepositorySupport.findAllByUsername(username);
 
         List<EstimateRes> res = new ArrayList<>();
 

@@ -5,7 +5,6 @@ import com.ssafy.backend.api.response.EstimateRes;
 import com.ssafy.backend.api.service.EstimateService;
 import com.ssafy.backend.api.service.UserService;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
-import com.ssafy.backend.db.entity.Estimate;
 import com.ssafy.backend.db.entity.User;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -54,12 +53,8 @@ public class EstimateController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<List<EstimateRes>> getEstimateList(@PathVariable String username) {
-
-        //username(id)로 user 정보 가져오기
-        User user = userService.getUserByUsername(username).get();
-
         //user 정보로 해당되는 평점 리스트 가져오기
-        List<EstimateRes> res = estimateService.getEstimateAllList(user);
+        List<EstimateRes> res = estimateService.getEstimateAllList(username);
 
         return ResponseEntity.status(200).body(res);
     }
