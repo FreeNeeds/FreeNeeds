@@ -148,10 +148,10 @@
           careerPeriod: this.projectCardItem.careerPeriod,
         },
         companyData : {
-          name: "삼성전자",
-          ceo: "이재용",
-          address: "대전시 유성구 덕명동",
-          call: "042-000-0000"
+          name: "",
+          ceo: "",
+          address: "",
+          call: ""
         },
         projectCardItemEdit: "#",
         remainDate: ""
@@ -159,12 +159,17 @@
     },
     mounted() {
       createInstance().get('/project/tech/' + this.projectCardItem.projectId).then(res =>{
-        console.log(res.data)
         for (let i = 0; i < res.data.length; i++) {
           if (!this.projectData.skill.includes(res.data[i].techName)){
             this.projectData.skill.push(res.data[i].techName)
           }
         }
+      })
+      createInstance().get('/companies/information/' + this.projectCardItem.company.username).then(res =>{
+        this.companyData.name = res.data.companyInfo.company.name
+        this.companyData.ceo = res.data.companyInfo.ceo
+        this.companyData.address = res.data.companyInfo.address
+        this.companyData.call = res.data.companyInfo.companyCall
       })
       this.remainDate = Math.ceil(
         (this.projectData.deadline.getTime() - new Date().getTime()) /

@@ -321,12 +321,13 @@ export default {
       let regionBig = document.querySelector("#regionSearchCtnr").innerText;
       let regionDetail = document.querySelector("#regionDetailSearchCtnr")
         .innerText;
-      findProjectListByFilter(
-        this.activeFilterCategoryLst.join(),
-        this.activeFilterFormLst.join(),
-        this.FilterSkillLst.join(),
-        [regionBig, regionDetail].join()
-      );
+      this.$emit("applyFilter",{
+        category : this.activeFilterCategoryLst,
+        form : this.activeFilterFormLst,
+        skill : this.FilterSkillLst,
+        regionBig : regionBig,
+        regionDetail : regionDetail
+      })
 
       this.preActiveMap = { category: [], form: [], skill: [], region: [] };
       for (let i = 0; i < this.activeFilterCategoryLst.length; i++)

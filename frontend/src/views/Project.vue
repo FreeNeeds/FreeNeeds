@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <div id="banner"></div>
-    <FilterBtn></FilterBtn>
+    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
     <!--<SearchBar></SearchBar>-->
     <ProjectList :projectCardLst="projectCardLst"></ProjectList>
   </b-container>
@@ -31,6 +31,21 @@
         }
       })
       
+    },
+    methods : {
+      applyFilter(value) {
+        createInstance().get('/project/filter/', {
+          params : {
+            techList : value.skill,
+            locationSi : value.regionBig,
+            locationGu : value.regionDetail,
+            category : value.category[0],
+            domain : value.form
+          }
+        }).then(res =>{
+          console.log(res)
+        })
+      }
     },
     components : {
       SearchBar,

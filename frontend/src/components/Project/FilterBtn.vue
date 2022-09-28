@@ -3,7 +3,7 @@
     <button id="filterBtn" data-bs-toggle="modal" data-bs-target="#FilterModal">
     필터
     </button>
-    <FilterModal></FilterModal>
+    <FilterModal @applyFilter="applyFilter"></FilterModal>
   </div> 
 </template>
 
@@ -15,6 +15,11 @@
     components : {
       FilterModal
     },
+    methods : {
+      applyFilter(value) {
+        this.$emit("applyFilter",value)
+      }
+    }
   }
 </script>
 
