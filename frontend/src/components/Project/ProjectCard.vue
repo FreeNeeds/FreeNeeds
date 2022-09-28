@@ -49,8 +49,7 @@
       </div>
     </div>
     <ProjectDetail
-    :id=projectCardItem
-    :idEdit=projectCardItem
+    :id=projectDetailModalId
     :projectDataReceive=projectData
     :companyDataReceive=companyData
     >
@@ -119,32 +118,34 @@
 
 <script>
   import ProjectDetail from '@/components/Project/ProjectDetail.vue';
+  import { createInstance } from "../../api/index.js";
 
   export default {
     data() {
       return {
         /**임시 데이터 */
+        projectDetailModalId : "projectDetail",
         projectData: {
-          id: "1",
-          category: "개발",
-          demain: "웹사이트",
-          location: "대한민국 어딘가...",
-          skill: ["Java", "Mysql" ,"SpringBoot"],
-          title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-          content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-          startDate: new Date("2022-09-10"),
-          endDate: new Date("2022-09-16"),
+          id: this.projectCardItem.projectId,
+          category: this.projectCardItem.category,
+          demain: this.projectCardItem.domain,
+          location : this.projectCardItem.locationSi + " " + this.projectCardItem.locationGu,
+          skill: [],
+          title: this.projectCardItem.title,
+          content: this.projectCardItem.task,
+          startDate: new Date(this.projectCardItem.startDate),
+          endDate: new Date(this.projectCardItem.endDate),
           startDateSummry : "2022-09-10",
           endDateSummry : "2022-09-16",
-          deadline: new Date("2022-11-30"),
-          recruitNumber: 3,
-          task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
-          workstyle: "재택",
-          workStartTime: "오전 08:00",
-          workEndTime: "오후 16:00",
-          lowPrice: "200만원",
-          highPrice: "300만원",
-          careerPeriod: 3,
+          deadline: new Date(this.projectCardItem.deadline),
+          recruitNumber: this.projectCardItem.recruitNumber,
+          task: this.projectCardItem.task,
+          workstyle: this.projectCardItem.workStyle,
+          workStartTime: this.projectCardItem.workStartTime,
+          workEndTime: this.projectCardItem.workEndTime,
+          lowPrice: this.projectCardItem.lowPrice,
+          highPrice: this.projectCardItem.highPrice,
+          careerPeriod: this.projectCardItem.careerPeriod,
         },
         companyData : {
           name: "삼성전자",
@@ -157,12 +158,21 @@
       };
     },
     mounted() {
+      createInstance().get('/project/tech/' + this.projectCardItem.projectId).then(res =>{
+        console.log(res.data)
+        for (let i = 0; i < res.data.length; i++) {
+          if (!this.projectData.skill.includes(res.data[i].techName)){
+            this.projectData.skill.push(res.data[i].techName)
+          }
+        }
+      })
       this.remainDate = Math.ceil(
         (this.projectData.deadline.getTime() - new Date().getTime()) /
           (1000 * 60 * 60 * 24) -
           1
       );
-      this.projectCardItemEdit += String(this.projectCardItem)
+      this.projectCardItemEdit += "projectDetail" + String(this.projectCardItem.projectId)
+      this,this.projectDetailModalId += String(this.projectCardItem.projectId)
     },
     methods : {
       clickProjectCardInProjectFind() {
@@ -173,7 +183,7 @@
     },
     props: {
       //nprojectData: Object
-      projectCardItem : String
+      projectCardItem : Object
     },
     components : {
       ProjectDetail

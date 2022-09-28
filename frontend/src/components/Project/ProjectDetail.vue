@@ -154,9 +154,9 @@
     props : {
       projectDataReceive : Object,
       companyDataReceive : Object,
-      idEdit : String
     },
     mounted() {
+      this.idEdit = String(this.projectDataReceive.id)
       this.ProjectDetailNavProject += this.idEdit
       this.ProjectDetailNavResume += this.idEdit
       this.projectDetailNavItemProject += this.idEdit

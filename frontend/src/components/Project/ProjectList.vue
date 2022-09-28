@@ -1,7 +1,7 @@
 <template>
   <div id="projectList">
     <ProjectCard class="projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
-    :key="projectCardItem"
+    :key="projectCardItem.projectId"
     :projectCardItem="projectCardItem"
     >
     </ProjectCard>
@@ -38,6 +38,7 @@
       projectCardLst : Array
     },
     mounted() {
+      console.log(this.projectCardLst)
       //document.querySelector(".carousel-item").classList.add("active")
     },
     components : {

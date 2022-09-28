@@ -13,12 +13,24 @@
   import FooterNav from '@/components/FooterNav.vue';
   import FilterBtn from '@/components/Project/FilterBtn.vue';
   import ProjectList from '@/components/Project/ProjectList.vue';
+  import { findProjectList } from '../api/projectAPI.js';
+  import { createInstance } from "../api/index.js";
 
   export default {
     data() {
       return {
-        projectCardLst : ["id1","id2","id3","id4","id5"]
+        projectCardLst : []
       }
+    },
+    mounted() {
+      createInstance().get('/project').then(res =>{
+        console.log(res)
+        for (let i = 0; i < res.data.length; i++) {
+          console.log(res.data[i])
+          this.projectCardLst.push(res.data[i])
+        }
+      })
+      
     },
     components : {
       SearchBar,
