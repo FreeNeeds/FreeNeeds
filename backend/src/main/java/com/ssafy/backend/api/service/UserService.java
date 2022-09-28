@@ -27,11 +27,9 @@ public interface UserService {
 
 	ProjectCareer createProjectCareer(User user, UserProjectRegisterPostReq registerProjectInfo);
 
-	List<UserProjectCareerRes> getProjectCareerAllList(User user);
+	List<UserProjectCareerRes> getProjectCareerAllList(String username);
 
 	void deleteUserProjectCareer(Long projectCareerId);
-
-    Long getResumeIdByUser(User user);
 
 	Page<User> getFreelancers(Pageable pageable);
 
@@ -51,4 +49,5 @@ public interface UserService {
 
 	void createProjectCareerTech(Long projectCareerId, List<String> techList);
 
+    Long getResumeIdByUsername(String username);
 }

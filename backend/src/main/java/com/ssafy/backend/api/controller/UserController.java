@@ -112,7 +112,6 @@ public class UserController {
 		//userId와 입력된 프로젝트 이력 정보 등록
 		ProjectCareer projectCareer = userService.createProjectCareer(user, registerProjectInfo);
 
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 		return ResponseEntity.status(200).body(projectCareer.getProjectCareerId());
 	}
 
@@ -125,11 +124,8 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<List<UserProjectCareerRes>> getUserProjectCareerList(@PathVariable String username) {
-		//username(id)로 user 정보 가져오기
-		User user = userService.getUserByUsername(username).get();
-
-		//user 정보로 해당되는 프로젝트 이력 리스트 가져오기
-		List<UserProjectCareerRes> res = userService.getProjectCareerAllList(user);
+		//username(id)로 해당되는 프로젝트 이력 리스트 가져오기
+		List<UserProjectCareerRes> res = userService.getProjectCareerAllList(username);
 
 		//찾아온 정보를 UserProfileRes에 담아 값 전달하기
 		return ResponseEntity.status(200).body(res);
@@ -158,11 +154,8 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<UserResumeRes> getUserResumeList(@PathVariable String username) {
-		//username(id)로 user 정보 가져오기
-		User user = userService.getUserByUsername(username).get();
-
-		//user로 이력서에서 resume_id 찾기
-		Long resume_id = userService.getResumeIdByUser(user);
+		//username(id)로 이력서에서 resume_id 찾기
+		Long resume_id = userService.getResumeIdByUsername(username);
 
 		//resume_id로 학력 받아오기
 		UserEducationRes education = educationService.getEducationByResumeId(resume_id);
