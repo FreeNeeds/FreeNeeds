@@ -31,8 +31,6 @@ public interface UserService {
 
 	void deleteUserProjectCareer(Long projectCareerId);
 
-    Long getResumeIdByUser(User user);
-
 	Page<User> getFreelancers(Pageable pageable);
 
 	Resume createResume(User user);
@@ -51,4 +49,5 @@ public interface UserService {
 
 	void createProjectCareerTech(Long projectCareerId, List<String> techList);
 
+    Long getResumeIdByUsername(String username);
 }
