@@ -49,5 +49,6 @@ public interface UserService {
 
 	Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user);
 
-	void createProjectCareerTech(String username, List<String> techList);
+	void createProjectCareerTech(Long projectCareerId, List<String> techList);
+
 }
