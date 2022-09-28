@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final ProfileRepository profileRepository;
 	private final ProjectCareerRepository projectCareerRepository;
+	private final ProjectCareerRepositorySupport projectCareerRepositorySupport;
 	private final ResumeRepository resumeRepository;
 	private final ResumeRepositorySupport resumeRepositorySupport;
 	private final EducationRepository educationRepository;
@@ -105,8 +106,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserProjectCareerRes> getProjectCareerAllList(User user) {
-		List<ProjectCareer> projectCareerList = projectCareerRepository.findAllByUser(user);
+	public List<UserProjectCareerRes> getProjectCareerAllList(String username) {
+		List<ProjectCareer> projectCareerList = projectCareerRepositorySupport.findAllByUsername(username);
 
 		List<UserProjectCareerRes> res = new ArrayList<>();
 

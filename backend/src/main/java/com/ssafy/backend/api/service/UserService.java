@@ -27,7 +27,7 @@ public interface UserService {
 
 	ProjectCareer createProjectCareer(User user, UserProjectRegisterPostReq registerProjectInfo);
 
-	List<UserProjectCareerRes> getProjectCareerAllList(User user);
+	List<UserProjectCareerRes> getProjectCareerAllList(String username);
 
 	void deleteUserProjectCareer(Long projectCareerId);
 
