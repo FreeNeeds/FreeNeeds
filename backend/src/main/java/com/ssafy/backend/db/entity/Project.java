@@ -2,12 +2,14 @@ package com.ssafy.backend.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,6 +98,7 @@ public class Project {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="companyId", referencedColumnName = "companyId")
 //    @JsonIgnore
+
     private Company company;
 
 //    @OneToMany(mappedBy = "project")
