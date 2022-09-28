@@ -3,6 +3,7 @@
     <freelancer-detail-component
       v-if="isLoading"
       :freelancerDetailReceive="freelancerDataReceive"
+      :id_="freelancerDataReceive.id"
     ></freelancer-detail-component>
   </div>
 </template>
@@ -24,6 +25,7 @@ export default {
     };
   },
   async mounted() {
+    this.freelancerDataReceive.id = 1;
     // console.log("????");
     // console.log(this.loginUserInfo.username);
     var haveresume = false;
@@ -39,6 +41,13 @@ export default {
         this.freelancerDataReceive = data;
       },
       err => {
+        // let data = this.loginUserInfo;
+        // data.resume = {};
+        // data.resume.title = "asd";
+        // data.resume.introduce = "res.data.introduce";
+        // data.resume.career_period = 0;
+        // data.resume.profileId = "";
+        // this.freelancerDataReceive = data;
         haveresume = true;
       }
     );
@@ -47,28 +56,28 @@ export default {
       data.title = "이력서를 작성해보세요!";
       data.introduce = "소개글을 작성해보세요!";
       data.career_period = 0;
-      console.log(data);
-      await userInstance.setUserProfile(data, async () => {
-        console.log("이건되니?");
-        await userInstance.getUserProfile(
-          this.loginUserInfo.username,
-          res => {
-            let data = this.loginUserInfo;
-            data.resume = {};
-            data.resume.title = res.data.title;
-            data.resume.introduce = res.data.introduce;
-            data.resume.career_period = res.data.career_period;
-            data.resume.profileId = res.data.profileId;
-            this.freelancerDataReceive = data;
-          },
-          err => {
-            console.log("?=");
-          }
-        );
+      // console.log(data);
+      await userInstance.setUserProfile(data, () => {
+        // console.log("이건되니?");
       });
+      await userInstance.getUserProfile(
+        this.loginUserInfo.username,
+        res => {
+          let data = this.loginUserInfo;
+          data.resume = {};
+          data.resume.title = res.data.title;
+          data.resume.introduce = res.data.introduce;
+          data.resume.career_period = res.data.career_period;
+          data.resume.profileId = res.data.profileId;
+          this.freelancerDataReceive = data;
+        },
+        err => {
+          // console.log("?=");
+        }
+      );
     }
 
-    console.log("??????");
+    // console.log("??????");
     // console.log(this.freelancerDataReceive);
     this.freelancerDataReceive.tech = [];
     if (this.freelancerDataReceive.resume.profileId != "") {
@@ -78,7 +87,7 @@ export default {
           // console.log("???" + res.data);
           for (let i = 0; i < res.data.length; i++) {
             // console.log(res.data[i]);
-            console.log(res);
+            // console.log(res);
             this.freelancerDataReceive.tech.push(res.data[i].techName);
           }
         },
@@ -148,7 +157,7 @@ export default {
         }
       );
     }
-    console.log(this.freelancerDataReceive);
+    // console.log(this.freelancerDataReceive);
     this.isLoading = true;
   }
 };

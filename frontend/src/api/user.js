@@ -52,7 +52,7 @@ async function setUserProfile(profileContent, success, fail) {
     .post("/users/profile", profileContent, {
       headers: store.getters.authHeader
     })
-    .then(await success)
+    .then(success)
     .catch(fail);
 }
 /** 프로필 수정 */
@@ -85,6 +85,10 @@ async function getUserTech(profileId, success, fail) {
 /** 프리랜서 기술 등록 */
 
 async function setUserTech(techList, username, success, fail) {
+  console.log(store.getters.authHeader);
+  var headeradd = store.getters.authHeader;
+  console.log(username);
+  console.log(techList);
   await instance
     .post(
       `/users/profile/tech/${username}`,
@@ -92,9 +96,9 @@ async function setUserTech(techList, username, success, fail) {
       {
         params: { techList: techList },
         paramsSerializer: params => {
-          return qs.stringify(params, { arrayFormat: "repeat" });
+          return qs.stringify(params, { arrayFormat: "comma" });
         },
-        headers: store.getters.authHeader
+        headeradd
       }
     )
     .then(success)
@@ -140,17 +144,18 @@ async function getUserProjectTech(projectCareerId, success, fail) {
 
 /** 프리랜서 프로젝트 이력 기술 등록 */
 
-async function setUserProjectTech(username, techList, success, fail) {
+async function setUserProjectTech(projectId, techList, success, fail) {
+  var headeradd = store.getters.authHeader;
   await instance
     .post(
-      `users/project/tech/${username}`,
+      `users/project/tech/${projectId}`,
       {},
       {
         params: { techList: techList },
         paramsSerializer: params => {
-          return qs.stringify(params, { arrayFormat: "repeat" });
+          return qs.stringify(params, { arrayFormat: "comma" });
         },
-        headers: store.getters.authHeader
+        headeradd
       }
     )
     .then(success)

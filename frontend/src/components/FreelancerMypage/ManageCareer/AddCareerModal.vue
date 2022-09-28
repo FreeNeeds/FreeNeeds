@@ -3,9 +3,9 @@
     class="modal"
     id="addCareerModal"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="addCareerModal"
     aria-hidden="true"
-    data-bs-backdrop="false"
+    data-bs-backdrop="true"
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -32,6 +32,7 @@
                   type="text"
                   placeholder="학교명"
                   aria-label="default input example"
+                  v-model="EducationInfo.education.highschool"
                 />
               </div>
               <div class="col-3">
@@ -40,6 +41,7 @@
                   id="addProjectStartDate"
                   min="1990-01-01"
                   class="add-project-standard-datepicker"
+                  v-model="EducationInfo.education.highschool_start_date"
                 />
               </div>
               <div class="col-1" style="text-align:center; margin:auto">
@@ -51,7 +53,7 @@
                   id="addProjectStartDate"
                   min="1990-01-01"
                   class="add-project-standard-datepicker"
-                  value="1990-02-02"
+                  v-model="EducationInfo.education.highschool_end_date"
                 />
               </div>
             </div>
@@ -65,6 +67,7 @@
                   type="text"
                   placeholder="학교명"
                   aria-label="default input example"
+                  v-model="EducationInfo.education.university"
                 />
                 <input
                   class="form-control"
@@ -72,6 +75,7 @@
                   placeholder="전공"
                   aria-label="default input example"
                   style="margin-top:10px"
+                  v-model="EducationInfo.education.major"
                 />
               </div>
               <div class="col-3">
@@ -80,6 +84,7 @@
                   id="addProjectStartDate"
                   min="1990-01-01"
                   class="add-project-standard-datepicker"
+                  v-model="EducationInfo.education.university_start_date"
                 />
               </div>
               <div class="col-1" style="text-align:center; margin-top:5px">
@@ -91,66 +96,76 @@
                   id="addProjectStartDate"
                   min="1990-01-01"
                   class="add-project-standard-datepicker"
-                  value="1990-02-02"
+                  v-model="EducationInfo.education.university_end_date"
                 />
               </div>
             </div>
           </div>
           <div>경력사항</div>
           <hr />
-          <div class="row add-career-career">
-            <div class="col-2">회사명</div>
-            <div class="col-10">
-              <div class="row">
-                <div class="col-4">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="회사명"
-                    aria-label="default input example"
-                  />
-                </div>
-                <div class="col-4">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="부서명"
-                    aria-label="default input example"
-                  />
-                </div>
-                <div class="col-4">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="직책명"
-                    aria-label="default input example"
-                  />
+          <div
+            v-for="(item, index) in EducationInfo.careerList"
+            :key="`company-${index}`"
+          >
+            <div class="row add-career-career">
+              <div class="col-2">회사명</div>
+              <div class="col-10">
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="회사명"
+                      aria-label="default input example"
+                      v-model="item.companyName"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="부서명"
+                      aria-label="default input example"
+                      v-model="item.department"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="직책명"
+                      aria-label="default input example"
+                      v-model="item.position"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row add-career-career">
-            <div class="col-2">근무기간</div>
-            <div class="col">
-              <div class="row">
-                <div class="col-3">
-                  <input
-                    type="date"
-                    id="addProjectStartDate"
-                    min="1990-01-01"
-                    class="add-project-standard-datepicker"
-                    style="margin:0"
-                  />
-                </div>
-                <div class="col-1" style="text-align:center">~</div>
-                <div class="col-4">
-                  <input
-                    type="date"
-                    id="addProjectEndDate"
-                    min="1990-01-01"
-                    class="add-project-standard-datepicker"
-                    style="margin:0"
-                  />
+            <div class="row add-career-career">
+              <div class="col-2">근무기간</div>
+              <div class="col">
+                <div class="row">
+                  <div class="col-3">
+                    <input
+                      type="date"
+                      id="addProjectStartDate"
+                      min="1990-01-01"
+                      class="add-project-standard-datepicker"
+                      style="margin:0"
+                      v-model="item.start_date"
+                    />
+                  </div>
+                  <div class="col-1" style="text-align:center">~</div>
+                  <div class="col-4">
+                    <input
+                      type="date"
+                      id="addProjectEndDate"
+                      min="1990-01-01"
+                      class="add-project-standard-datepicker"
+                      style="margin:0"
+                      v-model="item.end_date"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,7 +173,11 @@
           <div class="add-career-career" style="text-align:center">
             <hr style="width:95%;margin:auto;" />
           </div>
-          <div class=" add-career-career" style="text-align:center">
+          <div
+            class=" add-career-career"
+            style="text-align:center"
+            @click="addCareerCareerList"
+          >
             <div class="add-career-add-career-btn">
               <img
                 src="@/assets/images/plus.png"
@@ -168,53 +187,65 @@
           </div>
           <div>자격사항</div>
           <hr />
-          <div class="row add-career-career">
-            <div class="col-2">
-              자격증명
-            </div>
-            <div class="col">
-              <div class="row">
-                <div class="col-5">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="자격증명"
-                    aria-label="default input example"
-                  />
-                </div>
-                <div class="col">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="인증기관"
-                    aria-label="default input example"
-                  />
+          <div
+            v-for="(item, index) in EducationInfo.certificateList"
+            :key="`certificate-${index}`"
+          >
+            <div class="row add-career-career">
+              <div class="col-2">
+                자격증명
+              </div>
+              <div class="col">
+                <div class="row">
+                  <div class="col-5">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="자격증명"
+                      aria-label="default input example"
+                      v-model="item.name"
+                    />
+                  </div>
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="인증기관"
+                      aria-label="default input example"
+                      v-model="item.certification"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row add-career-career">
-            <div class="col-2">
-              취득일자
-            </div>
-            <div class="col-10">
-              <div class="row">
-                <div class="col-5">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="취득일자"
-                    aria-label="default input example"
-                  />
+            <div class="row add-career-career">
+              <div class="col-2">
+                취득일자
+              </div>
+              <div class="col-10">
+                <div class="row">
+                  <div class="col-5">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="취득일자"
+                      aria-label="default input example"
+                      v-model="item.date"
+                    />
+                  </div>
+                  <div class="col"></div>
                 </div>
-                <div class="col"></div>
               </div>
             </div>
           </div>
           <div class="add-career-career" style="text-align:center">
             <hr style="width:95%;margin:auto;" />
           </div>
-          <div class=" add-career-career" style="text-align:center">
+          <div
+            class=" add-career-career"
+            style="text-align:center"
+            @click="addCareerCertificateList"
+          >
             <div class="add-career-add-career-btn">
               <img
                 src="@/assets/images/plus.png"
@@ -243,8 +274,33 @@ export default {
   props: {
     freelancerDetailReceive: Object
   },
+  mounted() {
+    console.log(this.freelancerDetailReceive);
+    this.EducationInfo = this.freelancerDetailReceive.education;
+    console.log(this.EducationInfo);
+  },
   data() {
-    return {};
+    return {
+      EducationInfo: {}
+    };
+  },
+  methods: {
+    addCareerCareerList() {
+      this.EducationInfo.careerList.push({
+        companyName: "",
+        department: "",
+        end_date: "2020-01-01",
+        position: "",
+        start_date: "2000-01-01"
+      });
+    },
+    addCareerCertificateList() {
+      this.EducationInfo.certificateList.push({
+        certification: "",
+        date: "",
+        name: ""
+      });
+    }
   }
 };
 </script>

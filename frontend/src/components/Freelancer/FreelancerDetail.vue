@@ -532,6 +532,7 @@ export default {
   },
   mounted() {
     let id__ = String(this.id_);
+    // console.log(id__);
     this.freelancerProjectModalId += id__;
     this.freelancerProjectModalCtnrId += id__;
     this.carouselWrapperMine += id__;

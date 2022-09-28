@@ -170,23 +170,27 @@ export default {
     }
   },
   methods: {
-    currectUserInfo() {
+    async currectUserInfo() {
       const data = {
         career_period: this.userInfo.career_period,
         introduce: this.userInfo.introduce,
         title: this.userInfo.title
       };
-      userInstance.changeUserProfile(data, res => {
-        alert("성공적으로 이력서가 변경되었습니다.");
-      });
+      await userInstance.changeUserProfile(data, res => {});
       // console.log(this.filterSkill);
-      console.log(this.$route.params.originalUserInfo.username);
-      userInstance.setUserTech(
+      // console.log(this.$route.params.originalUserInfo.username);
+      console.log(this.FilterSkillLst);
+      console.log(this.FilterSkillCandidate);
+      await userInstance.setUserTech(
         this.FilterSkillLst,
         this.$route.params.originalUserInfo.username,
         res => {
           alert("기술 스택이 변경되었습니다.");
+          this.$router.push({ name: "mycareer" });
         }
+        // err => {
+        // console.log(err);
+        // }
       );
     },
     searchWorldChange() {

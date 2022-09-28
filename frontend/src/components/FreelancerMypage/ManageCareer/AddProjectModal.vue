@@ -230,17 +230,17 @@ export default {
     }
   },
   methods: {
-    addUserProject() {
-      userInstance.setUserProject(this.projectData, () => {
-        userInstance.setUserProjectTech(
-          this.loginUserInfo.username,
-          this.FilterSkillLst,
-          () => {
-            router.push({
-              name: "mypage"
-            });
-          }
-        );
+    async addUserProject() {
+      let projectId;
+      await userInstance.setUserProject(this.projectData, res => {
+        console.log(res);
+        projectId = res.data;
+      });
+      console.log(this.FilterSkillLst + " : " + projectId);
+      userInstance.setUserProjectTech(projectId, this.FilterSkillLst, res => {
+        // router.push({
+        //   name: "mypage"
+        // });
       });
     },
     searchWorldChange() {
