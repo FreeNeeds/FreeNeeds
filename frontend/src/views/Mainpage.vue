@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <!--상단 네비게이션 바-->
-
+    <!-- {{ loginUserInfo }} -->
     <b-carousel
       id="carousel-1"
       v-model="slide"
@@ -155,7 +155,7 @@
 <script>
 import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
-
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -170,6 +170,9 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     }
+  },
+  computed: {
+    ...mapGetters(["loginUserInfo"])
   },
   components: {
     HeaderNav,

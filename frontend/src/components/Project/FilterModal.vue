@@ -33,8 +33,8 @@
             <div class="FilterKeyword">분야</div>
             <hr />
             <FilterBtnGroup
-              v-for="filterItem in FilterCategoryLst"
-              :key="filterItem"
+              v-for="(filterItem, index) in FilterCategoryLst"
+              :key="`FCL-${index}`"
               :filterItem="filterItem"
               @addFilterCategory="addFilterCategory"
               @removeFilterCategory="removeFilterCategory"
@@ -43,8 +43,8 @@
             <div class="FilterKeyword">형태</div>
             <hr />
             <FilterBtnGroup
-              v-for="filterItem in FilterFormLst"
-              :key="filterItem"
+              v-for="(filterItem, index) in FilterFormLst"
+              :key="`FFL-${index}`"
               :filterItem="filterItem"
               @addFilterForm="addFilterForm"
               @removeFilterForm="removeFilterForm"
@@ -54,8 +54,8 @@
             <hr />
             <div id="skillSelectCtnr">
               <FilterSkillSelect
-                v-for="skillItem in FilterSkillLst"
-                :key="skillItem"
+                v-for="(skillItem, index) in FilterSkillLst"
+                :key="`FSL-${index}`"
                 :skillItem="skillItem"
                 @deleteSkill="deleteSkill"
               ></FilterSkillSelect>
@@ -77,8 +77,8 @@
             </div>
             <div id="skillCandidateCtnr" class="mx-5 my-3">
               <FilterSkillCandidate
-                v-for="skillCandidate in FilterSkillCandidate"
-                :key="skillCandidate"
+                v-for="(skillCandidate, index) in FilterSkillCandidate"
+                :key="`FSC-${index}`"
                 :skillCandidate="skillCandidate"
                 @insertSkill="insertSkill"
               ></FilterSkillCandidate>
@@ -97,8 +97,8 @@
                 </button>
                 <ul class="dropdown-menu" id="regionBtnGroup">
                   <RegionBtn
-                    v-for="region in RegionLst"
-                    :key="region"
+                    v-for="(region, index) in RegionLst"
+                    :key="`RL-${index}`"
                     :region="region"
                     @clickRegion="clickRegion"
                   >
@@ -117,8 +117,8 @@
                 </button>
                 <ul class="dropdown-menu" id="regionDetailBtnGroup">
                   <RegionDetailBtn
-                    v-for="region in RegionDetailLst"
-                    :key="region"
+                    v-for="(region, index) in RegionDetailLst"
+                    :key="`RDL-${index}`"
                     :region="region"
                     @clickRegionDetail="clickRegionDetail"
                   >

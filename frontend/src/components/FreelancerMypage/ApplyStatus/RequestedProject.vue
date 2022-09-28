@@ -1,6 +1,6 @@
 <template>
   <div>
-    <project-card></project-card>
+    <!-- <project-card></project-card> -->
   </div>
 </template>
 

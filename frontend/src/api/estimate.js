@@ -3,16 +3,19 @@ import { createInstance } from "./index.js";
 
 const instance = createInstance();
 
-function getUserEstimate(username, success, fail) {
-  instance
-    .get(`/estimate/${username}`)
+async function getUserEstimate(username, success, fail) {
+  console.log(username);
+  await instance
+    .get(`/estimates/${username}`)
     .then(success)
     .catch(fail);
 }
 
-function setUserEstimate(username, registerEstimateInfo, success, fail) {
-  instance
-    .post(`/estimates/${username}`)
+async function setUserEstimate(qdata, success, fail) {
+  const username = data.username;
+  const registerEstimateInfo = data.registerEstimateInfo;
+  await instance
+    .post(`/estimates/${username}`, registerEstimateInfo)
     .then(success)
     .catch(fail);
 }
