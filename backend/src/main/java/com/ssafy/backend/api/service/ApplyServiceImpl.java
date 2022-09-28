@@ -6,6 +6,7 @@ import com.ssafy.backend.db.entity.Apply;
 import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.ApplyRepository;
+import com.ssafy.backend.db.repository.ApplyRepositorySupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,16 @@ public class ApplyServiceImpl implements ApplyService{
 
     private final ApplyRepository applyRepository;
 
+    private final ApplyRepositorySupport applyRepositorySupport;
+
+//    @Override
+//    public List<Apply> getApply(User user) {
+//        return applyRepository.findAll().stream().filter(v -> v.getUser() == user).collect(Collectors.toList());
+//    }
+
     @Override
-    public List<Apply> getApply(User user) {
-        return applyRepository.findAll().stream().filter(v -> v.getUser() == user).collect(Collectors.toList());
+    public List<Apply> getApplyByUserId(Long userId) {
+        return applyRepositorySupport.findAllByUserId(userId);
     }
 
     @Override
