@@ -95,7 +95,7 @@ public class Project {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="companyId", referencedColumnName = "companyId")
-    @JsonIgnore
+//    @JsonIgnore
     private Company company;
 
 //    @OneToMany(mappedBy = "project")
