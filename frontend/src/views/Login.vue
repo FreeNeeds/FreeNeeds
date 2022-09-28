@@ -86,7 +86,9 @@ export default {
     };
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    
+  },
   created() {},
   methods: {
     ...mapActions(["freelancerLoginA", "companyLoginA"]),

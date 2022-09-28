@@ -1,6 +1,14 @@
 <template>
-  <div class="project-card-wrapper" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit>
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
+  <div
+    class="project-card-wrapper"
+    data-bs-toggle="modal"
+    :data-bs-target="projectCardItemEdit"
+  >
+    <img
+      class="wrapperImgProjectCarousel"
+      src="@/assets/images/하얀색.png"
+      alt=""
+    />
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -112,7 +120,7 @@
         </div>
       </div>
     </div>-->
-    <hr>
+    <hr />
   </div>
 </template>
 
@@ -193,9 +201,7 @@
     components : {
       ProjectDetail
     }
-  };
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

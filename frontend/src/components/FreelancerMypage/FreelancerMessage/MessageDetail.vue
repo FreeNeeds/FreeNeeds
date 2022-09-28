@@ -83,7 +83,7 @@ export default {
     },
     changeSelectedMessage(index) {
       console.log(index);
-
+      console.log(this.selectedIndex + " : " + index);
       if (this.selectedIndex == index) {
         $(".message-wrapper")
           .children(".message-content")

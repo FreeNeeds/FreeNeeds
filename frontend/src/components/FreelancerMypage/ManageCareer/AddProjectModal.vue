@@ -21,7 +21,11 @@
         <div class="modal-body">
           <div class="add-project-items add-project-category">
             <label class="add-project-label">분야</label>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="projectData.category"
+            >
               <option
                 v-for="(item, index) in FilterCategoryLst"
                 :key="index"
@@ -32,7 +36,11 @@
           </div>
           <div class="add-project-items add-project-domain">
             <label class="add-project-label">형태</label>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="projectData.domain"
+            >
               <option
                 v-for="(item, index) in FilterFormLst"
                 :key="index"
@@ -102,6 +110,7 @@
               id="addProjectCompanyName"
               placeholder="기업명..."
               style="display:inline-block"
+              v-model="projectData.companyName"
             />
           </div>
           <div class="add-project-items add-project-title">
@@ -118,6 +127,7 @@
               id="addProjectProjectName"
               placeholder="프로젝트 명..."
               style="display:inline-block"
+              v-model="projectData.title"
             />
           </div>
 
@@ -132,6 +142,7 @@
               class="form-control"
               id="addProjectWorkContent"
               rows="6"
+              v-model="projectData.content"
             ></textarea>
           </div>
           <div class="add-project-items add-project-">
@@ -141,6 +152,7 @@
               id="addProjectStartDate"
               min="1990-01-01"
               class="add-project-standard-datepicker"
+              v-model="projectData.start_date"
             />
             ~
             <input
@@ -148,6 +160,7 @@
               id="addProjectEndDate"
               min="1990-01-01"
               class="add-project-standard-datepicker"
+              v-model="projectData.end_date"
             />
           </div>
         </div>
@@ -159,7 +172,9 @@
           >
             취소
           </button>
-          <button type="button" class="btn btn-primary">추가</button>
+          <button type="button" class="btn btn-primary" @click="addUserProject">
+            추가
+          </button>
         </div>
       </div>
     </div>
@@ -168,7 +183,13 @@
 
 <script>
 import { skills, searchSkillFunc } from "../../../utils/skillSearch";
+import * as userInstance from "@/api/user.js";
+import { mapGetters } from "vuex";
+import router from "../../../router";
 export default {
+  computed: {
+    ...mapGetters(["loginUserInfo"])
+  },
   mounted() {
     for (let i = 0; i < skills.length; i++) {
       this.FilterSkillCandidate.push(skills[i]);
@@ -209,6 +230,19 @@ export default {
     }
   },
   methods: {
+    async addUserProject() {
+      let projectId;
+      await userInstance.setUserProject(this.projectData, res => {
+        console.log(res);
+        projectId = res.data;
+      });
+      console.log(this.FilterSkillLst + " : " + projectId);
+      userInstance.setUserProjectTech(projectId, this.FilterSkillLst, res => {
+        // router.push({
+        //   name: "mypage"
+        // });
+      });
+    },
     searchWorldChange() {
       this.FilterSkillCandidate = [];
       for (let candidate of searchSkillFunc(this.searchingWord)) {
@@ -295,11 +329,11 @@ export default {
       projectData: {
         category: "",
         domain: "",
-        company_name: "",
+        companyName: "",
         title: "",
         content: "",
-        start_date: new Date(2022, 1, 1),
-        end_date: new Date(2022, 12, 31)
+        start_date: "2022-01-01",
+        end_date: "2022-12-01"
       }
     };
   }

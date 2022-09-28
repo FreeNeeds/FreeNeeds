@@ -58,11 +58,11 @@
 </script>
 
 <style>
-  #banner {
-    width : 100%;
-    height : 130px;
-    margin-top : 10px;
-    margin-bottom : 10px;
-    background-color: #EAF5FB;
-  }
+#banner {
+  width: 100%;
+  height: 130px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #eaf5fb;
+}
 </style>

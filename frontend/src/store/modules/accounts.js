@@ -32,6 +32,7 @@ export default {
     }
   },
   getters: {
+    authHeader: state => ({ Authorization: `Bearer ${state.accessToken}` }),
     testdata: state => state.testdata,
     loginUserInfo: state => state.loginUserInfo,
     accessToken: state => state.accessToken,
@@ -60,7 +61,7 @@ export default {
           id: res.data.id,
           name: res.data.name,
           phone: res.data.phone,
-          username: res.data.name
+          username: res.data.username
         };
         console.log(res);
         console.log(loginUserDate);

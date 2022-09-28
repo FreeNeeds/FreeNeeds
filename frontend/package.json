@@ -17,6 +17,7 @@
     "bootstrap": "^5.2.1",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.3.2",
+    "qs": "^6.11.0",
     "vue": "^2.7.10",
     "vue-loader": "^17.0.0",
     "vue-persistedstate": "^1.2.5",
