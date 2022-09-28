@@ -1,8 +1,10 @@
 package com.ssafy.backend.db.repository;
 
 import com.querydsl.core.types.CollectionExpression;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.backend.db.entity.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -43,21 +45,48 @@ public class ProjectTechRepositorySupport extends QuerydslRepositorySupport{
 
         return jpaQueryFactory.select(qProjectTech.project)
                 .from(qProjectTech)
-                .where(qProjectTech.tech.in(techList)
-                        ,qProjectTech.project.locationSi.eq(locationSi)
-                        ,qProjectTech.project.locationGu.eq(locationGu)
-                        ,qProjectTech.project.category.eq(category)
-//                        ,qProjectTech.project.domain
-//                        ,qDomain.in(domainList))
-//                        ,qProjectTech.project.domains.domainName.in(domainList)
-                        ,qProjectTech.project.domain.in(domainList)
+                .where(inTechList(techList),
+                        eqLocationSi(locationSi),
+                        eqLocationGu(locationGu),
+                        eqCategory(category),
+                        inDomainList(domainList)
                 )
-
                 .distinct()
                 .fetch();
 
 
 
+    }
+
+    private BooleanExpression inTechList(List<Tech> techList) {
+        if (techList.isEmpty()) {
+            return null;
+        }
+        return qProjectTech.tech.in(techList);
+    }
+    private BooleanExpression eqLocationSi(String locationSi) {
+        if (StringUtils.isEmpty(locationSi)) {
+            return null;
+        }
+        return qProjectTech.project.locationSi.eq(locationSi);
+    }
+    private BooleanExpression eqLocationGu(String locationGu) {
+        if (StringUtils.isEmpty(locationGu)) {
+            return null;
+        }
+        return qProjectTech.project.locationGu.eq(locationGu);
+    }
+    private BooleanExpression eqCategory(String category) {
+        if (StringUtils.isEmpty(category)) {
+            return null;
+        }
+        return qProjectTech.project.category.eq(category);
+    }
+    private BooleanExpression inDomainList(List<String> domainList) {
+        if (domainList.isEmpty()) {
+            return null;
+        }
+        return qProjectTech.project.domain.in(domainList);
     }
 
     public Page<Project> getProjectListByTechsPaging(List<Tech> techList, Pageable pageable){
