@@ -114,5 +114,10 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    @Override
+    public List<Project> getProjectsByCompanyId(Long companyId) {
+        return projectRepositorySupport.findProjectsByCompanyId(companyId);
+    }
+
 
 }

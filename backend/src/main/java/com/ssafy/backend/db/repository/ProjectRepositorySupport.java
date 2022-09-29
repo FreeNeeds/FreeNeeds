@@ -29,6 +29,10 @@ public class ProjectRepositorySupport extends QuerydslRepositorySupport {
         return jpaQueryFactory.selectFrom(qProject).where(qProject.projectId.eq(pId)).fetch();
     }
 
+    public List<Project> findProjectsByCompanyId(Long companyId){
+        return jpaQueryFactory.selectFrom(qProject).where(qProject.company.companyId.eq(companyId)).fetch();
+    }
+
 
 
 }
