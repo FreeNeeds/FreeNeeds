@@ -3,7 +3,13 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+export default {
+  mounted() {},
+  method: {
+    ...mapActions(["getAllProjectList"])
+  }
+};
 </script>
 
 <style></style>

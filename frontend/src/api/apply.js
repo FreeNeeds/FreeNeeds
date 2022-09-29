@@ -5,12 +5,11 @@ import store from "@/store/index.js";
 const instance = createInstance();
 
 /** 지원 상태 조회 */
-function getApplyStatus(projectId, userId, success, fail) {
+function getApplyStatus(userId, success, fail) {
   instance
     .get(`apply`, {
       params: {
-        projectId,
-        userId
+        userId: userId
       }
     })
     .then(success)

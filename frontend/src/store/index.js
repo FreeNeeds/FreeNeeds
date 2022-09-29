@@ -3,15 +3,13 @@ import Vuex from "vuex";
 import accounts from "@/store/modules/accounts.js";
 import mypage from "@/store/modules/mypage.js";
 import message from "@/store/modules/message.js";
+import project from "@/store/modules/project.js";
+import user from "@/store/modules/user.js";
+
 import { createVuexPersistedState } from "vue-persistedstate";
 Vue.use(Vuex);
-const user = JSON.parse(sessionStorage.getItem("user"));
-const initialState = user
-  ? { status: { isSigned: true }, user }
-  : { status: { isSigned: false }, user: null };
 
 export default new Vuex.Store({
-  state: initialState,
   mutations: {
     setIsSigned(state, isSigned) {
       state.status.isSigned = isSigned;
@@ -34,7 +32,7 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: { accounts, mypage, message },
+  modules: { accounts, mypage, message, user, project },
   plugins: [
     createVuexPersistedState({
       storage: window.sessionStorage

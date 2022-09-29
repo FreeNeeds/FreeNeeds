@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface ApplyService {
 
-    List<Apply> getApply(User user);
+    List<Apply> getApplyByUserId(Long userId);
+
     Apply createApply(String state, User user, Project project);
 
     Apply updateApply(String state, User user, Project project);
