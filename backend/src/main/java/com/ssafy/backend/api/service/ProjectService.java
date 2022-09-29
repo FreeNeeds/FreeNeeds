@@ -23,4 +23,6 @@ public interface ProjectService {
     List<Tech> getTechsByProjectId(Long projectId);
 
     List<Project> getProjectsByTechs(List<String> techList, String locationSi, String locationGu, String category, List<String> domainList);
+
+    List<Project> getProjectsByCompanyId(Long companyId);
 }
