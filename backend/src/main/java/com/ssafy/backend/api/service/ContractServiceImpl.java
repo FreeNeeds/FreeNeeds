@@ -5,6 +5,7 @@ import com.ssafy.backend.db.entity.Contract;
 import com.ssafy.backend.db.entity.Project;
 import com.ssafy.backend.db.entity.User;
 import com.ssafy.backend.db.repository.ContractRepository;
+import com.ssafy.backend.db.repository.ContractRepositorySupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class ContractServiceImpl implements  ContractService{
 
     private final ContractRepository contractRepository;
+    private final ContractRepositorySupport contractRepositorySupport;
 
     @Override
     public void createContract(Project project, User user, ContractRegisterPostReq registerContractInfo) {
@@ -27,5 +29,10 @@ public class ContractServiceImpl implements  ContractService{
         contract.setContent(registerContractInfo.getContent());
 
         contractRepository.save(contract);
+    }
+
+    @Override
+    public Contract getContractByUserIdAndProjectId(Long userId, Long projectId) {
+        return contractRepositorySupport.findContractByUserIdAndProjectId(userId, projectId);
     }
 }

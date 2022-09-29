@@ -12,9 +12,6 @@ import lombok.Setter;
 @Setter
 @ApiModel("ContractRegisterPostRequest")
 public class ContractRegisterPostReq {
-    @ApiModelProperty(name = "계약 유저 Serial")
-    Long userId;
-
     @ApiModelProperty(name = "이미지 경로")
     String imgSRC;
 
