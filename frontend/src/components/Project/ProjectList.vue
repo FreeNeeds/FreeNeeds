@@ -1,10 +1,13 @@
 <template>
-  <div id="projectList">
+  <div id="projectList" class="container">
+    <div class="row">
     <ProjectCard class="projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
     :key="projectCardItem.projectId"
     :projectCardItem="projectCardItem"
+    style="background-color : rgba(189, 135, 255, 0.1)"
     >
     </ProjectCard>
+    </div>
     <!--<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
       <div class="carousel-inner px-3">
         <ProjectCard class="carousel-item projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
@@ -49,7 +52,6 @@
 
 <style>
   #projectList {
-    width : 70%;
     margin: auto; 
   }
 

@@ -254,7 +254,18 @@
     right : 400px;
   }
 
+  .project-card-wrapper {
+    padding: 2%;
+    width: 30% !important;
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0,0,0, 0.25);
+  }
   #remainDateWrapperInProjectDetail {
+    position: absolute;
+    top : 18px;
+    right : 85px;
     border-radius: 40px;
     border: 1px solid lightgray;
     background-color: #3C74C9;
