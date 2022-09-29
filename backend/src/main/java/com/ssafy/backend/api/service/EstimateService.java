@@ -10,5 +10,5 @@ import java.util.List;
 public interface EstimateService {
     void createEstimate(User user, EstimateRegisterPostReq registerEstimateInfo);
 
-    List<EstimateRes> getEstimateAllList(User user);
+    List<EstimateRes> getEstimateAllList(String username);
 }

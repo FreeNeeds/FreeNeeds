@@ -37,12 +37,8 @@ public class ApplyController {
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
     public ResponseEntity<ApplyListRes> getApply(@RequestParam(name = "userId") Long userId) {
-        Optional<User> user = userService.getUserByUserId(userId);
-        if (user.isPresent()) {
-            List<Apply> applyList = applyService.getApply(user.get());
-            return ResponseEntity.status(200).body(ApplyListRes.of(200, "success", applyList));
-        }
-        throw new IllegalArgumentException("존재하지 않는 유저입니다.");
+        List<Apply> applyList = applyService.getApplyByUserId(userId);
+        return ResponseEntity.status(200).body(ApplyListRes.of(200, "success", applyList));
     }
 
     @PostMapping
