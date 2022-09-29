@@ -1,6 +1,14 @@
 <template>
-  <div class="project-card-wrapper" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit>
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
+  <div
+    class="project-card-wrapper"
+    data-bs-toggle="modal"
+    :data-bs-target="projectCardItemEdit"
+  >
+    <img
+      class="wrapperImgProjectCarousel"
+      src="@/assets/images/하얀색.png"
+      alt=""
+    />
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -49,10 +57,10 @@
       </div>
     </div>
     <ProjectDetail
-    :id=projectCardItem
-    :idEdit=projectCardItem
-    :projectDataReceive=projectData
-    :companyDataReceive=companyData
+      :id="projectCardItem"
+      :idEdit="projectCardItem"
+      :projectDataReceive="projectData"
+      :companyDataReceive="companyData"
     >
     </ProjectDetail>
     <!--<div class="row project-card-devide-row">
@@ -113,74 +121,79 @@
         </div>
       </div>
     </div>-->
-    <hr>
+    <hr />
   </div>
 </template>
 
 <script>
-  import ProjectDetail from '@/components/Project/ProjectDetail.vue';
+import ProjectDetail from "@/components/Project/ProjectDetail.vue";
 
-  export default {
-    data() {
-      return {
-        /**임시 데이터 */
-        projectData: {
-          id: "1",
-          category: "개발",
-          demain: "웹사이트",
-          location: "대한민국 어딘가...",
-          skill: ["Java", "Mysql" ,"SpringBoot"],
-          title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-          content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-          startDate: new Date("2022-09-10"),
-          endDate: new Date("2022-09-16"),
-          startDateSummry : "2022-09-10",
-          endDateSummry : "2022-09-16",
-          deadline: new Date("2022-11-30"),
-          recruitNumber: 3,
-          task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
-          workstyle: "재택",
-          workStartTime: "오전 08:00",
-          workEndTime: "오후 16:00",
-          lowPrice: "200만원",
-          highPrice: "300만원",
-          careerPeriod: 3,
-        },
-        companyData : {
-          name: "삼성전자",
-          ceo: "이재용",
-          address: "대전시 유성구 덕명동",
-          call: "042-000-0000"
-        },
-        projectCardItemEdit: "#",
-        remainDate: ""
-      };
-    },
-    mounted() {
-      this.remainDate = Math.ceil(
-        (this.projectData.deadline.getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24) -
-          1
-      );
-      this.projectCardItemEdit += String(this.projectCardItem)
-    },
-    methods : {
-      clickProjectCardInProjectFind() {
-        this.$router.push({name : "projectDetail", params: {
-                projectData : this.projectData,
-                }});
-      }
-    },
-    props: {
-      //nprojectData: Object
-      projectCardItem : String
-    },
-    components : {
-      ProjectDetail
+export default {
+  data() {
+    return {
+      /**임시 데이터 */
+      /** 프로젝트 아이디로 데이터 찾기 */
+      projectData: {
+        id: "1",
+        category: "개발",
+        demain: "웹사이트",
+        locationSi: "성남시",
+        locationGu: "분당구",
+        skill: ["Java", "Mysql", "SpringBoot"],
+        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
+        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+        startDate: new Date("2022-09-10"),
+        endDate: new Date("2022-09-16"),
+        startDateSummry: "2022-09-10",
+        endDateSummry: "2022-09-16",
+        deadline: new Date("2022-11-30"),
+        recruitNumber: 3,
+        task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
+        workstyle: "재택",
+        workStartTime: "오전 08:00",
+        workEndTime: "오후 16:00",
+        lowPrice: "200만원",
+        highPrice: "300만원",
+        careerPeriod: 3
+      },
+      /** api 수정 필요 company_id로 company정보를 찾거나 프로젝트 조회에서 company username을 찾거나 */
+      companyData: {
+        name: "삼성전자",
+        ceo: "이재용",
+        address: "대전시 유성구 덕명동",
+        call: "042-000-0000"
+      },
+      projectCardItemEdit: "#",
+      remainDate: ""
+    };
+  },
+  mounted() {
+    this.remainDate = Math.ceil(
+      (this.projectData.deadline.getTime() - new Date().getTime()) /
+        (1000 * 60 * 60 * 24) -
+        1
+    );
+    this.projectCardItemEdit += String(this.projectCardItem);
+  },
+  methods: {
+    clickProjectCardInProjectFind() {
+      this.$router.push({
+        name: "projectDetail",
+        params: {
+          projectData: this.projectData
+        }
+      });
     }
-  };
+  },
+  props: {
+    //nprojectData: Object
+    /** 프로젝트 아이디 */
+    projectCardItem: String
+  },
+  components: {
+    ProjectDetail
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

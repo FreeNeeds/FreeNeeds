@@ -1,12 +1,12 @@
 // userService.js
 import axios from "axios";
 import { createInstance } from "./index.js";
-
+import store from "@/store/index.js";
 const instance = createInstance();
-
+import qs from "qs";
 /** 여기서 부터 만듬 */
 /** 프리랜서 회원가입 */
-function signupFreelancer(userInfo, success, fail) {
+async function signupFreelancer(userInfo, success, fail) {
   console.log(userInfo);
   // console.log("여긴옴?");
   // console.log(userInfo);
@@ -19,52 +19,56 @@ function signupFreelancer(userInfo, success, fail) {
   };
   console.log(registerInfo);
 
-  instance
+  await instance
     .post("/users", registerInfo, {
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then(success);
+    .then(success)
+    .catch(fail);
 }
 /** 프리랜서 전체 조회 */
-function getUserList(searchOption, success, fail) {
-  instance
-    .get("/users", {
-      params: searchOption
-    })
+async function getUserList(searchOption, success, fail) {
+  await instance
+    .get(`/users?page=${searchOption.page}&size=${searchOption.size}`)
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 필터링 조회 */
-function getFilterUserList(techList, success, fail) {
-  instance
+async function getFilterUserList(techList, success, fail) {
+  await instance
     .get("/users/filter", {
       params: techList
     })
     .then(success)
     .catch(fail);
 }
+
 /** 프로필 등록 */
-function setUserProfile(profileContent, success, fail) {
-  instance
-    .post("/users/profile", profileContent)
+async function setUserProfile(profileContent, success, fail) {
+  await instance
+    .post("/users/profile", profileContent, {
+      headers: store.getters.authHeader
+    })
     .then(success)
     .catch(fail);
 }
 /** 프로필 수정 */
-function changeUserProfile(profileContent, success, fail) {
-  instance
-    .patch("/users/profile", profileContent)
+async function changeUserProfile(profileContent, success, fail) {
+  await instance
+    .patch("/users/profile", profileContent, {
+      headers: store.getters.authHeader
+    })
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 프로필 조회 */
 
-function getUserProfile(username, success, fail) {
-  instance
+async function getUserProfile(username, success, fail) {
+  await instance
     .get(`/users/profile/${username}`)
     .then(success)
     .catch(fail);
@@ -72,79 +76,106 @@ function getUserProfile(username, success, fail) {
 
 /** 프리랜서 기술 조회 */
 
-function getUserTech(profileId, success, fail) {
-  instance
+async function getUserTech(profileId, success, fail) {
+  await instance
     .get(`/users/profile/tech/${profileId}`)
     .then(success)
     .catch(fail);
 }
 /** 프리랜서 기술 등록 */
 
-function setUserTech(techList, username, success, fail) {
-  instance
-    .post(`/users/profile/tech/${username}`, techList)
+async function setUserTech(techList, username, success, fail) {
+  console.log(store.getters.authHeader);
+  var headeradd = store.getters.authHeader;
+  console.log(username);
+  console.log(techList);
+  await instance
+    .post(
+      `/users/profile/tech/${username}`,
+      {},
+      {
+        params: { techList: techList },
+        paramsSerializer: params => {
+          return qs.stringify(params, { arrayFormat: "comma" });
+        },
+        headeradd
+      }
+    )
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 프로젝트 이력 등록 */
 
-function setUserProject(registerProfileInfo, success, fail) {
-  instance
-    .post(`user/project`, registerProfileInfo)
+async function setUserProject(registerProfileInfo, success, fail) {
+  await instance
+    .post(`users/project`, registerProfileInfo, {
+      headers: store.getters.authHeader
+    })
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 프로젝트 이력 삭제 */
 
-function deleteUserProject(projectCareerId, success, fail) {
-  instance
-    .delete(`user/project/${projectCareerId}`)
+async function deleteUserProject(projectCareerId, success, fail) {
+  await instance
+    .delete(`users/project/${projectCareerId}`)
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 이력 조회 */
 
-function getUserProject(username, success, fail) {
-  instance
-    .get(`user/project/${username}`)
+async function getUserProject(username, success, fail) {
+  await instance
+    .get(`users/project/${username}`)
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 프로젝트 이력 기술 조회 */
-function getUserProjectTech(projectCareerId, success, fail) {
-  instance
-    .get(`user/project/tech/${projectCareerId}`)
+async function getUserProjectTech(projectCareerId, success, fail) {
+  await instance
+    .get(`users/project/tech/${projectCareerId}`)
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 프로젝트 이력 기술 등록 */
 
-function setUserProjectTech(username, success, fail) {
-  instance
-    .post(`user/project/tech/${username}`)
+async function setUserProjectTech(projectId, techList, success, fail) {
+  var headeradd = store.getters.authHeader;
+  await instance
+    .post(
+      `users/project/tech/${projectId}`,
+      {},
+      {
+        params: { techList: techList },
+        paramsSerializer: params => {
+          return qs.stringify(params, { arrayFormat: "comma" });
+        },
+        headeradd
+      }
+    )
     .then(success)
     .catch(fail);
 }
 
 /** 유저 이력 사항 등록 */
 
-function setUserResume(registerResumeInfo, success, fail) {
-  instance
-    .post(`user/resume`, registerResumeInfo)
+async function setUserResume(registerResumeInfo, success, fail) {
+  await instance
+    .post(`users/resume`, registerResumeInfo)
     .then(success)
     .catch(fail);
 }
 
 /** 프리랜서 이력사항 조회 */
 
-function getUserResume(username) {
-  instance
-    .get(`user/resume/${username}`)
+async function getUserResume(username, success, fail) {
+  await instance
+    .get(`users/resume/${username}`)
     .then(success)
     .catch(fail);
 }

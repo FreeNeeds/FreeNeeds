@@ -1,128 +1,230 @@
 <template>
   <div id="freelancer-list">
+    <!-- <div>{{ totalUserList }}</div>
+    <div>{{ freelancerCardLst }}</div>
+    <div>{{ freelancerDataReceive }}</div> -->
+
     <FreelancerCard
-    v-for="freelancerCard in freelancerCardLst"
-    :key="freelancerCard.id"
-    :freelancerCard="freelancerCard"></FreelancerCard>
-    
+      v-for="(freelancerCard, index) in freelancerCardLst"
+      :key="index"
+      :freelancerCard="freelancerCard"
+    ></FreelancerCard>
   </div>
 </template>
 
 <script>
 import FreelancerCard from "@/components/Freelancer/FreelancerCard.vue";
+import { mapActions, mapGetters } from "vuex";
+
+import * as userInstance from "@/api/user.js";
+import * as EstimateInstance from "@/api/estimate.js";
 
 export default {
-  data() {
-    return {
-      myProjectLst : [],
-      freelancerCardLst : [],
-      freelancerCardItem : {
-        projectCareerId : "1",
-        category : "개발",
-        domain : "웹사이트",
-        company_name : "한국투자공사",
-        title : "한국투자공사 모바일 가상화 시스템 구축",
-        content : "한국투자공사 모바일 가상화 시스템 앱 개발 - 기존 그룹웨어 앱 가상화에서 사용가능하도록 수정",
-        projectCareerTech : ["Java","Vue.js","Oracle"],
-        startDate : "2020-04-10",
-        endDate : "2020-10-30"
-      },
-      projectData: {
-        id: "1",
-        category: "개발",
-        demain: "웹사이트",
-        location: "대한민국 어딘가...",
-        skill: ["Java", "Mysql" ,"SpringBoot"],
-        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-        startDate: new Date("2022-09-10"),
-        endDate: new Date("2022-09-16"),
-        startDateSummry : "2022-09-10",
-        endDateSummry : "2022-09-16",
-        deadline: new Date("2022-11-30"),
-        recruitNumber: 3,
-        task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-        workstyle: "재택",
-        workStartTime: "오전 08:00",
-        workEndTime: "오후 16:00",
-        lowPrice: "200만원",
-        highPrice: "300만원",
-        careerPeriod: 3,
-      },
-      freelancerDataReceive : {
-        user_id : "1",
-        name : "빌게이츠",
-        resume : {
-          title : "최고를 꿈꾸는 개발자입니다.",
-          introduce : "고객이 요구하는 개발 스킬 및 요건에 맞추어 수많은 프로젝트의 경험을가지고 있습니다. 고객의 소통을 최우선으로 함께 고민하고 최선의마음으로 개발을 진행하고 있습니다. 원하시는 개발 요건을이루어드립니다. 다양한 프로젝트 경험으로 개발 요구 언어를 사용하여고객의 요건에 충족할 수 있습니다. 또한 최근 트렌드에 맞추어 최신 언어로 개발 진행 가능합니다.",
-          career_period : "3"
+  props: {
+    username: "",
+    name: ""
+  },
+
+  async mounted() {
+    /** 전체 유저 리스트 받아오기 */
+    console.log("????");
+    await userInstance.getUserList(this.searchOption, res => {
+      this.totalUserList = res.data;
+    });
+
+    /** 유저 프로필 정보 받아오기 */
+    for (let i = 0; i < this.totalUserList.length; i++) {
+      console.log(this.totalUserList[i]);
+      await userInstance.getUserProfile(
+        this.totalUserList[i].username,
+        res => {
+          const data = this.totalUserList[i];
+          data.resume.title = res.data.title;
+          data.resume.introduce = res.data.introduce;
+          data.resume.career_period = res.data.career_period;
+          data.resume.profileId = res.data.profileId;
+          this.freelancerDataReceive.push(data);
         },
-        tech : ["java","javascript","MySQL"],
-        estimate : [
-          {
-            profession : 4,
-            ontime : 5,
-            active : 3.5,
-            communication : 4.5,
-            reEmployment : 3
-          },
-          {
-            profession : 3,
-            ontime : 4,
-            active : 3,
-            communication : 4.5,
-            reEmployment : 5
-          },
-          {
-            profession : 2,
-            ontime : 4,
-            active : 4.5,
-            communication : 4.5,
-            reEmployment : 5
-          },
-          {
-            profession : 4,
-            ontime : 3,
-            active : 3.5,
-            communication : 3.5,
-            reEmployment : 4
-          },
-          {
-            profession : 4.5,
-            ontime : 4,
-            active : 4,
-            communication : 3.5,
-            reEmployment : 2
-          },
-        ],
-        projectCareer : [],
+        () => {
+          const data = this.totalUserList[i];
+          data.resume = {};
+          data.resume.title = "";
+          data.resume.introduce = "";
+          data.resume.career_period = 0;
+          data.resume.profileId = "";
+          this.freelancerDataReceive.push(data);
+        }
+      );
+    }
+    console.log(this.freelancerDataReceive);
+
+    /** 유저 프로필 기술 받아오기 */
+
+    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+      if (this.freelancerDataReceive[i].resume.profileId != "") {
+        await userInstance.getUserTech(
+          this.freelancerDataReceive[i].resume.profileId,
+          res => {
+            // console.log(res);
+            this.freelancerDataReceive[i].tech = res.data;
+          }
+        );
       }
     }
-  },
-  mounted() {
-    for (let i = 0; i < 10; i++){
+    console.log(this.freelancerDataReceive);
+    /** 유저 평가 받아오기 */
+    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+      await EstimateInstance.getUserEstimate(
+        this.freelancerDataReceive[i].username,
+        res => {
+          console.log(res);
+          if (res.data.length > 0) {
+            this.freelancerDataReceive[i].estimate = res.data;
+          } else {
+            const data = [
+              {
+                profession: 0,
+                ontime: 0,
+                active: 0,
+                communication: 0,
+                reEmployment: 0
+              }
+            ];
+            this.freelancerDataReceive[i].estimate = data;
+          }
+        }
+      );
+    }
+    console.log(this.freelancerDataReceive);
+    /** 유저 프로젝트 이력 가져오기 */
+    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+      this.freelancerDataReceive[i].projectCareer = [];
+
+      await userInstance.getUserProject(
+        this.freelancerDataReceive[i].username,
+        res => {
+          for (let j = 0; j < res.data.length; j++) {
+            const data = {
+              projectCareerId: res.data[j].projectCareerId,
+              category: res.data[j].category,
+              domain: res.data[j].domain,
+              company_name: res.data[j].companyName,
+              title: res.data[j].title,
+              content: res.data[j].content,
+              startDate: res.data[j].start_date,
+              endDate: res.data[j].end_date
+            };
+            this.freelancerDataReceive[i].projectCareer.push(data);
+          }
+        },
+        err => {}
+      );
+    }
+    console.log(this.freelancerDataReceive);
+    /** 유저 프로젝트 이력 기술 가져오기 */
+    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+      for (
+        let j = 0;
+        j < this.freelancerDataReceive[i].projectCareer.length;
+        j++
+      ) {
+        await userInstance.getUserProjectTech(
+          this.freelancerDataReceive[i].projectCareer[j].projectCareerId,
+          res => {
+            this.freelancerDataReceive[i].projectCareer[j].projectCareerTech =
+              res.data;
+          },
+          err => {
+            this.freelancerDataReceive[i].projectCareer[
+              j
+            ].projectCareerTech = [];
+          }
+        );
+      }
+    }
+    console.log(this.freelancerDataReceive);
+    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
       this.freelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 0; i < 7; i++){
-      this.freelancerDataReceive.projectCareer.push({
-        id : i,
-        body : this.freelancerCardItem
-      })
-    }
-
-    for(let i = 0; i < 5; i++) {
-      this.myProjectLst.push({
-        id : "ids" + String(i),
-        body : this.projectData
-      })
+        id: i,
+        body: this.freelancerDataReceive[i]
+      });
     }
   },
+  methods: {},
   components: {
-    FreelancerCard,
+    FreelancerCard
+  },
+  data() {
+    return {
+      searchOption: {
+        page: 0,
+        size: 10
+      },
+      totalUserList: [],
+      freelancerDataReceive: [],
+      freelancerCardLst: []
+      // freelancerCardItem: {
+      //   projectCareerId: "1",
+      //   category: "개발",
+      //   domain: "웹사이트",
+      //   company_name: "한국투자공사",
+      //   title: "한국투자공사 모바일 가상화 시스템 구축",
+      //   content:
+      //     "한국투자공사 모바일 가상화 시스템 앱 개발 - 기존 그룹웨어 앱 가상화에서 사용가능하도록 수정",
+      //   projectCareerTech: ["Java", "Vue.js", "Oracle"],
+      //   startDate: "2020-04-10",
+      //   endDate: "2020-10-30"
+      // }
+      // freelancerDataReceive: {
+      //   user_id: "1",
+      //   name: "빌게이츠",
+      //   resume: {
+      //     title: "최고를 꿈꾸는 개발자입니다.",
+      //     introduce:
+      //       "고객이 요구하는 개발 스킬 및 요건에 맞추어 수많은 프로젝트의 경험을가지고 있습니다. 고객의 소통을 최우선으로 함께 고민하고 최선의마음으로 개발을 진행하고 있습니다. 원하시는 개발 요건을이루어드립니다. 다양한 프로젝트 경험으로 개발 요구 언어를 사용하여고객의 요건에 충족할 수 있습니다. 또한 최근 트렌드에 맞추어 최신 언어로 개발 진행 가능합니다.",
+      //     career_period: "3"
+      //   },
+      //   tech: ["java", "javascript", "MySQL"],
+      //   estimate: [
+      //     {
+      //       profession: 4,
+      //       ontime: 5,
+      //       active: 3.5,
+      //       communication: 4.5,
+      //       reEmployment: 3
+      //     },
+      //     {
+      //       profession: 3,
+      //       ontime: 4,
+      //       active: 3,
+      //       communication: 4.5,
+      //       reEmployment: 5
+      //     },
+      //     {
+      //       profession: 2,
+      //       ontime: 4,
+      //       active: 4.5,
+      //       communication: 4.5,
+      //       reEmployment: 5
+      //     },
+      //     {
+      //       profession: 4,
+      //       ontime: 3,
+      //       active: 3.5,
+      //       communication: 3.5,
+      //       reEmployment: 4
+      //     },
+      //     {
+      //       profession: 4.5,
+      //       ontime: 4,
+      //       active: 4,
+      //       communication: 3.5,
+      //       reEmployment: 2
+      //     }
+      //   ],
+      //   projectCareer: []
+      // }
+    };
   }
 };
 </script>

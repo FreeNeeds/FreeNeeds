@@ -6,7 +6,9 @@
           {{ userInfo.name }}님의 정보 수정
         </div>
         <div>
-          <button class="userinfo-correct-finish-btn">수정 완료</button>
+          <button class="userinfo-correct-finish-btn" @click="currectUserInfo">
+            수정 완료
+          </button>
         </div>
       </div>
       <hr />
@@ -22,6 +24,7 @@
             class="form-control"
             id="correctUserprofileIntroduce"
             placeholder="프로필 소개를 입력해 보세요!"
+            v-model="userInfo.title"
           />
         </div>
       </div>
@@ -31,12 +34,15 @@
           id="correctUserCareeryear"
           class="form-select"
           aria-label="Default select example"
+          v-model="userInfo.career_period"
         >
           <option
-            v-for="(item, index) in 20"
+            v-for="(item, index) in 15"
             :key="index"
             :selected="item == 0 ? true : false"
-            >{{ item }}</option
+            :value="item - 1"
+            >{{ item - 1 }}년
+            <div v-if="item == 15">이상</div></option
           >
         </select>
       </div>
@@ -87,6 +93,7 @@
             class="form-control"
             id="correntUserInfoIntroduction"
             rows="6"
+            v-model="userInfo.introduce"
           ></textarea>
         </div>
       </div>
@@ -95,28 +102,40 @@
 </template>
 
 <script>
-import { skills, searchSkillFunc } from "../../../utils/skillSearch";
+import { skills, searchSkillFunc } from "../../../utils/skillSearch.js";
+import * as userInstance from "@/api/user.js";
 export default {
-  props: {},
+  props: { originalUserInfo: { type: Object, default: {} } },
   data() {
     return {
       userInfo: {
-        name: "김싸피"
+        name: "김싸피",
+        career_period: 0,
+        introduce: "",
+        title: ""
       },
       // 추가한 스킬 리스트
       FilterSkillLst: [],
       // 추가 할 수 있는 스킬 리스트
       FilterSkillCandidate: [],
-      searchingWord: ""
+
+      searchingWord: "검색어"
     };
   },
   mounted() {
+    console.log(this.$route.params.originalUserInfo);
+    this.userInfo.name = this.$route.params.originalUserInfo.name;
+    console.log(this.$route.params.originalUserInfo.tech);
+    this.FilterSkillLst = this.$route.params.originalUserInfo.tech;
+    this.userInfo.career_period = this.$route.params.originalUserInfo.resume.career_period;
+    this.userInfo.introduce = this.$route.params.originalUserInfo.resume.introduce;
+    this.userInfo.title = this.$route.params.originalUserInfo.resume.title;
     for (let i = 0; i < skills.length; i++) {
       this.FilterSkillCandidate.push(skills[i]);
     }
-    console.log(this.FilterSkillCandidate);
+    // console.log(this.FilterSkillCandidate);
     this.FilterSkillCandidate = [];
-    console.log(document.querySelector("#skillSearchBar").value);
+    // console.log(document.querySelector("#skillSearchBar").value);
     for (let candidate of searchSkillFunc(this.searchingWord)) {
       let isDuplicate = false;
       for (let filterSkill of this.FilterSkillLst) {
@@ -145,11 +164,35 @@ export default {
     }
   },
   watch: {
-    searchingWord() {
+    searchingWord(newval, oldval) {
+      // console.log(newval + " : " + oldval);
       this.searchWorldChange();
     }
   },
   methods: {
+    async currectUserInfo() {
+      const data = {
+        career_period: this.userInfo.career_period,
+        introduce: this.userInfo.introduce,
+        title: this.userInfo.title
+      };
+      await userInstance.changeUserProfile(data, res => {});
+      // console.log(this.filterSkill);
+      // console.log(this.$route.params.originalUserInfo.username);
+      console.log(this.FilterSkillLst);
+      console.log(this.FilterSkillCandidate);
+      await userInstance.setUserTech(
+        this.FilterSkillLst,
+        this.$route.params.originalUserInfo.username,
+        res => {
+          alert("기술 스택이 변경되었습니다.");
+          this.$router.push({ name: "mycareer" });
+        }
+        // err => {
+        // console.log(err);
+        // }
+      );
+    },
     searchWorldChange() {
       this.FilterSkillCandidate = [];
       for (let candidate of searchSkillFunc(this.searchingWord)) {
@@ -179,6 +222,7 @@ export default {
         skillCandidateCtnrTmp.removeAttribute("style");
         skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
       }
+      console.log(this.FilterSkillLst);
     },
 
     deleteSkill(value) {
