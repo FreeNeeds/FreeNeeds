@@ -25,7 +25,7 @@ public class ContractController {
     private final UserService userService;
     private final ContractService contractService;
 
-    @PostMapping("/{projectId}")
+    @PostMapping()
     @ApiOperation(value = "프로젝트에 대한 계약서 등록", notes = "프로젝트에 대한 특정 유저의 계약서를 등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -34,7 +34,7 @@ public class ContractController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> registerContract(
-            @PathVariable Long projectId,
+            @RequestParam Long projectId,
             @RequestBody @ApiParam(value="계약서 정보", required = true) ContractRegisterPostReq registerContractInfo) {
         //projectId로 project 정보 가져오기
         Project project = projectService.getProjectByProjectId(projectId);
