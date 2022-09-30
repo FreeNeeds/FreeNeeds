@@ -26,7 +26,7 @@ public class CompanyRepositorySupport {
         return Optional.ofNullable(company);
     }
 
-    public String findAccountAddressByUsername(String username) {
+    public String findCompanyAccountAddressByUsername(String username) {
         String accountAddress = jpaQueryFactory.select(qCompany.accountAddress).from(qCompany)
                 .where(qCompany.username.eq(username)).fetchOne();
         return accountAddress;

@@ -115,7 +115,7 @@ public class CompanyController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
-        String accountAddress = companyService.getAccountAddressByUsername(username);
+        String accountAddress = companyService.getCompanyAccountAddressByUsername(username);
         return ResponseEntity.status(200).body(accountAddress);
     }
 }

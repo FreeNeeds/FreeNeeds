@@ -107,8 +107,8 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public String getAccountAddressByUsername(String username) {
-        String accountAddress = companyRepositorySupport.findAccountAddressByUsername(username);
+    public String getCompanyAccountAddressByUsername(String username) {
+        String accountAddress = companyRepositorySupport.findCompanyAccountAddressByUsername(username);
         return accountAddress;
     }
 
