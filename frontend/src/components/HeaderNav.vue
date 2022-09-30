@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="navbar-nav justify-content-between align-items-center">
           <div id="logo" @click="routeMainPage">
-            <img src="../assets/images/ssafy-logo.png" alt="" />
+            <img src="../assets/images/freeneeds.png" width="150px" alt="" />
           </div>
           <div>
             <span
