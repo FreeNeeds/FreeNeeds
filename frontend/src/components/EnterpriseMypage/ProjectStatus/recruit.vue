@@ -37,6 +37,7 @@
 <script>
   import recruitCardItem from './recruitCardItem.vue'
   import recruitProjectDetail from './recruitProjectDetail.vue'
+  import { createInstance } from "../../../api/index.js";
 
   export default {
     name : "recruit",
@@ -75,12 +76,16 @@
       }
     },
     mounted() {
-      for(let i = 0; i < 5; i++) {
+      /*for(let i = 0; i < 5; i++) {
         this.myProjectLst.push({
           id : "idMyPageCompanyStatus" + String(i),
           body : this.projectData
         })
-      }
+      }*/
+      console.log(this.$store.state)
+      //createInstance().get('/users/project/')
+
+
     },
     methods : {
       prevBtnClick() {

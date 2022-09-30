@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import FilterModal from '@/components/Project/FilterModal.vue';
+  import FilterModal from '@/components/Freelancer/Filter/FilterModal.vue';
   
   export default {
     name: 'FilterBtn',

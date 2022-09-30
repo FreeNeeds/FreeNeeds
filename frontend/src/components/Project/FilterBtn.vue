@@ -9,7 +9,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
     data-bs-backdrop="false"
-    style="background-color: rgba(0, 0, 0, 0.5);"
+    style="background-color: rgba(0, 0, 0, 0.3);"
     >
       <div class="modal-dialog" id="FilterModalWrapper">
         <div class="modal-content" id="FilterModalContent">
@@ -140,7 +140,6 @@
 </template>
 
 <script>
-  import FilterModal from '@/components/Project/FilterModal.vue';
   import FilterBtnGroup from "@/components/Project/FilterBtnGroup.vue";
   import FilterSkillCandidate from "@/components/Project/FilterSkillCandidate.vue";
   import FilterSkillSelect from "@/components/Project/FilterSkillSelect.vue";
@@ -152,7 +151,6 @@
   export default {
     name: 'FilterBtn',
     components : {
-      FilterModal,
       FilterBtnGroup,
       FilterSkillCandidate,
       FilterSkillSelect,
@@ -468,4 +466,269 @@
     border : 0px;
     font-weight: bold; 
   }
-</style>
+
+
+  #FilterModalWrapper {
+    margin-top: 50px;
+  }
+
+  #FilterModalContent {
+    border-radius: 15px;
+    height: 650px;
+    overflow-y: scroll;
+  }
+
+  #FilterModalApplyBtn {
+    position: fixed;
+    top: 645px;
+    right: 540px;
+    z-index: 2;
+    border-radius: 40px;
+    border: 1px solid lightgray;
+    background-color: #6ecdb1;
+    font-size: 15px;
+    font-weight: bold;
+    width: 105px;
+    height: 40px;
+  }
+
+  #FilterModalApplyBtn:hover {
+    background-color: #3c74c9;
+    color: white;
+  }
+
+  #FilterModalApplyBtnLetter {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  #FilterModalContent::-webkit-scrollbar {
+    width: 0px !important;
+  }
+
+  #FilterModalCloseBtn {
+    position: fixed;
+    top: 65px;
+    right: 540px;
+  }
+
+  #FilterModalTitle {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .FilterKeyword {
+    font-size: 24px;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .FilterKeywordLetter {
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+
+  .FilterBtn {
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 15px;
+    border: 1px solid lightgray;
+    background-color: white;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .FilterBtn:hover {
+    border: 1px solid black;
+  }
+
+  .activeFilter {
+    color: white;
+    background-color: rgb(167, 164, 164);
+  }
+
+  .regionSearchCtnrGroup {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  #regionBtnGroup {
+    border-radius: 15px;
+    height: 300px;
+    width: 45%;
+    overflow-y: scroll;
+  }
+
+  #regionBtnGroup::-webkit-scrollbar {
+    width: 0px !important;
+  }
+
+  #regionDetailBtnGroup {
+    border-radius: 15px;
+    overflow-y: scroll;
+    width: 45%;
+    scroll-behavior: smooth;
+  }
+
+  #regionDetailBtnGroup::-webkit-scrollbar {
+    width: 0px !important;
+  }
+
+  #skillSearchCtnr {
+    border-radius: 30px;
+    height: 40px !important;
+    border: 1px solid rgb(209, 207, 207);
+    text-align: center;
+    font-size: 18px;
+    width: 75%;
+    margin: auto;
+  }
+
+  #regionSearchCtnrWrapper {
+    margin-bottom: 20px;
+  }
+
+  #regionSearchCtnr::after {
+    position: relative;
+    top: -1px;
+    right: -5px;
+  }
+
+  #regionDetailSearchCtnr::after {
+    position: relative;
+    top: -1px;
+    right: -5px;
+  }
+
+  #regionSearchCtnr {
+    border-radius: 18px;
+    height: 40px !important;
+    border: 1px solid rgb(209, 207, 207);
+    background-color: white;
+    text-align: center;
+    font-size: 18px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 45%;
+  }
+
+  #regionDetailSearchCtnr {
+    border-radius: 18px;
+    height: 40px !important;
+    border: 1px solid rgb(209, 207, 207);
+    background-color: white;
+    text-align: center;
+    font-size: 18px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 45%;
+    display: none;
+  }
+
+  #skillSearchBar {
+    border: none;
+    width: 250px;
+    margin-top: 4px;
+    margin-left: 15px;
+  }
+
+  #regionSearchCtnr:hover {
+    border: 1px solid black;
+  }
+
+  #skillSearchBar:focus {
+    outline: none;
+  }
+
+  #regionDetailSearchCtnr:hover {
+    border: 1px solid black;
+  }
+
+  .skillCandidateLetter:hover {
+    color: blue;
+    font-size: 18px;
+    font-weight: 550;
+  }
+
+  .skillSelectBtn {
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 15px;
+    border: 1px solid lightgray;
+    background-color: white;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: lightgray;
+  }
+
+  .skillSelectLetter {
+    margin-left: 20px;
+    margin-right: 10px;
+    display: inline;
+  }
+
+  #skillSelectCtnr {
+    margin-bottom: 10px;
+  }
+
+  .skillCandidateLetter {
+    margin-left: 7px;
+  }
+
+  .skillDeleteBtn {
+    margin-left: 8px;
+    margin-bottom: 3px;
+  }
+
+  .regionLi {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .regionLi:hover {
+    background-color: #e9ecef;
+  }
+
+  .regionItem {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 1rem;
+    color: #212529;
+    text-align: center;
+  }
+
+  .regionItemDetail {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 1rem;
+    color: #212529;
+    text-align: center;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+
+  .warnFilter {
+    position: fixed;
+    top : 20px;
+    left : 572px;
+    font-weight: 700;
+  }
+  </style>
