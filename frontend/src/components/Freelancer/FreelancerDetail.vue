@@ -258,7 +258,7 @@
           <hr class="project-card-line" style="margin-bottom : 40px" />
           <div :id="projectDetailNavItem">
             <FreelancerProjectCard
-              v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
+              v-for="freelancerProjectCard in projectDetailValue"
               :key="freelancerProjectCard.id"
               :freelancerProjectCard="freelancerProjectCard"
             >
@@ -322,6 +322,7 @@
               @click="openProjectModal"
               id="ProjectDetailApplyBtn"
               class="freelancerFloatBtn"
+              v-if="loginType == 'company'"
             >
               인터뷰 요청하기
             </button>
@@ -440,10 +441,13 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
-
+import { mapGetters } from "vuex";
 import * as userInstance from "@/api/user.js";
-
+import * as projectInstance from "@/api/project.js";
 export default {
+  computed: {
+    ...mapGetters(["loginType", "loginUserInfo"])
+  },
   name: "FreelancerDetail",
   components: {
     HeaderNav,
@@ -474,7 +478,8 @@ export default {
       reEmployment: 0,
       ratingToPercent: 0,
       myProjectLst: [],
-
+      projectDetailValue: [],
+      // projectData: {}
       projectData: {
         id: "1",
         category: "개발",
@@ -531,6 +536,21 @@ export default {
     };
   },
   mounted() {
+    console.log(this.freelancerDetailReceive);
+    this.projectDetailValue = [];
+    for (
+      let i = 0;
+      i < this.freelancerDetailReceive.projectCareer.length;
+      i++
+    ) {
+      let tempdata = {};
+      tempdata.body = this.freelancerDetailReceive.projectCareer[i];
+      tempdata.id = "FDR" + i;
+      console.log(this.freelancerDetailReceive.projectCareer[i]);
+      this.projectDetailValue.push(tempdata);
+    }
+
+    // this.projectDetailValue.body = this.freelancerDetailReceive.projectCareer;
     let id__ = String(this.id_);
     // console.log(id__);
     this.freelancerProjectModalId += id__;
@@ -599,6 +619,10 @@ export default {
         id: "ids" + String(i),
         body: this.projectData
       });
+    }
+    if (this.loginType == "company") {
+      let ProjectList = [];
+      const filter = projectInstance.getProjectList();
     }
   },
   props: {

@@ -16,6 +16,7 @@
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
+        <!-- {{ loginUserInfo }} -->
         <div id="projectDetailCtnr">
           <div id="remainDateInProjectTitle" class="text-start">
             {{ projectDataReceive.title }}
@@ -56,7 +57,7 @@
                     근무방식
                   </div>
                   <div class="col-8 projectDetailItem">
-                    {{ projectDataReceive.workstyle }}
+                    {{ projectDataReceive.workStyle }}
                   </div>
                 </div>
                 <div class="row">
@@ -111,7 +112,7 @@
                 형태
               </div>
               <div class="col-8 projectDetailItem">
-                {{ projectDataReceive.demain }}
+                {{ projectDataReceive.domain }}
               </div>
             </div>
             <div class="row mx-2 my-2">
@@ -207,7 +208,10 @@
               </div>
             </div>
           </div>
-          <div class="row mt-4 justify-content-center">
+          <div
+            class="row mt-4 justify-content-center"
+            v-if="loginType == 'freelancer'"
+          >
             <button @click="openApplyModal" id="ProjectDetailApplyBtn">
               지원하기
             </button>
@@ -252,8 +256,13 @@ import FooterNav from "@/components/FooterNav.vue";
 import ProjectDetailNav from "@/components/Project/ProjectDetailNav.vue";
 import ProjectDetailSkill from "@/components/Project/ProjectDetailSkill.vue";
 import { applyCompany } from "@/api/projectAPI";
+import { mapGetters } from "vuex";
+import * as applyInstance from "@/api/apply.js";
 
 export default {
+  computed: {
+    ...mapGetters(["loginType", "loginUserInfo"])
+  },
   name: "ProjectDetail",
   data() {
     return {
@@ -276,6 +285,9 @@ export default {
     idEdit: String
   },
   mounted() {
+    console.log(this.projectDataReceive);
+    console.log(this.companyDataReceive);
+    console.log(this.idEdit);
     this.ProjectDetailNavProject += this.idEdit;
     this.ProjectDetailNavResume += this.idEdit;
     this.projectDetailNavItemProject += this.idEdit;
@@ -305,6 +317,14 @@ export default {
       applyModalCtnrTmp.classList.add("d-none");
     },
     clickApply() {
+      const reqdata = {
+        projectId: 2,
+        state: "지원완료",
+        userId: this.loginUserInfo.id
+      };
+      applyInstance.ApplyProject(reqdata, res => {
+        // alert("신청이 완료되었습니다.");
+      });
       //applyCompany(this.projectDataReceive.id)
       let completeApplyTmp = document.querySelector("#" + this.completeApply);
       let leftApplyTmp = document.querySelector("#" + this.leftApply);
