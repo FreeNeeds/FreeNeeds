@@ -10,6 +10,16 @@ function findProjectListByFilter(category,form,skill,region) {
     })
 }
 
+function findProjectList() {
+  let tmp = [];
+  instance
+  .get("/project").then(res => {
+    console.log(res)
+    for (let i = 0; i < res.length; i++) tmp.push(res[i])
+  })
+  return tmp
+}
+
 function applyCompany(projectId) {
   const body = {
     "user_id" : sessionStorage.getItem("user").user_id,
@@ -22,4 +32,4 @@ function applyCompany(projectId) {
       console.log(res)
     })
 }
-export { findProjectListByFilter , applyCompany }
+export { findProjectListByFilter , applyCompany, findProjectList }

@@ -1,7 +1,262 @@
-<template> </template>
+<template>
+  <div>
+    <div id="projectDetailCtnr">
+      <div id="remainDateInProjectTitle" class="text-start">  </div>
+      <div class="container my-4 py-2" id="projectDetailHeadCtnr">
+        <div class="row mx-2 my-3 justify-content-between align-items-start">
+          <div class="row align-items-center">
+            <div class="col-2 projectDetailHeadItem projectDetailItem">  모집인원</div>
+            <input class="col-2 mb-1 form-control" type="text">
+            <div class="col-5 projectDetailItem">  명</div>
+          </div>  
+          <div class="row align-items-center">
+            <div class="col-2 projectDetailHeadItem projectDetailItem">  경력기간</div>
+            <input class="col-2 mb-1 form-control" type="text">
+            <div class="col-5 projectDetailItem">  년</div>
+          </div> 
+          <div class="row align-items-center">
+            <div class="col-2 projectDetailHeadItem projectDetailItem">  근무기간</div>
+            <input class="col-2 mb-1 form-control" type="date">
+            <div class="col-1 projectDetailItem text-center">  ~ </div>
+            <input class="col-2 mb-1 form-control" type="date">
+          </div>
+          <div class="row align-items-center">
+            <div class="col-2 projectDetailHeadItem projectDetailItem">  근무방식</div>
+            <input class="col-2 mb-1 form-control" type="text">
+          </div> 
+          <div class="row align-items-center">
+            <div class="col-2 projectDetailHeadItem projectDetailItem">  금액</div>
+            <input class="col-2 mb-1 form-control" type="text">
+            <div class="col-1 projectDetailItem text-center">  ~ </div>
+            <input class="col-2 mb-1 form-control" type="text">
+            <div class="col-4">/월(근무 확정시, 단가 확정)</div>
+          </div>
+        </div>  
+      </div>
+      <hr class="project-card-line mb-4">
+      <div>
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
+          <select class="form-select text-center" aria-label="Default select example">
+            <option selected style="padding-right: 2px">개발</option>
+            <option value="1" style="padding-right: 2px">개발</option>
+            <option value="2" style="padding-right: 2px">디자인</option>
+            <option value="3" style="padding-right: 2px">기획</option>
+          </select>
+        </div>  
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
+          <select class="form-select text-center" aria-label="Default select example">
+            <option selected style="padding-right: 2px">웹사이트</option>
+            <option value="1" style="padding-right: 2px">앱(APP)</option>
+            <option value="2" style="padding-right: 2px">커머스/쇼핑몰</option>
+            <option value="3" style="padding-right: 2px">퍼블리싱</option>
+            <option value="4" style="padding-right: 2px">네트워크/보안</option>
+            <option value="5" style="padding-right: 2px">게임</option>
+            <option value="6" style="padding-right: 2px">일반소프트웨어</option>
+            <option value="7" style="padding-right: 2px">제품</option>
+            <option value="8" style="padding-right: 2px">영상</option>
+            <option value="9" style="padding-right: 2px">그래픽</option>
+          </select>
+        </div> 
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
+            <textarea class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
+          </div>
+        </div> 
+        <div id="skillSelectCtnr my-3" style="margin-left : 100px; margin-right : 100px">
+          <FilterSkillSelect
+            v-for="skillItem in FilterSkillLst"
+            :key="skillItem"
+            :skillItem="skillItem"
+            @deleteSkill="deleteSkill"
+          ></FilterSkillSelect>
+        </div>
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  기술</div>
+          <div id="skillSearchCtnr" style="width : 350px; background-color: white; margin-left : 0px">
+          <input type="text" id="skillSearchBar" autocomplete="off" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-search mb-1 mx-2"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </div>
+        <div id="skillCandidateCtnr" class="mx-5 my-3 text-center" style="width : 80%">
+          <FilterSkillCandidate
+            v-for="skillCandidate in FilterSkillCandidate"
+            :key="skillCandidate"
+            :skillCandidate="skillCandidate"
+            @insertSkill="insertSkill"
+          ></FilterSkillCandidate>
+        </div>
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  프로젝트명</div>
+          <input class="col-2 mb-1 form-control" type="text">
+        </div>
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  내용</div>
+          <input class="col-2 mb-1 form-control" type="text">
+        </div>
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
+          <input class="col-2 mb-1 form-control" type="time">
+          <div class="col-1 projectDetailItem text-center">  ~ </div>
+          <input class="col-2 mb-1 form-control" type="time">
+        </div>   
+        <div class="row mx-2 my-2">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  지역</div>
+          <input class="col-2 mb-1 form-control" type="text">
+        </div>
+        <button @click="clickRegisterProject" class="signatureBtn m-auto my-4" style="width : 150px !important">등록하기</button>
+      </div>
+    </div>
+    <div id="completeRegisterProject" class="d-none">
+      <div class="sureContractModalCtnrWrpr" style="z-index : 1">
+        <div class="sureContractModalCtnr">
+          <h5 class="text-center" style="margin-top : 70px">등록이 완료되었습니다.</h5>
+          <button @click="okRegisterProject" class="signatureBtn my-3" style="margin-left : 150px">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <script>
-export default {};
+  import FilterSkillCandidate from "@/components/Project/FilterSkillCandidate.vue";
+  import { searchSkillFunc, skills } from "../../utils/skillSearch";
+  import FilterSkillSelect from "@/components/Project/FilterSkillSelect.vue";
+
+  export default {
+    name: 'ProjectRegist',
+    data() {
+      return {
+        FilterSkillCandidate: [],
+        FilterSkillLst: [],
+      }
+    },
+    mounted() {
+      let inputBox = document.querySelector("#skillSearchBar");
+      let pre = inputBox.value;
+      let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+
+      skillCandidateCtnrTmp.setAttribute(
+        "style",
+        "height: 250px; overflow-y: auto"
+      );
+      for (let i = 0; i < skills.length; i++)
+        this.FilterSkillCandidate.push(skills[i]);
+      let interval = setInterval(() => {
+        let post = inputBox.value;
+        if (pre != post) {
+          this.FilterSkillCandidate = [];
+          for (let candidate of searchSkillFunc(inputBox.value)) {
+            let isDuplicate = false;
+            for (let filterSkill of this.FilterSkillLst) {
+              if (filterSkill === candidate) {
+                isDuplicate = true;
+                break;
+              }
+            }
+            if (!isDuplicate) {
+              this.FilterSkillCandidate.push(candidate);
+            }
+          }
+
+          if (this.FilterSkillCandidate.length > 10) {
+            skillCandidateCtnrTmp.removeAttribute("style");
+            skillCandidateCtnrTmp.setAttribute(
+              "style",
+              "height: 250px; overflow-y: auto"
+            );
+          } else {
+            skillCandidateCtnrTmp.removeAttribute("style");
+            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+          }
+          pre = post;
+        }
+      }, 100);
+
+
+    },
+    methods: {
+      insertSkill(value) {
+        this.FilterSkillLst.push(value);
+        const itemToFind = this.FilterSkillCandidate.find(function(item) {
+          return item === value;
+        });
+        const idx = this.FilterSkillCandidate.indexOf(itemToFind);
+        if (idx > -1) this.FilterSkillCandidate.splice(idx, 1);
+        let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+        if (this.FilterSkillCandidate.length < 10) {
+          skillCandidateCtnrTmp.removeAttribute("style");
+          skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+        }
+      },
+      deleteSkill(value) {
+        const itemToFind = this.FilterSkillLst.find(function(item) {
+          return item === value;
+        });
+        const idx = this.FilterSkillLst.indexOf(itemToFind);
+        if (idx > -1) this.FilterSkillLst.splice(idx, 1);
+        let inputBox = document.querySelector("#skillSearchBar");
+        this.FilterSkillCandidate = [];
+        for (let candidate of searchSkillFunc(inputBox.value)) {
+          let isDuplicate = false;
+          for (let filterSkill of this.FilterSkillLst) {
+            if (filterSkill === candidate) {
+              isDuplicate = true;
+              break;
+            }
+          }
+          if (!isDuplicate) {
+            this.FilterSkillCandidate.push(candidate);
+          }
+        }
+        let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+        if (this.FilterSkillCandidate.length > 10) {
+          skillCandidateCtnrTmp.removeAttribute("style");
+          skillCandidateCtnrTmp.setAttribute(
+            "style",
+            "margin: 20px; height: 250px; overflow-y: auto"
+          );
+        }
+      },
+
+      clickRegisterProject() {
+        document.querySelector('#completeRegisterProject').classList.remove('d-none')
+        document.querySelector('body').classList.add('hiddenScroll')
+      },
+
+      okRegisterProject() {
+        document.querySelector('#completeRegisterProject').classList.add('d-none')
+        document.querySelector('body').classList.remove('hiddenScroll')
+      }
+    },
+    components : {
+      FilterSkillCandidate,
+      FilterSkillSelect
+    }
+  }
 </script>
 
-<style></style>
+<style>
+  .form-control {
+    width : 20% !important
+  }
+
+  .form-select {
+    width : 20% !important
+  }
+
+  .hiddenScroll {
+    overflow: hidden !important;
+  }
+</style>

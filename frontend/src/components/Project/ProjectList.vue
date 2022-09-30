@@ -1,10 +1,13 @@
 <template>
-  <div id="projectList">
-    <ProjectCard class="projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
-    :key="projectCardItem"
+  <div id="projectList" class="container">
+    <div class="row ms-3">
+    <ProjectCardStatic class="projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
+    :key="projectCardItem.projectId"
     :projectCardItem="projectCardItem"
+    @clickDetailOpen="clickDetailOpen"
     >
-    </ProjectCard>
+    </ProjectCardStatic>
+    </div>
     <!--<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
       <div class="carousel-inner px-3">
         <ProjectCard class="carousel-item projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
@@ -30,25 +33,30 @@
 </template>
 
 <script>
-  import ProjectCard from './ProjectCard.vue';
+  import ProjectCardStatic from './ProjectCardStatic.vue';
   
   export default {
     name: 'ProjectList',
     props : {
       projectCardLst : Array
     },
-    mounted() {
+    mounted() {   
       //document.querySelector(".carousel-item").classList.add("active")
     },
     components : {
-      ProjectCard
+      ProjectCardStatic
+    },
+    methods : {
+      clickDetailOpen(value) {
+        this.$emit("clickDetailOpen",value)
+      }
     }
   }
 </script>
 
 <style>
   #projectList {
-    width : 70%;
+    width : 1300px !important;
     margin: auto; 
   }
 

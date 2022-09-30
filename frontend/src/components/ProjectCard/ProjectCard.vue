@@ -1,8 +1,8 @@
 <template>
-  <div class="project-card-wrapper">
+  <div class="project-card-wrapper col-6">
     <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
     <div class="row project-card-header-item">
-      <div class="col-2 ">
+      <div class="col-3 ">
         <div class="project-card-header-round ">
           {{ projectData.workstyle }}
         </div>
@@ -163,19 +163,14 @@ export default {
 .project-card-header-item {
   margin-bottom: 25px;
 }
-.project-card-wrapper {
-  padding: 2%;
-  margin-top: 25px !important;
-  margin-bottom: 25px !important;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-}
+
 .project-card-header-round {
   padding: 10px;
   width: 100px;
   height: 40px;
   border-radius: 20px;
-  background-color: #254ec9;
-  color: white;
+  background-color: #567ef4;
+  color: black;
   text-align: center;
 }
 .project-card-line {

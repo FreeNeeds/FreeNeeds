@@ -4,7 +4,7 @@
     class="project-card-wrapper"
     style="padding-top : 0px; padding-bottom : 0px"
     data-bs-toggle="modal"
-    :data-bs-target="projectCardItemEdit"
+    data-bs-target="#projectDetail"
   >
   <img
     class="wrapperImgProjectCarousel"
@@ -21,7 +21,7 @@
     <div class="row project-card-header-item">
       <div class="col-4">
         <div class="project-card-header-round ">
-          {{ projectData.workStyle }}
+          {{ projectData.workstyle }}
         </div>
       </div>
       <div class="project-card-title col-8">{{ projectData.title }}</div>
@@ -131,6 +131,7 @@
   import { createInstance } from "../../api/index.js";
 
   export default {
+    name : 'ProjectCardStatic',
     data() {
       return {
         /**임시 데이터 */
@@ -150,7 +151,7 @@
           deadline: new Date(this.projectCardItem.deadline),
           recruitNumber: this.projectCardItem.recruitNumber,
           task: this.projectCardItem.task,
-          workStyle: this.projectCardItem.workStyle,
+          workstyle: this.projectCardItem.workStyle,
           workStartTime: this.projectCardItem.workStartTime,
           workEndTime: this.projectCardItem.workEndTime,
           lowPrice: this.projectCardItem.lowPrice,
@@ -164,7 +165,8 @@
           call: ""
         },
         projectCardItemEdit: "#",
-        remainDate: ""
+        remainDate: "",
+        periodWork: 0,
       };
     },
     mounted() {
@@ -186,8 +188,8 @@
           (1000 * 60 * 60 * 24) -
           1
       );
-      this.projectCardItemEdit += "projectDetail" + String(this.projectCardItem.projectId)
-      this.projectDetailModalId += String(this.projectCardItem.projectId)
+      this.periodWork = (this.projectData.endDate.getTime() - this.projectData.startDate.getTime()) /
+          (1000 * 60 * 60 * 24) - 1
     },
     methods : {
       clickProjectCardInProjectFind() {
@@ -200,7 +202,8 @@
         this.$emit("clickDetailOpen",{
           projectData : this.projectData,
           companyData : this.companyData,
-          remainDate : this.remainDate
+          remainDate : this.remainDate,
+          periodWork : this.periodWork
         })
       }
     },
@@ -215,13 +218,6 @@
 </script>
 
 <style>
-  .endWorkTime {
-    position: relative;
-    right : -240px;
-    top : -250px;
-    width : 200px;
-  }
-
   .project-card-header-round {
       padding: 10px;
       width: 100px;

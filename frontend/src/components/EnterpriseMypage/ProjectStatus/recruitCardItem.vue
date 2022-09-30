@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="project-card-wrapper myPageProjectCardWrpr" style="box-shadow : 0px 0px 0px">
+    <div class="project-card-wrapper myPageProjectCardWrpr" style="width: 100% !important; box-shadow : 0px 0px 0px">
       <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 660px;">
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
         <button class="myPageProjectDetailBtn" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit >상세보기</button>

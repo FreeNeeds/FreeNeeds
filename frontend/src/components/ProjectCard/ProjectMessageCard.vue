@@ -201,12 +201,6 @@ export default {
 .project-card-header-item {
   margin-bottom: 25px;
 }
-.project-card-wrapper {
-  padding: 2%;
-  margin-top: 25px !important;
-  margin-bottom: 25px !important;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-}
 .project-card-header-round {
   padding: 10px;
   width: 100px;
