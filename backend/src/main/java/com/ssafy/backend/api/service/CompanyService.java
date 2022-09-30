@@ -35,4 +35,6 @@ public interface CompanyService {
     Optional<CompanyInfo> getCompanyInfoByCompanyId(Long companyId);
 
     Optional<CompanyInfo> getCompanyInfoByCompanyUsername(String username);
+
+    String getAccountAddressByUsername(String username);
 }

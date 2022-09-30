@@ -107,6 +107,12 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
+    public String getAccountAddressByUsername(String username) {
+        String accountAddress = companyRepositorySupport.findAccountAddressByUsername(username);
+        return accountAddress;
+    }
+
+    @Override
     public CompanyInfo createCompanyInfo(Company company, CompanyInfoPostReq companyInfoPostReq) {
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setCompany(company);
