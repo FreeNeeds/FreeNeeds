@@ -403,8 +403,10 @@
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
                     <p style="margin-left : 7px">자 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 300px"></div>
-                    <p class="d-none d-inline-block" :id=representiveSignature>(서명)</p>
+                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div style="width : 0px">
+                    <p class="d-none" style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
+                    </div>
                     <button @click="clickRepresentiveSignature" class="signatureBtn" :id="representiveSignatureBtn">서명하기</button>
                     <img :id=imgSign src="" alt="">
                   </div>
@@ -423,8 +425,8 @@
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 300px"></div>
-                    <p class="d-inline-block">(서명)</p>
+                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
                     <button @click="clickCompleteWriteContract" class="signatureBtn m-auto">작성완료</button>
@@ -816,7 +818,7 @@ export default {
               ctx.save();
               ctx.beginPath();
               ctx.strokeStyle = "#000000";
-              ctx.lineWidth = 1;
+              ctx.lineWidth = 7;
               ctx.moveTo(x1, y1);
               ctx.lineTo(x2, y2);
               ctx.stroke();

@@ -170,7 +170,7 @@ export default {
   height: 40px;
   border-radius: 20px;
   background-color: #567ef4;
-  color: white;
+  color: black;
   text-align: center;
 }
 .project-card-line {
