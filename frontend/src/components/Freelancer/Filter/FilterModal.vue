@@ -53,7 +53,7 @@
   import FilterBtnGroup from '@/components/Project/FilterBtnGroup.vue';
   import FilterSkillCandidate from '@/components/Project/FilterSkillCandidate.vue';
   import FilterSkillSelect from '@/components/Project/FilterSkillSelect.vue';
-  import { searchSkillFunc, skills } from '../../utils/skillSearch';
+  import { searchSkillFunc, skills } from '../../../utils/skillSearch';
 
   export default {
     name : "FilterModal",
