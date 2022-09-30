@@ -3,18 +3,18 @@
     <!--상단 네비게이션 바-->
     <!-- {{ loginUserInfo }} -->
     <div class="mainNav">
-      <b-container class = "main-intro-container">
+      <b-container class="main-intro-container">
         <b-row>
           <b-col class="intro-textcol">
             <h1 class="intro-text">
               <span class="intro-btext">프리랜서,</span>
               구하세요?
             </h1>
-             <h2 class="intro-textsub">IT 프리랜서 계약 플랫폼</h2>
-            
+            <h2 class="intro-textsub">IT 프리랜서 계약 플랫폼</h2>
+
             <h2 class="intro-textsub">FreeNeeds 가 도와드릴게요!</h2>
-            <b-button variant="outline-primary"> 프리랜서 찾기</b-button>
-            <b-button variant="outline-primary"> 프로젝트 찾기</b-button>
+            <button class="navbtn1"> 프리랜서 찾기</button>
+            <button class="navbtn2"> 프로젝트 찾기</button>
           </b-col>
           <b-col
             ><lottie-player
@@ -26,80 +26,261 @@
               autoplay
             ></lottie-player
           ></b-col>
-        </b-row> 
+        </b-row>
       </b-container>
     </div>
     <!--상단 네비게이션 바 끄읕-->
 
-     <div class ="main-container" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
-      <h1 class="list-title"><img src="../assets/images/freeneeds.png" alt="" /></h1>
+    <div
+      class="main-container"
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1000"
+    >
+      <h1 class="list-title">
+        <img src="../assets/images/freeneeds.png" alt="" />
+      </h1>
       <b-row>
-      <b-col></b-col>
-      <b-col>IT 프리랜서 계약 서비스로 <br>
-      블록체인의 무결성을 이용해 계약서의 위변조를 방지하고<br> 계약 내용 변경 문제를 해결합니다.<br>
-      또한 스마트컨트랙트를 통한 대금 정산으로<br> 대금 지연 지급 문제를 극복할 수 있습니다.</b-col>
-      <b-col></b-col>
+        <b-col></b-col>
+        <b-col
+          >IT 프리랜서 계약 서비스로 <br />
+          블록체인의 무결성을 이용해 계약서의 위변조를 방지하고<br />
+          계약 내용 변경 문제를 해결합니다.<br />
+          또한 스마트컨트랙트를 통한 대금 정산으로<br />
+          대금 지연 지급 문제를 극복할 수 있습니다.</b-col
+        >
+        <b-col></b-col>
       </b-row>
     </div>
-     <div class ="main-container" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
-      <h1 class="list-title">FreeNeeds 어떻게 돌아가나요?</h1>
-     <b-row>
-      <b-col></b-col>
-      <b-col><div class="descFree-p"><lottie-player
-          src="https://assets2.lottiefiles.com/private_files/lf30_io4tfdmg.json"
-          background="transparent"
-          speed="1"
-          style="width: 250px; height: 300px; "
-          loop
-          autoplay
-        ></lottie-player>블록체인 기반 계약서 작성으로 무결성 보장</div></b-col>
-      <b-col><div class="descFree-p"><lottie-player
-            src="https://assets9.lottiefiles.com/packages/lf20_uz2bwauj.json"
-            background="transparent"
-            speed="1"
-            style="width: 200px; height:300px; padding-left: 40px;"
-            loop
-            autoplay
-          ></lottie-player>스마트 컨트랙트 정산으로 대금 지급을 원할하게</div></b-col>
-      <b-col></b-col>
+    <div
+      class="main-container"
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1000"
+    >
+      <img width="90px" src="../assets/images/freech6.png" alt="" />
+      <h1 class="list-title">FreeNeeds 어떻게 진행되나요?</h1>
+      <b-row>
+        <b-col><div class="descFree-flow">
+          <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_kskakh1u.json" mode="bounce" background="transparent"  speed="0.1"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
+           내게 필요한 프로젝트/ 프리랜서를 <br>
+           필터를 통해 찾아 지원하세용
+
+          </div></b-col>
+        <b-col
+          ><div class="descFree-flow">
+            <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_eiaughgn.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
+            미팅 후 협의된 조건으로 계약서를 작성하세요
+          </div></b-col
+        >
+        <b-col
+          ><div class="descFree-flow">
+            <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_urbt0vfx.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
+            계약서는 이후 안전하게 블록체인에 올라가게 됩니다.
+          </div></b-col
+        >
+        <b-col><div class="descFree-flow">
+          <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_rvoz2xj8.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
+            프로젝트 종료 후 상호 간의 확인 절차 이후 <br>
+            사용자의 지갑으로 정산이 진행됩니다.
+          </div></b-col>
       </b-row>
     </div>
-    <div class ="main-container" >
-      <h1 class="list-title">추천 프로젝트</h1>
+    <div
+      class="main-container"
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1000"
+    >
+    <small class="small-title">FreeNeeds Povides!</small>
+      <h2 class="list-title">
+        여러분의 선택이 최고의 선택이 될 수 있도록 기존과 다른 계약을 제안합니다
+      </h2>
       <b-row>
-        <b-col><div class="descFree-project">
-          <h2>{{recmdProject[0].company.name}}</h2>
-          <hr>
-          <div>{{recmdProject[0].category}}</div>
-          <div>{{recmdProject[0].title}}</div>
-          <span>{{recmdProject[0].startDate}}  ~ </span> 
-          <span>{{recmdProject[0].endDate}}</span>
-          </div></b-col>
-        <b-col><div class="descFree-project">
-          <h2>{{recmdProject[1].company.name}}</h2>
-          <hr>
-          <div>{{recmdProject[1].category}}</div>
-          <div>{{recmdProject[1].title}}</div>
-          <span>{{recmdProject[1].startDate}}  ~  </span>
-          <span>{{recmdProject[1].endDate}}</span>
-          </div></b-col>
-         <b-col><div class="descFree-project">
-          <h2>{{recmdProject[2].company.name}}</h2>
-          <hr>
-          <div>{{recmdProject[2].category}}</div>
-          <div>{{recmdProject[2].title}}</div>
-          <span>{{recmdProject[2].startDate}}  ~  </span>
-          <span>{{recmdProject[2].endDate}}</span>
-          </div></b-col>
+        <b-col></b-col>
+        <b-col
+          ><div class="descFree-p">
+            <lottie-player
+              src="https://assets2.lottiefiles.com/private_files/lf30_io4tfdmg.json"
+              background="transparent"
+              speed="1"
+              style="width: 250px; height: 300px; "
+              loop
+              autoplay
+            ></lottie-player
+            >블록체인 기반 계약서 작성으로 무결성 보장
+          </div></b-col
+        >
+        <b-col
+          ><div class="descFree-p">
+            <lottie-player
+              src="https://assets9.lottiefiles.com/packages/lf20_uz2bwauj.json"
+              background="transparent"
+              speed="1"
+              style="width: 200px; height:300px; padding-left: 40px;"
+              loop
+              autoplay
+            ></lottie-player
+            >스마트 컨트랙트 정산으로 대금 지급을 원할하게
+          </div></b-col
+        >
+        <b-col></b-col>
+      </b-row>
+    </div>
+    <div class="main-container">
+      <small class="small-title">FreeNeeds Pick!</small>
+      <h1 class="list-title">
+        추천 프로젝트<img
+          class="freeicon"
+          width="80px"
+          src="../assets/images/freech3.png"
+          alt=""
+        />
+      </h1>
+      <b-row>
+        <b-col
+          ><div class="descFree-project">
+            <h3>{{ recmdProject[0].company.name }}</h3>
+            <hr />
+
+            <div class="project-title">{{ recmdProject[0].title }}</div>
+            <span>{{ recmdProject[0].startDate }} ~ </span>
+            <span>{{ recmdProject[0].endDate }}</span>
+            <div class="deadline">
+              마감일자 : {{ recmdProject[0].deadline }}
+            </div>
+            <b-row>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col
+                ><div class="workstyle">
+                  {{ recmdProject[0].workStyle }}
+                </div></b-col
+              >
+              <b-col>
+                <div class="category">{{ recmdProject[0].category }}</div>
+              </b-col>
+            </b-row>
+          </div></b-col
+        >
+        <b-col
+          ><div class="descFree-project">
+            <h3>{{ recmdProject[1].company.name }}</h3>
+            <hr />
+
+            <div class="project-title">{{ recmdProject[1].title }}</div>
+            <span>{{ recmdProject[1].startDate }} ~ </span>
+            <span>{{ recmdProject[1].endDate }}</span>
+            <div class="deadline">
+              마감일자 : {{ recmdProject[1].deadline }}
+            </div>
+            <b-row>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col
+                ><div class="workstyle">
+                  {{ recmdProject[1].workStyle }}
+                </div></b-col
+              >
+              <b-col>
+                <div class="category">{{ recmdProject[1].category }}</div>
+              </b-col>
+            </b-row>
+          </div></b-col
+        >
+        <b-col
+          ><div class="descFree-project">
+            <h3>{{ recmdProject[2].company.name }}</h3>
+            <hr />
+
+            <div class="project-title">{{ recmdProject[2].title }}</div>
+            <span>{{ recmdProject[2].startDate }} ~ </span>
+            <span>{{ recmdProject[2].endDate }}</span>
+            <div class="deadline">
+              마감일자 : {{ recmdProject[2].deadline }}
+            </div>
+            <b-row>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col></b-col>
+              <b-col
+                ><div class="workstyle">
+                  {{ recmdProject[2].workStyle }}
+                </div></b-col
+              >
+              <b-col>
+                <div class="category">{{ recmdProject[2].category }}</div>
+              </b-col>
+            </b-row>
+          </div></b-col
+        >
       </b-row>
     </div>
 
-    <div class ="main-container" >
-      <h1 class="list-title">추천 프리랜서</h1>
+    <div class="main-container">
+      <small class="small-title">FreeNeeds Pick!</small>
+      <h1 class="list-title">
+        추천 프리랜서<img
+          class="freeicon"
+          width="80px"
+          src="../assets/images/freech4.png"
+          alt=""
+        />
+      </h1>
       <b-row>
-        <b-col><div class="descFree-user">{{recmdFreelancer[0]}}</div></b-col>
-        <b-col><div class="descFree-user">{{recmdFreelancer[1]}}</div></b-col>
-        <b-col><div class="descFree-user">{{recmdFreelancer[2]}}</div></b-col>
+        <b-col
+          ><div class="descFree-user">
+            <b-row>
+              <b-col></b-col>
+              <b-col><img
+          class="freelancericon"
+          width="100px"
+          src="../assets/images/freech4.png"
+          alt=""
+        /></b-col>
+              <b-col></b-col> 
+            </b-row>
+        <b-row class="freename">
+          {{ recmdFreelancer[0].name }} 님
+            </b-row>
+            </div></b-col
+        >
+        <b-col
+          ><div class="descFree-user">
+            <b-row>
+              <b-col></b-col>
+              <b-col><img
+          class="freelancericon"
+          width="100px"
+          src="../assets/images/freech5.png"
+          alt=""
+        /></b-col>
+              <b-col></b-col> 
+            </b-row>
+        <b-row>
+          {{ recmdFreelancer[1].name }} 님
+            </b-row>
+            </div></b-col
+        >
+        <b-col
+          ><div class="descFree-user">
+            <b-row>
+              <b-col></b-col>
+              <b-col><img
+          class="freelancericon"
+          width="100px"
+          src="../assets/images/freech3.png"
+          alt=""
+        /></b-col>
+              <b-col></b-col> 
+            </b-row>
+        <b-row>
+          {{ recmdFreelancer[2].name }} 님
+            </b-row>
+            </div></b-col
+        >
       </b-row>
     </div>
   </b-container>
@@ -111,8 +292,6 @@ import FooterNav from "@/components/FooterNav.vue";
 import { createInstance } from "@/api/index.js";
 import { mapGetters } from "vuex";
 import "@lottiefiles/lottie-player";
-
-
 
 // async function getProjectList(success, fail) {
 //   instance
@@ -129,8 +308,8 @@ export default {
     return {
       slide: 0,
       sliding: null,
-      recmdFreelancer :[],
-      recmdProject :[],
+      recmdFreelancer: [],
+      recmdProject: []
     };
   },
   methods: {
@@ -148,22 +327,18 @@ export default {
     HeaderNav,
     FooterNav
   },
-  mounted(){
+  mounted() {
     const instance = createInstance();
     console.log(instance);
-    instance.get(`/project?page=0&size=3`)
-    .then(success=>{
-      this.recmdProject =success.data;
+    instance.get(`/project?page=0&size=3`).then(success => {
+      this.recmdProject = success.data;
       console.log(this.recmdProject);
-      })
-    
+    });
 
-    instance.get(`/users?page=0&size=3`)
-    .then(success=>{
-      this.recmdFreelancer =success.data;
+    instance.get(`/users?page=0&size=3`).then(success => {
+      this.recmdFreelancer = success.data;
       console.log(this.recmdFreelancer);
-      })
-    
+    });
   }
 };
 </script>
@@ -172,16 +347,68 @@ export default {
 
 * {
   font-family: "Noto Sans KR", sans-serif;
-
 }
-.main-intro-container{
+.main-intro-container {
   margin-bottom: 200px;
 }
 .list-title {
   text-align: center;
-  margin-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
+ 
 }
+.small-title {
+  color: #4657ff;
+  padding: 0;
+  margin: 0;
+}
+
+.navbtn1{
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background-size: 120% auto;
+  background-image: linear-gradient(315deg, #4ecdc4 0%, #c797eb 75%);
+}
+.navbtn1:hover {
+  background-position: right center;
+}
+.navbtn1:active {
+  top: 2px;
+}
+.navbtn2 {
+  margin: 20px;
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background-size: 120% auto;
+  background-image: linear-gradient(315deg, #000428 0%, #004e92 75%);
+}
+.navbtn2:hover {
+  background-position: right center;
+}
+.navbtn2:active {
+  top: 2px;
+}
+
+
 .card-list {
   height: 300px;
 }
@@ -193,7 +420,7 @@ export default {
   margin-top: 100px;
   margin-bottom: 20px;
   font-size: 40px;
-  font-weight: bold;
+  /* font-weight: bold; */
   color: #444;
 }
 .intro-btext {
@@ -204,7 +431,7 @@ export default {
 
 .intro-textsub {
   font-size: 30px;
-  font-weight: bold;
+  /* font-weight: bold; */
   color: #444;
 }
 .description {
@@ -219,58 +446,104 @@ export default {
   padding: 70px;
   margin-left: 70px;
 }
-.descFree-p{
+.descFree-p {
   text-align: center;
   padding: auto;
   padding: 50px;
   margin: 50px;
-border-radius: 26px;
-background: #f9f9f9;
-box-shadow:  5px 5px 9px #dedede,
-             -5px -5px 9px #ffffff;
-width: 350px;
-height: 450px;
+  border-radius: 26px;
+  background: #f9f9f9;
+  box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
+  width: 350px;
+  height: 450px;
 }
-.main-container{
+
+.descFree-flow{
+  display: flex;
+  padding: auto;
+  padding: 20px;
+  margin: 0px;
+  border-radius: 26px;
+  background: #f9f9f9;
+  box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
+  width: 300px;
+  height: 200px;
+}
+.main-container {
   /* padding: 100px 0px; */
- 
+
   margin-bottom: 700px;
   justify-content: center;
   text-align: center;
   align-items: center;
   align-content: center;
 }
-.card-component{
+.card-component {
   border: none;
 }
 
-.descFree-user{
-
+.descFree-user {
   padding: auto;
 
-border-radius: 26px;
-background: #f9f9f9;
-box-shadow:  5px 5px 9px #dedede,
-             -5px -5px 9px #ffffff;
-width: 400px;
-height: 300px;
+  border-radius: 26px;
+  background: #f9f9f9;
+  box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
+  width: 400px;
+  height: 300px;
+
 }
 
-.descFree-project{
-
+.descFree-project {
   padding: auto;
   padding-top: 10px;
 
-border-radius: 26px;
-background: #f9f9f9;
-box-shadow:  5px 5px 9px #dedede,
-             -5px -5px 9px #ffffff;
-width: 400px;
-height: 300px;
+  border-radius: 26px;
+  background: #f9f9f9;
+  box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
+  width: 400px;
+  height: 300px;
 }
 
-.descFree-project :hover{
-
+.descFree-project :hover {
   transform: scale(1.1);
 }
+
+.freeicon {
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.category {
+  color: white;
+  background-color: #4657ff;
+  width: 60px;
+  border-radius: 20px;
+  margin: 0px 20px 20px 0px;
+  padding: 3px;
+}
+
+.workstyle {
+  color: white;
+  background-color: #4dd36a;
+  width: 60px;
+  border-radius: 20px;
+  padding: 3px;
+}
+.project-title {
+  color: #4657ff;
+  font-size: 25px;
+  margin: 0px 0px 30px;
+}
+.deadline {
+  margin: 20px 0px 40px;
+}
+
+.freelancericon{
+  margin: 20px;
+}
+
+.freename{
+  text-align: center;
+}
+
 </style>
