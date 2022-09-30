@@ -1,10 +1,77 @@
 <template>
   <div>
-    <div class="project-card-wrapper myPageProjectCardWrpr" style="width: 100% !important; box-shadow : 0px 0px 0px">
+    <!--
+      <template>
+        <div
+          @click="clickDetailOpen"
+          class="project-card-wrapper"
+          style="padding-top : 0px; padding-bottom : 0px"
+          data-bs-toggle="modal"
+          :data-bs-target="projectCardItemEdit"
+        >
+        <img
+          class="wrapperImgProjectCarousel"
+          src="@/assets/images/하얀색.png"
+          alt=""
+          style="width : 1296px"
+          />
+          <div class="row mb-3 ms-1">
+            <div>
+              <h4 class="d-inline-block me-1">{{ companyData.name }}</h4>
+              <span style="font-size : 14px"> | {{ projectData.careerPeriod}}년 경력 | {{ projectData.category}}</span>
+            </div>
+          </div>
+          <div class="row project-card-header-item">
+            <div class="col-4">
+              <div class="project-card-header-round ">
+                {{ projectData.workStyle }}
+              </div>
+            </div>
+            <div class="project-card-title col-8">{{ projectData.title }}</div>
+          </div>
+          <div class="row project-card-header-item">
+            <div class="col-4">
+              <div class="project-card-header-round" v-if="remainDate != 0">
+                D - {{ remainDate }}
+              </div>
+              <div class="project-card-header-round" v-else>
+                D-Day
+              </div>
+            </div>
+            <div class="project-card-title col-8">
+              {{ projectData.deadline.getFullYear() }} -
+              {{ projectData.deadline.getMonth() + 1 }} -
+              {{ projectData.deadline.getDate() }} 마감
+            </div>
+          </div>
+          <hr class="project-card-line" />
+          <div class="row project-card-devide-row">
+            <div class="project-card-item-round-wrapper ">
+              <div class="d-flex justify-content-between project-card-item-round">
+                <div class="mx-3">예상비용</div>
+                <div class="mx-3">
+                  월
+                  <span style="color:blue"
+                    >{{ projectData.lowPrice }}만원 ~ {{ projectData.highPrice }}만원</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    -->
+    <div class="project-card-wrapper myPageProjectCardWrpr" style="width: 660px !important; margin : 0px !important; box-shadow : 0px 0px 0px">
       <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 660px;">
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
         <button class="myPageProjectDetailBtn" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit >상세보기</button>
         <button @click="clickApplyMemberBtn" class="myPageApplyMemberBtn">지원자보기</button>
+      </div>
+      <div class="row mb-3 ms-1">
+        <div>
+          <h4 class="d-inline-block me-1">{{ companyData.name }}</h4>
+          <span style="font-size : 14px"> | {{ projectData.careerPeriod}}년 경력 | {{ projectData.category}}</span>
+        </div>
       </div>
       <div class="row project-card-header-item">
         <div class="col-2 ">
