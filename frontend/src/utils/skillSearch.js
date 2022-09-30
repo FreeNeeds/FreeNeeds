@@ -1,7 +1,7 @@
 const skills = ["Java","Javascript","HTML","JQuery","CSS","React.js","Vue.js","Node.js",
 "Python","JSP","PHP","Django","Swift","C","C++","C#","Objective-C","Kotlin","Spring","MySQL","Mybatis","Redux","React-Native",
 "Oracle","JPA","PostgreSQL","CI/CD","Angular.js","MariaDB","MongoDB","Redis","Firebase","UI/UX","Photoshop","Linux",".NET","Typescript","ASP.NET","MVVM",
-"MSSQL","Flutter","Docker","Kubernetes","Jenkins","Nginx","Unity","AWS","Nexacro","MFC"]
+"MSSQL","Flutter","Docker","Kubernetes","Jenkins","Nginx","Unity","AWS","Nexacro","MFC","Web3.js","Solidity"]
 
 skills.sort()
 
