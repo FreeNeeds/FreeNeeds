@@ -235,4 +235,10 @@ public class UserServiceImpl implements UserService {
 
 		return resume_id;
 	}
+
+	@Override
+	public String getUserAccountAddressByUsername(String username) {
+		String accountAddress = userRepositorySupport.findUserAccountAddressByUsername(username);
+		return accountAddress;
+	}
 }
