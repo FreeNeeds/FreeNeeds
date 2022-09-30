@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @ApiModel("CompanyRegisterPostRequest")
 public class CompanyRegisterPostReq {
     @NotBlank
-    @ApiModelProperty(name="기업 ID", example="ssafy_web")
+    @ApiModelProperty(name="기업 ID", example="ssafy_company")
     String username;
 
     @NotBlank
@@ -24,14 +24,18 @@ public class CompanyRegisterPostReq {
     String password;
 
     @Email
-    @ApiModelProperty(name="기업 email", example="user@naver.com")
+    @ApiModelProperty(name="기업 email", example="company@naver.com")
     String email;
 
     @NotBlank
-    @ApiModelProperty(name="기업 name", example="name")
+    @ApiModelProperty(name="기업 name", example="SAMSUNG")
     String name;
 
     @NotBlank
-    @ApiModelProperty(name="기업 phone", example="phone")
+    @ApiModelProperty(name="기업 phone", example="010-0000-0000")
     String phone;
+
+    @NotBlank
+    @ApiModelProperty(name="기업 MetaMask Account Address", example="address")
+    String accountAddress;
 }
