@@ -5,6 +5,7 @@
     img-left
     data-bs-toggle="modal"
     :data-bs-target="freelancerCardIdEdit"
+    style="overflow:hidden"
   >
     <div class="row justify-content-between">
       <b-card-title class="col-6">

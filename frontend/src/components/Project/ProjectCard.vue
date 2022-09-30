@@ -12,7 +12,7 @@
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
       <div class="project-card-title col-10">{{ projectData.title }}</div>
@@ -136,7 +136,8 @@ export default {
       projectData: {
         id: "1",
         category: "개발",
-        demain: "웹사이트",
+        projectId: 0,
+        domain: "웹사이트",
         locationSi: "성남시",
         locationGu: "분당구",
         skill: ["Java", "Mysql", "SpringBoot"],
@@ -149,7 +150,7 @@ export default {
         deadline: new Date("2022-11-30"),
         recruitNumber: 3,
         task: "1) Native UI/UX 2) 단말 내 시스템 연동 3) API 서버 연동",
-        workstyle: "재택",
+        workStyle: "재택",
         workStartTime: "오전 08:00",
         workEndTime: "오후 16:00",
         lowPrice: "200만원",

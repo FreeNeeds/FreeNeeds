@@ -30,8 +30,9 @@ export default {
       messages: [
         {
           message_id: 1,
-          title: "메세지 1",
-          content: "1번 내용",
+          title: "인터뷰 요청이 들어왔습니다.",
+          content:
+            "AI기반 Firescout 솔루션 ux/ui 디자인에서 인터뷰 요청이 들어왔어요. 자세히 보기를 클릭하여 프로젝트를 확인해보세요!",
           open: false,
           contract: "a",
           state: 0,
@@ -41,7 +42,7 @@ export default {
         },
         {
           message_id: 2,
-          title: "메세지 2",
+          title: "인터뷰 일정을 확인해주세요.",
           content: "2번 내용",
           open: true,
           contract: "b",
@@ -52,7 +53,7 @@ export default {
         },
         {
           message_id: 3,
-          title: "메세지 3",
+          title: "계약이 체결되었습니다.",
           content: "3번 내용",
           open: true,
           contract: "c",

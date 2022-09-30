@@ -1,5 +1,5 @@
 <template>
-  <div id="freelancer-list">
+  <div id="freelancer-list" v-if="isDataLoaded">
     <!-- <div>{{ totalUserList }}</div>
     <div>{{ freelancerCardLst }}</div>
     <div>{{ freelancerDataReceive }}</div> -->
@@ -38,11 +38,15 @@ export default {
       await userInstance.getUserProfile(
         this.totalUserList[i].username,
         res => {
+          // console.log(res);
           const data = this.totalUserList[i];
-          data.resume.title = res.data.title;
-          data.resume.introduce = res.data.introduce;
-          data.resume.career_period = res.data.career_period;
-          data.resume.profileId = res.data.profileId;
+          data.resume = {};
+          data.resume = res.data;
+          data.resume.career_period = res.data.creer_period;
+          // data.resume.title = res.data.title;
+          // data.resume.introduce = res.data.introduce;
+          // data.resume.career_period = res.data.creer_period;
+          // data.resume.profileId = res.data.profileId;
           this.freelancerDataReceive.push(data);
         },
         () => {
@@ -66,7 +70,11 @@ export default {
           this.freelancerDataReceive[i].resume.profileId,
           res => {
             // console.log(res);
-            this.freelancerDataReceive[i].tech = res.data;
+            // console.log(res);
+            this.freelancerDataReceive[i].tech = [];
+            for (let k = 0; k < res.data.length; k++) {
+              this.freelancerDataReceive[i].tech.push(res.data[k].techName);
+            }
           }
         );
       }
@@ -77,7 +85,7 @@ export default {
       await EstimateInstance.getUserEstimate(
         this.freelancerDataReceive[i].username,
         res => {
-          console.log(res);
+          // console.log(res);
           if (res.data.length > 0) {
             this.freelancerDataReceive[i].estimate = res.data;
           } else {
@@ -103,6 +111,7 @@ export default {
       await userInstance.getUserProject(
         this.freelancerDataReceive[i].username,
         res => {
+          console.log(res);
           for (let j = 0; j < res.data.length; j++) {
             const data = {
               projectCareerId: res.data[j].projectCareerId,
@@ -131,8 +140,15 @@ export default {
         await userInstance.getUserProjectTech(
           this.freelancerDataReceive[i].projectCareer[j].projectCareerId,
           res => {
-            this.freelancerDataReceive[i].projectCareer[j].projectCareerTech =
-              res.data;
+            this.freelancerDataReceive[i].projectCareer[
+              j
+            ].projectCareerTech = [];
+            const techarr = res.data;
+            for (let k = 0; k < techarr.length; k++) {
+              this.freelancerDataReceive[i].projectCareer[
+                j
+              ].projectCareerTech.push(res.data[k].techName);
+            }
           },
           err => {
             this.freelancerDataReceive[i].projectCareer[
@@ -149,6 +165,7 @@ export default {
         body: this.freelancerDataReceive[i]
       });
     }
+    this.isDataLoaded = true;
   },
   methods: {},
   components: {
@@ -160,6 +177,7 @@ export default {
         page: 0,
         size: 10
       },
+      isDataLoaded: false,
       totalUserList: [],
       freelancerDataReceive: [],
       freelancerCardLst: []
