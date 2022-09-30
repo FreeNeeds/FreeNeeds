@@ -21,7 +21,7 @@
     <div class="row project-card-header-item">
       <div class="col-4">
         <div class="project-card-header-round ">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
       <div class="project-card-title col-8">{{ projectData.title }}</div>
@@ -150,7 +150,7 @@
           deadline: new Date(this.projectCardItem.deadline),
           recruitNumber: this.projectCardItem.recruitNumber,
           task: this.projectCardItem.task,
-          workstyle: this.projectCardItem.workStyle,
+          workStyle: this.projectCardItem.workStyle,
           workStartTime: this.projectCardItem.workStartTime,
           workEndTime: this.projectCardItem.workEndTime,
           lowPrice: this.projectCardItem.lowPrice,

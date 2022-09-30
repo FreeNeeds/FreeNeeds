@@ -129,111 +129,140 @@
 </template>
 
 <script>
-  import HeaderNav from '@/components/HeaderNav.vue';
-  import FooterNav from '@/components/FooterNav.vue';
-  import ProjectDetailNav from '@/components/Project/ProjectDetailNav.vue'
-  import ProjectDetailSkill from '@/components/Project/ProjectDetailSkill.vue'
-  import { applyCompany } from '@/api/projectAPI'
+import HeaderNav from "@/components/HeaderNav.vue";
+import FooterNav from "@/components/FooterNav.vue";
+import ProjectDetailNav from "@/components/Project/ProjectDetailNav.vue";
+import ProjectDetailSkill from "@/components/Project/ProjectDetailSkill.vue";
+import { applyCompany } from "@/api/projectAPI";
+import { mapGetters } from "vuex";
+import * as applyInstance from "@/api/apply.js";
 
-  export default {
-    name: 'ProjectDetail',
-    data() {
-      return {
-        ProjectDetailNavProject : "ProjectDetailNavProject",
-        ProjectDetailNavResume : "ProjectDetailNavResume",
-        projectDetailNavItemProject : "projectDetailNavItemProject",
-        resumeDetailNavItemProject : "resumeDetailNavItemProject",
-        applyModalCtnr : "applyModalCtnr",
-        leftApply : "leftApply",
-        completeApply : "completeApply",
-        remainDate : "",
-        periodWork : "",
-        projectDetailNavLst : ["프로젝트","기업정보"],
-        projectDetailLst: ["프로젝트item","기업정보item"]
+export default {
+  computed: {
+    ...mapGetters(["loginType", "loginUserInfo"])
+  },
+  name: "ProjectDetail",
+  data() {
+    return {
+      ProjectDetailNavProject: "ProjectDetailNavProject",
+      ProjectDetailNavResume: "ProjectDetailNavResume",
+      projectDetailNavItemProject: "projectDetailNavItemProject",
+      resumeDetailNavItemProject: "resumeDetailNavItemProject",
+      applyModalCtnr: "applyModalCtnr",
+      leftApply: "leftApply",
+      completeApply: "completeApply",
+      remainDate: "",
+      periodWork: "",
+      projectDetailNavLst: ["프로젝트", "기업정보"],
+      projectDetailLst: ["프로젝트item", "기업정보item"]
+    };
+  },
+  props: {
+    projectDataReceive: Object,
+    companyDataReceive: Object,
+    idEdit: String
+  },
+  mounted() {
+    console.log(this.projectDataReceive);
+    console.log(this.companyDataReceive);
+    console.log(this.idEdit);
+    this.ProjectDetailNavProject += this.idEdit;
+    this.ProjectDetailNavResume += this.idEdit;
+    this.projectDetailNavItemProject += this.idEdit;
+    this.resumeDetailNavItemProject += this.idEdit;
+    this.applyModalCtnr += this.idEdit;
+    this.leftApply += this.idEdit;
+    this.completeApply += this.idEdit;
+    this.remainDate = Math.ceil(
+      (this.projectDataReceive.deadline.getTime() - new Date().getTime()) /
+        (1000 * 60 * 60 * 24) -
+        1
+    );
+    this.remainDate = "D - " + String(this.remainDate);
+    this.periodWork =
+      (this.projectDataReceive.endDate.getTime() -
+        this.projectDataReceive.startDate.getTime()) /
+        (1000 * 60 * 60 * 24) -
+      1;
+  },
+  mounted() {
+    this.idEdit = String(this.projectDataReceive.id)
+    this.ProjectDetailNavProject += this.idEdit
+    this.ProjectDetailNavResume += this.idEdit
+    this.projectDetailNavItemProject += this.idEdit
+    this.resumeDetailNavItemProject += this.idEdit
+    this.applyModalCtnr += this.idEdit
+    this.leftApply += this.idEdit
+    this.completeApply += this.idEdit
+    this.remainDate = Math.ceil(
+      (this.projectDataReceive.deadline.getTime() - new Date().getTime()) /
+        (1000 * 60 * 60 * 24) -
+        1
+    );
+    this.remainDate = "D - " + String(this.remainDate)
+    console.log(this.companyDataReceive)
+    this.periodWork = (this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
+        (1000 * 60 * 60 * 24) - 1
+  },
+  methods : {
+    openApplyModal() {
+      let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
+      applyModalCtnrTmp.classList.remove('d-none')
+    },
+    clickNoApply() {
+      let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
+      applyModalCtnrTmp.classList.add("d-none")
+    },
+    clickApply() {
+      //applyCompany(this.projectDataReceive.id)
+      let completeApplyTmp = document.querySelector('#' + this.completeApply)
+      let leftApplyTmp = document.querySelector('#' + this.leftApply)
+      completeApplyTmp.classList.remove("d-none")
+      leftApplyTmp.classList.add("d-none")
+    },
+    clickCompleteApply() {
+      let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
+      let completeApplyTmp = document.querySelector('#' + this.completeApply)
+      let leftApplyTmp = document.querySelector('#' + this.leftApply)
+      applyModalCtnrTmp.classList.add("d-none")
+      completeApplyTmp.classList.add("d-none")
+      leftApplyTmp.classList.remove("d-none")
+    },
+    clickProjectDetailNavProject() {
+      let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
+      let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
+      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
+      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
+      if (!removeProjectDetailItem.classList.contains("activeProjectDetailNav")) {
+          removeProjectDetailItem.classList.add("activeProjectDetailNav")
+          removeResumeDetailItem.classList.remove("activeProjectDetailNav")
+          ResumeDetailItem.classList.add('deactiveProjectDetailItem')
+          ProjectDetailItem.classList.remove('deactiveProjectDetailItem')
+      }
+
+    },
+    clickProjectDetailNavResume() {
+      let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
+      let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
+      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
+      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
+
+      if (!removeResumeDetailItem.classList.contains("activeProjectDetailNav")) {
+          removeResumeDetailItem.classList.add("activeProjectDetailNav")
+          removeProjectDetailItem.classList.remove("activeProjectDetailNav")
+          ProjectDetailItem.classList.add('deactiveProjectDetailItem')
+          ResumeDetailItem.classList.remove('deactiveProjectDetailItem')
       }
     },
-    props : {
-      projectDataReceive : Object,
-      companyDataReceive : Object,
-    },
-    mounted() {
-      this.idEdit = String(this.projectDataReceive.id)
-      this.ProjectDetailNavProject += this.idEdit
-      this.ProjectDetailNavResume += this.idEdit
-      this.projectDetailNavItemProject += this.idEdit
-      this.resumeDetailNavItemProject += this.idEdit
-      this.applyModalCtnr += this.idEdit
-      this.leftApply += this.idEdit
-      this.completeApply += this.idEdit
-      this.remainDate = Math.ceil(
-        (this.projectDataReceive.deadline.getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24) -
-          1
-      );
-      this.remainDate = "D - " + String(this.remainDate)
-      console.log(this.companyDataReceive)
-      this.periodWork = (this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
-          (1000 * 60 * 60 * 24) - 1
-    },
-    methods : {
-      openApplyModal() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        applyModalCtnrTmp.classList.remove('d-none')
-      },
-      clickNoApply() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        applyModalCtnrTmp.classList.add("d-none")
-      },
-      clickApply() {
-        //applyCompany(this.projectDataReceive.id)
-        let completeApplyTmp = document.querySelector('#' + this.completeApply)
-        let leftApplyTmp = document.querySelector('#' + this.leftApply)
-        completeApplyTmp.classList.remove("d-none")
-        leftApplyTmp.classList.add("d-none")
-      },
-      clickCompleteApply() {
-        let applyModalCtnrTmp = document.querySelector('#' + this.applyModalCtnr)
-        let completeApplyTmp = document.querySelector('#' + this.completeApply)
-        let leftApplyTmp = document.querySelector('#' + this.leftApply)
-        applyModalCtnrTmp.classList.add("d-none")
-        completeApplyTmp.classList.add("d-none")
-        leftApplyTmp.classList.remove("d-none")
-      },
-      clickProjectDetailNavProject() {
-        let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
-        let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
-        let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
-        let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
-        if (!removeProjectDetailItem.classList.contains("activeProjectDetailNav")) {
-            removeProjectDetailItem.classList.add("activeProjectDetailNav")
-            removeResumeDetailItem.classList.remove("activeProjectDetailNav")
-            ResumeDetailItem.classList.add('deactiveProjectDetailItem')
-            ProjectDetailItem.classList.remove('deactiveProjectDetailItem')
-        }
 
-      },
-      clickProjectDetailNavResume() {
-        let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
-        let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
-        let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
-        let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
-
-        if (!removeResumeDetailItem.classList.contains("activeProjectDetailNav")) {
-            removeResumeDetailItem.classList.add("activeProjectDetailNav")
-            removeProjectDetailItem.classList.remove("activeProjectDetailNav")
-            ProjectDetailItem.classList.add('deactiveProjectDetailItem')
-            ResumeDetailItem.classList.remove('deactiveProjectDetailItem')
-        }
-      },
-
-    },
-    components : {
-      HeaderNav,
-      FooterNav,
-      ProjectDetailNav,
-      ProjectDetailSkill
-    }
+  },
+  components : {
+    HeaderNav,
+    FooterNav,
+    ProjectDetailNav,
+    ProjectDetailSkill
   }
+}
 </script>
 
 <style>

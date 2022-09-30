@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="register-item-wrapper">
-        <label for="registerCNumberInput" class="register-input-label"
+        <label for="registerCEmailInput" class="register-input-label"
           >이메일</label
         >
         <div class="regist-input-decoration">
@@ -134,7 +134,7 @@
               <input
                 v-model="user.email"
                 type="text"
-                id="registerCNumberInput"
+                id="registerCEmailInput"
                 class="regist-email-input-wrapper"
               />
             </div>

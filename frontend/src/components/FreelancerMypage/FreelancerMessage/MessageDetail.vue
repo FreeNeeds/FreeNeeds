@@ -29,7 +29,10 @@
       <div class="message-content-container">
         {{ message.content }}
         <div class="message-content-project-wrapper">
-          <project-card></project-card>
+          <project-card
+            :projectData="projectData"
+            :companyData="companyData"
+          ></project-card>
           <div class="message-project-hover"></div>
           <div class="message-project-btn-wrapper">
             <button class="message-project-btn interesting-project-btn">
@@ -55,7 +58,69 @@ export default {
     ProjectCard
   },
   data() {
-    return {};
+    return {
+      companyData: {
+        name: "삼성전자",
+        ceo: "이재용",
+        address: "대전시 유성구 덕명동",
+        call: "042-000-0000"
+      },
+      projectData: {
+        id: "1",
+        category: "개발",
+        domain: "웹사이트",
+        location: "대한민국 어딘가...",
+        skill: ["Java", "Mysql", "SpringBoot"],
+        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
+        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+        startDate: new Date("2022-09-10"),
+        endDate: new Date("2022-09-16"),
+        locationSi: "성남시",
+        locationGu: "분당구",
+        startDateSummry: "2022-09-10",
+        endDateSummry: "2022-09-16",
+        deadline: new Date("2022-11-30"),
+        recruitNumber: 3,
+        task:
+          "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
+        workStyle: "재택",
+        workStartTime: "오전 08:00",
+        workEndTime: "오후 16:00",
+        lowPrice: "200만원",
+        highPrice: "300만원",
+        careerPeriod: 3
+      },
+
+      freelancerDetailNavLst: ["프로젝트", "이력서"],
+      freelancerDetailLst: ["프로젝트item", "이력서item"],
+      freelancerEducation: {
+        careerList: [
+          {
+            companyName: "(주)엠로",
+            department: "웹개발부",
+            end_date: "2020-02-01",
+            position: "수석연구원",
+            start_date: "2015-03-01"
+          }
+        ],
+        certificateList: [
+          {
+            certification: "한국산업인력공단",
+            date: "2014-11-01",
+            name: "정보처리기사"
+          }
+        ],
+        education: {
+          highschool: "싸피고등학교",
+          highschool_end_date: "2010-02-01",
+          highschool_start_date: "2007-03-01",
+          major: "컴퓨터공학과",
+          university: "싸피대학교",
+          university_end_date: "2015-02-01",
+          university_start_date: "2010-03-01"
+        }
+      }
+    };
   },
   props: {
     message: Object,

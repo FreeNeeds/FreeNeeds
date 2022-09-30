@@ -5,8 +5,8 @@ import store from "@/store/index.js";
 const instance = createInstance();
 
 /** 지원 상태 조회 */
-function getApplyStatus(userId, success, fail) {
-  instance
+async function getApplyStatus(userId, success, fail) {
+  await instance
     .get(`apply`, {
       params: {
         userId: userId
@@ -17,24 +17,25 @@ function getApplyStatus(userId, success, fail) {
 }
 
 /** 지원하기 */
-function ApplyProject(applyReq, success, fail) {
-  instance
-    .post(`apply`, applyReq)
+async function ApplyProject(applyReq, success, fail) {
+  await instance
+    .post(`apply`, applyReq, { headers: store.getters.authHeader })
     .then(success)
     .catch(fail);
 }
 
 /** 지원 상태 변경 */
-function ChangeApplyInfo(applyReq, success, fail) {
-  instance
+async function ChangeApplyInfo(applyReq, success, fail) {
+  console.log(applyReq);
+  await instance
     .put(`apply`, applyReq)
     .then(success)
     .catch(fail);
 }
 
 /** 지원 취소 */
-function cancelApply(applyDeleteReq, success, fail) {
-  instance
+async function cancelApply(applyDeleteReq, success, fail) {
+  await instance
     .delete(`apply`, applyDeleteReq)
     .then(success)
     .catch(fail);

@@ -5,7 +5,7 @@ import { createInstance } from "./index.js";
 const instance = createInstance();
 
 /** 기업 회원 가입 */
-function signupCompany(companyInfo, success, fail) {
+async function signupCompany(companyInfo, success, fail) {
   const data = {
     email: companyInfo.email + companyInfo.emailDomain,
     name: companyInfo.name,
@@ -13,47 +13,47 @@ function signupCompany(companyInfo, success, fail) {
     phone: companyInfo.number,
     username: companyInfo.id
   };
-  instance
+  await instance
     .post(`/companies`, data)
     .then(success)
     .catch(fail);
 }
 
 /** 기업 정보 생성 */
-function setCompanyInfo(companyInfo, success, fail) {
-  instance
+async function setCompanyInfo(companyInfo, success, fail) {
+  await instance
     .post(`/companies/information`, companyInfo)
     .then(success)
     .catch(fail);
 }
 
 /** 기업 정보 수정 */
-function changeCompanyInfo(companyInfo, success, fail) {
-  instance
+async function changeCompanyInfo(companyInfo, success, fail) {
+  await instance
     .patch(`/companies/information`, companyInfo)
     .then(success)
     .catch(fail);
 }
 
 /** 기업 정보 조회 */
-function getCompanyInfo(username, success, fail) {
-  instance
+async function getCompanyInfo(username, success, fail) {
+  await instance
     .get(`/companies/information/${username}`)
     .then(success)
     .catch(fail);
 }
 
 /** 기업 회원 조회 */
-function getCompanyUserInfo(success, fail) {
-  instance
+async function getCompanyUserInfo(success, fail) {
+  await instance
     .get(`companies/me`)
     .then(success)
     .catch(fail);
 }
 
 /** 기업 회원 정보 수정 */
-function changeCompanyUserInfo(userInfo, success, fail) {
-  instance
+async function changeCompanyUserInfo(userInfo, success, fail) {
+  await instance
     .patch(`/companies/me`)
     .then(success)
     .catch(fail);

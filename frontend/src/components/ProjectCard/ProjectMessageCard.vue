@@ -12,7 +12,7 @@
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
       <div class="project-card-title col-10">{{ projectData.title }}</div>
@@ -72,9 +72,9 @@
       </div>
       <div class="col-10">
         <div class="project-card-skill">
-          <div v-for="(vlaue, index) of projectData.skil" :key="index">
+          <span v-for="(value, index) of projectData.skill" :key="index">
             {{ value + " " }}
-          </div>
+          </span>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@
           style="width:20px;height:20px;object-fit:cover"
         />
         <div style="display:inline;margin-left:10px">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
     </div>
@@ -112,13 +112,13 @@
           style="width:20px;height:20px;object-fit:cover"
         />
         <div style="display:inline;margin-left:10px">
-          {{ projectData.location }}
+          {{ projectData.locationSi + " " + projectData.locationGu }}
         </div>
       </div>
     </div>
     <project-detail
-      :id="projectCardId.projectId"
-      :idEdit="projectCardId.projectId"
+      :id="`pmc${projectData.projectId}`"
+      :idEdit="`pmc${projectData.projectId}`"
       :projectDataReceive="projectData"
       :companyDataReceive="companyData"
     ></project-detail>
@@ -168,8 +168,8 @@ export default {
     };
   },
   mounted() {
-    console.log(this.projectData);
-    console.log(this.companyData);
+    // console.log(this.projectData);
+    // console.log(this.companyData);
     this.projectCardId += this.projectData.projectId;
   },
   computed: {

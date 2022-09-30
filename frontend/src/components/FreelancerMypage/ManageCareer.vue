@@ -36,7 +36,7 @@ export default {
         data.resume = {};
         data.resume.title = res.data.title;
         data.resume.introduce = res.data.introduce;
-        data.resume.career_period = res.data.career_period;
+        data.resume.career_period = res.data.creer_period;
         data.resume.profileId = res.data.profileId;
         this.freelancerDataReceive = data;
       },
@@ -104,16 +104,7 @@ export default {
         if (res.data.length > 0) {
           this.freelancerDataReceive.estimate = res.data;
         } else {
-          const data = [
-            {
-              profession: 0,
-              ontime: 0,
-              active: 0,
-              communication: 0,
-              reEmployment: 0
-            }
-          ];
-          this.freelancerDataReceive.estimate = data;
+          this.freelancerDataReceive.estimate = [];
         }
       },
       err => {}
