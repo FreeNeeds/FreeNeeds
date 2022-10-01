@@ -11,7 +11,8 @@ async function signupCompany(companyInfo, success, fail) {
     name: companyInfo.name,
     password: companyInfo.password,
     phone: companyInfo.number,
-    username: companyInfo.id
+    username: companyInfo.id,
+    accountAddress : companyInfo.accountAddress
   };
   await instance
     .post(`/companies`, data)
