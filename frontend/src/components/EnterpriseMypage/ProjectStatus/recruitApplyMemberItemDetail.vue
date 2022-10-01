@@ -179,9 +179,6 @@
                   <div @click="clickFreelancerDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=FreelancerDetailNavProject>
                     프로젝트
                   </div> 
-                  <div @click="clickFreelancerDetailNavResume" class="col-2 projectDetailNav" :id=FreelancerDetailNavResume>
-                    이력서
-                  </div> 
                 </div>
                 <hr class="project-card-line" style="margin-bottom : 40px">
                 <div :id=projectDetailNavItem>
@@ -522,28 +519,6 @@ export default {
       reEmployment : 0,
       ratingToPercent : 0,
       myProjectLst : [],
-      projectData: {
-        id: "1",
-        category: "개발",
-        demain: "웹사이트",
-        location: "대한민국 어딘가...",
-        skill: ["Java", "Mysql" ,"SpringBoot"],
-        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-        startDate: new Date("2022-09-10"),
-        endDate: new Date("2022-09-16"),
-        startDateSummry : "2022-09-10",
-        endDateSummry : "2022-09-16",
-        deadline: new Date("2022-11-30"),
-        recruitNumber: 3,
-        task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-        workstyle: "재택",
-        workStartTime: "오전 08:00",
-        workEndTime: "오후 16:00",
-        lowPrice: "200만원",
-        highPrice: "300만원",
-        careerPeriod: 3,
-      },
       freelancerDetailNavLst : ["프로젝트","이력서"],
       freelancerDetailLst : ["프로젝트item","이력서item"],
       freelancerEducation : {
@@ -636,7 +611,7 @@ export default {
   },
   props : {
     freelancerDetailReceive : Object,
-    id_ : Number
+    projectData : Object
   },  
   methods: {
     clickFreelancerDetailNavProject() {

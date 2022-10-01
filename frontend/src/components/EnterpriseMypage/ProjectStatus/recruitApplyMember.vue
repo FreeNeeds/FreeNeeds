@@ -26,28 +26,29 @@
       <recruitApplyMemberItem
       v-for="freelancerCard in beforeFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
     </div>
     <div id="ingFreelancerCardLst" class='deactiveProjectDetailItem'>
       <recruitApplyMemberItem
       v-for="freelancerCard in ingFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
     </div>
     <div id="afterFreelancerCardLst" class='deactiveProjectDetailItem'>
       <recruitApplyMemberItem
       v-for="freelancerCard in afterFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
     </div>
   </div>
 </template>
 
 <script>
 import recruitApplyMemberItem from "@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItem.vue";
+import { createInstance } from "@/api/index.js";
 
 export default {
-  props : { 
+  props : {
     projectId : Number
   },
   data() {
@@ -68,26 +69,24 @@ export default {
         endDate : "2020-10-30"
       },
       projectData: {
-        id: "1",
-        category: "개발",
-        demain: "웹사이트",
-        location: "대한민국 어딘가...",
-        skill: ["Java", "Mysql" ,"SpringBoot"],
-        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-        startDate: new Date("2022-09-10"),
-        endDate: new Date("2022-09-16"),
-        startDateSummry : "2022-09-10",
-        endDateSummry : "2022-09-16",
-        deadline: new Date("2022-11-30"),
-        recruitNumber: 3,
-        task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-        workstyle: "재택",
-        workStartTime: "오전 08:00",
-        workEndTime: "오후 16:00",
-        lowPrice: "200만원",
-        highPrice: "300만원",
-        careerPeriod: 3,
+        id: '',
+        category: "",
+        demain: "",
+        location: "",
+        skill: [],
+        title: "",
+        content: "",
+        startDate: "",
+        endDate: "",
+        deadline: "",
+        recruitNumber: '',
+        task: "",
+        workstyle: "",
+        workStartTime: "",
+        workEndTime: "",
+        lowPrice: "",
+        highPrice: "",
+        careerPeriod: '',
       },
       freelancerDataReceive : {
         user_id : "1",
@@ -140,26 +139,26 @@ export default {
     }
   },
   mounted() {
-    for (let i = 0; i < 10; i++){
-      this.beforeFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 10; i < 12; i++){
-      this.ingFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 12; i < 16; i++){
-      this.afterFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
+    createInstance().get('/apply/' + String(this.projectId)).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].state === '지원완료') {
+            this.beforeFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data[i].userId),
+              body : res.data[i]
+            })
+          } else if (res.data[i].state === '인터뷰완료') {
+            this.ingFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data[i].userId),
+              body : res.data[i]
+            }) 
+          } else {
+            this.afterFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data[i].userId),
+              body : res.data[i]
+            })
+          }
+        }
+    })
 
     for (let i = 0; i < 7; i++){
       this.freelancerDataReceive.projectCareer.push({

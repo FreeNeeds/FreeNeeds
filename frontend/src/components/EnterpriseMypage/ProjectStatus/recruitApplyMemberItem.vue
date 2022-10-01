@@ -1,6 +1,6 @@
 <template>
   <b-card
-    class="freelancer-contents myPageProjectCardWrpr"
+    class="freelancer-contents myPageFreelancerCardWrpr"
     img-src="https://placekitten.com/300/300"
     img-left
     >
@@ -10,7 +10,7 @@
       <div class="row justify-content-between">
         <b-card-title class="col-6">
           {{ nameErase }}
-          <span style="font-size : 14px">| {{ freelancerCard.body.resume.career_period }}년 경력</span>
+          <span style="font-size : 14px">| {{ resume.career_period }}년 경력</span>
         </b-card-title>
         <b-card-text class="col-6 text-end align-items-center">
           <div class="star-ratings d-inline-block mx-2">
@@ -31,8 +31,7 @@
       <div class="row justify-content-end my-2">
         <b-card-text class="col-7">
           <div class="mb-2">
-            {{ freelancerCard.body.resume.title }} <br>
-            {{ freelancerCard.body.resume.title }}
+            {{ resume.title }}
           </div>
           <FreelancerCardSkill
           v-for="skillItem in freelancerCard.body.tech"
@@ -45,7 +44,7 @@
           <hr>
           <div class="row justify-content-between">
             <div class="col-8">계약한 프로젝트 : </div>
-            <div class="col-4">총 {{ freelancerCard.body.projectCareer.length }} 건 </div>
+            <div class="col-4">총 {{ projectCareer.length }} 건 </div>
           </div>
           <hr>
         </div>
@@ -62,6 +61,7 @@
   import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
   import recruitApplyMemberItemDetail from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetail.vue'
+  import { createInstance } from "@/api/index.js";
 
   export default {
     name : 'recruitApplyMemberItem',
@@ -70,13 +70,47 @@
         nameErase : "",
         ratingToPercent : 0,
         freelancerCardIdEdit : "#id",
-        freelancerCardId : "id"
+        projectCareer : [],
+        resume : '',
+        profile : '',
+        estimate : [],
+        profileTech : [],
       }
     },
     props : {
-      freelancerCard : Object
+      freelancerCardId : Number
     },
     mounted() {
+      this.freelancerCardId = 'id' + this.freelancerCardId
+      
+      createInstance().get('/users/' + String(this.freelancerCardId)).then(res => {
+        let username = res.data.username
+        createInstance().get('/users/project/' + username).then(res => {
+          for (let i = 0; i < res.data.length; i++) {
+            this.projectCareer.push(res.data[i])
+          }
+        })
+        createInstance().get('/users/resume/' + username).then(res => {
+          this.resume = res.data[i]
+        })
+        createInstance().get('/users/profile/' + username).then(res => {
+          this.profile = res.data[i]
+          createInstance().get('/users/profile/tech/' + String(res.data[i].profileId)).then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+              this.profileTech.push(res.data[i])
+            }
+          })
+        })
+        createInstance().get('/users/resume/' + username).then(res => {
+          this.resume = res.data[i]
+        })
+        createInstance().get('/estimates/' + username).then(res => {
+          for (let i = 0; i < res.data.length; i++) {
+            this.estimate.push(res.data[i])
+          }
+        })
+      })
+      
       for (let i = 0; i < this.freelancerCard.body.name.length; i++){
         if (i == 1) this.nameErase += "*"
         else this.nameErase += this.freelancerCard.body.name[i]
@@ -103,11 +137,11 @@
 </script>
 
 <style>
-  .myPageProjectCardWrpr:hover {
+  .myPageFreelancerCardWrpr:hover {
     background-color: rgba(0, 0, 0, 0.1) !important;
   }
 
-  .myPageProjectCardWrpr:hover > .card-body > .hoverProjectCard{
+  .myPageFreelancerCardWrpr:hover > .card-body > .hoverProjectCard{
     display: block !important;
   }
 

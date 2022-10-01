@@ -72,6 +72,7 @@ export default {
   box-shadow: 0px 4px 12px rgba(63, 121, 209, 0.25),
     0px 0px 12px rgba(63, 121, 209, 0.25);
   padding: 30px;
+  margin-top : 30px;
 }
 .mypage-menu-items-wrapper {
   margin-top: 40px;
