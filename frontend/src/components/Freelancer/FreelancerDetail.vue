@@ -223,7 +223,7 @@
               <div class="d-inline-block mx-auto my-3" style="width : 229px !important">
                 <FreelancerCardSkill
                   v-for="skillItem in freelancerDetailReceive.tech"
-                  :key="skillItem"
+                  :key="`id${id_}${skillItem}`"
                   :skillItem="skillItem"
                 >
                 </FreelancerCardSkill>
@@ -536,7 +536,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.freelancerDetailReceive);
+    // console.log(this.freelancerDetailReceive);
     this.projectDetailValue = [];
     for (
       let i = 0;
@@ -614,6 +614,7 @@ export default {
         this.freelancerEducation = data;
       }
     );
+
     for (let i = 0; i < 5; i++) {
       this.myProjectLst.push({
         id: "ids" + String(i),

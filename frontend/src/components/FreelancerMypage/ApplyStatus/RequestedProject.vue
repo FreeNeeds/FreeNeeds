@@ -25,6 +25,7 @@
           </button>
           <button
             class="requested-project-card-btn requested-project-card-refuse"
+            @click="freelancerrefuseProject(index)"
           >
             거절하기
           </button>
@@ -47,6 +48,15 @@ import * as companyInstance from "@/api/company.js";
 import ProjectDetailVue from "../../Project/ProjectDetail.vue";
 export default {
   methods: {
+    freelancerrefuseProject(index) {
+      const data = {
+        projectId: this.projectDataList[index].projectData.projectId,
+        userId: this.loginUserInfo.id
+      };
+      applyInstance.cancelApply(data, () => {
+        alert("거절되었습니다.");
+      });
+    },
     freelancerAcceptProject(index) {
       console.log(index);
       const data = {
@@ -108,7 +118,7 @@ export default {
           projectData: {},
           companyData: {}
         };
-        if (projectItem.state == "계약완료") {
+        if (projectItem.state == "인터뷰신청") {
           // console.log(projectItem);
           let projectData = projectItem.project;
           projectData.startDateSummry = projectData.startDate;
@@ -116,7 +126,7 @@ export default {
           projectData.startDate = new Date(projectData.startDate);
           projectData.endDate = new Date(projectData.endDate);
           projectData.deadline = new Date(projectData.deadline);
-          data.state = "계약완료";
+          data.state = "인터뷰신청";
           data.projectData = projectItem.project;
           console.log("data");
           console.log(data);
