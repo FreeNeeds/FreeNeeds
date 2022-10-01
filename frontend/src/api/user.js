@@ -15,7 +15,8 @@ async function signupFreelancer(userInfo, success, fail) {
     name: userInfo.name,
     password: userInfo.password,
     phone: userInfo.number,
-    username: userInfo.id
+    username: userInfo.id,
+    accountAddress : userInfo.accountAddress
   };
   console.log(registerInfo);
 
