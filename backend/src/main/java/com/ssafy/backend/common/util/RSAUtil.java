@@ -1,7 +1,5 @@
 package com.ssafy.backend.common.util;
 
-import org.springframework.util.Base64Utils;
-
 import javax.crypto.Cipher;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -56,7 +54,6 @@ public class RSAUtil {
             //평문을 암호화하는 과정
             byte[] byteEncryptedData = cipher.doFinal(plainData.getBytes());
             encryptedData = Base64.getEncoder().encodeToString(byteEncryptedData);
-//            encryptedData = Base64Utils.encodeToUrlSafeString(byteEncryptedData);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +78,6 @@ public class RSAUtil {
 
             //암호문을 평문화하는 과정
             byte[] byteEncryptedData = Base64.getDecoder().decode(encryptedData.getBytes());
-//            byte[] byteEncryptedData = Base64Utils.decodeFromUrlSafeString(encryptedData);
             byte[] byteDecryptedData = cipher.doFinal(byteEncryptedData);
             decryptedData = new String(byteDecryptedData, "utf-8");
         } catch (Exception e) {
