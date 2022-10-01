@@ -11,7 +11,9 @@ interface IERC20 {
     function allowance(address owner, address spender) external view returns (uint256);
     function approve(address spender, uint256 amount) external returns (bool);
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function send(address sender, uint256 amount) external returns (bool);
 
+    event Send(address indexed from, address indexed to, uint256 value);
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
@@ -25,8 +27,8 @@ contract Cash is IERC20{
     
     using SafeMath for uint256;
     
-    string public constant name = "Cash";		
-    string public constant symbol = "C";			
+    string public constant name = "FreeCoin";		
+    string public constant symbol = "FC";			
     uint8 public constant decimals = 0;	
     
     address payable public minter;
@@ -81,6 +83,14 @@ contract Cash is IERC20{
         return true;
     }
 
+    function send(address _sender, uint _amount) external returns (bool)
+    {
+        require(_amount > 0 && balances[_sender] >=_amount, "Insufficient balance.");
+        balances[_sender] = balances[_sender].sub(_amount);		 
+        balances[msg.sender] = balances[msg.sender].add(_amount);	
+        emit Send(_sender, msg.sender, _amount);	  
+        return true;
+    }
     /**
      * @notice retrieves the delegated balance 
      * @param _owner the onwer's address
@@ -141,7 +151,7 @@ contract Cash is IERC20{
         require(balances[minter] >= _amount, "Insufficient balance");
         
         minter.transfer(msg.value);
-        balances[minter] = balances[minter].sub(_amount);	
+        balances[minter] = balances[minter].sub(_amount);
         balances[msg.sender] = balances[msg.sender].add(_amount);
         emit Transfer(minter, msg.sender, _amount);
         
