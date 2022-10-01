@@ -52,4 +52,6 @@ public interface UserService {
     Long getResumeIdByUsername(String username);
 
     String getUserAccountAddressByUsername(String username);
+
+	String getUsernameByUserId(Long userId);
 }
