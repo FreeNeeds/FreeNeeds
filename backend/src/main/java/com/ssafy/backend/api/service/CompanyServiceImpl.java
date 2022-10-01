@@ -33,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Company createCompany(CompanyRegisterPostReq companyRegisterInfo) {
+    public Company createCompany(CompanyRegisterPostReq companyRegisterInfo, String publicKey, String privateKey) {
         // 닉네임 중복 확인
         validateDuplicateMember(companyRegisterInfo);
         // 이메일 중복 확인
@@ -49,6 +49,8 @@ public class CompanyServiceImpl implements CompanyService{
         company.setName(companyRegisterInfo.getName());
         company.setPhone(companyRegisterInfo.getPhone());
         company.setAccountAddress(companyRegisterInfo.getAccountAddress());
+        company.setPublicKey(publicKey);
+        company.setPrivateKey(privateKey);
 
         return companyRepository.save(company);
     }
