@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -310,5 +311,19 @@ public class UserController {
 	public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
 		String accountAddress = userService.getUserAccountAddressByUsername(username);
 		return ResponseEntity.status(200).body(accountAddress);
+	}
+
+	@GetMapping("/username/{userId}")
+	@ApiOperation(value = "프리랜서 이름 조회", notes = "프리랜서 아이디로 프리랜서 이름 조회")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getUsernameByUserId(
+			@ApiParam(value="프리랜서 id", required = true) @PathVariable("userId") Long userId) {
+
+		return new ResponseEntity<String>(userService.getUsernameByUserId(userId), HttpStatus.OK);
 	}
 }
