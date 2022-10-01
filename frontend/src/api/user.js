@@ -40,7 +40,10 @@ async function getUserList(searchOption, success, fail) {
 async function getFilterUserList(techList, success, fail) {
   await instance
     .get("/users/filter", {
-      params: techList
+      params: { techList: techList },
+      paramsSerializer: params => {
+        return qs.stringify(params, { arrayFormat: "comma" });
+      }
     })
     .then(success)
     .catch(fail);
