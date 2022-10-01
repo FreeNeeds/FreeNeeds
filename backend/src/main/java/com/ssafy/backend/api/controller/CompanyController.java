@@ -105,4 +105,17 @@ public class CompanyController {
         companyService.updateCompanyInfo(username, objectMap);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
+
+    @GetMapping("/account")
+    @ApiOperation(value = "기업회원 계좌 주소 조회", notes = "기업회원의 계좌 주소를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
+        String accountAddress = companyService.getCompanyAccountAddressByUsername(username);
+        return ResponseEntity.status(200).body(accountAddress);
+    }
 }

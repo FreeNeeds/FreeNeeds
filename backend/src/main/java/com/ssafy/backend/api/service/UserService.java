@@ -50,4 +50,6 @@ public interface UserService {
 	void createProjectCareerTech(Long projectCareerId, List<String> techList);
 
     Long getResumeIdByUsername(String username);
+
+    String getUserAccountAddressByUsername(String username);
 }

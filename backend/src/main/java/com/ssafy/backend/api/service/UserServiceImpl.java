@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userRegisterInfo.getEmail());
 		user.setName(userRegisterInfo.getName());
 		user.setPhone(userRegisterInfo.getPhone());
+		user.setAccountAddress(userRegisterInfo.getAccountAddress());
 
 		return userRepository.save(user);
 	}
@@ -233,5 +234,11 @@ public class UserServiceImpl implements UserService {
 		Long resume_id = resumeRepositorySupport.findResumeIdByUsername(username);
 
 		return resume_id;
+	}
+
+	@Override
+	public String getUserAccountAddressByUsername(String username) {
+		String accountAddress = userRepositorySupport.findUserAccountAddressByUsername(username);
+		return accountAddress;
 	}
 }
