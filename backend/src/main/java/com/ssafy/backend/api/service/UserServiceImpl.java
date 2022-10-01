@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	private final ProjectCareerTechRepository projectCareerTechRepository;
 
 	@Override
-	public User createUser(UserRegisterPostReq userRegisterInfo) {
+	public User createUser(UserRegisterPostReq userRegisterInfo, String publicKey, String privateKey) {
 		//중복 확인
 		validateDuplicateMember(userRegisterInfo);
 
@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService {
 		user.setName(userRegisterInfo.getName());
 		user.setPhone(userRegisterInfo.getPhone());
 		user.setAccountAddress(userRegisterInfo.getAccountAddress());
+		user.setPublicKey(publicKey);
+		user.setPrivateKey(privateKey);
 
 		return userRepository.save(user);
 	}

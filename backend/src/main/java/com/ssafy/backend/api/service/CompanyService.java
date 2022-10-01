@@ -12,7 +12,7 @@ import java.util.Optional;
  *	기업 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
 public interface CompanyService {
-    Company createCompany(CompanyRegisterPostReq registerInfo);
+    Company createCompany(CompanyRegisterPostReq registerInfo, String publicKey, String privateKey);
 
     void validateDuplicateMember(CompanyRegisterPostReq companyRegisterInfo);
 

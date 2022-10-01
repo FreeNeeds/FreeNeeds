@@ -32,8 +32,10 @@ public class User{
     @NotNull
     private String accountAddress;
 
+    @Lob
     private String publicKey;
 
+    @Lob
     private String privateKey;
 
     @JsonIgnore
