@@ -1,6 +1,6 @@
 <template> 
   <div>
-    <div class="row ">
+    <div class="row mx-3" style="margin-top : 40px">
       <div class="d-flex justify-content-end menu-list-wrapper">
         <router-link
           v-for="(item, index) in menuList"
@@ -15,7 +15,7 @@
         </router-link>
       </div>
     </div>
-    <hr style="margin-top:1px; margin-bottom: 0;" />
+    <hr style="width: 90%; margin-top:8px; margin-bottom: 0; margin-left : 70px" />
     <router-view></router-view>
   </div>
 </template>
@@ -53,10 +53,12 @@
 .apply-status-router {
   text-decoration: none;
   color: black;
+  margin-right : 30px;
 }
 .apply-status-router:hover {
   text-decoration: none;
   color: black;
+  font-weight: bold;
 }
 .router-link-active > .apply-status-list-item::after {
   content: "";
@@ -64,7 +66,7 @@
   width: 100%;
   height: 3px;
   position: absolute;
-  bottom: -1px;
+  bottom: -9px;
   left: 1px;
   background: black;
 }

@@ -18,11 +18,11 @@
                 </div> 
                 <div class="row">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  근무기간</div>
-                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.startDateSummry }} ~ {{ projectDataReceive.endDateSummry }} ( {{ periodWork }} 일 )</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.startDate }} ~ {{ projectDataReceive.endDate }} ( {{ periodWork }} 일 )</div>
                 </div>
                 <div class="row">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  근무방식</div>
-                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.workstyle}} </div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStyle}} </div>
                 </div> 
                 <div class="row">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  금액</div>
@@ -39,10 +39,7 @@
           <div class="row" id="projectDetailNavCtnr">
             <div @click="clickProjectDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=ProjectDetailNavProject>
               프로젝트
-            </div> 
-            <div @click="clickProjectDetailNavResume" class="col-2 projectDetailNav" :id=ProjectDetailNavResume>
-              기업정보
-            </div> 
+            </div>  
           </div>
           <hr class="project-card-line mb-4">
           <div :id=projectDetailNavItemProject>
@@ -52,7 +49,7 @@
             </div>  
             <div class="row mx-2 my-2">
               <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
-              <div class="col-8 projectDetailItem"> {{ projectDataReceive.demain }}</div>
+              <div class="col-8 projectDetailItem"> {{ projectDataReceive.domain }}</div>
             </div> 
             <div class="row mx-2 my-2">
               <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
@@ -74,34 +71,12 @@
               <div class="col-8 projectDetailItem"> {{ projectDataReceive.title }}</div>
             </div>
             <div class="row mx-2 my-2">
-              <div class="col-3 projectDetailHeadItem projectDetailItem">  내용</div>
-              <div class="col-8 projectDetailItem"> {{ projectDataReceive.content }}</div>
-            </div>
-            <div class="row mx-2 my-2">
               <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
               <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStartTime }} ~ {{ projectDataReceive.workEndTime }}</div>
             </div>   
             <div class="row mx-2 my-2">
              <div class="col-3 projectDetailHeadItem projectDetailItem">  지역</div>
-              <div class="col-8 projectDetailItem"> {{ projectDataReceive.location }}</div>
-            </div>
-          </div>
-          <div :id=resumeDetailNavItemProject class="deactiveProjectDetailItem">
-            <div class="row mx-2 my-2">
-              <div class="col-3 projectDetailHeadItem projectDetailItem">  이름</div>
-              <div class="col-8 projectDetailItem"> {{ companyDataReceive.name }}</div>
-            </div>
-            <div class="row mx-2 my-2">
-              <div class="col-3 projectDetailHeadItem projectDetailItem">  대표자</div>
-              <div class="col-8 projectDetailItem"> {{ companyDataReceive.ceo }}</div>
-            </div>
-            <div class="row mx-2 my-2">
-              <div class="col-3 projectDetailHeadItem projectDetailItem">  주소</div>
-              <div class="col-8 projectDetailItem"> {{ companyDataReceive.address }}</div>
-            </div>
-            <div class="row mx-2 my-2">
-              <div class="col-3 projectDetailHeadItem projectDetailItem">  전화번호</div>
-              <div class="col-8 projectDetailItem"> {{ companyDataReceive.call }}</div>
+              <div class="col-8 projectDetailItem"> {{ projectDataReceive.locationSi }} {{ projectDataReceive.locationGu }}</div>
             </div>
           </div>
         </div>
@@ -115,6 +90,7 @@
   import FooterNav from '@/components/FooterNav.vue';
   import ProjectDetailNav from '@/components/Project/ProjectDetailNav.vue'
   import ProjectDetailSkill from '@/components/Project/ProjectDetailSkill.vue'
+  import { createInstance } from "@/api/index.js";
   import { applyCompany } from '@/api/projectAPI'
 
   export default {
@@ -147,13 +123,19 @@
       this.applyModalCtnr += this.idEdit
       this.leftApply += this.idEdit
       this.completeApply += this.idEdit
-      this.remainDate = Math.ceil(
-        (this.projectDataReceive.deadline.getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24) -
-          1
-      );
+      
+      createInstance().get('/project/tech/' + this.projectDataReceive.projectId).then(res =>{
+        for (let i = 0; i < res.data.length; i++) {
+          if (!this.projectDataReceive.skill.includes(res.data[i].techName)){
+            this.projectDataReceive.skill.push(res.data[i].techName)
+          }
+        }
+      })
+
+      this.remainDate = Math.ceil((new Date(this.projectDataReceive.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) -
+          1)
       this.remainDate = "D - " + String(this.remainDate)
-      this.periodWork = parseInt((this.projectDataReceive.endDate.getTime() - this.projectDataReceive.startDate.getTime()) /
+      this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
           (1000 * 60 * 60 * 24))
     },
     methods : {

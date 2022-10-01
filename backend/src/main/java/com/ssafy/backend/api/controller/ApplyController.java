@@ -104,7 +104,8 @@ public class ApplyController {
             @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
     })
     public ResponseEntity<ApplyListRes> getApplyByProjecId(@RequestParam(name = "projectId") Long projectId) {
-        List<Apply> applyList = applyService.getApplyByProejctId(projectId);
+        Project project = projectService.getProjectByProjectId(projectId);
+        List<Apply> applyList = applyService.getApplyByProejctId(project);
         return ResponseEntity.status(200).body(ApplyListRes.of(200, "success", applyList));
     }
 }
