@@ -50,6 +50,7 @@ public class UserController {
     })
 	public ResponseEntity<? extends BaseResponseBody> register(
 			@RequestBody @ApiParam(value="회원가입 정보", required = true)@Validated UserRegisterPostReq registerInfo) throws NoSuchAlgorithmException {
+		//RSA 공개키, 개인키 발급
 		HashMap<String, String> rsaKeyPair = RSAUtil.createKeypairAsString();
 		String publicKey = rsaKeyPair.get("publicKey");
 		String privateKey = rsaKeyPair.get("privateKey");
