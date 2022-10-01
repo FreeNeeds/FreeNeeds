@@ -26,19 +26,22 @@
       <recruitApplyMemberItem
       v-for="freelancerCard in beforeFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
     </div>
     <div id="ingFreelancerCardLst" class='deactiveProjectDetailItem'>
       <recruitApplyMemberItem
       v-for="freelancerCard in ingFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
     </div>
     <div id="afterFreelancerCardLst" class='deactiveProjectDetailItem'>
       <recruitApplyMemberItem
       v-for="freelancerCard in afterFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCardId="freelancerCard.body.userId"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
     </div>
   </div>
 </template>
@@ -49,7 +52,10 @@ import { createInstance } from "@/api/index.js";
 
 export default {
   props : {
-    projectId : Number
+    projectId : {
+      type : Number,
+      default : 0
+    }
   },
   data() {
     return {
@@ -57,6 +63,7 @@ export default {
       beforeFreelancerCardLst : [],
       ingFreelancerCardLst : [],
       afterFreelancerCardLst : [],
+      projectIdTmp : 0,
       freelancerCardItem : {
         projectCareerId : "1",
         category : "개발",
@@ -139,40 +146,31 @@ export default {
     }
   },
   mounted() {
-    createInstance().get('/apply/' + String(this.projectId)).then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].state === '지원완료') {
+    this.projectIdTmp = this.$route.params.projectId
+    createInstance().get('/apply/project' , {
+      params : {
+        projectId : String(this.$route.params.projectId)
+      }
+    }).then(res => {
+        for (let i = 0; i < res.data.applyList.length; i++) {
+          if (res.data.applyList[i].state === '지원완료') {
             this.beforeFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data[i].userId),
-              body : res.data[i]
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              body : res.data.applyList[i]
             })
-          } else if (res.data[i].state === '인터뷰완료') {
+          } else if (res.data.applyList[i].state === '인터뷰완료') {
             this.ingFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data[i].userId),
-              body : res.data[i]
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              body : res.data.applyList[i]
             }) 
           } else {
             this.afterFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data[i].userId),
-              body : res.data[i]
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              body : res.data.applyList[i]
             })
           }
         }
     })
-
-    for (let i = 0; i < 7; i++){
-      this.freelancerDataReceive.projectCareer.push({
-        id : i,
-        body : this.freelancerCardItem
-      })
-    }
-
-    for(let i = 0; i < 5; i++) {
-      this.myProjectLst.push({
-        id : "ids" + String(i),
-        body : this.projectData
-      })
-    }
   },
   components: {
     recruitApplyMemberItem

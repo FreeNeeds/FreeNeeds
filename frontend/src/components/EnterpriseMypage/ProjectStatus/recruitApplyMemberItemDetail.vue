@@ -18,7 +18,7 @@
               </div>
               <div id="freelancerDetailCtnr">
                 <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
-                  <div class="row m-2"> <h4 class="text-start fw-bold">{{ freelancerDetailReceive.resume.title }}</h4></div>
+                  <div class="row m-2"> <h4 class="text-start fw-bold">{{ profile.title }}</h4></div>
                   <div class="d-flex mx-4">
                     <div class="d-inline-block"> {{ nameErase }} |</div>
                     <div class="d-inline-block"> 
@@ -34,7 +34,7 @@
                         </div>
                       </div>|
                     </div>
-                    <div class="d-inline-block mx-2"> 경력 {{ freelancerDetailReceive.resume.career_period }}년</div>
+                    <div class="d-inline-block mx-2"> 경력 {{ profile.creer_period }}년</div>
                   </div>
                   <div class="d-flex mt-4">
                     <div class="d-inline-block" id="freelancerDetailResumeImg"><img src="https://placekitten.com/300/300" alt=""></div>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="d-inline-block mx-auto my-3">
                       <FreelancerCardSkill
-                      v-for="skillItem in freelancerDetailReceive.tech"
+                      v-for="skillItem in profileTech"
                       :key="skillItem"
                       :skillItem="skillItem"
                       >
@@ -171,20 +171,23 @@
                     <h5 class="fw-bold m-4 text-start">소개</h5>
                   </div>
                   <div class="row mx-3">
-                    <div class="text-start">{{ freelancerDetailReceive.resume.introduce }}</div>
+                    <div class="text-start">{{ profile.introduce }}</div>
                   </div>
                 </div>
                 
                 <div class="row" id="projectDetailNavCtnr">
                   <div @click="clickFreelancerDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=FreelancerDetailNavProject>
                     프로젝트
+                  </div>
+                  <div @click="clickFreelancerDetailNavResume" class="col-2 projectDetailNav" :id=FreelancerDetailNavResume>
+                    이력서
                   </div> 
                 </div>
                 <hr class="project-card-line" style="margin-bottom : 40px">
                 <div :id=projectDetailNavItem>
                   <FreelancerProjectCard
-                  v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
-                  :key="freelancerProjectCard.id"
+                  v-for="freelancerProjectCard in projectCareer"
+                  :key="freelancerProjectCard.body.projectCareerId"
                   :freelancerProjectCard="freelancerProjectCard"
                   >
                   </FreelancerProjectCard>
@@ -194,18 +197,18 @@
                     <div class="projectDetailHeadItem projectDetailItem">  학력</div>
                   </div>
                   <div class="d-flex mx-3 my-2">
-                    <div class="freelancerEducationName"> {{ freelancerEducation.education.highschool}} </div>
-                    <div class="text-start freelancerEducationItem"> {{ freelancerEducation.education.highschool_start_date }} ~ {{ freelancerEducation.education.highschool_end_date }}</div>
+                    <div class="freelancerEducationName"> {{ resume.education.highschool }} </div>
+                    <div class="text-start freelancerEducationItem"> {{ resume.education.highschool_start_date }} ~ {{ resume.education.highschool_end_date }}</div>
                   </div>
                   <div class="d-flex mx-3 my-2">
-                    <div class="freelancerEducationName"> {{ freelancerEducation.education.university}} </div>
-                    <div class="text-start freelancerEducationItem"> {{ freelancerEducation.education.university_start_date }} ~ {{ freelancerEducation.education.university_end_date }}</div>
+                    <div class="freelancerEducationName"> {{ resume.education.university }} </div>
+                    <div class="text-start freelancerEducationItem"> {{ resume.education.university_start_date }} ~ {{ resume.education.university_end_date }}</div>
                   </div>
                   <div class="row mx-2 my-4">
                     <div class="projectDetailHeadItem projectDetailItem">  경력</div>
                   </div>
                   <div class="d-flex mx-3 my-2" 
-                  v-for="freelancerCareerItem in freelancerEducation.careerList"
+                  v-for="freelancerCareerItem in resume.careerList"
                   >
                     <div class="freelancerEducationName">
                       {{ freelancerCareerItem.companyName }} 
@@ -216,7 +219,7 @@
                     <div class="projectDetailHeadItem projectDetailItem">  자격증</div>
                   </div>
                   <div class="d-flex mx-3 mt-2" style="margin-bottom : 60px" 
-                  v-for="freelancerCareerItem in freelancerEducation.certificateList"
+                  v-for="freelancerCareerItem in resume.certificateList"
                   >
                     <div class="freelancerEducationName">
                       {{ freelancerCareerItem.name }} 
@@ -228,13 +231,13 @@
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
               <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 800px;">
-              <div class="contractCtnr">
+              <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
                   <div contenteditable="false" class="d-flex">
-                    <div contenteditable="true" class="contractInput d-inline-block"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block"></div>
                     <p class="d-inline-block">(이하 "사업주"라 함)과(와)</p>
-                    <div contenteditable="true" class="contractInput d-inline-block"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block"></div>
                     <p class="d-inline-block">(이하 "근로자"라 함)은</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
@@ -242,48 +245,48 @@
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">1. 근로개시일 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">3. 업무의 내용 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">4. 소정근로시간 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">시</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">분부터 </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">시</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">분까지</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block" style="margin-left : 130px">(휴게시간 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">시</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">분~ </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">시</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">분)</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">5. 근무일/휴일 : 매주 </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일(또는 매일단위)근무, 주휴일 매주 </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">요일</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
@@ -291,7 +294,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 30px;">
                     <p class="d-inline-block">- 월(일, 시간)급 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 250px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 250px"></div>
                     <p class="d-inline-block">원</p>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 30px;">
@@ -301,7 +304,7 @@
                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                       </svg>
                     </div>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 250px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 250px"></div>
                     <p class="d-inline-block">원 / 없음</p>
                     <div @click="notIncentiveBtnClick" style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;">
                       <svg :id=notIncentiveBtn xmlns="http://www.w3.org/2000/svg" style="color : red; position : relative; top: -15px; left: -12px" width="37" height="37" fill="currentColor" class="bi bi-check d-none" viewBox="0 0 16 16">
@@ -311,7 +314,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 30px;">
                     <p class="d-inline-block">- 임금지급일 : 매월(매주 또는 매일) </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 30px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 30px"></div>
                     <p class="d-inline-block">일(휴일의 경우는 전일 지급)</p>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 30px;">
@@ -377,30 +380,30 @@
                     <p class="d-inline-block">- 이 계약에 정함이 없는 사항은 근로기준법령에 의함</p>
                   </div>
                   <div contenteditable="false" class="d-flex justify-content-center" style="margin-left : 30px">
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">(사업주) 사업체명 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 200px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
                     <p class="d-inline-block">(전화 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 200px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
                     <p class="d-inline-block">)</p>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">주</p>
                     <p style="margin-left : 30px">소 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
                   <div contenteditable="false" class="d-flex align-items-center" style="margin-left : 65px">
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
                     <p style="margin-left : 7px">자 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
                     <div style="width : 0px">
                     <p class="d-none" style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
                     </div>
@@ -411,18 +414,18 @@
                     <p class="d-inline-block">(근로자) </p>
                     <p class="d-inline-block" style="margin-left : 7px">주</p>
                     <p style="margin-left : 30px">소 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">연</p>
                     <p style="margin-left : 7px">락</p>
                     <p style="margin-left : 7px">처 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
-                    <div contenteditable="true" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
@@ -470,6 +473,8 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
+import { createInstance } from "@/api/index.js";
+import html2canvas from 'html2canvas'
 
 export default {
   name: "recruitApplyMemberItemDetail",
@@ -483,7 +488,6 @@ export default {
   data() {
     return{
       idx : 0,
-      nameErase : "",
       myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
       selectProjectFreelancerName : "",
       contract : "contract",
@@ -512,49 +516,20 @@ export default {
       erase : "erase",
       imgSign : "imgSign",
       notSign : "notSign",
-      profession : 0,
-      ontime : 0,
-      active : 0,
-      communication : 0,
-      reEmployment : 0,
-      ratingToPercent : 0,
-      myProjectLst : [],
       freelancerDetailNavLst : ["프로젝트","이력서"],
       freelancerDetailLst : ["프로젝트item","이력서item"],
-      freelancerEducation : {
-        careerList: [
-          {
-            companyName: "(주)엠로",
-            department: "웹개발부",
-            end_date: "2020-02-01",
-            position: "수석연구원",
-            start_date: "2015-03-01"
-          }
-        ],
-        certificateList: [
-          {
-            certification: "한국산업인력공단",
-            date: "2014-11-01",
-            name: "정보처리기사"
-          }
-        ],
-        education: {
-          highschool: "싸피고등학교",
-          highschool_end_date: "2010-02-01",
-          highschool_start_date: "2007-03-01",
-          major: "컴퓨터공학과",
-          university: "싸피대학교",
-          university_end_date: "2015-02-01",
-          university_start_date: "2010-03-01"
-        }
-      }
+      contractImg : "contractImg",
+      contractInputItem : "contractInputItem"
     }
   },
   mounted() {
     let id__ = String(this.id_)
+    console.log(this.id_)
     this.ifSign = false
     this.freelancerProjectModalId += id__
     this.freelancerProjectModalCtnrId += id__
+    this.contractInputItem += id__
+    this.contractImg += id__
     this.carouselWrapperMine += id__
     this.carouselMine += id__
     this.FreelancerDetailNavProject += id__
@@ -582,36 +557,23 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
-
-    for (let i = 0; i < this.freelancerDetailReceive.name.length; i++){
-      if (i == 1) this.nameErase += "*"
-      else this.nameErase += this.freelancerDetailReceive.name[i]
-    }
-    for (let i = 0; i < this.freelancerDetailReceive.estimate.length; i++) {
-      this.profession += this.freelancerDetailReceive.estimate[i].profession
-      this.ontime += this.freelancerDetailReceive.estimate[i].ontime 
-      this.active += this.freelancerDetailReceive.estimate[i].active
-      this.communication += this.freelancerDetailReceive.estimate[i].communication 
-      this.reEmployment += this.freelancerDetailReceive.estimate[i].reEmployment
-    }
-    this.profession = this.profession / 5
-    this.ontime = this.ontime / 5
-    this.active = this.active / 5
-    this.communication = this.communication / 5
-    this.reEmployment = this.reEmployment / 5
-    this.ratingToPercent = (this.profession + this.ontime + this.active + this.communication + this.reEmployment) / (this.freelancerDetailReceive.estimate.length)
-    this.ratingToPercent = this.ratingToPercent * 20
-
-    for(let i = 0; i < 5; i++) {
-      this.myProjectLst.push({
-        id : "ids" + String(i),
-        body : this.projectData
-      })
-    }
   },
   props : {
-    freelancerDetailReceive : Object,
-    projectData : Object
+    nameErase : String,
+    projectCareer : Array,
+    profile : Object,
+    resume : Object,
+    profileTech : Array,
+    estimate : Array,
+    projectData : Object,
+    ratingToPercent : Number,
+    profession : Number,
+    ontime : Number,
+    active : Number,
+    communication : Number,
+    reEmployment : Number,
+    id_ : Number,
+    projectId : Number,
   },  
   methods: {
     clickFreelancerDetailNavProject() {
@@ -825,6 +787,19 @@ export default {
     },
 
     clickSendContract() {
+      let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
+      let totalContent = ''
+      for (let i = 0; i < contractInputs.length; i++) {
+        totalContent += contractInputs[i].innerText + '`'
+      }
+      totalContent += document.querySelector('#' + this.imgSign).src
+      createInstance().post('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
+      {
+        imgSRC : "",
+        content : totalContent
+      }).then(res => {
+        console.log(res)
+      })
       document.querySelector('#' + this.sureContractModal).classList.add('d-none')
     },
     

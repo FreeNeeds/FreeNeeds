@@ -32,8 +32,10 @@ public class ApplyServiceImpl implements ApplyService{
     }
 
     @Override
-    public List<Apply> getApplyByProejctId(Long projectId) {
-        return null;
+    public List<Apply> getApplyByProejctId(Project project) {
+
+        return applyRepository.findByProject(project);
+
     }
 
     @Override
