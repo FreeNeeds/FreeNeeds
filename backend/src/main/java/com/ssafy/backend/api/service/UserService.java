@@ -15,7 +15,7 @@ import java.util.Optional;
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
 public interface UserService {
-	User createUser(UserRegisterPostReq userRegisterInfo);
+	User createUser(UserRegisterPostReq userRegisterInfo, String publicKey, String privateKey);
 	Optional<User> getUserByUsername(String username);
 	void validateDuplicateMember(UserRegisterPostReq userRegisterInfo);
 
@@ -50,4 +50,8 @@ public interface UserService {
 	void createProjectCareerTech(Long projectCareerId, List<String> techList);
 
     Long getResumeIdByUsername(String username);
+
+    String getUserAccountAddressByUsername(String username);
+
+	String getUsernameByUserId(Long userId);
 }

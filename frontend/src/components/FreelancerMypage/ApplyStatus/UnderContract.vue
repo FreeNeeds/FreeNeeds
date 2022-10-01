@@ -88,7 +88,7 @@ export default {
           projectData: {},
           companyData: {}
         };
-        if (projectItem.state == "계약완료") {
+        if (projectItem.state == "인터뷰진행중") {
           // console.log(projectItem);
           let projectData = projectItem.project;
           projectData.startDateSummry = projectData.startDate;
@@ -96,7 +96,7 @@ export default {
           projectData.startDate = new Date(projectData.startDate);
           projectData.endDate = new Date(projectData.endDate);
           projectData.deadline = new Date(projectData.deadline);
-          data.state = "계약완료";
+          data.state = "인터뷰진행중";
           data.projectData = projectItem.project;
           console.log("data");
           console.log(data);

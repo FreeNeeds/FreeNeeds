@@ -36,7 +36,12 @@ async function ChangeApplyInfo(applyReq, success, fail) {
 /** 지원 취소 */
 async function cancelApply(applyDeleteReq, success, fail) {
   await instance
-    .delete(`apply`, applyDeleteReq)
+    .delete(`apply`, {
+      data: {
+        projectId: applyDeleteReq.projectId,
+        userId: applyDeleteReq.userId
+      }
+    })
     .then(success)
     .catch(fail);
 }

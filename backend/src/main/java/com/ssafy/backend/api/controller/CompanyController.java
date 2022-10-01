@@ -7,6 +7,7 @@ import com.ssafy.backend.api.response.CompanyRes;
 import com.ssafy.backend.api.service.CompanyService;
 import com.ssafy.backend.common.auth.SsafyCompanyDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
+import com.ssafy.backend.common.util.RSAUtil;
 import com.ssafy.backend.db.entity.Company;
 import com.ssafy.backend.db.entity.CompanyInfo;
 import io.swagger.annotations.*;
@@ -17,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Api(value = "기업 API", tags = {"Company"})
@@ -37,9 +39,13 @@ public class CompanyController {
     })
     public ResponseEntity<? extends BaseResponseBody> register(
             @RequestBody @ApiParam(value="회원가입 정보", required = true)@Validated CompanyRegisterPostReq registerInfo) {
+        //RSA 공개키, 개인키 발급
+        HashMap<String, String> rsaKeyPair = RSAUtil.createKeypairAsString();
+        String publicKey = rsaKeyPair.get("publicKey");
+        String privateKey = rsaKeyPair.get("privateKey");
 
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-        companyService.createCompany(registerInfo);
+        companyService.createCompany(registerInfo, publicKey, privateKey);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
@@ -104,5 +110,18 @@ public class CompanyController {
         String username = companyDetails.getUsername();
         companyService.updateCompanyInfo(username, objectMap);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @GetMapping("/account")
+    @ApiOperation(value = "기업회원 계좌 주소 조회", notes = "기업회원의 계좌 주소를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
+        String accountAddress = companyService.getCompanyAccountAddressByUsername(username);
+        return ResponseEntity.status(200).body(accountAddress);
     }
 }

@@ -15,7 +15,8 @@ async function signupFreelancer(userInfo, success, fail) {
     name: userInfo.name,
     password: userInfo.password,
     phone: userInfo.number,
-    username: userInfo.id
+    username: userInfo.id,
+    accountAddress : userInfo.accountAddress
   };
   console.log(registerInfo);
 
@@ -40,7 +41,10 @@ async function getUserList(searchOption, success, fail) {
 async function getFilterUserList(techList, success, fail) {
   await instance
     .get("/users/filter", {
-      params: techList
+      params: { techList: techList },
+      paramsSerializer: params => {
+        return qs.stringify(params, { arrayFormat: "comma" });
+      }
     })
     .then(success)
     .catch(fail);
