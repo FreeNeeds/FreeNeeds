@@ -32,6 +32,11 @@ public class ApplyServiceImpl implements ApplyService{
     }
 
     @Override
+    public List<Apply> getApplyByProejctId(Long projectId) {
+        return null;
+    }
+
+    @Override
     public Apply createApply(String state, User user, Project project) {
         Apply apply = new Apply();
         apply.setState(state);

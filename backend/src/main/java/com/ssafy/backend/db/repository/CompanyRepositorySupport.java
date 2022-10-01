@@ -25,4 +25,10 @@ public class CompanyRepositorySupport {
         if(company == null) return Optional.empty();
         return Optional.ofNullable(company);
     }
+
+    public String findCompanyAccountAddressByUsername(String username) {
+        String accountAddress = jpaQueryFactory.select(qCompany.accountAddress).from(qCompany)
+                .where(qCompany.username.eq(username)).fetchOne();
+        return accountAddress;
+    }
 }

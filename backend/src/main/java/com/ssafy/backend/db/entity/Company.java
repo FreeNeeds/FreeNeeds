@@ -30,6 +30,15 @@ public class Company {
     @NotNull
     private String phone;
 
+    @NotNull
+    private String accountAddress;
+
+    @Lob
+    private String publicKey;
+
+    @Lob
+    private String privateKey;
+
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

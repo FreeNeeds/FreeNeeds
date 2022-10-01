@@ -97,4 +97,14 @@ public class ApplyController {
         }
         throw new IllegalArgumentException("존재하지 않는 유저입니다.");
     }
+
+    @GetMapping("/project")
+    @ApiOperation(value = "지원 조회 by 프로젝트id", notes = "프로젝트 아이디로 지원 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<ApplyListRes> getApplyByProjecId(@RequestParam(name = "projectId") Long projectId) {
+        List<Apply> applyList = applyService.getApplyByProejctId(projectId);
+        return ResponseEntity.status(200).body(ApplyListRes.of(200, "success", applyList));
+    }
 }
