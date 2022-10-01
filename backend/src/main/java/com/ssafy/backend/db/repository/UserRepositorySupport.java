@@ -52,4 +52,16 @@ public class UserRepositorySupport{
 
         return projectCareer;
     }
+
+    public String findUserAccountAddressByUsername(String username) {
+        String accountAddress = jpaQueryFactory.select(qUser.accountAddress).from(qUser)
+                .where(qUser.username.eq(username)).fetchOne();
+        return accountAddress;
+    }
+
+    public String findUsernameByUserId(Long userId) {
+        String username = jpaQueryFactory.select(qUser.username).from(qUser)
+                .where(qUser.userId.eq(userId)).fetchOne();
+        return username;
+    }
 }

@@ -34,4 +34,8 @@ public class UserRegisterPostReq {
 	@NotBlank
 	@ApiModelProperty(name="유저 phone", example="phone")
 	String phone;
+
+	@NotBlank
+	@ApiModelProperty(name="유저 MetaMask Account Address", example="address")
+	String accountAddress;
 }

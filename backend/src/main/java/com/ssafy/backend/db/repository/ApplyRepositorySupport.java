@@ -22,4 +22,12 @@ public class ApplyRepositorySupport {
 
         return applyList;
     }
+
+    public List<Apply> findAllByProjectId(Long projectId) {
+        List<Apply> applys = jpaQueryFactory.select(qApply).from(qApply)
+                .where(qApply.project.projectId.eq(projectId))
+                .fetch();
+
+        return applys;
+    }
 }

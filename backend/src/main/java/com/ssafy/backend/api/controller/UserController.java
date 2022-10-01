@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -297,5 +298,32 @@ public class UserController {
 			@ApiParam(value="프로젝트 이력 id", required = true) @PathVariable("projectCareerId") Long projectCareerId) {
 
 		return new ResponseEntity<List<Tech>>(projectCareerService.getTechsByProjectCareerId(projectCareerId), HttpStatus.OK);
+	}
+
+	@GetMapping("/account")
+	@ApiOperation(value = "프리랜서 회원 계좌 주소 조회", notes = "프리랜서 회원의 계좌 주소를 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
+		String accountAddress = userService.getUserAccountAddressByUsername(username);
+		return ResponseEntity.status(200).body(accountAddress);
+	}
+
+	@GetMapping("/username/{userId}")
+	@ApiOperation(value = "프리랜서 이름 조회", notes = "프리랜서 아이디로 프리랜서 이름 조회")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getUsernameByUserId(
+			@ApiParam(value="프리랜서 id", required = true) @PathVariable("userId") Long userId) {
+
+		return new ResponseEntity<String>(userService.getUsernameByUserId(userId), HttpStatus.OK);
 	}
 }
