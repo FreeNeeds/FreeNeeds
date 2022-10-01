@@ -11,7 +11,11 @@ contract EscrowFactory is Ownable{
     address public cashContractAddress;
 
     Escrow[] public escrows;
-    mapping(uint256 => Escrow) public adressToEscrow;
+    
+    mapping(address => address[]) public enterpriseToEscrowAddress;
+    mapping(address => address[]) public freelancerToEscrowAddress;
+    
+
     constructor(address _cashContractAddresss) public {
         admin = msg.sender;
         cashContractAddress = _cashContractAddresss;
@@ -19,8 +23,9 @@ contract EscrowFactory is Ownable{
 
     function createEscrow(address _freelancer, uint256 _amount) public {
         Escrow escrow = new Escrow(cashContractAddress, msg.sender, _freelancer, _amount);
-        uint256 escrowId = escrows.push(escrow) - 1;
-        adressToEscrow[escrowId] = escrow;
+        escrows.push(escrow);
+        enterpriseToEscrowAddress[msg.sender].push(address(escrow));
+        freelancerToEscrowAddress[_freelancer].push(address(escrow));
         emit CreateEscrow(_freelancer, msg.sender, address(escrow));
     }
 
@@ -38,10 +43,16 @@ contract EscrowFactory is Ownable{
             if(_freelancer == escrows[i].getFreelancer() && _enterprise == escrows[i].getEnterprise()){
                 return address(escrows[i]);
             }
-        }
-        return 0x0000000000000000000000000000000000000000; 
+        } 
     }
 
+    function getEnterpriseToEscrowAddress(address _enterprise) public view returns(address[] memory) {
+      return enterpriseToEscrowAddress[_enterprise];
+    }
+
+    function getFreelancerToEscrowAddress(address _freelancer) public view returns(address[] memory) {
+      return freelancerToEscrowAddress[_freelancer];
+    }
 }
 
 contract CashInterface {
@@ -60,7 +71,7 @@ contract Escrow {
 
     string private hashData;
     address private enterprise;
-    address private  freelancer;
+    address private freelancer;
     uint256 private amount;
 
     modifier onlyEnterprise{
@@ -95,6 +106,14 @@ contract Escrow {
 
     function getHashData() view external returns(string memory){
         return hashData;
+    }
+
+    function getamount() view external returns(uint256){
+        return amount;
+    }
+
+    function getState() public view returns(State){
+        return state;
     }
 
     function pay() public onlyEnterprise returns (bool){
