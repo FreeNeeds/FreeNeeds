@@ -2,7 +2,7 @@ node_modules
 .DS_Store
 node_modules/
 /dist/
-src/api/index.js
+/src/api/index.js
 
 # local env files
 .env.local
