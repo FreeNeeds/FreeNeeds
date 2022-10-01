@@ -48,6 +48,7 @@ public class CompanyServiceImpl implements CompanyService{
         company.setEmail(companyRegisterInfo.getEmail());
         company.setName(companyRegisterInfo.getName());
         company.setPhone(companyRegisterInfo.getPhone());
+        company.setAccountAddress(companyRegisterInfo.getAccountAddress());
 
         return companyRepository.save(company);
     }
@@ -103,6 +104,12 @@ public class CompanyServiceImpl implements CompanyService{
     public Optional<CompanyInfo> getCompanyInfoByCompanyUsername(String username) {
         Optional<CompanyInfo> companyInfo = companyInfoRepository.findCompanyInfoByCompanyUsername(username);
         return companyInfo;
+    }
+
+    @Override
+    public String getCompanyAccountAddressByUsername(String username) {
+        String accountAddress = companyRepositorySupport.findCompanyAccountAddressByUsername(username);
+        return accountAddress;
     }
 
     @Override

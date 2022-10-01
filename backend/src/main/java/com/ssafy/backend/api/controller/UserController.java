@@ -298,4 +298,17 @@ public class UserController {
 
 		return new ResponseEntity<List<Tech>>(projectCareerService.getTechsByProjectCareerId(projectCareerId), HttpStatus.OK);
 	}
+
+	@GetMapping("/account")
+	@ApiOperation(value = "프리랜서 회원 계좌 주소 조회", notes = "프리랜서 회원의 계좌 주소를 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getAccountAddress(@RequestParam String username) {
+		String accountAddress = userService.getUserAccountAddressByUsername(username);
+		return ResponseEntity.status(200).body(accountAddress);
+	}
 }
