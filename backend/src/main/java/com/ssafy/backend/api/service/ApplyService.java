@@ -12,7 +12,7 @@ public interface ApplyService {
 
     List<Apply> getApplyByUserId(Long userId);
 
-    List<Apply> getApplyByProejctId(Long projectId);
+    List<Apply> getApplyByProejctId(Project project);
 
 
     Apply createApply(String state, User user, Project project);
