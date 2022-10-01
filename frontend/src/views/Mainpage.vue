@@ -6,15 +6,21 @@
       <b-container class="main-intro-container">
         <b-row>
           <b-col class="intro-textcol">
-            <h1 class="intro-text">
-              <span class="intro-btext">프리랜서,</span>
-              구하세요?
-            </h1>
-            <h2 class="intro-textsub">IT 프리랜서 계약 플랫폼</h2>
+            <vue-typed-js
+              :strings="['프리랜서', ' 프로젝트']"
+              :typeSpeed="100"
+              :loop="true"
+              class=""
+              :startDelay="1000"
+            >
+              <h1><span class="typing intro-btext"></span> 구하세요?</h1>
+            </vue-typed-js>
 
-            <h2 class="intro-textsub">FreeNeeds 가 도와드릴게요!</h2>
-            <button class="navbtn1"> 프리랜서 찾기</button>
-            <button class="navbtn2"> 프로젝트 찾기</button>
+            <h3 class="intro-textsub">IT 프리랜서 계약 플랫폼 <br>FreeNeeds 가 도와드릴게요!</h3>
+
+        
+            <button class="navbtn1">프리랜서 찾기</button>
+            <button class="navbtn2">프로젝트 찾기</button>
           </b-col>
           <b-col
             ><lottie-player
@@ -61,29 +67,61 @@
       <img width="90px" src="../assets/images/freech6.png" alt="" />
       <h1 class="list-title">FreeNeeds 어떻게 진행되나요?</h1>
       <b-row>
-        <b-col><div class="descFree-flow">
-          <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_kskakh1u.json" mode="bounce" background="transparent"  speed="0.1"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
-           내게 필요한 프로젝트/ 프리랜서를 <br>
-           필터를 통해 찾아 지원하세용
-
-          </div></b-col>
         <b-col
           ><div class="descFree-flow">
-            <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_eiaughgn.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
-            미팅 후 협의된 조건으로 계약서를 작성하세요
+            <lottie-player
+              src="https://assets3.lottiefiles.com/private_files/lf30_kskakh1u.json"
+              mode="bounce"
+              background="transparent"
+              speed="0.1"
+              style="width: 80px; height: 250px;"
+              loop
+              autoplay
+            ></lottie-player>
+            내게 필요한 <br />프로젝트/ 프리랜서를 <br />
+            필터를 통해 찾아 <br />지원하세요
           </div></b-col
         >
         <b-col
           ><div class="descFree-flow">
-            <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_urbt0vfx.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
-            계약서는 이후 안전하게 블록체인에 올라가게 됩니다.
+            <lottie-player
+              src="https://assets3.lottiefiles.com/private_files/lf30_eiaughgn.json"
+              background="transparent"
+              speed="0.3"
+              style="width: 80px; height: 250px;"
+              loop
+              autoplay
+            ></lottie-player>
+            미팅 후 협의된 조건으로 <br />계약서를 작성하세요
           </div></b-col
         >
-        <b-col><div class="descFree-flow">
-          <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_rvoz2xj8.json"  background="transparent"  speed="0.3"  style="width: 100px; height: 250px;"  loop  autoplay></lottie-player>
-            프로젝트 종료 후 상호 간의 확인 절차 이후 <br>
+        <b-col
+          ><div class="descFree-flow">
+            <lottie-player
+              src="https://assets5.lottiefiles.com/private_files/lf30_urbt0vfx.json"
+              background="transparent"
+              speed="0.3"
+              style="width: 100px; height: 250px;"
+              loop
+              autoplay
+            ></lottie-player>
+            계약서는 이후 안전하게 <br />블록체인에 올라갑니다.
+          </div></b-col
+        >
+        <b-col
+          ><div class="descFree-flow">
+            <lottie-player
+              src="https://assets5.lottiefiles.com/private_files/lf30_rvoz2xj8.json"
+              background="transparent"
+              speed="0.3"
+              style="width: 120px; height: 250px;"
+              loop
+              autoplay
+            ></lottie-player>
+            프로젝트 종료 후 <br />상호 확인 절차 이후 <br />
             사용자의 지갑으로 정산이 진행됩니다.
-          </div></b-col>
+          </div></b-col
+        >
       </b-row>
     </div>
     <div
@@ -92,7 +130,7 @@
       data-aos-easing="linear"
       data-aos-duration="1000"
     >
-    <small class="small-title">FreeNeeds Povides!</small>
+      <small class="small-title">FreeNeeds Povides!</small>
       <h2 class="list-title">
         여러분의 선택이 최고의 선택이 될 수 있도록 기존과 다른 계약을 제안합니다
       </h2>
@@ -108,7 +146,7 @@
               loop
               autoplay
             ></lottie-player
-            >블록체인 기반 계약서 작성으로 무결성 보장
+            >블록체인 기반 계약서 작성으로<br /> 계약서 무결성 보장
           </div></b-col
         >
         <b-col
@@ -121,7 +159,7 @@
               loop
               autoplay
             ></lottie-player
-            >스마트 컨트랙트 정산으로 대금 지급을 원할하게
+            >스마트 컨트랙트 정산으로 <br />대금 지급을 원할하게
           </div></b-col
         >
         <b-col></b-col>
@@ -137,6 +175,7 @@
           alt=""
         />
       </h1>
+      <a @click="routeProjectPage()" class="moreList" href="#">더 많은 프로젝트 보러가기 〉</a>
       <b-row>
         <b-col
           ><div class="descFree-project">
@@ -229,57 +268,56 @@
           alt=""
         />
       </h1>
+      <a @click="routeFreelancerPage()" class="moreList" href="#">더 많은 프리랜서 보러가기 〉</a>
+
       <b-row>
         <b-col
           ><div class="descFree-user">
             <b-row>
               <b-col></b-col>
-              <b-col><img
-          class="freelancericon"
-          width="100px"
-          src="../assets/images/freech4.png"
-          alt=""
-        /></b-col>
-              <b-col></b-col> 
+              <b-col
+                ><img
+                  class="freelancericon"
+                  width="100px"
+                  src="../assets/images/freech4.png"
+                  alt=""
+              /></b-col>
+              <b-col></b-col>
             </b-row>
-        <b-row class="freename">
-          {{ recmdFreelancer[0].name }} 님
-            </b-row>
-            </div></b-col
+            <b-row class="freename"> {{ recmdFreelancer[0].name }} 님 </b-row>
+          </div></b-col
         >
         <b-col
           ><div class="descFree-user">
             <b-row>
               <b-col></b-col>
-              <b-col><img
-          class="freelancericon"
-          width="100px"
-          src="../assets/images/freech5.png"
-          alt=""
-        /></b-col>
-              <b-col></b-col> 
+              <b-col
+                ><img
+                  class="freelancericon"
+                  width="100px"
+                  src="../assets/images/freech5.png"
+                  alt=""
+              /></b-col>
+              <b-col></b-col>
             </b-row>
-        <b-row>
-          {{ recmdFreelancer[1].name }} 님
-            </b-row>
-            </div></b-col
+            <b-row> {{ recmdFreelancer[1].name }} 님 </b-row>
+          </div></b-col
         >
         <b-col
           ><div class="descFree-user">
             <b-row>
               <b-col></b-col>
-              <b-col><img
-          class="freelancericon"
-          width="100px"
-          src="../assets/images/freech3.png"
-          alt=""
-        /></b-col>
-              <b-col></b-col> 
+              <b-col
+                ><img
+                  class="freelancericon"
+                  width="100px"
+                  src="../assets/images/freech3.png"
+                  alt=""
+              /></b-col>
+              <b-col></b-col>
             </b-row>
-        <b-row>
-          {{ recmdFreelancer[2].name }} 님
-            </b-row>
-            </div></b-col
+            <b-row> {{ recmdFreelancer[2].name }} 님 </b-row>
+          </div></b-col
         >
       </b-row>
     </div>
@@ -313,11 +351,15 @@ export default {
     };
   },
   methods: {
-    onSlideStart(slide) {
-      this.sliding = true;
+  
+    routeProjectPage() {
+      this.$router.push("/project");
     },
-    onSlideEnd(slide) {
-      this.sliding = false;
+    routeFreelancerPage() {
+      this.$router.push("/freelancer");
+    },
+    routeMainPage() {
+      this.$router.push("/");
     }
   },
   computed: {
@@ -354,7 +396,6 @@ export default {
 .list-title {
   text-align: center;
   margin-bottom: 70px;
- 
 }
 .small-title {
   color: #4657ff;
@@ -362,7 +403,7 @@ export default {
   margin: 0;
 }
 
-.navbtn1{
+.navbtn1 {
   min-width: 130px;
   height: 40px;
   color: #fff;
@@ -408,7 +449,6 @@ export default {
   top: 2px;
 }
 
-
 .card-list {
   height: 300px;
 }
@@ -430,7 +470,8 @@ export default {
 }
 
 .intro-textsub {
-  font-size: 30px;
+  margin-top: 20px;
+  font-size: 20px;
   /* font-weight: bold; */
   color: #444;
 }
@@ -443,8 +484,8 @@ export default {
   padding: 70px;
 }
 .intro-textcol {
-  padding: 70px;
-  margin-left: 70px;
+  padding: 150px;
+  margin: 50px 0px 0px 70px;
 }
 .descFree-p {
   text-align: center;
@@ -458,7 +499,7 @@ export default {
   height: 450px;
 }
 
-.descFree-flow{
+.descFree-flow {
   display: flex;
   padding: auto;
   padding: 20px;
@@ -490,7 +531,6 @@ export default {
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
   height: 300px;
-
 }
 
 .descFree-project {
@@ -538,12 +578,18 @@ export default {
   margin: 20px 0px 40px;
 }
 
-.freelancericon{
+.freelancericon {
   margin: 20px;
 }
 
-.freename{
+.freename {
   text-align: center;
 }
-
+.moreList{
+  text-decoration: none;
+  position: relative;
+  top: -30px;
+  left: 40%;
+  padding-bottom: 1000px;
+}
 </style>
