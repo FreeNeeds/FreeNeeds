@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="text-align:center">
     <div class="login-wrapper">
-      <h2 v-if="loginType == 'Company'" class="login-header">
+      <h2 v-if="loginType == 'company'" class="login-header">
         기업 로그인
       </h2>
       <h2 v-else class="login-header">프리랜서 로그인</h2>
