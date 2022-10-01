@@ -7,7 +7,7 @@
       <div class="row" style="margin-top:50px">
         <div class="d-flex justify-content-between">
           <router-link
-            to="/login/Company"
+            to="/login/company"
             class="index-signup-selectbox company-selectbox"
           >
             <div class="index-signup-text">기업</div>
