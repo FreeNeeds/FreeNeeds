@@ -175,7 +175,7 @@
           alt=""
         />
       </h1>
-      <a class="moreList" href="#">더 많은 프로젝트 보러가기 〉</a>
+      <a @click="routeProjectPage()" class="moreList" href="#">더 많은 프로젝트 보러가기 〉</a>
       <b-row>
         <b-col
           ><div class="descFree-project">
@@ -268,7 +268,7 @@
           alt=""
         />
       </h1>
-      <a class="moreList" href="#">더 많은 프리랜서 보러가기 〉</a>
+      <a @click="routeFreelancerPage()" class="moreList" href="#">더 많은 프리랜서 보러가기 〉</a>
 
       <b-row>
         <b-col
@@ -351,11 +351,15 @@ export default {
     };
   },
   methods: {
-    onSlideStart(slide) {
-      this.sliding = true;
+  
+    routeProjectPage() {
+      this.$router.push("/project");
     },
-    onSlideEnd(slide) {
-      this.sliding = false;
+    routeFreelancerPage() {
+      this.$router.push("/freelancer");
+    },
+    routeMainPage() {
+      this.$router.push("/");
     }
   },
   computed: {
