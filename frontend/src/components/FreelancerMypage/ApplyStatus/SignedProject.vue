@@ -10,14 +10,14 @@
           ></recruit-card-item-freelancer>
         </div>
       </div>
-      <apply-project-detail-ing
+      <apply-project-detail-after
       v-for="(item, index) of projectDataList" 
       :key="index"
       :id=item.idEdit
       :projectDataReceive="item.projectData"
       :companyDataReceive="item.companyData"
       :idEdit="`pmc${item.projectData.projectId}`"
-      ></apply-project-detail-ing>
+      ></apply-project-detail-after>
       <button @click="prevBtnClick" style="top: 230px" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -37,7 +37,7 @@
 
 import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
 import recruitCardItemFreelancer from "./recruitCardItemFreelancer.vue";
-import ApplyProjectDetailIng from "./ApplyProjectDetailIng.vue";
+import ApplyProjectDetailAfter from "./ApplyProjectDetailAfter.vue";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import * as companyInstance from "@/api/company.js";
@@ -148,7 +148,7 @@ export default {
   components: {
     ProjectCard,
     recruitCardItemFreelancer,
-    ApplyProjectDetailIng
+    ApplyProjectDetailAfter
   }
 };
 </script>

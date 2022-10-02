@@ -181,7 +181,7 @@
                   <div contenteditable="false" class="d-flex" style="margin-left : 30px;">
                     <p class="d-inline-block">- 상여금 : 있음 </p>
                     <div style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;">
-                      <svg :id=incentiveBtn xmlns="http://www.w3.org/2000/svg" style="color : red; position : relative; top: -15px; left: -12px" width="37" height="37" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                      <svg :id=incentiveBtn xmlns="http://www.w3.org/2000/svg" style="color : red; position : relative; top: -15px; left: -12px" width="37" height="37" fill="currentColor" class="bi bi-check d-none" viewBox="0 0 16 16">
                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                       </svg>
                     </div>
@@ -524,6 +524,13 @@ export default {
           for(let i = 0; i < contractInputs.length; i++) {
             contractInputs[i].innerText = tmp[i]
           }
+          if (res.data.imgSRC[0] === '1') document.querySelector('#' + this.incentiveBtn).classList.remove('d-none')
+          if (res.data.imgSRC[1] === '1') document.querySelector('#' + this.notIncentiveBtn).classList.remove('d-none')
+          if (res.data.imgSRC[2] === '1') document.querySelector('#' + this.recruitInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
+
           document.querySelector('#' + this.imgSignCompany).src = tmp[30]
         })
         this.isContractOpen = true
@@ -658,14 +665,14 @@ export default {
       for (let i = 0; i < contractInputs.length; i++) {
         totalContent += contractInputs[i].innerText + '`'
       }
+      totalContent += document.querySelector('#' + this.imgSignCompany).src
+      totalContent += '`'
+      
       totalContent += document.querySelector('#' + this.imgSign).src
-      /*createInstance().put('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
-      {
-        imgSRC : "",
-        content : totalContent
-      }).then(res => {
+      createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
+      totalContent).then(res => {
         console.log(res)
-      })*/
+      })
       createInstance().put('/apply', {
         userId : this.$store.state.accounts.loginUserInfo.id,
         projectId : this.projectDataReceive.projectId,

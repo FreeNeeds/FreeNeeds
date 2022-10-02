@@ -11,222 +11,103 @@
           뒤로가기
         </button>
         <div class="myPageFreelancerDetailModalContent" :id=myPageFreelancerDetailModalContentWrpr>
-          <div class="carousel-mine" :id=carouselMine>
-            <div class="myPageFreelancerDetailCtnr" :id=myPageFreelancerDetailModalContent>
-              <div style="height : 0px">
-                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 800px;">
+          <div class="carousel-mine scroll-carousel-mypage" :id=carouselMine>
+            <div class="projectDetailCtnr" :id=myPageFreelancerDetailModalContent>
+              <div id="remainDateInProjectTitle" class="text-start"> {{ projectDataReceive.title}} </div>
+              <div class="container my-4 py-2" id="projectDetailHeadCtnr">
+                <div class="row mx-2 my-3 justify-content-between align-items-start">
+                  <div class="col-9">
+                    <div class="row">
+                      <div class="col-3 projectDetailHeadItem projectDetailItem">  모집인원</div>
+                      <div class="col-8 projectDetailItem"> {{ projectDataReceive.recruitNumber}} 명</div>
+                    </div>  
+                    <div class="row">
+                      <div class="col-3 projectDetailHeadItem projectDetailItem">  경력기간</div>
+                      <div class="col-8 projectDetailItem"> {{ projectDataReceive.careerPeriod}} 년</div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-3 projectDetailHeadItem projectDetailItem">  근무기간</div>
+                      <div class="col-8 projectDetailItem"> {{ projectDataReceive.startDateSummry }} ~ {{ projectDataReceive.endDateSummry }} ( {{ periodWork }} 일 )</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-3 projectDetailHeadItem projectDetailItem">  근무방식</div>
+                      <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStyle}} </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-3 projectDetailHeadItem projectDetailItem">  금액</div>
+                      <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }} ~ {{ projectDataReceive.highPrice }}/월(근무 확정시, 단가 확정)</div>
+                    </div>
+                  </div>
+                  <div class="col-2 my-3 mx-3" id="remainDateWrapperInProjectDetail"> 
+                    <div class="my-2" id="remainDateWrapperInProjectDetailDate">
+                      {{ remainDate }} 
+                    </div>
+                  </div>
+                </div>  
               </div>
-              <div id="freelancerDetailCtnr">
-                <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
-                  <div class="row m-2"> <h4 class="text-start fw-bold">{{ profile.title }}</h4></div>
-                  <div class="d-flex mx-4">
-                    <div class="d-inline-block"> {{ nameErase }} |</div>
-                    <div class="d-inline-block"> 
-                      <div class="star-ratings d-inline-block mx-2">
-                        <div 
-                          class="star-ratings-fill space-x-2 text-lg"
-                          :style="{ width: ratingToPercent + '%' }"
-                          >
-                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                      </div>|
-                    </div>
-                    <div class="d-inline-block mx-2"> 경력 {{ profile.creer_period }}년</div>
-                  </div>
-                  <div class="d-flex mt-4">
-                    <div class="d-inline-block" id="freelancerDetailResumeImg"><img src="https://placekitten.com/300/300" alt=""></div>
-                    <div class="d-inline-block" style="width: 270px">
-                      <div class="d-flex mt-3 mb-2 justify-content-between">
-                        <div class="d-inline-block fw-bold" style="margin-bottom : 2px; font-size: 17px;">활동평가</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2" style="margin-top: 1px">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: ratingToPercent + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round((ratingToPercent) / 20 * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr style="background-color : black; height: 1.5px; margin : 3px">
-                      <div class="d-flex my-1 justify-content-between">
-                        <div class="d-inline-block subScoreLetter" style="margin-top : 2px">전문성</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: profession * 20 + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round(profession * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex my-1 justify-content-between">
-                        <div class="d-inline-block subScoreLetter" style="margin-top : 2px">일정준수</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: ontime * 20 + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round(ontime * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex my-1 justify-content-between">
-                        <div class="d-inline-block subScoreLetter" style="margin-top : 2px">적극성</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: active * 20 + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round(active * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex my-1 justify-content-between">
-                        <div class="d-inline-block subScoreLetter" style="margin-top : 2px">의사소통</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: communication * 20 + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round(communication * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex my-1 justify-content-between">
-                        <div class="d-inline-block subScoreLetter" style="margin-top : 2px">재고용의사</div>
-                        <div class="d-inline-block">
-                          <div class="star-ratings d-inline-block mx-2">
-                            <div 
-                              class="star-ratings-fill space-x-2 text-lg"
-                              :style="{ width: reEmployment * 20 + '%' }"
-                              >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div class="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-                          <div class="d-inline-block lightGrayLetter mx-1 starScore">
-                            <div>{{ Math.round(reEmployment * 100) / 100 }}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-inline-block mx-1">
-                      <div style="width: 1px; height: 87%; margin-top: 22px; background-color: gray"></div>
-                    </div>
-                    <div class="d-inline-block mx-auto my-3" style="width : 229px">
-                      <FreelancerCardSkill
-                      v-for="skillItem in profileTech"
-                      :key="skillItem"
-                      :skillItem="skillItem"
-                      >
-                      </FreelancerCardSkill>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <h5 class="fw-bold m-4 text-start">소개</h5>
-                  </div>
-                  <div class="row mx-3">
-                    <div class="text-start">{{ profile.introduce }}</div>
-                  </div>
+              <div class="d-flex" id="projectDetailNavCtnr">
+                <div @click="clickProjectDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=ProjectDetailNavProject>
+                  프로젝트
+                </div>  
+                <div @click="clickProjectDetailNavResume" class="col-2 projectDetailNav" :id=ProjectDetailNavResume>
+                  기업정보
                 </div>
-                
-                <div class="row" id="projectDetailNavCtnr">
-                  <div @click="clickFreelancerDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=FreelancerDetailNavProject>
-                    프로젝트
-                  </div>
-                  <div @click="clickFreelancerDetailNavResume" class="col-2 projectDetailNav" :id=FreelancerDetailNavResume>
-                    이력서
-                  </div> 
+              </div>
+              <hr class="project-card-line mb-4">
+              <div :id=projectDetailNavItemProject>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.category }}</div>
+                </div>  
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.domain }}</div>
+                </div> 
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
+                  <div class="col-8 projectDetailItem" id="taskItem"> {{ projectDataReceive.task }}</div>
                 </div>
-                <hr class="project-card-line" style="margin-bottom : 40px">
-                <div :id=projectDetailNavItem>
-                  <FreelancerProjectCard
-                  v-for="freelancerProjectCard in projectCareer"
-                  :key="freelancerProjectCard.body.projectCareerId"
-                  :freelancerProjectCard="freelancerProjectCard"
-                  >
-                  </FreelancerProjectCard>
-                </div>
-                <div :id=resumeDetailNavItem class="deactiveProjectDetailItem">
-                  <div class="row mx-2 my-4">
-                    <div class="projectDetailHeadItem projectDetailItem">  학력</div>
-                  </div>
-                  <div class="d-flex mx-3 my-2">
-                    <div class="freelancerEducationName"> {{ resume.education.highschool }} </div>
-                    <div class="text-start freelancerEducationItem"> {{ resume.education.highschool_start_date }} ~ {{ resume.education.highschool_end_date }}</div>
-                  </div>
-                  <div class="d-flex mx-3 my-2">
-                    <div class="freelancerEducationName"> {{ resume.education.university }} </div>
-                    <div class="text-start freelancerEducationItem"> {{ resume.education.university_start_date }} ~ {{ resume.education.university_end_date }}</div>
-                  </div>
-                  <div class="row mx-2 my-4">
-                    <div class="projectDetailHeadItem projectDetailItem">  경력</div>
-                  </div>
-                  <div class="d-flex mx-3 my-2" 
-                  v-for="freelancerCareerItem in resume.careerList"
-                  >
-                    <div class="freelancerEducationName">
-                      {{ freelancerCareerItem.companyName }} 
-                    </div>
-                    <div class="freelancerEducationItem"> {{ freelancerCareerItem.start_date }} ~  {{ freelancerCareerItem.end_date }} </div>
-                  </div>
-                  <div class="row mx-2 my-4">
-                    <div class="projectDetailHeadItem projectDetailItem">  자격증</div>
-                  </div>
-                  <div class="d-flex mx-3 mt-2" style="margin-bottom : 10px" 
-                  v-for="freelancerCareerItem in resume.certificateList"
-                  >
-                    <div class="freelancerEducationName">
-                      {{ freelancerCareerItem.name }} 
-                    </div>
-                    <div class="freelancerEducationItem"> {{ freelancerCareerItem.date }}</div>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  기술</div>
+                  <div class="col-8 projectDetailItem">
+                    <ProjectDetailSkill
+                    v-for="skillItem in this.projectDataReceive.skill"
+                    :key="skillItem"
+                    :skillItem="skillItem"
+                    >
+                    </ProjectDetailSkill>
                   </div>
                 </div> 
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  프로젝트명</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.title }}</div>
+                </div>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStartTime }} ~ {{ projectDataReceive.workEndTime }}</div>
+                </div>   
+                <div class="row mx-2 mt-2" style="padding-bottom: 80px">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  지역</div>
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.locationSi }} {{ projectDataReceive.locationGu }}</div>
+                </div>
+              </div>
+              <div :id=resumeDetailNavItemProject class="deactiveProjectDetailItem">
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  이름</div>
+                  <div class="col-8 projectDetailItem"> {{ companyDataReceive.name }}</div>
+                </div>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  대표자</div>
+                  <div class="col-8 projectDetailItem"> {{ companyDataReceive.ceo }}</div>
+                </div>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  주소</div>
+                  <div class="col-8 projectDetailItem"> {{ companyDataReceive.address }}</div>
+                </div>
+                <div class="row mx-2 my-2">
+                  <div class="col-3 projectDetailHeadItem projectDetailItem">  전화번호</div>
+                  <div class="col-8 projectDetailItem"> {{ companyDataReceive.call }}</div>
+                </div>
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
@@ -426,7 +307,7 @@
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
                     <div style="width : 0px">
-                    <p style="position : relative; top : 6px; left : 50px; width : 100px">(서명)</p>
+                    <p style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
                     </div>
                     <img :id=imgSign src="" alt="" style="width: 132.6px; height: 67.6px; margin-bottom: 10px">
                   </div>
@@ -445,18 +326,20 @@ import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
+import ProjectDetailSkill from "../../Project/ProjectDetailSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
 import html2canvas from 'html2canvas'
 
 export default {
-  name: "recruitApplyMemberItemDetailIng",
+  name: "ApplyProjectDetailAfter",
   components: {
     HeaderNav,
     FooterNav,
     FreelancerProjectCard,
     FreelancerCardSkill,
-    ProjectCardCarousel
+    ProjectCardCarousel,
+    ProjectDetailSkill
   },
   data() {
     return{
@@ -479,8 +362,8 @@ export default {
       healthInsureBtn : "healthInsureBtn",
       sureContractModal : "sureContractModal",
       myPageFreelancerDetailModalContentWrpr : "myPageFreelancerDetailModalContentWrpr",
-      FreelancerDetailNavProject : "FreelancerDetailNavProject",
-      FreelancerDetailNavResume : "FreelancerDetailNav",
+      ProjectDetailNavProject : "FreelancerDetailNavProject",
+      ProjectDetailNavResume : "FreelancerDetailNav",
       projectDetailNavItem : "프로젝트item",
       resumeDetailNavItem : "이력서item",
       representiveSignature : "representiveSignature",
@@ -496,11 +379,13 @@ export default {
       contractImg : "contractImg",
       contractInputItem : "contractInputItem",
       signatureComplete : "signatureComplete",
-      alreadyDoneContract : "alreadyDoneContract"
+      alreadyDoneContract : "alreadyDoneContract",
+      projectDetailNavItemProject : "projectDetailNavItemProject",
+      resumeDetailNavItemProject : "resumeDetailNavItemProject"
     }
   },
   mounted() {
-    let id__ = String(this.id_)
+    let id__ = this.idEdit
     this.ifSign = false
     this.signatureComplete += id__
     this.alreadyDoneContract += id__
@@ -536,30 +421,41 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
+
+    this.ProjectDetailNavProject += this.idEdit
+    this.ProjectDetailNavResume += this.idEdit
+    this.projectDetailNavItemProject += this.idEdit
+    this.resumeDetailNavItemProject += this.idEdit
+    this.applyModalCtnr += this.idEdit
+    this.leftApply += this.idEdit
+    this.completeApply += this.idEdit
+    
+    this.projectDataReceive.skill = []
+    createInstance().get('/project/tech/' + this.projectDataReceive.projectId).then(res =>{
+      for (let i = 0; i < res.data.length; i++) {
+        if (!this.projectDataReceive.skill.includes(res.data[i].techName)){
+          this.projectDataReceive.skill.push(res.data[i].techName)
+        }
+      }
+    })
+
+    this.remainDate = Math.ceil((new Date(this.projectDataReceive.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) -
+        1)
+    this.remainDate = "D - " + String(this.remainDate)
+    this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
+        (1000 * 60 * 60 * 24))
   },
   props : {
-    nameErase : String,
-    projectCareer : Array,
-    profile : Object,
-    resume : Object,
-    profileTech : Array,
-    estimate : Array,
-    projectData : Object,
-    ratingToPercent : Number,
-    profession : Number,
-    ontime : Number,
-    active : Number,
-    communication : Number,
-    reEmployment : Number,
-    id_ : Number,
-    projectId : Number,
-  },  
+    projectDataReceive : Object,
+    companyDataReceive : Object,
+    idEdit : String
+  }, 
   methods: {
-    clickFreelancerDetailNavProject() {
-      let removeProjectDetailItem = document.querySelector('#' + this.FreelancerDetailNavProject)
-      let removeResumeDetailItem = document.querySelector("#" + this.FreelancerDetailNavResume)
-      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItem)
-      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItem)
+    clickProjectDetailNavProject() {
+      let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
+      let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
+      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
+      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
       if (!removeProjectDetailItem.classList.contains("activeProjectDetailNav")) {
           removeProjectDetailItem.classList.add("activeProjectDetailNav")
           removeResumeDetailItem.classList.remove("activeProjectDetailNav")
@@ -568,12 +464,12 @@ export default {
       }
 
     },
-    clickFreelancerDetailNavResume() {
-      let removeProjectDetailItem = document.querySelector('#' + this.FreelancerDetailNavProject)
-      let removeResumeDetailItem = document.querySelector("#" + this.FreelancerDetailNavResume)
-      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItem)
-      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItem)
-      
+    clickProjectDetailNavResume() {
+      let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
+      let removeResumeDetailItem = document.querySelector("#" + this.ProjectDetailNavResume)
+      let ResumeDetailItem = document.querySelector('#' + this.resumeDetailNavItemProject)
+      let ProjectDetailItem = document.querySelector('#' + this.projectDetailNavItemProject)
+
       if (!removeResumeDetailItem.classList.contains("activeProjectDetailNav")) {
           removeResumeDetailItem.classList.add("activeProjectDetailNav")
           removeProjectDetailItem.classList.remove("activeProjectDetailNav")
@@ -581,7 +477,6 @@ export default {
           ResumeDetailItem.classList.remove('deactiveProjectDetailItem')
       }
     },
-
     openContractPaper() {
       let carouselTmp = document.querySelector('#' + this.carouselMine)
       let myPageFreelancerDetailModalContentTmp = document.querySelector('#' + this.myPageFreelancerDetailModalContent)
@@ -592,9 +487,8 @@ export default {
 
       let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
       if (!this.isContractOpen) {
-        createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
+        createInstance().get('/contracts?projectId=' + this.projectDataReceive.projectId + '&userId=' + String(this.$store.state.accounts.loginUserInfo.id),
         ).then(res => {
-          console.log(res.data)
           let tmp = res.data.content.split('`')
           for(let i = 0; i < contractInputs.length; i++) {
             contractInputs[i].innerText = tmp[i]
@@ -605,21 +499,23 @@ export default {
           if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
+
           document.querySelector('#' + this.imgSignCompany).src = tmp[30]
-          console.log(tmp.length)
           if (tmp.length === 32) {
-            console.log('hly')
             document.querySelector('#' + this.imgSign).src = tmp[31]
           }
         })
         this.isContractOpen = true
       }
+
       myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnr')
       myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnrAfter')
+      
       contractTmp.classList.remove('d-none')
       carouselTmp.style.transform = 'translate3d(-800px, 0, 0)'
       ProjectDetailApplyBtnTmp.classList.add('d-none')
       closeContractPaperBtnTmp.classList.remove('d-none')
+      
       setTimeout(function() {
         carouselTmp.classList.remove('carousel-mine')
         carouselTmp.classList.add('carousel-mine-fast')
@@ -627,7 +523,7 @@ export default {
         myPageFreelancerDetailModalContentTmp.classList.add('d-none')
         contractTmp.classList.remove('myPageFreelancerDetailCtnrAfter')
         contractTmp.classList.add('myPageFreelancerDetailCtnr')
-      }, 350)
+      }, 450)
     },
 
     closeContractPaper() {
@@ -650,7 +546,7 @@ export default {
         myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnr')
         myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnrAfter')
         contractTmp.classList.add('d-none')
-      },100)
+      },350)
     },
   },
 };
