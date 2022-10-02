@@ -2,19 +2,21 @@ package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.ContractRegisterPostReq;
 import com.ssafy.backend.api.response.ContractRes;
-import com.ssafy.backend.api.response.UserProfileRes;
+import com.ssafy.backend.api.service.CompanyService;
 import com.ssafy.backend.api.service.ContractService;
 import com.ssafy.backend.api.service.ProjectService;
 import com.ssafy.backend.api.service.UserService;
+import com.ssafy.backend.common.auth.SsafyCompanyDetails;
+import com.ssafy.backend.common.auth.SsafyUserDetails;
 import com.ssafy.backend.common.model.response.BaseResponseBody;
-import com.ssafy.backend.db.entity.Contract;
-import com.ssafy.backend.db.entity.Profile;
-import com.ssafy.backend.db.entity.Project;
-import com.ssafy.backend.db.entity.User;
+import com.ssafy.backend.common.util.RSAUtil;
+import com.ssafy.backend.db.entity.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 계약 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -28,6 +30,7 @@ public class ContractController {
     private final ProjectService projectService;
     private final UserService userService;
     private final ContractService contractService;
+    private final CompanyService companyService;
 
     @PostMapping()
     @ApiOperation(value = "프로젝트에 대한 계약서 등록", notes = "프로젝트에 대한 특정 유저와의 계약서를 등록한다.")
@@ -64,5 +67,132 @@ public class ContractController {
 
         //찾아온 정보를 ContractRes에 담아 값 전달하기
         return ResponseEntity.status(200).body(ContractRes.of(contract));
+    }
+
+    @PatchMapping("/{userId}/{projectId}")
+    @ApiOperation(value = "유저가 계약한 프로젝트에 대한 계약서 수정", notes = "로그인한 회원이 계약한 프로젝트의 계약서를 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> updateContract( @PathVariable Long userId,  @PathVariable Long projectId,
+                                                                      @RequestBody @ApiParam(value="수정할 계약 content", required = true) String content) {
+
+        contractService.updateContract(userId,projectId,content);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+    @GetMapping("/companySign")
+    @ApiOperation(value = "기업 개인키 암호화", notes = "로그인한 기업이 계약서에 개인키로 암호화한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getHashEncodeCompany(
+            @ApiIgnore Authentication authentication, @RequestParam String cid) {
+        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
+        String username = companyDetails.getUsername();
+        Company company = companyService.getCompanyByUsername(username).get();
+
+        //로그인 된 기업 회원의 개인키 가져오기
+        String privateKey = company.getPrivateKey();
+
+        //개인키로 암호화하기
+        String encryptedText = RSAUtil.encode(cid, privateKey);
+
+        //개인키로 암호화 된 값 전달하기
+        return ResponseEntity.status(200).body(encryptedText);
+    }
+
+    @GetMapping("/userSign")
+    @ApiOperation(value = "프리랜서 개인키 암호화", notes = "로그인한 프리랜서가 계약서에 개인키로 암호화한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getHashEncodeUser(
+            @ApiIgnore Authentication authentication, @RequestParam String cid) {
+        System.out.println("원본 해시값: " + cid);
+
+        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+        String userId = userDetails.getUsername();
+        User user = userService.getUserByUsername(userId).get();
+
+        //로그인 된 프리랜서 회원의 개인키 가져오기
+        String privateKey = user.getPrivateKey();
+
+        //개인키로 암호화하기
+        String encryptedText = RSAUtil.encode(cid, privateKey);
+        System.out.println("로그인 한 회원의 개인키로 => " + privateKey);
+        System.out.println("암호화: " + encryptedText);
+
+        //개인키로 암호화 된 값 전달하기
+        return ResponseEntity.status(200).body(encryptedText);
+    }
+
+    @GetMapping("/companyCheck")
+    @ApiOperation(value = "기업 공개키로 복호화", notes = "로그인한 기업의 공개키로 복호화하여 원본과 일치한지 확인한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getCompanyCheck(
+            @ApiIgnore Authentication authentication,
+            @RequestBody String encryptedData) {
+        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
+        String username = companyDetails.getUsername();
+        Company company = companyService.getCompanyByUsername(username).get();
+
+        //로그인 된 기업 회원의 공개키 가져오기
+        String publicKey = company.getPublicKey();
+
+        //공개키로 암호화하기
+        String decryptedText = RSAUtil.decode(encryptedData, publicKey);
+        System.out.println("로그인 한 회원의 공개키로 => " + publicKey);
+        System.out.println("복호화 된 내용: " + decryptedText);
+
+        //복호화 했을 경우 일치한다면 true 리턴하게 할 것인지 아니면 원본 해시값을 보낼 것인지? 아니면 둘 다 보낼 것인지?
+
+        //공개키로 복호화 된 값 전달하기
+        return ResponseEntity.status(200).body(decryptedText);
+    }
+
+    @GetMapping("/userCheck")
+    @ApiOperation(value = "프리랜서 공개키로 복호화", notes = "로그인한 프리랜서의 공개키로 복호화하여 원본과 일치한지 확인한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getUserCheck(
+            @ApiIgnore Authentication authentication,
+            @RequestBody String encryptedData) {
+        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+        String userId = userDetails.getUsername();
+        User user = userService.getUserByUsername(userId).get();
+
+        System.out.println(encryptedData);
+
+        //로그인 된 프리랜서 회원의 공개키 가져오기
+        String publicKey = user.getPublicKey();
+
+        //공개키로 복호화하기
+        String decryptedText = RSAUtil.decode(encryptedData, publicKey);
+        System.out.println("로그인 한 회원의 공개키로 => " + publicKey);
+        System.out.println("복호화 된 내용: " + decryptedText);
+
+        //복호화 했을 경우 일치한다면 true 리턴하게 할 것인지 아니면 원본 해시값을 보낼 것인지? 아니면 둘 다 보낼 것인지?
+
+        //공개키로 복호화 된 값 전달하기
+        return ResponseEntity.status(200).body(decryptedText);
     }
 }

@@ -35,4 +35,15 @@ public class ContractServiceImpl implements  ContractService{
     public Contract getContractByUserIdAndProjectId(Long userId, Long projectId) {
         return contractRepositorySupport.findContractByUserIdAndProjectId(userId, projectId);
     }
+
+    @Override
+    public void updateContract(Long userId, Long projectId, String content) {
+        Contract contract = contractRepositorySupport.findContractByUserIdAndProjectId(userId, projectId);
+        System.out.println("뿡");
+
+        contractRepository.delete(contract);
+        System.out.println("뿡뿡뿡뿡");
+        contract.setContent(content);
+        contractRepository.save(contract);
+    }
 }
