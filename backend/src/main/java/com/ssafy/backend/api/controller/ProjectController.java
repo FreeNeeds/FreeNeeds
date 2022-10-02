@@ -42,8 +42,8 @@ public class ProjectController {
             @RequestBody @ApiParam(value="프로젝트 정보", required = true) ProjectRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
         SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
         Company company = companyDetails.getCompany();
-        projectService.createProject(registerInfo,company);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//        Project project = projectService.createProject(registerInfo,company);
+        return new ResponseEntity<Project>(projectService.createProject(registerInfo,company), HttpStatus.OK);
     }
 
 //    @GetMapping()
