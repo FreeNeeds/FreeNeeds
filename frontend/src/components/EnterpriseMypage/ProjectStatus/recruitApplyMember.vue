@@ -27,27 +27,33 @@
       v-for="freelancerCard in beforeFreelancerCardLst"
       :key="freelancerCard.id"
       :projectId="projectIdTmp"
-      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
+      :freelancerCardId="freelancerCard.body.user.userId"
+      :state="stateBefore"
+      @moveToIngContract="moveToIngContract"></recruitApplyMemberItem>
     </div>
     <div id="ingFreelancerCardLst" class='deactiveProjectDetailItem'>
-      <recruitApplyMemberItem
+      <recruitApplyMemberItemIng
       v-for="freelancerCard in ingFreelancerCardLst"
       :key="freelancerCard.id"
       :projectId="projectIdTmp"
-      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
+      :state="stateIng"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItemIng>
     </div>
     <div id="afterFreelancerCardLst" class='deactiveProjectDetailItem'>
-      <recruitApplyMemberItem
+      <recruitApplyMemberItemAfter
       v-for="freelancerCard in afterFreelancerCardLst"
       :key="freelancerCard.id"
       :projectId="projectIdTmp"
-      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItem>
+      :state="stateAfter"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItemAfter>
     </div>
   </div>
 </template>
 
 <script>
 import recruitApplyMemberItem from "@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItem.vue";
+import recruitApplyMemberItemIng from "./recruitApplyMemberItemIng.vue";
+import recruitApplyMemberItemAfter from "./recruitApplyMemberItemAfter.vue";
 import { createInstance } from "@/api/index.js";
 
 export default {
@@ -64,6 +70,9 @@ export default {
       ingFreelancerCardLst : [],
       afterFreelancerCardLst : [],
       projectIdTmp : 0,
+      stateBefore : "before",
+      stateIng : "Ing",
+      stateAfter : "After",
       freelancerCardItem : {
         projectCareerId : "1",
         category : "개발",
@@ -153,19 +162,20 @@ export default {
       }
     }).then(res => {
         for (let i = 0; i < res.data.applyList.length; i++) {
+          console.log(res.data.applyList[i])
           if (res.data.applyList[i].state === '지원완료') {
             this.beforeFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
               body : res.data.applyList[i]
             })
           } else if (res.data.applyList[i].state === '인터뷰완료') {
             this.ingFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
               body : res.data.applyList[i]
             }) 
           } else {
             this.afterFreelancerCardLst.push({
-              id : "myPageProjectFreelancer" + String(res.data.applyList[i].userId),
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
               body : res.data.applyList[i]
             })
           }
@@ -173,7 +183,9 @@ export default {
     })
   },
   components: {
-    recruitApplyMemberItem
+    recruitApplyMemberItem,
+    recruitApplyMemberItemIng,
+    recruitApplyMemberItemAfter
   },
   methods : {
     clickContractBefore() { 
@@ -237,6 +249,14 @@ export default {
         afterTmp.classList.add('activeContract')
         afterFreelancerCardLstTmp.classList.remove('deactiveProjectDetailItem')
       }
+    },
+
+    moveToIngContract(value) {
+      const itemToFind = this.beforeFreelancerCardLst.find(function(item) {return item.id === "myPageProjectFreelancer" + String(value)})
+      const idxTmp = this.beforeFreelancerCardLst.indexOf(itemToFind)
+      if (idxTmp > -1) this.beforeFreelancerCardLst.splice(idxTmp,1)
+
+      this.ingFreelancerCardLst.push(itemToFind)
     }
   }
 };
