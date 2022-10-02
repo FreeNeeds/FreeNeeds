@@ -254,6 +254,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public String getUserAccountAddressByUserId(Long userId) {
+		String accountAddress = userRepositorySupport.findUserAccountAddressByUserId(userId);
+		return accountAddress;
+	}
+
+	@Override
 	public String getUsernameByUserId(Long userId) {
 		return userRepositorySupport.findUsernameByUserId(userId);
 	}
