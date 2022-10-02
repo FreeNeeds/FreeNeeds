@@ -49,7 +49,7 @@
           <hr>
         </div>
       </div>
-      <recruitApplyMemberItemDetail
+      <recruitApplyMemberItemDetailIng
       :id=freelancerCardIdModal
       :id_=freelancerCardId
       :nameErase="nameErase"
@@ -67,18 +67,18 @@
       :projectId="projectId"
       :state="state"
       @moveToIngContract="moveToIngContract"
-      ></recruitApplyMemberItemDetail>
+      ></recruitApplyMemberItemDetailIng>
   </b-card>
 </template>
 
 <script>
   import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
-  import recruitApplyMemberItemDetail from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetail.vue'
+  import recruitApplyMemberItemDetailIng from './recruitApplyMemberItemDetailIng.vue';
   import { createInstance } from "@/api/index.js";
 
   export default {
-    name : 'recruitApplyMemberItem',
+    name : 'recruitApplyMemberItemIng',
     data() {
       return {
         nameErase : "",
@@ -161,32 +161,7 @@
     components : {
     FreelancerCardSkill,
     FreelancerDetail,
-    recruitApplyMemberItemDetail
+    recruitApplyMemberItemDetailIng
 }
   };
 </script>
-
-<style>
-  .myPageFreelancerCardWrpr:hover {
-    background-color: rgba(0, 0, 0, 0.1) !important;
-  }
-
-  .myPageFreelancerCardWrpr:hover > .card-body > .hoverProjectCard{
-    display: block !important;
-  }
-
-  .myPageApplyMemberDetailBtn {
-    border-radius: 40px;
-    position: relative;
-    top : 63px;
-    left : 120px;
-    z-index: 2;
-    border: 1px solid lightgray;
-    background-color: #3c74c9;
-    font-size: 17px;
-    color : white;
-    font-weight: bold;
-    width: 150px;
-    height: 40px;
-  }
-</style>

@@ -5,7 +5,8 @@
     img-left
     >
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
-        <button data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn" >상세보기</button>
+        <button data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn" style="top: 30px !important">상세보기</button>
+        <button class="myPageProjectDetailBtn" style="top: 90px; left : -30px">평가하기</button>
       </div>
       <div class="row justify-content-between">
         <b-card-title class="col-6">
@@ -49,7 +50,7 @@
           <hr>
         </div>
       </div>
-      <recruitApplyMemberItemDetail
+      <recruitApplyMemberItemDetailIng
       :id=freelancerCardIdModal
       :id_=freelancerCardId
       :nameErase="nameErase"
@@ -67,18 +68,18 @@
       :projectId="projectId"
       :state="state"
       @moveToIngContract="moveToIngContract"
-      ></recruitApplyMemberItemDetail>
+      ></recruitApplyMemberItemDetailIng>
   </b-card>
 </template>
 
 <script>
   import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
-  import recruitApplyMemberItemDetail from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetail.vue'
+  import recruitApplyMemberItemDetailIng from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetailIng.vue'
   import { createInstance } from "@/api/index.js";
 
   export default {
-    name : 'recruitApplyMemberItem',
+    name : 'recruitApplyMemberItemAfter',
     data() {
       return {
         nameErase : "",
@@ -161,7 +162,7 @@
     components : {
     FreelancerCardSkill,
     FreelancerDetail,
-    recruitApplyMemberItemDetail
+    recruitApplyMemberItemDetailIng
 }
   };
 </script>
