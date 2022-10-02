@@ -147,9 +147,6 @@ export default {
   margin: 3px;
   
 }
-.freelancer-contents:hover{
-  transform: translateY(-3px) ;
-}
 
 .freelancer-contents {
   width: 800px !important;
