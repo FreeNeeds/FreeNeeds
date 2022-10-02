@@ -43,6 +43,8 @@ public interface UserService {
 
 	List<User> getFreelancersByTechs(List<String> techList);
 
+	Page<User> getFreelancersByTechsPaging(List<String> techList, Pageable pageable);
+
 	void createProfileTech(String username, List<String> techList);
 
 	Profile createProfile(UserProfileFetchReq userProfileFetchReq, User user);

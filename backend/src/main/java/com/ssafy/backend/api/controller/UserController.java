@@ -222,17 +222,17 @@ public class UserController {
 		return userService.getFreelancers(pageable).getContent();
 	}
 
-	@GetMapping("/filter")
-	@ApiOperation(value = "프리랜서 필터링 조회", notes = "프리랜서를 기술로 필터링해 리스트로 가져옵니다.")
-	@ApiResponses({
-			@ApiResponse(code = 200, message = "성공"),
-			@ApiResponse(code = 401, message = "인증 실패"),
-			@ApiResponse(code = 404, message = "사용자 없음"),
-			@ApiResponse(code = 500, message = "서버 오류")
-	})
-	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
-		return new ResponseEntity<List<User>>(userService.getFreelancersByTechs(techList), HttpStatus.OK);
-	}
+//	@GetMapping("/filter")
+//	@ApiOperation(value = "프리랜서 필터링 조회", notes = "프리랜서를 기술로 필터링해 리스트로 가져옵니다.")
+//	@ApiResponses({
+//			@ApiResponse(code = 200, message = "성공"),
+//			@ApiResponse(code = 401, message = "인증 실패"),
+//			@ApiResponse(code = 404, message = "사용자 없음"),
+//			@ApiResponse(code = 500, message = "서버 오류")
+//	})
+//	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList ) {
+//		return new ResponseEntity<List<User>>(userService.getFreelancersByTechs(techList), HttpStatus.OK);
+//	}
 
 	@PostMapping("/profile/tech/{username}")
 	@ApiOperation(value = "프리랜서 프로필 기술 등록", notes = "프리랜서가 선택한 기술들을 프로필에 등록한다")
@@ -332,5 +332,17 @@ public class UserController {
 			@ApiParam(value="프리랜서 id", required = true) @PathVariable("userId") Long userId) {
 
 		return new ResponseEntity<String>(userService.getUsernameByUserId(userId), HttpStatus.OK);
+	}
+
+	@GetMapping("/filter")
+	@ApiOperation(value = "프리랜서 필터링 조회", notes = "프리랜서를 기술로 필터링해 리스트로 가져옵니다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList, Pageable pageable ) {
+		return new ResponseEntity<List<User>>(userService.getFreelancersByTechsPaging(techList,pageable).getContent(), HttpStatus.OK);
 	}
 }
