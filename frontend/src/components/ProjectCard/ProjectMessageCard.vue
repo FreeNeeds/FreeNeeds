@@ -116,12 +116,6 @@
         </div>
       </div>
     </div>
-    <project-detail
-      :id="`pmc${projectData.projectId}`"
-      :idEdit="`pmc${projectData.projectId}`"
-      :projectDataReceive="projectData"
-      :companyDataReceive="companyData"
-    ></project-detail>
   </div>
 </template>
 

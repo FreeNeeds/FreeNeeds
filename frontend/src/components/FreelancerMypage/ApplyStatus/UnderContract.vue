@@ -1,46 +1,49 @@
 <template>
-  <div>
+  <div class="carousel-wrapper-mine mx-auto mt-4" id="carouselWrapperMyPageCompanyRecruit">
+    <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
     <!-- {{ projectDataList }} -->
-    <div v-for="(item, index) of projectDataList" :key="index">
-      <!-- {{ item }} -->
-      <div class="undercontract-project-card-wrapper">
-        <project-card
-          :projectData="item.projectData"
-          :companyData="item.companyData"
-        ></project-card>
-        <div class="undercontract-project-card-hover"></div>
-        <div class="undercontract-project-card-btn-wrapper">
-          <button
-            class="undercontract-project-card-btn undercontract-project-card-see"
-            data-bs-toggle="modal"
-            :data-bs-target="`#pmc${item.projectData.projectId}`"
-          >
-            상세보기
-          </button>
-          <button
-            class="undercontract-project-card-btn undercontract-project-card-accept"
-          >
-            계약서 서명하기
-          </button>
-        </div>
+      <div v-for="(item, index) of projectDataList" :key="index">
+        <!-- {{ item }} -->
+        <recruit-card-item-freelancer
+          :projectCardItem="item.projectData"
+        ></recruit-card-item-freelancer>
       </div>
-      <project-detail
-        :id="`pmc${item.projectData.projectId}`"
-        :projectDataReceive="item.projectData"
-        :companyDataReceive="item.companyData"
-        :idEdit="`pmc${item.projectData.projectId}`"
-      ></project-detail>
     </div>
+    <apply-project-detail-ing
+      v-for="(item, index) of projectDataList" 
+      :key=item.idEdit
+      :id=item.idEdit
+      :projectDataReceive="item.projectData"
+      :companyDataReceive="item.companyData"
+      :idEdit="`pmc${item.projectData.projectId}`"
+      @moveToAfterContract="moveToAfterContract"
+    ></apply-project-detail-ing>
+    <button @click="prevBtnClick" style="top: 230px" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button @click="nextBtnClick" style="top: 230px" class="nextMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </template>
 <script>
 import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
+import ApplyProjectDetailIng from "./ApplyProjectDetailIng.vue";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import * as companyInstance from "@/api/company.js";
+import recruitCardItemFreelancer from "./recruitCardItemFreelancer.vue";
+
 export default {
   data() {
     return {
+      idx : 0,
       projectDataList: [
         // {
         //   projectData: {
@@ -88,7 +91,7 @@ export default {
           projectData: {},
           companyData: {}
         };
-        if (projectItem.state == "인터뷰진행중") {
+        if (projectItem.state == "인터뷰완료") {
           // console.log(projectItem);
           let projectData = projectItem.project;
           projectData.startDateSummry = projectData.startDate;
@@ -96,8 +99,9 @@ export default {
           projectData.startDate = new Date(projectData.startDate);
           projectData.endDate = new Date(projectData.endDate);
           projectData.deadline = new Date(projectData.deadline);
-          data.state = "인터뷰진행중";
+          data.state = "인터뷰완료";
           data.projectData = projectItem.project;
+          data.idEdit = "myPageProjectDetailId" + String(data.projectData.projectId)
           console.log("data");
           console.log(data);
           this.projectDataList.push(data);
@@ -126,7 +130,29 @@ export default {
     this.isDataLoaded = true;
   },
   components: {
-    ProjectCard
+    ProjectCard,
+    ApplyProjectDetailIng,
+    recruitCardItemFreelancer
+  },
+  methods : {
+    moveToAfterContract(value) {
+      const itemToFind = this.projectDataList.find(function(item) {return item.idEdit === "myPageProjectDetailId" + String(value)})
+      const idxTmp = this.projectDataList.indexOf(itemToFind)
+      if (idxTmp > -1) this.projectDataList.splice(idxTmp,1)
+    },
+
+    prevBtnClick() {
+      if (this.idx === 0) this.idx = this.projectDataList.length - 1
+      else 
+        this.idx--
+      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx  + 'px, 0, 0)'
+    },
+    nextBtnClick() {
+      if (this.idx === this.projectDataList.length - 1) this.idx = 0
+      else 
+        this.idx++
+      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx + 'px, 0, 0)'
+    },
   }
 };
 </script>

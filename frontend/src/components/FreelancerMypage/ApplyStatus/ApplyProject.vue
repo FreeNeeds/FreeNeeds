@@ -1,41 +1,50 @@
 <template>
   <div v-if="isDataLoaded">
-    <div v-for="(item, index) of projectDataList" :key="index">
-      <div class="apply-project-card-wrapper">
-        <project-card
-          :projectData="item.projectData"
-          :companyData="item.companyData"
-        ></project-card>
-        <div class="apply-project-card-hover"></div>
-        <div class="apply-project-card-btn-wrapper">
-          <button
-            class="apply-project-card-btn apply-project-card-see"
-            data-bs-toggle="modal"
-            :data-bs-target="`#pmc${item.projectData.projectId}`"
-          >
-            상세보기
-          </button>
+    <div class="carousel-wrapper-mine mx-auto mt-4" id="carouselWrapperMyPageCompanyRecruit">
+      <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
+        <div v-for="(item, index) of projectDataList" :key="index">
+          <recruit-card-item-freelancer
+              :projectCardItem="item.projectData"
+            ></recruit-card-item-freelancer>
         </div>
       </div>
-      <project-detail
-        :id="`pmc${item.projectData.projectId}`"
-        :projectDataReceive="item.projectData"
-        :companyDataReceive="item.companyData"
-        :idEdit="`pmc${item.projectData.projectId}`"
-      ></project-detail>
+      <ApplyProjectDetail
+      v-for="(item, index) of projectDataList" 
+      :key="index"
+      :id=item.idEdit
+      :projectDataReceive="item.projectData"
+      :companyDataReceive="item.companyData"    
+      :idEdit="`pmc${item.projectData.projectId}`" 
+      >
+      </ApplyProjectDetail>
+      <button @click="prevBtnClick" style="top: 230px" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button @click="nextBtnClick" style="top: 230px" class="nextMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
+import recruitCardItemFreelancer from "./recruitCardItemFreelancer.vue";
 import * as companyInstance from "@/api/company.js";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
-import ProjectDetail from "../../Project/ProjectDetail.vue";
+import ApplyProjectDetail from "./ApplyProjectDetail.vue";
+
 export default {
   data() {
     return {
+      idx : 0,
       isDataLoaded: false,
       projectCardItemEdit: "#",
       projectDataList: [
@@ -93,8 +102,10 @@ export default {
           projectData.startDate = new Date(projectData.startDate);
           projectData.endDate = new Date(projectData.endDate);
           projectData.deadline = new Date(projectData.deadline);
+          projectData.skill = []
           data.state = "지원완료";
           data.projectData = projectItem.project;
+          data.idEdit = "myPageProjectDetailId" + String(data.projectData.projectId)
           // console.log("data");
           // console.log(data);
           this.projectDataList.push(data);
@@ -124,7 +135,22 @@ export default {
   },
   components: {
     ProjectCard,
-    ProjectDetail
+    ApplyProjectDetail,
+    recruitCardItemFreelancer
+  },
+  methods : {
+    prevBtnClick() {
+      if (this.idx === 0) this.idx = this.projectDataList.length - 1
+      else 
+        this.idx--
+      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx  + 'px, 0, 0)'
+    },
+    nextBtnClick() {
+      if (this.idx === this.projectDataList.length - 1) this.idx = 0
+      else 
+        this.idx++
+      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx + 'px, 0, 0)'
+    },
   }
 };
 </script>
@@ -184,4 +210,5 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 </style>
