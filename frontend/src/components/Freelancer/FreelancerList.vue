@@ -3,27 +3,12 @@
     <!-- <div>{{ totalUserList }}</div>
     <div>{{ freelancerCardLst }}</div>
     <div>{{ freelancerDataReceive }}</div> -->
-
+    <!-- {{ pageIdx }} -->
     <FreelancerCard
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
       :freelancerCard="freelancerCard"
     ></FreelancerCard>
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 
@@ -36,12 +21,15 @@ import * as EstimateInstance from "@/api/estimate.js";
 
 export default {
   props: {
-    username: "",
-    name: ""
+    idx: Number,
+    pageIdx: Number,
+    btnIdx: Number,
+    isFilter: Boolean
   },
-
   async mounted() {
-    console.log("설마 이거 다시 실행함?");
+    // console.log(this.searchOption.page);
+    // console.log(this.pageIdx + " : " + this.idx);
+    // console.log("설마 이거 다시 실행함?");
     /** 전체 유저 리스트 받아오기 */
     // console.log("????");
     await userInstance.getUserList(this.searchOption, res => {
@@ -167,14 +155,23 @@ export default {
   },
   watch: {
     freelancerFilter: async function() {
-      this.isDataLoaded = false;
-      await userInstance.getFilterUserList(this.freelancerFilter, res => {
-        this.totalUserList = res.data;
-        console.log("???");
-        console.log(this.totalUserList);
-      });
-      await this.settingFreelancer();
-      this.isDataLoaded = true;
+      console.log("???");
+      this.totalUserList = [];
+      const filterdata = {
+        techList: this.freelancerFilter,
+        page: this.searchOption.page,
+        size: this.searchOption.size
+      };
+      if (this.pageIdx == 0) {
+        this.isDataLoaded = false;
+        await userInstance.getFilterUserList(filterdata, res => {
+          this.totalUserList = res.data;
+          // console.log("???");
+          console.log(this.totalUserList);
+        });
+        await this.settingFreelancer();
+        this.isDataLoaded = true;
+      }
     }
   },
   computed: {
@@ -183,9 +180,10 @@ export default {
   data() {
     return {
       searchOption: {
-        page: 0,
-        size: 10
+        page: this.pageIdx * 5 + this.btnIdx,
+        size: 4
       },
+
       pagePackage: 0,
       pageindex: 0,
       isDataLoaded: false,
