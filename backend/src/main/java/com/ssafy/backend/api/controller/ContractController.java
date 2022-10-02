@@ -69,6 +69,21 @@ public class ContractController {
         return ResponseEntity.status(200).body(ContractRes.of(contract));
     }
 
+    @PatchMapping("/{userId}/{projectId}")
+    @ApiOperation(value = "유저가 계약한 프로젝트에 대한 계약서 수정", notes = "로그인한 회원이 계약한 프로젝트의 계약서를 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> updateContract( @PathVariable Long userId,  @PathVariable Long projectId,
+                                                                      @RequestBody @ApiParam(value="수정할 계약 content", required = true) String content) {
+
+        contractService.updateContract(userId,projectId,content);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
     @GetMapping("/companySign")
     @ApiOperation(value = "기업 개인키 암호화", notes = "로그인한 기업이 계약서에 개인키로 암호화한다.")
     @ApiResponses({
