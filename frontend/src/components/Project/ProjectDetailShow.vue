@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="row mt-4 justify-content-center">
-            <button @click="openApplyModal" id="ProjectDetailApplyBtn">지원하기</button>
+            <button v-if="loginType == 'freelancer'" @click="openApplyModal" id="ProjectDetailApplyBtn">지원하기</button>
           </div>
         </div>
       </div>
@@ -133,9 +133,12 @@
   import FooterNav from '@/components/FooterNav.vue';
   import ProjectDetailNav from '@/components/Project/ProjectDetailNav.vue'
   import ProjectDetailSkill from '@/components/Project/ProjectDetailSkill.vue'
-
+  import { mapGetters, mapActions } from "vuex";
   export default {
-    name: 'ProjectDetailShow',
+  name: 'ProjectDetailShow',
+  computed: {
+    ...mapGetters(["loginType","loginUserInfo"])
+  },
     data() {
       return {
         projectDetailNavLst : ["프로젝트","기업정보"],
@@ -150,7 +153,8 @@
     },
     mounted() {
     },
-    methods : {
+  methods: {
+    ...mapActions(["createApply"]),
       openApplyModal() {
         let applyModalCtnrTmp = document.querySelector('#applyModalCtnr')
         applyModalCtnrTmp.classList.remove('d-none')
@@ -165,6 +169,17 @@
         let leftApplyTmp = document.querySelector('#leftApply')
         completeApplyTmp.classList.remove("d-none")
         leftApplyTmp.classList.add("d-none")
+        //계약 테이블에 데이터 저장
+        // console.log(this.projectDataReceive);
+        // console.log(this.loginUserInfo);
+        let applyInfo = {
+          projectId : this.projectDataReceive.id,
+          state : "지원완료",
+          userId : this.loginUserInfo.id 
+        }
+
+        // console.log(applyInfo);
+        this.createApply(applyInfo);
       },
       clickCompleteApply() {
         let applyModalCtnrTmp = document.querySelector('#applyModalCtnr')
