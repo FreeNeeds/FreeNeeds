@@ -214,7 +214,7 @@
 };
 </script>
 
-<style>
+<style scoped>
   .endWorkTime {
     position: relative;
     right : -240px;
@@ -222,13 +222,16 @@
     width : 200px;
   }
 
-  .project-card-header-round {
-      padding: 10px;
-      width: 100px;
-      height: 40px;
-      border-radius: 20px;
-      background-color: #fc7494 !important;
-      font-weight: bold;
-      text-align: center;
+.project-card-header-round {
+
+  padding: 6px 3px 0px 3px;
+  margin-top: 5px;
+  margin-left: 13px;
+  width: 83px;
+  height: 35px;
+  border-radius: 20px;
+  background-color: #0064ff;
+  color: white;
+  text-align: center;
 }
 </style>
