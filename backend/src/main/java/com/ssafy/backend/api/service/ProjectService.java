@@ -16,7 +16,7 @@ public interface ProjectService {
     Page<Project> getProjects(Pageable pageable);
     Project getProjectByProjectId(Long projectId);
 
-    void createProject(ProjectRegisterPostReq registerInfo, Company company);
+    Project createProject(ProjectRegisterPostReq registerInfo, Company company);
 
     void createProjectTech(Long projectId, List<String> techList);
 

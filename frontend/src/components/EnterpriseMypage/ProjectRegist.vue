@@ -6,30 +6,34 @@
         <div class="row mx-2 my-3 justify-content-between align-items-start">
           <div class="row align-items-center">
             <div class="col-2 projectDetailHeadItem projectDetailItem">  모집인원</div>
-            <input class="col-2 mb-1 form-control" type="text">
+            <input  v-model="projectInfo.recruitNumber" class="col-2 mb-1 form-control" type="text">
             <div class="col-5 projectDetailItem">  명</div>
           </div>  
           <div class="row align-items-center">
             <div class="col-2 projectDetailHeadItem projectDetailItem">  경력기간</div>
-            <input class="col-2 mb-1 form-control" type="text">
+            <input v-model="projectInfo.careerPeriod" class="col-2 mb-1 form-control" type="text">
             <div class="col-5 projectDetailItem">  년</div>
           </div> 
           <div class="row align-items-center">
             <div class="col-2 projectDetailHeadItem projectDetailItem">  근무기간</div>
-            <input class="col-2 mb-1 form-control" type="date">
+            <input v-model="projectInfo.startDate" class="col-2 mb-1 form-control" type="date">
             <div class="col-1 projectDetailItem text-center">  ~ </div>
-            <input class="col-2 mb-1 form-control" type="date">
+            <input v-model="projectInfo.endDate" class="col-2 mb-1 form-control" type="date">
           </div>
           <div class="row align-items-center">
             <div class="col-2 projectDetailHeadItem projectDetailItem">  근무방식</div>
-            <input class="col-2 mb-1 form-control" type="text">
+            <input v-model="projectInfo.workstyle" class="col-2 mb-1 form-control" type="text">
           </div> 
           <div class="row align-items-center">
             <div class="col-2 projectDetailHeadItem projectDetailItem">  금액</div>
-            <input class="col-2 mb-1 form-control" type="text">
+            <input v-model="projectInfo.lowPrice" class="col-2 mb-1 form-control" type="text">
             <div class="col-1 projectDetailItem text-center">  ~ </div>
-            <input class="col-2 mb-1 form-control" type="text">
+            <input v-model="projectInfo.highPrice" class="col-2 mb-1 form-control" type="text">
             <div class="col-4">/월(근무 확정시, 단가 확정)</div>
+          </div>
+          <div class="row align-items-center">
+          <div class="col-2 projectDetailHeadItem projectDetailItem">  마감기한</div>
+            <input v-model="projectInfo.deadline" class="col-2 mb-1 form-control" type="date">
           </div>
         </div>  
       </div>
@@ -37,7 +41,7 @@
       <div>
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
-          <select class="form-select text-center" aria-label="Default select example">
+          <select v-model="projectInfo.category" class="form-select text-center" aria-label="Default select example">
             <option selected style="padding-right: 2px">개발</option>
             <option value="1" style="padding-right: 2px">개발</option>
             <option value="2" style="padding-right: 2px">디자인</option>
@@ -46,7 +50,7 @@
         </div>  
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
-          <select class="form-select text-center" aria-label="Default select example">
+          <select v-model="projectInfo.domain" class="form-select text-center" aria-label="Default select example">
             <option selected style="padding-right: 2px">웹사이트</option>
             <option value="1" style="padding-right: 2px">앱(APP)</option>
             <option value="2" style="padding-right: 2px">커머스/쇼핑몰</option>
@@ -61,7 +65,7 @@
         </div> 
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
-            <textarea class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
+            <textarea v-model="projectInfo.task" class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
           </div>
         </div> 
         <div id="skillSelectCtnr my-3" style="margin-left : 100px; margin-right : 100px">
@@ -99,21 +103,26 @@
         </div>
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  프로젝트명</div>
-          <input class="col-2 mb-1 form-control" type="text">
+          <input v-model="projectInfo.title" class="col-2 mb-1 form-control" type="text">
         </div>
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  내용</div>
-          <input class="col-2 mb-1 form-control" type="text">
+          <input v-model="projectInfo.content" class="col-2 mb-1 form-control" type="text">
         </div>
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
-          <input class="col-2 mb-1 form-control" type="time">
+          <input v-model="projectInfo.workStartTime" class="col-2 mb-1 form-control" type="time">
           <div class="col-1 projectDetailItem text-center">  ~ </div>
-          <input class="col-2 mb-1 form-control" type="time">
+          <input v-model="projectInfo.workEndTime" class="col-2 mb-1 form-control" type="time">
         </div>   
         <div class="row mx-2 my-2">
-          <div class="col-3 projectDetailHeadItem projectDetailItem">  지역</div>
-          <input class="col-2 mb-1 form-control" type="text">
+          <div class="col-3 projectDetailHeadItem projectDetailItem">  지역시</div>
+          <input v-model="projectInfo.locationSi" class="col-2 mb-1 form-control" type="text" placeholder="대전광역시">
+       
+          <input v-model="projectInfo.locationGu" class="col-2 mb-1 mx-2 form-control" type="text" placeholder="유성구">
+        </div>
+        <div class="row mx-2 my-2">
+         
         </div>
         <button @click="clickRegisterProject" class="signatureBtn m-auto my-4" style="width : 150px !important">등록하기</button>
       </div>
@@ -133,11 +142,33 @@
   import FilterSkillCandidate from "@/components/Project/FilterSkillCandidate.vue";
   import { searchSkillFunc, skills } from "../../utils/skillSearch";
   import FilterSkillSelect from "@/components/Project/FilterSkillSelect.vue";
-
+  import { mapActions } from "vuex";
+import { createInstance } from "@/api/index.js";
+import store from "@/store/index.js";
   export default {
     name: 'ProjectRegist',
     data() {
       return {
+        projectInfo:{
+          category:"",
+          domain:"",
+          locationSi:"",
+          locationGu:"",
+          title:"",
+          content:"",
+          startDate:"",
+          endDate:"",
+          deadline:"",
+          recruitNumber:"",
+          task:"",
+          workStyle:"",
+          workStartTime:"",
+          workEndTime:"",
+          lowPrice:"",
+          highPrice:"",
+          careerPeriod:"",
+          skill:"wow",
+        },
         FilterSkillCandidate: [],
         FilterSkillLst: [],
       }
@@ -187,6 +218,8 @@
 
     },
     methods: {
+      ...mapActions(["registProject"]),
+  
       insertSkill(value) {
         this.FilterSkillLst.push(value);
         const itemToFind = this.FilterSkillCandidate.find(function(item) {
@@ -233,6 +266,20 @@
       clickRegisterProject() {
         document.querySelector('#completeRegisterProject').classList.remove('d-none')
         document.querySelector('body').classList.add('hiddenScroll')
+        // console.log(this.projectInfo);
+    
+        console.log(this.FilterSkillLst);
+        let skillSelected = this.FilterSkillLst.join(',');
+        createInstance().post('/project',this.projectInfo,{ headers: store.getters.authHeader })
+        .then(res=>{
+          console.log(res.data);
+          createInstance().post('/project/tech/'+ String(res.data.projectId),{},{
+            params:{
+            techList: skillSelected
+          }
+          }).then(res=>{console.log(res)})
+        });
+      
       },
 
       okRegisterProject() {
