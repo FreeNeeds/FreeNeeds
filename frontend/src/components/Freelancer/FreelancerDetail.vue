@@ -546,7 +546,7 @@ export default {
       let tempdata = {};
       tempdata.body = this.freelancerDetailReceive.projectCareer[i];
       tempdata.id = "FDR" + i;
-      console.log(this.freelancerDetailReceive.projectCareer[i]);
+      // console.log(this.freelancerDetailReceive.projectCareer[i]);
       this.projectDetailValue.push(tempdata);
     }
 

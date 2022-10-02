@@ -16,7 +16,7 @@ async function signupFreelancer(userInfo, success, fail) {
     password: userInfo.password,
     phone: userInfo.number,
     username: userInfo.id,
-    accountAddress : userInfo.accountAddress
+    accountAddress: userInfo.accountAddress
   };
   console.log(registerInfo);
 
@@ -38,10 +38,10 @@ async function getUserList(searchOption, success, fail) {
 }
 
 /** 프리랜서 필터링 조회 */
-async function getFilterUserList(techList, success, fail) {
+async function getFilterUserList(filterdata, success, fail) {
   await instance
     .get("/users/filter", {
-      params: { techList: techList },
+      params: { filterdata },
       paramsSerializer: params => {
         return qs.stringify(params, { arrayFormat: "comma" });
       }
