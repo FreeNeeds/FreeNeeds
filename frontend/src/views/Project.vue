@@ -566,7 +566,7 @@ export default {
   margin-bottom: 10px; 
   
 }
-img :scope{
+img sc{
   image-rendering: -webkit-optimize-contrast;
   display: block;
   margin: auto;

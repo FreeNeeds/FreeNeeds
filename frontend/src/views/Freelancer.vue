@@ -60,7 +60,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
-    <div class="text-center">
+    <div class="text-center paging">
       <div
         @click="clickPageOne"
         id="page1"
@@ -274,7 +274,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 #banner {
   width: 100%;
   
@@ -330,5 +330,9 @@ img :scope{
 }
 .freelancer-list-wrapper {
   width: 1300px;
+}
+
+.paging{
+  /* margin: 15px; */
 }
 </style>

@@ -16,9 +16,10 @@
               <h1><span class="typing intro-btext"></span> 구하세요?</h1>
             </vue-typed-js>
 
-            <h3 class="intro-textsub">IT 프리랜서 계약 플랫폼 <br>FreeNeeds 가 도와드릴게요!</h3>
+            <h3 class="intro-textsub">
+              IT 프리랜서 계약 플랫폼 <br />FreeNeeds 가 도와드릴게요!
+            </h3>
 
-        
             <button class="navbtn1">프리랜서 찾기</button>
             <button class="navbtn2">프로젝트 찾기</button>
           </b-col>
@@ -57,6 +58,32 @@
         >
         <b-col></b-col>
       </b-row>
+    </div>
+    <div
+      v-rellax="{
+        speed: 15
+      }"
+      class="circle1"
+    ></div>
+    <div
+      v-rellax="{
+        speed: 5
+      }"
+      class="circle2"
+    ></div>
+    <div
+      v-rellax="{
+        speed: 10
+      }"
+      class="circle4"
+    ></div>
+    <div
+      v-rellax="{
+        speed: 4
+      }"
+      class="circle3"
+    >
+      <img width="300px" src="../assets/images/freech3.png" alt="" />
     </div>
     <div
       class="main-container"
@@ -139,27 +166,28 @@
         <b-col
           ><div class="descFree-p">
             <lottie-player
-              src="https://assets2.lottiefiles.com/private_files/lf30_io4tfdmg.json"
+              src="https://assets1.lottiefiles.com/packages/lf20_c76upj2q.json"
               background="transparent"
               speed="1"
-              style="width: 250px; height: 300px; "
+              style="width: 350px; height: 320px;"
               loop
               autoplay
             ></lottie-player
-            >블록체인 기반 계약서 작성으로<br /> 계약서 무결성 보장
+            >블록체인 기반 계약서 작성으로<br />
+            계약서 무결성 보장
           </div></b-col
         >
         <b-col
           ><div class="descFree-p">
             <lottie-player
-              src="https://assets9.lottiefiles.com/packages/lf20_uz2bwauj.json"
+              src="https://assets5.lottiefiles.com/packages/lf20_MqQ9rx.json"
               background="transparent"
               speed="1"
-              style="width: 200px; height:300px; padding-left: 40px;"
+              style="width: 300px; height:240px; padding-top:50px; padding-left: 50px; margin:50px 0px 80px 0px;"
               loop
               autoplay
-            ></lottie-player
-            >스마트 컨트랙트 정산으로 <br />대금 지급을 원할하게
+            ></lottie-player>
+            스마트 컨트랙트 정산으로 <br />대금 지급을 원할하게
           </div></b-col
         >
         <b-col></b-col>
@@ -175,7 +203,9 @@
           alt=""
         />
       </h1>
-      <a @click="routeProjectPage()" class="moreList" href="#">더 많은 프로젝트 보러가기 〉</a>
+      <a @click="routeProjectPage()" class="moreList" href="#"
+        >더 많은 프로젝트 보러가기 〉</a
+      >
       <b-row>
         <b-col
           ><div class="descFree-project">
@@ -268,7 +298,9 @@
           alt=""
         />
       </h1>
-      <a @click="routeFreelancerPage()" class="moreList" href="#">더 많은 프리랜서 보러가기 〉</a>
+      <a @click="routeFreelancerPage()" class="moreList" href="#"
+        >더 많은 프리랜서 보러가기 〉</a
+      >
 
       <b-row>
         <b-col
@@ -284,7 +316,11 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row class="freename"> {{ recmdFreelancer[0].name }} 님 </b-row>
+            <b-row > 
+              <b-col></b-col>
+              <b-col class="freename col-8">{{ nameErase[0] }} 님</b-col>
+              <b-col></b-col>
+               </b-row>
           </div></b-col
         >
         <b-col
@@ -300,7 +336,11 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row> {{ recmdFreelancer[1].name }} 님 </b-row>
+            <b-row > 
+              <b-col></b-col>
+              <b-col class="freename col-8">{{ nameErase[1] }} 님</b-col>
+              <b-col></b-col>
+               </b-row>
           </div></b-col
         >
         <b-col
@@ -316,7 +356,11 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row> {{ recmdFreelancer[2].name }} 님 </b-row>
+            <b-row > 
+              <b-col></b-col>
+              <b-col class="freename col-8">{{ nameErase[2] }} 님</b-col>
+              <b-col></b-col>
+               </b-row>
           </div></b-col
         >
       </b-row>
@@ -347,11 +391,11 @@ export default {
       slide: 0,
       sliding: null,
       recmdFreelancer: [],
-      recmdProject: []
+      recmdProject: [],
+      nameErase: []
     };
   },
   methods: {
-  
     routeProjectPage() {
       this.$router.push("/project");
     },
@@ -371,7 +415,8 @@ export default {
   },
   mounted() {
     const instance = createInstance();
-    console.log(instance);
+    this.nameErase=["","",""];
+    
     instance.get(`/project?page=0&size=3`).then(success => {
       this.recmdProject = success.data;
       console.log(this.recmdProject);
@@ -379,12 +424,21 @@ export default {
 
     instance.get(`/users?page=0&size=3`).then(success => {
       this.recmdFreelancer = success.data;
-      console.log(this.recmdFreelancer);
+   
+      for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < this.recmdFreelancer[j].name.length; i++) {
+          console.log(this.recmdFreelancer[j].name[i]);
+          if (i == 1) this.nameErase[j] += "*";
+          else this.nameErase[j] += this.recmdFreelancer[j].name[i];
+        }
+        console.log(this.recmdFreelancer[j].username);
+      }
+      
     });
   }
 };
 </script>
-<style>
+<style scope>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
 
 * {
@@ -490,13 +544,13 @@ export default {
 .descFree-p {
   text-align: center;
   padding: auto;
-  padding: 50px;
+  padding: 0px;
   margin: 50px;
   border-radius: 26px;
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 350px;
-  height: 450px;
+  height: 400px;
 }
 
 .descFree-flow {
@@ -524,13 +578,15 @@ export default {
 }
 
 .descFree-user {
-  padding: auto;
+  padding: 20px;
 
   border-radius: 26px;
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
   height: 300px;
+
+
 }
 
 .descFree-project {
@@ -579,17 +635,47 @@ export default {
 }
 
 .freelancericon {
-  margin: 20px;
+  margin: 15px;
+
 }
 
 .freename {
-  text-align: center;
+  font-size: 30px;
 }
-.moreList{
+.moreList {
   text-decoration: none;
   position: relative;
   top: -30px;
   left: 40%;
   padding-bottom: 1000px;
+}
+.circle1 {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  background-color: rgba(237, 189, 189, 0.197);
+}
+.circle2 {
+  width: 355px;
+  height: 355px;
+  border-radius: 100%;
+  background-color: rgba(174, 187, 238, 0.197);
+  position: absolute;
+  left: 75%;
+}
+.circle3 {
+  position: absolute;
+  left: 25%;
+  top: 200%;
+  opacity: 0.5;
+}
+
+.circle4 {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: rgba(254, 255, 179, 0.762);
+  position: absolute;
+  left: 55%;
 }
 </style>

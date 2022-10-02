@@ -256,15 +256,23 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .freelancer-contents {
   max-width: 800px;
   max-height: 250px;
   margin: 0 auto;
   margin-top: 30px;
+
 }
 
 .freelancer-contents:hover {
   background-color: #b4b4b4;
 }
+
+#freelancer-list{
+  padding-bottom: 10px;
+}
+
+
+
 </style>
