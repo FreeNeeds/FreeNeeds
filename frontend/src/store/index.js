@@ -5,7 +5,8 @@ import mypage from "@/store/modules/mypage.js";
 import message from "@/store/modules/message.js";
 import project from "@/store/modules/project.js";
 import user from "@/store/modules/user.js";
-import filter from "@/store/modules/filter.js";
+import filter from "@/store/modules/filter.js"
+import apply from "@/store/modules/apply.js"
 import { createVuexPersistedState } from "vue-persistedstate";
 Vue.use(Vuex);
 
@@ -32,7 +33,7 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: { accounts, mypage, message, user, project, filter },
+  modules: { accounts, mypage, message, user, project, filter, apply },
   plugins: [
     createVuexPersistedState({
       storage: window.sessionStorage
