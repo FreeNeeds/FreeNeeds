@@ -183,6 +183,15 @@ public class UserServiceImpl implements UserService {
 		return profileTechRepositorySupport.getFreelancerListByTechs(nlist);
 	}
 
+	public Page<User> getFreelancersByTechsPaging(List<String> techList, Pageable pageable) {
+		List<Tech> nlist = new ArrayList<>();
+		for(String t : techList){
+			Tech temp = techRepository.findById(t).get();
+			nlist.add(temp);
+		}
+
+		return profileTechRepositorySupport.getFreelancerListByTechsPaging(nlist,pageable);
+	}
 	@Override
 	public void createProfileTech(String username, List<String> techList) {
 
