@@ -196,11 +196,14 @@ export default {
   margin-bottom: 25px;
 }
 .project-card-header-round {
-  padding: 10px;
-  width: 100px;
-  height: 40px;
+
+  padding: 6px 3px 0px 3px;
+  margin-top: 5px;
+  margin-left: 13px;
+  width: 83px;
+  height: 35px;
   border-radius: 20px;
-  background-color: #254ec9;
+  background-color: #0064ff;
   color: white;
   text-align: center;
 }
