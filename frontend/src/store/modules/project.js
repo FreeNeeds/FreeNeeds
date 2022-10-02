@@ -10,6 +10,18 @@ export default {
   actions: {
     getAllProjectList({ commit }, userId) {
       // projectInstance.getAllProjectList();
+    },
+
+    registProject({}, projectInfo){
+      projectInstance.registProject(projectInfo, 
+        ()=>{
+          alert("프로젝트 등록이 완료되었습니다 !");
+          
+        },
+        (err)=>{
+          alert("프로젝트 등록에 실패했습니다 ... ");
+          console.log(err);
+        });
     }
   }
 };

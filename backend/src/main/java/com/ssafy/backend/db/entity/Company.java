@@ -34,9 +34,11 @@ public class Company {
     private String accountAddress;
 
     @Lob
+    @JsonIgnore
     private String publicKey;
 
     @Lob
+    @JsonIgnore
     private String privateKey;
 
     @JsonIgnore

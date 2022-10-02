@@ -1,5 +1,6 @@
 // project.js
 import { createInstance } from "./index.js";
+import store from "@/store/index.js";
 
 const instance = createInstance();
 
@@ -15,8 +16,11 @@ function getProjectList(filter, success, fail) {
 
 /** 프로젝트 등록 */
 function registProject(registerInfo, success, fail) {
+  // console.log(registerInfo);
   instance
-    .post(`/project`, registerInfo)
+    .post(`/project`, registerInfo,
+    { headers: store.getters.authHeader }
+    )
     .then(success)
     .catch(fail);
 }
@@ -52,7 +56,7 @@ function setProjectTech(projectId, success, fail) {
     .catch(fail);
 }
 
-export {
+export default {
   getProjectList,
   registProject,
   getProjectInfo,
