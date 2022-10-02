@@ -320,6 +320,19 @@ public class UserController {
 		return ResponseEntity.status(200).body(accountAddress);
 	}
 
+	@GetMapping("/account/{userId}")
+	@ApiOperation(value = "프리랜서 회원 계좌 주소 조회", notes = "프리랜서 회원의 계좌 주소를 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<?> getAccountAddressByUserId(@PathVariable("userId") Long userId) {
+		String accountAddress = userService.getUserAccountAddressByUserId(userId);
+		return ResponseEntity.status(200).body(accountAddress);
+	}
+
 	@GetMapping("/username/{userId}")
 	@ApiOperation(value = "프리랜서 이름 조회", notes = "프리랜서 아이디로 프리랜서 이름 조회")
 	@ApiResponses({
