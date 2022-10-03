@@ -429,7 +429,7 @@
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button @click="clickCompleteWriteContract(), createContract()" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
+                    <button @click="clickCompleteWriteContract()" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
                   </div>
                   <h5 class="text-center d-none" style="color : red" :id=alreadyDoneContract>이미 전달된 계약서 입니다.</h5>
                   <div class="d-none my-2 fw-bold text-center" style="color : red" :id="notSign">
@@ -459,7 +459,7 @@
         <div class="sureContractModalCtnr">
           <h5 class="mt-5"><h3 class="fw-bold d-inline-block">{{ nameErase }}</h3> 님에게 <br>작성한 계약서를 보내겠습니까?</h5>
           <div class="m-auto">
-            <button @click="clickSendContract" class="signatureBtn my-3 mx-2">네</button>
+            <button @click="clickSendContract(), createContract()" class="signatureBtn my-3 mx-2">네</button>
             <button @click="clickNotSendContract" class="signatureBtn my-3 mx-2">아니요</button>
           </div>
         </div>
