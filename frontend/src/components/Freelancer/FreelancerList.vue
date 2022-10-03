@@ -158,10 +158,12 @@ export default {
       console.log("???");
       this.totalUserList = [];
       const filterdata = {
-        techList: this.freelancerFilter,
         page: this.searchOption.page,
-        size: this.searchOption.size
+        size: this.searchOption.size,
+        techList: this.freelancerFilter
       };
+
+      console.log(filterdata);
       if (this.pageIdx == 0) {
         this.isDataLoaded = false;
         await userInstance.getFilterUserList(filterdata, res => {

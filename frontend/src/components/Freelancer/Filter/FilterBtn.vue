@@ -4,12 +4,12 @@
       @click="startInterval"
       id="freelancerFilterBtn"
       data-bs-toggle="modal"
-      data-bs-target="#filterModal"
+      data-bs-target="#ffilterModal"
     >
       필터
     </button>
     <div
-      id="filterModal"
+      id="ffilterModal"
       class="modal text-center"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
@@ -17,8 +17,8 @@
       data-bs-backdrop="false"
       style="background-color: rgba(0, 0, 0, 0.5);"
     >
-      <div class="modal-dialog" id="FilterModalWrapper">
-        <div class="modal-content" id="FilterModalContent">
+      <div class="modal-dialog" id="FFilterModalWrapper">
+        <div class="modal-content" id="FFilterModalContent">
           <button
             @click="clickFilterModalCloseBtn"
             type="button"
@@ -32,8 +32,6 @@
             type="button"
             id="FilterModalApplyBtn"
             class="d-none"
-            data-bs-dismiss="modal"
-            aria-label="Close"
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
@@ -185,7 +183,7 @@ export default {
       } else {
         document.querySelector(".warnFilter").classList.remove("d-none");
       }
-
+      $("#ffilterModal").modal("hide");
       this.isStop = 1;
     },
     clickFilterModalCloseBtn() {
@@ -204,7 +202,7 @@ export default {
       let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
 
       let interval = setInterval(() => {
-        // console.log(filterCnt);
+        console.log(this.isStop);
         if (this.isStop === 1) clearInterval(interval);
         let filterCnt = this.FilterSkillLst.length;
         // console.log("???");
@@ -302,7 +300,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
-#FilterModalWrapper {
+#FFilterModalWrapper {
   margin-top: 50px;
 }
 

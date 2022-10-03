@@ -21,7 +21,7 @@
       </div>
     </div>
     <button
-      class="prev prevProjectvue"
+      class="prev prevFreelancervue"
       type="button"
       @click="clickPrevBtnProject"
     >
@@ -41,7 +41,7 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <button
-      class="next nextProjectvue"
+      class="next nextFreelancervue"
       type="button"
       @click="clickNextBtnProject"
     >
@@ -298,18 +298,18 @@ export default {
   color: blue !important;
 }
 
-.prevProjectvue {
+.prevFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   left: 45px !important;
   height: 600px !important;
   width: 70px !important;
   background-color: #f9f9f9 !important;
 }
 
-.nextProjectvue {
+.nextFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   right: 45px !important;
   height: 600px !important;
   width: 70px !important;

@@ -39,11 +39,13 @@ async function getUserList(searchOption, success, fail) {
 
 /** 프리랜서 필터링 조회 */
 async function getFilterUserList(filterdata, success, fail) {
+  console.log(qs.stringify(filterdata.techList, { arrayFormat: "comma" }));
   await instance
     .get("/users/filter", {
-      params: { filterdata },
-      paramsSerializer: params => {
-        return qs.stringify(params, { arrayFormat: "comma" });
+      params: {
+        page: filterdata.page,
+        size: filterdata.size,
+        techList: filterdata.techList.join(",")
       }
     })
     .then(success)
