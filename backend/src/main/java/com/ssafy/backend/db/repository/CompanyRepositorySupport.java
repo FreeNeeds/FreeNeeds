@@ -31,4 +31,10 @@ public class CompanyRepositorySupport {
                 .where(qCompany.username.eq(username)).fetchOne();
         return accountAddress;
     }
+
+    public String findCompanyAccountAddressByCompanyId(Long companyId) {
+        String accountAddress = jpaQueryFactory.select(qCompany.accountAddress).from(qCompany)
+                .where(qCompany.companyId.eq(companyId)).fetchOne();
+        return accountAddress;
+    }
 }

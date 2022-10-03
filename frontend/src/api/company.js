@@ -62,11 +62,20 @@ async function changeCompanyUserInfo(userInfo, success, fail) {
     .catch(fail);
 }
 
+
+async function getCompanyAccountAddress(companyId, success, fail) { 
+  await instance
+    .get(`companies/account/${companyId}`)
+    .then(success)
+    .catch(fail);
+}
+
 export {
   signupCompany,
   setCompanyInfo,
   changeCompanyInfo,
   getCompanyInfo,
   getCompanyUserInfo,
-  changeCompanyUserInfo
+  changeCompanyUserInfo,
+  getCompanyAccountAddress,
 };
