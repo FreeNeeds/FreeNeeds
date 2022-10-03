@@ -15,7 +15,8 @@ async function signupFreelancer(userInfo, success, fail) {
     name: userInfo.name,
     password: userInfo.password,
     phone: userInfo.number,
-    username: userInfo.id
+    username: userInfo.id,
+    accountAddress: userInfo.accountAddress
   };
   console.log(registerInfo);
 
@@ -37,10 +38,13 @@ async function getUserList(searchOption, success, fail) {
 }
 
 /** 프리랜서 필터링 조회 */
-async function getFilterUserList(techList, success, fail) {
+async function getFilterUserList(filterdata, success, fail) {
   await instance
     .get("/users/filter", {
-      params: techList
+      params: { filterdata },
+      paramsSerializer: params => {
+        return qs.stringify(params, { arrayFormat: "comma" });
+      }
     })
     .then(success)
     .catch(fail);
@@ -180,6 +184,14 @@ async function getUserResume(username, success, fail) {
     .catch(fail);
 }
 
+/** 프리랜서 지갑 주소 조회 */
+async function getUserAccountAddress(userId, success, fail) {
+  await instance
+    .get(`users/account/${userId}`)
+    .then(success)
+    .catch(fail);
+}
+
 export {
   signupFreelancer,
   getUserResume,
@@ -195,5 +207,6 @@ export {
   changeUserProfile,
   setUserProfile,
   getFilterUserList,
-  getUserList
+  getUserList,
+  getUserAccountAddress
 };

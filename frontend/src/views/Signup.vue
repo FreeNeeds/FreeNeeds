@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="register-item-wrapper">
-        <label for="registerCNumberInput" class="register-input-label"
+        <label for="registerCEmailInput" class="register-input-label"
           >이메일</label
         >
         <div class="regist-input-decoration">
@@ -134,7 +134,7 @@
               <input
                 v-model="user.email"
                 type="text"
-                id="registerCNumberInput"
+                id="registerCEmailInput"
                 class="regist-email-input-wrapper"
               />
             </div>
@@ -161,6 +161,13 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="register-item-wrapper">
+        <label for="registerCNumberInput" class="register-input-label"
+          >지갑연결</label
+        >
+       <button @click="getMetamask">지갑 가져오기</button>
+       <div>연결된 지갑주소 : {{user.accountAddress}}</div>
       </div>
       <div class="regist-terms-input-form">
         <div class="form-check">
@@ -199,7 +206,6 @@ export default {
     return {
       fortest: "",
       termsCheck: false,
-
       isDuplicatedEmail: false,
       isDuplicatedId: false,
       isAuthorized: false,
@@ -210,7 +216,8 @@ export default {
         password: "",
         email: "",
         emailDomain: "",
-        passwordConfirm: ""
+        passwordConfirm: "",
+        accountAddress:""
       },
       validationPattern: {
         pwdCheckPattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+-])(?=.*[0-9]).{9,16}$/,
@@ -246,6 +253,12 @@ export default {
     idChange() {
       this.isDuplicatedId = false;
     },
+    async getMetamask() {
+      if (window.ethereum){ // first we check if metamask is installed
+        var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        this.user.accountAddress = accounts[0];
+      }
+    },
     gettestdata() {
       this.settestdata(this.fortest);
     },
@@ -273,7 +286,7 @@ export default {
       }
     },
     Signup() {
-      console.log(this.user);
+      console.log("유저정뵈:"+this.user);
       this.user.emailadress = `${this.email}@${this.emailDomain}`;
       this.schema.isValid(this.user).then((valid, msg) => {
         if (!valid) {
@@ -296,7 +309,10 @@ export default {
       ) {
         alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
-      } else if (!this.termsCheck) {
+      } else if (!this.user.accountAddress) { 
+        alert("지갑을 등록해주세요")
+        return;
+      }else if (!this.termsCheck) {
         alert("이용약관에 동의해주세요.");
         return;
       }

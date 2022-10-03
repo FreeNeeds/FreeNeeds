@@ -22,11 +22,13 @@
           @click="applyFilter"
           type="button"
           id="FilterModalApplyBtn"
+          class="d-none"
           data-bs-dismiss="modal"
           aria-label="Close"
         >
           <div id="FilterModalApplyBtnLetter">필터 적용</div>
         </button>
+        <h5 class="fw-blod warnFilter" style="color : red">적어도 한 개 이상의 필터를 적용해주세요!</h5>
         <b-container>
           <div id="FilterModalTitle">필터 추가하기</div>
           <b-container id="FilterCategory">
@@ -147,6 +149,7 @@ export default {
   name: "FilterModal",
   data() {
     return {
+      isStop : 0,
       FilterCategoryLst: ["개발", "디자인", "기획"],
       FilterFormLst: [
         "웹사이트",
@@ -187,7 +190,28 @@ export default {
     );
     for (let i = 0; i < skills.length; i++)
       this.FilterSkillCandidate.push(skills[i]);
+    
+    let regionBig = document.querySelector("#regionSearchCtnr").innerText;
+    let regionDetail = document.querySelector("#regionDetailSearchCtnr")
+      .innerText;
+     
     let interval = setInterval(() => {
+      if (this.isStop === 1) clearInterval(interval) 
+      let filterCnt = this.activeFilterCategoryLst.length + this.activeFilterFormLst.length
+        + this.FilterSkillLst.length
+      if (document.querySelector("#regionSearchCtnr").innerText.trim() != '전체') filterCnt++   
+      console.log(filterCnt)
+      if (filterCnt > 0) {
+        if (document.querySelector('#FilterModalApplyBtn').classList.contains('d-none')) {
+          document.querySelector('#FilterModalApplyBtn').classList.remove('d-none')
+          document.querySelector('.warnFilter').classList.add('d-none')
+        }
+      } else {
+        if (document.querySelector('.warnFilter').classList.contains('d-none')) {
+          document.querySelector('.warnFilter').classList.remove('d-none')
+          document.querySelector('#FilterModalApplyBtn').classList.add('d-none')
+        }
+      }
       let post = inputBox.value;
       if (pre != post) {
         this.FilterSkillCandidate = [];
@@ -282,7 +306,7 @@ export default {
           regionDetailBtnGroupTmp.setAttribute("style", "height: 300px");
         }
       } else {
-        regionDetailBtn.setAttribute("style", "display: none");
+        regionDetail.setAttribute("style", "display: none");
       }
     },
     clickRegionDetail(value) {
@@ -321,22 +345,34 @@ export default {
       let regionBig = document.querySelector("#regionSearchCtnr").innerText;
       let regionDetail = document.querySelector("#regionDetailSearchCtnr")
         .innerText;
-      findProjectListByFilter(
-        this.activeFilterCategoryLst.join(),
-        this.activeFilterFormLst.join(),
-        this.FilterSkillLst.join(),
-        [regionBig, regionDetail].join()
-      );
+      
+      let filterCnt = this.activeFilterCategoryLst.length + this.activeFilterFormLst.length
+      + this.FilterSkillLst.length
 
-      this.preActiveMap = { category: [], form: [], skill: [], region: [] };
-      for (let i = 0; i < this.activeFilterCategoryLst.length; i++)
-        this.preActiveMap["category"].push(this.activeFilterCategoryLst[i]);
-      for (let i = 0; i < this.activeFilterFormLst.length; i++)
-        this.preActiveMap["form"].push(this.activeFilterFormLst[i]);
-      for (let i = 0; i < this.FilterSkillLst.length; i++)
-        this.preActiveMap["skill"].push(this.FilterSkillLst[i]);
-      for (let i = 0; i < [regionBig, regionDetail].length; i++)
-        this.preActiveMap["region"].push([regionBig, regionDetail][i]);
+      if (regionBig.trim() != '전체') filterCnt++
+
+      if (filterCnt > 0) {
+        this.$emit("applyFilter",{
+          category : this.activeFilterCategoryLst,
+          form : this.activeFilterFormLst,
+          skill : this.FilterSkillLst,
+          regionBig : regionBig,
+          regionDetail : regionDetail
+        })
+
+        this.preActiveMap = { category: [], form: [], skill: [], region: [] };
+        for (let i = 0; i < this.activeFilterCategoryLst.length; i++)
+          this.preActiveMap["category"].push(this.activeFilterCategoryLst[i]);
+        for (let i = 0; i < this.activeFilterFormLst.length; i++)
+          this.preActiveMap["form"].push(this.activeFilterFormLst[i]);
+        for (let i = 0; i < this.FilterSkillLst.length; i++)
+          this.preActiveMap["skill"].push(this.FilterSkillLst[i]);
+        for (let i = 0; i < [regionBig, regionDetail].length; i++)
+          this.preActiveMap["region"].push([regionBig, regionDetail][i]);
+      } else {
+        document.querySelector('.warnFilter').classList.remove('d-none')
+      }
+      this.isStop = 1
     },
     clickFilterModalCloseBtn() {
       let regionBig = document.querySelector("#regionSearchCtnr");
@@ -376,6 +412,7 @@ export default {
         let filterBtnTmp = document.querySelector("#" + activeFilter);
         filterBtnTmp.classList.add("activeFilter");
       }
+      this.isStop = 1
     },
     resetScrollRegionDetail() {
       let regionDetailBtnGroupTmp = document.querySelector(
@@ -655,4 +692,12 @@ export default {
   background-clip: padding-box;
   border: 2px solid transparent;
 }
+
+  .warnFilter {
+    position: fixed;
+    top : 15px;
+    left : 580px;
+    font-size: 20px;
+    font-weight: 700;
+  }
 </style>

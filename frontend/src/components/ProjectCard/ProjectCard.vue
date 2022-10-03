@@ -1,8 +1,8 @@
 <template>
-  <div class="project-card-wrapper">
+  <div class="project-card-wrapper col-6">
     <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="">
     <div class="row project-card-header-item">
-      <div class="col-2 ">
+      <div class="col-3 ">
         <div class="project-card-header-round ">
           {{ projectData.workstyle }}
         </div>
@@ -31,7 +31,7 @@
           <div class="mx-3">예상비용</div>
           <div class="mx-3">
             월
-            <span style="color:blue"
+            <span style="color:#0064ff"
               >{{ projectData.lowPrice }} ~ {{ projectData.highPrice }}</span
             >
           </div>
@@ -163,18 +163,16 @@ export default {
 .project-card-header-item {
   margin-bottom: 25px;
 }
-.project-card-wrapper {
-  padding: 2%;
-  margin-top: 25px !important;
-  margin-bottom: 25px !important;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-}
+
 .project-card-header-round {
-  padding: 10px;
-  width: 100px;
-  height: 40px;
+
+  padding: 6px 3px 0px 3px;
+  margin-top: 5px;
+  margin-left: 13px;
+  width: 83px;
+  height: 35px;
   border-radius: 20px;
-  background-color: #254ec9;
+  background-color: #0064ff;
   color: white;
   text-align: center;
 }

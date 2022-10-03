@@ -30,7 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
     TechRepository techRepository;
 
     @Override
-    public void createProject(ProjectRegisterPostReq registerInfo, Company company) {
+    public Project createProject(ProjectRegisterPostReq registerInfo, Company company) {
 
         Project project = Project.builder()
                 .category(registerInfo.getCategory())
@@ -62,6 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
 //         System.out.println(domain);
 //         domainRepository.save(domain);
 //         domainRepository.flush();
+        return project;
 
     }
 
@@ -112,6 +113,11 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectTechRepositorySupport.getProjectListByTechs(nlist,locationSi,locationGu,category,domainList);
 
+    }
+
+    @Override
+    public List<Project> getProjectsByCompanyId(Long companyId) {
+        return projectRepositorySupport.findProjectsByCompanyId(companyId);
     }
 
 

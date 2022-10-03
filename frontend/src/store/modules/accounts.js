@@ -71,6 +71,7 @@ export default {
       router.push("/");
     },
     companyLoginA({ commit }, loginInfo) {
+      console.log(loginInfo);
       authInstance.companyLogin(loginInfo, res => {
         commit("SET_ACCESSTOKEN", res.data.accessToken);
         const loginUserDate = {
@@ -78,7 +79,7 @@ export default {
           id: res.data.companyId,
           name: res.data.name,
           phone: res.data.phone,
-          username: res.data.name
+          username: res.data.username
         };
         console.log(res);
         console.log(loginUserDate);

@@ -41,7 +41,7 @@ import CorrectInfomation from "@/components/FreelancerMypage/ManageCareer/Correc
 import recruit from "@/components/EnterpriseMypage/ProjectStatus/recruit";
 import ongoing from "@/components/EnterpriseMypage/ProjectStatus/ongoing";
 import complete from "@/components/EnterpriseMypage/ProjectStatus/complete";
-import recruitApplyMember from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMember';
+import recruitApplyMember from "@/components/EnterpriseMypage/ProjectStatus/recruitApplyMember";
 
 /**
  * 아래의 router를 변경하여 구현할 수 있습니다.
@@ -173,7 +173,7 @@ const routes = [
           {
             path: "recruit",
             name: "recruit",
-            component: recruit,
+            component: recruit
           },
           {
             path: "ongoing",
@@ -184,13 +184,13 @@ const routes = [
             path: "complete",
             name: "complete",
             component: complete
-          },
+          }
         ]
       },
       {
         path: "projectstatus/recruit/apply",
         name: "apply",
-        component: recruitApplyMember,
+        component: recruitApplyMember
       },
       {
         path: "projectregist",

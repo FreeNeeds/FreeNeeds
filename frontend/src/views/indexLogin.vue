@@ -7,13 +7,13 @@
       <div class="row" style="margin-top:50px">
         <div class="d-flex justify-content-between">
           <router-link
-            to="/login/Company"
+            to="/login/company"
             class="index-signup-selectbox company-selectbox"
           >
             <div class="index-signup-text">기업</div>
           </router-link>
           <router-link
-            to="/login/Freelancer"
+            to="/login/freelancer"
             class="index-signup-selectbox freelancer-selectbox"
           >
             <div class="index-signup-text">프리랜서</div>
@@ -32,7 +32,8 @@ export default {};
 .index-signup-text {
   padding-top: 28%;
   padding-bottom: 28%;
-  padding-left: 45%;
+  padding-left: 25%;
+
   font-size: 30px;
   font-weight: bold;
 }
@@ -51,19 +52,25 @@ export default {};
   text-decoration: none;
 }
 .freelancer-selectbox {
-  background-color: #3c3c3c;
+  background-color: #202632;
   color: white;
+  transition: all 0.3s ease 0s;
+  border-radius: 20px;
 }
 .company-selectbox {
-  background-color: #f6f6f6;
+  background-color: #0064ff;
+  transition: all 0.3s ease 0s;
   color: black;
+  border-radius: 20px;
 }
 .freelancer-selectbox:hover {
-  background-color: #3c3c3c;
+  opacity: 0.8;
+  transform: translateY(-3px);
   color: white;
 }
 .company-selectbox:hover {
-  background-color: #f6f6f6;
-  color: black;
+  opacity: 0.8;
+  transform: translateY(-3px);
+  color: white;
 }
 </style>

@@ -1,8 +1,102 @@
 <template>
   <b-container>
-    <div id="banner"></div>
+    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
     <FilterBtn></FilterBtn>
-    <FreelancerList></FreelancerList>
+    <div style="overflow : hidden; width: 1320px; height: auto">
+      <div class="d-flex carouselProjectWrpr" v-if="reLoad">
+        <div
+          clsss="freelancer-list-wrapper"
+          v-for="(value, index) in (pageMax + 1) * 5"
+          :key="index"
+        >
+          <div style="width:1300px">
+            <FreelancerList
+              :idx="idx"
+              :pageIdx="pageIdx"
+              :btnIdx="value"
+              :isFilter="isFilter"
+            ></FreelancerList>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="prev prevProjectvue"
+      type="button"
+      @click="clickPrevBtnProject"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="45"
+        height="45"
+        fill="gray"
+        class="bi bi-chevron-left"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+        />
+      </svg>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="next nextProjectvue"
+      type="button"
+      @click="clickNextBtnProject"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="45"
+        height="45"
+        fill="gray"
+        class="bi bi-chevron-right"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+      <span class="visually-hidden">Next</span>
+    </button>
+    <div class="text-center paging">
+      <div
+        @click="clickPageOne"
+        id="page1"
+        class="d-inline-block fw-bold mx-2 activePage pageItem"
+      >
+        1
+      </div>
+      <div
+        @click="clickPagetwo"
+        id="page2"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        2
+      </div>
+      <div
+        @click="clickPagethree"
+        id="page3"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        3
+      </div>
+      <div
+        @click="clickPagefour"
+        id="page4"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        4
+      </div>
+      <div
+        @click="clickPagefive"
+        id="page5"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        5
+      </div>
+    </div>
   </b-container>
 </template>
 
@@ -11,18 +105,231 @@ import HeaderNav from "@/components/HeaderNav.vue";
 import FooterNav from "@/components/FooterNav.vue";
 import FreelancerList from "@/components/Freelancer/FreelancerList.vue";
 import FilterBtn from "@/components/Freelancer/Filter/FilterBtn.vue";
-
+import { toChecksumAddress } from "web3-utils";
+import { mapGetters } from "vuex";
 export default {
+  computed: { ...mapGetters(["freelancerFilter"]) },
+  data() {
+    return {
+      /** 실제 페이지 1,2.....,10.. */
+      idx: 0,
+      /** 페이지 5페이지당 1증가(큰기준) */
+      pageIdx: 0,
+      /** 한 페이지 안에 페이지인덱스(0 ~ 4) */
+      btnIdx: 1,
+      pageMax: 0,
+      filterIdx: -1,
+      limitIdx: -1,
+      isFilter: false,
+      remainDate: 0,
+      periodWork: 0,
+      reLoad: true
+    };
+  },
+  watch: {
+    freelancerFilter: function() {
+      console.log("????");
+      this.idx = 0;
+      this.pageIdx = 0;
+      this.btnIdx = 1;
+      this.pageMax = 1;
+      let elements = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.remove("activePage");
+      }
+
+      document.querySelector("#page" + this.btnIdx).classList.add("activePage");
+    }
+  },
+  methods: {
+    clickPageOne() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page1").classList.add("activePage");
+      this.btnIdx = 1;
+      this.idx = parseInt(document.querySelector("#page1").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPagetwo() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page2").classList.add("activePage");
+      this.btnIdx = 2;
+      this.idx = parseInt(document.querySelector("#page2").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPagethree() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page3").classList.add("activePage");
+      this.btnIdx = 3;
+      this.idx = parseInt(document.querySelector("#page3").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPagefour() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page4").classList.add("activePage");
+      this.btnIdx = 4;
+      this.idx = parseInt(document.querySelector("#page4").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPagefive() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page5").classList.add("activePage");
+      this.btnIdx = 5;
+      this.idx = parseInt(document.querySelector("#page5").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickNextBtnProject() {
+      console.log(this.limitIdx);
+      console.log(this.idx);
+      this.pageMax = this.pageIdx + 1;
+      if (this.limitIdx === -1 || this.idx + 2 < this.filterIdx) {
+        document
+          .querySelector("#page" + this.btnIdx)
+          .classList.remove("activePage");
+        this.idx++;
+        this.btnIdx++;
+        if (this.btnIdx === 6) {
+          this.pageIdx++;
+          // console.log("???");
+          this.reLoad = false;
+          let btnTmp = document.querySelectorAll(".pageItem");
+          for (let i = 0; i < btnTmp.length; i++) {
+            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) + 5;
+            if (
+              this.filterIdx != -1 &&
+              parseInt(btnTmp[i].innerText) >= this.filterIdx
+            ) {
+              btnTmp[i].classList.add("d-none");
+            }
+          }
+          this.btnIdx = 1;
+        }
+        document
+          .querySelector("#page" + this.btnIdx)
+          .classList.add("activePage");
+
+        document.querySelector(".carouselProjectWrpr").style.transform =
+          "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+      }
+      this.reLoad = true;
+    },
+
+    clickPrevBtnProject() {
+      if (this.idx != 0) {
+        document
+          .querySelector("#page" + this.btnIdx)
+          .classList.remove("activePage");
+        this.idx--;
+        this.btnIdx--;
+        if (this.btnIdx === 0) {
+          this.reLoad = false;
+          let btnTmp = document.querySelectorAll(".pageItem");
+          for (let i = 0; i < btnTmp.length; i++) {
+            if (btnTmp[i].classList.contains("d-none"))
+              btnTmp[i].classList.remove("d-none");
+            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) - 5;
+          }
+          this.btnIdx = 5;
+        }
+        document
+          .querySelector("#page" + this.btnIdx)
+          .classList.add("activePage");
+        document.querySelector(".carouselProjectWrpr").style.transform =
+          "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+      }
+      this.reLoad = true;
+    }
+  },
+
   components: { HeaderNav, FilterBtn, FooterNav, FreelancerList }
 };
 </script>
 
-<style>
+<style >
 #banner {
   width: 100%;
-  height: 130px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: #eaf5fb;
+  
+  display: flex;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 10px; 
+margin-left: 30px;
+  
+}
+
+
+.activePage {
+  font-size: 22px !important;
+  color: blue !important;
+}
+
+.pageItem {
+  font-size: 20px;
+  color: gray;
+}
+
+.pageItem:hover {
+  font-size: 22px !important;
+  color: blue !important;
+}
+
+.prevProjectvue {
+  position: absolute !important;
+  top: 420px !important;
+  left: 45px !important;
+  height: 600px !important;
+  width: 70px !important;
+  background-color: #f9f9f9 !important;
+}
+
+.nextProjectvue {
+  position: absolute !important;
+  top: 420px !important;
+  right: 45px !important;
+  height: 600px !important;
+  width: 70px !important;
+  background-color: #f9f9f9 !important;
+}
+
+.carouselProjectWrpr {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s;
+}
+.freelancer-list-wrapper {
+  width: 1300px;
+}
+
+.paging{
+  /* margin: 15px; */
 }
 </style>

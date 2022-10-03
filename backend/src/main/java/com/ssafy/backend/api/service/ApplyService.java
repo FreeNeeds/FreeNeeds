@@ -12,6 +12,9 @@ public interface ApplyService {
 
     List<Apply> getApplyByUserId(Long userId);
 
+    List<Apply> getApplyByProejctId(Project project);
+
+
     Apply createApply(String state, User user, Project project);
 
     Apply updateApply(String state, User user, Project project);

@@ -12,7 +12,7 @@
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
       <div class="project-card-title col-10">{{ projectData.title }}</div>
@@ -72,9 +72,9 @@
       </div>
       <div class="col-10">
         <div class="project-card-skill">
-          <div v-for="(vlaue, index) of projectData.skil" :key="index">
+          <span v-for="(value, index) of projectData.skill" :key="index">
             {{ value + " " }}
-          </div>
+          </span>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@
           style="width:20px;height:20px;object-fit:cover"
         />
         <div style="display:inline;margin-left:10px">
-          {{ projectData.workstyle }}
+          {{ projectData.workStyle }}
         </div>
       </div>
     </div>
@@ -112,16 +112,10 @@
           style="width:20px;height:20px;object-fit:cover"
         />
         <div style="display:inline;margin-left:10px">
-          {{ projectData.location }}
+          {{ projectData.locationSi + " " + projectData.locationGu }}
         </div>
       </div>
     </div>
-    <project-detail
-      :id="projectCardId.projectId"
-      :idEdit="projectCardId.projectId"
-      :projectDataReceive="projectData"
-      :companyDataReceive="companyData"
-    ></project-detail>
   </div>
 </template>
 
@@ -168,8 +162,8 @@ export default {
     };
   },
   mounted() {
-    console.log(this.projectData);
-    console.log(this.companyData);
+    // console.log(this.projectData);
+    // console.log(this.companyData);
     this.projectCardId += this.projectData.projectId;
   },
   computed: {
@@ -201,18 +195,15 @@ export default {
 .project-card-header-item {
   margin-bottom: 25px;
 }
-.project-card-wrapper {
-  padding: 2%;
-  margin-top: 25px !important;
-  margin-bottom: 25px !important;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-}
 .project-card-header-round {
-  padding: 10px;
-  width: 100px;
-  height: 40px;
+
+  padding: 6px 3px 0px 3px;
+  margin-top: 5px;
+  margin-left: 13px;
+  width: 83px;
+  height: 35px;
   border-radius: 20px;
-  background-color: #254ec9;
+  background-color: #0064ff;
   color: white;
   text-align: center;
 }

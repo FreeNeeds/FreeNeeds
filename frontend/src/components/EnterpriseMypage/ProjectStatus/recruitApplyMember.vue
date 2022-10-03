@@ -26,29 +26,42 @@
       <recruitApplyMemberItem
       v-for="freelancerCard in beforeFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :freelancerCardId="freelancerCard.body.user.userId"
+      :state="stateBefore"
+      @moveToIngContract="moveToIngContract"></recruitApplyMemberItem>
     </div>
     <div id="ingFreelancerCardLst" class='deactiveProjectDetailItem'>
-      <recruitApplyMemberItem
+      <recruitApplyMemberItemIng
       v-for="freelancerCard in ingFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :state="stateIng"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItemIng>
     </div>
     <div id="afterFreelancerCardLst" class='deactiveProjectDetailItem'>
-      <recruitApplyMemberItem
+      <recruitApplyMemberItemAfter
       v-for="freelancerCard in afterFreelancerCardLst"
       :key="freelancerCard.id"
-      :freelancerCard="freelancerCard"></recruitApplyMemberItem>
+      :projectId="projectIdTmp"
+      :state="stateAfter"
+      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItemAfter>
     </div>
   </div>
 </template>
 
 <script>
 import recruitApplyMemberItem from "@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItem.vue";
+import recruitApplyMemberItemIng from "./recruitApplyMemberItemIng.vue";
+import recruitApplyMemberItemAfter from "./recruitApplyMemberItemAfter.vue";
+import { createInstance } from "@/api/index.js";
 
 export default {
-  props : { 
-    projectId : Number
+  props : {
+    projectId : {
+      type : Number,
+      default : 0
+    }
   },
   data() {
     return {
@@ -56,6 +69,10 @@ export default {
       beforeFreelancerCardLst : [],
       ingFreelancerCardLst : [],
       afterFreelancerCardLst : [],
+      projectIdTmp : 0,
+      stateBefore : "before",
+      stateIng : "Ing",
+      stateAfter : "After",
       freelancerCardItem : {
         projectCareerId : "1",
         category : "개발",
@@ -68,26 +85,24 @@ export default {
         endDate : "2020-10-30"
       },
       projectData: {
-        id: "1",
-        category: "개발",
-        demain: "웹사이트",
-        location: "대한민국 어딘가...",
-        skill: ["Java", "Mysql" ,"SpringBoot"],
-        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-        startDate: new Date("2022-09-10"),
-        endDate: new Date("2022-09-16"),
-        startDateSummry : "2022-09-10",
-        endDateSummry : "2022-09-16",
-        deadline: new Date("2022-11-30"),
-        recruitNumber: 3,
-        task: "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-        workstyle: "재택",
-        workStartTime: "오전 08:00",
-        workEndTime: "오후 16:00",
-        lowPrice: "200만원",
-        highPrice: "300만원",
-        careerPeriod: 3,
+        id: '',
+        category: "",
+        demain: "",
+        location: "",
+        skill: [],
+        title: "",
+        content: "",
+        startDate: "",
+        endDate: "",
+        deadline: "",
+        recruitNumber: '',
+        task: "",
+        workstyle: "",
+        workStartTime: "",
+        workEndTime: "",
+        lowPrice: "",
+        highPrice: "",
+        careerPeriod: '',
       },
       freelancerDataReceive : {
         user_id : "1",
@@ -140,43 +155,37 @@ export default {
     }
   },
   mounted() {
-    for (let i = 0; i < 10; i++){
-      this.beforeFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 10; i < 12; i++){
-      this.ingFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 12; i < 16; i++){
-      this.afterFreelancerCardLst.push({
-        id : i,
-        body : this.freelancerDataReceive
-      })
-    }
-
-    for (let i = 0; i < 7; i++){
-      this.freelancerDataReceive.projectCareer.push({
-        id : i,
-        body : this.freelancerCardItem
-      })
-    }
-
-    for(let i = 0; i < 5; i++) {
-      this.myProjectLst.push({
-        id : "ids" + String(i),
-        body : this.projectData
-      })
-    }
+    this.projectIdTmp = this.$route.params.projectId
+    createInstance().get('/apply/project' , {
+      params : {
+        projectId : String(this.$route.params.projectId)
+      }
+    }).then(res => {
+        for (let i = 0; i < res.data.applyList.length; i++) {
+          console.log(res.data.applyList[i])
+          if (res.data.applyList[i].state === '지원완료') {
+            this.beforeFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
+              body : res.data.applyList[i]
+            })
+          } else if (res.data.applyList[i].state === '인터뷰완료') {
+            this.ingFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
+              body : res.data.applyList[i]
+            }) 
+          } else {
+            this.afterFreelancerCardLst.push({
+              id : "myPageProjectFreelancer" + String(res.data.applyList[i].user.userId),
+              body : res.data.applyList[i]
+            })
+          }
+        }
+    })
   },
   components: {
-    recruitApplyMemberItem
+    recruitApplyMemberItem,
+    recruitApplyMemberItemIng,
+    recruitApplyMemberItemAfter
   },
   methods : {
     clickContractBefore() { 
@@ -240,6 +249,14 @@ export default {
         afterTmp.classList.add('activeContract')
         afterFreelancerCardLstTmp.classList.remove('deactiveProjectDetailItem')
       }
+    },
+
+    moveToIngContract(value) {
+      const itemToFind = this.beforeFreelancerCardLst.find(function(item) {return item.id === "myPageProjectFreelancer" + String(value)})
+      const idxTmp = this.beforeFreelancerCardLst.indexOf(itemToFind)
+      if (idxTmp > -1) this.beforeFreelancerCardLst.splice(idxTmp,1)
+
+      this.ingFreelancerCardLst.push(itemToFind)
     }
   }
 };

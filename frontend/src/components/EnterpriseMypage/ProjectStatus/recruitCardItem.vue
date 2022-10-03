@@ -1,10 +1,15 @@
 <template>
   <div>
-    <div class="project-card-wrapper myPageProjectCardWrpr" style="box-shadow : 0px 0px 0px">
+    <div class="project-card-wrapper myPageProjectCardWrpr" style="width: 660px !important; margin : 0px !important; padding : 20px; box-shadow : 0px 0px 0px">
       <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 660px;">
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
         <button class="myPageProjectDetailBtn" data-bs-toggle="modal" :data-bs-target=projectCardItemEdit >상세보기</button>
         <button @click="clickApplyMemberBtn" class="myPageApplyMemberBtn">지원자보기</button>
+      </div>
+      <div class="row mb-3 ms-1">
+        <div>
+          <span style="font-size : 14px"> | {{ projectData.careerPeriod}}년 경력 | {{ projectData.category}} | {{ projectData.demain }}</span>
+        </div>
       </div>
       <div class="row project-card-header-item">
         <div class="col-2 ">
@@ -63,13 +68,35 @@
   export default {
     name : "recruitCardItem",
     props : {
-      projectData : Object,
+      projectCardItem : Object,
       projectCardCarousel : Object
     },
     data() {
       return {
         myPageCompanyProjectStatusModalCtnr : "myPageCompanyProjectStatusModalCtnr",
         /**임시 데이터 */
+        projectData: {
+          id: this.projectCardItem.projectId,
+          category: this.projectCardItem.category,
+          demain: this.projectCardItem.domain,
+          location : this.projectCardItem.locationSi + " " + this.projectCardItem.locationGu,
+          skill: [],
+          title: this.projectCardItem.title,
+          content: this.projectCardItem.task,
+          startDate: new Date(this.projectCardItem.startDate),
+          endDate: new Date(this.projectCardItem.endDate),
+          startDateSummry : "2022-09-10",
+          endDateSummry : "2022-09-16",
+          deadline: new Date(this.projectCardItem.deadline),
+          recruitNumber: this.projectCardItem.recruitNumber,
+          task: this.projectCardItem.task,
+          workstyle: this.projectCardItem.workStyle,
+          workStartTime: this.projectCardItem.workStartTime,
+          workEndTime: this.projectCardItem.workEndTime,
+          lowPrice: this.projectCardItem.lowPrice,
+          highPrice: this.projectCardItem.highPrice,
+          careerPeriod: this.projectCardItem.careerPeriod,
+        },
         projectCardItemEdit: "#",
         remainDate: ""
       };
@@ -80,8 +107,7 @@
           (1000 * 60 * 60 * 24) -
           1
       );
-      this.projectCardItemEdit += String(this.projectCardCarousel.id)
-      this.myPageCompanyProjectStatusModalCtnr += String(this.projectCardCarousel.id)
+      this.projectCardItemEdit += 'myPageProjectDetailId' + String(this.projectCardItem.projectId)
 
     },
     components : {
@@ -90,7 +116,7 @@
     methods : {
       clickApplyMemberBtn() {
         this.$router.push({name : "apply", params: {
-              projectId : 1
+              projectId : this.projectCardItem.projectId
               }});
       }
     }
@@ -101,7 +127,8 @@
   .myPageProjectCardWrpr:hover {
     background-color: rgba(0, 0, 0, 0.1);
     width : 660px;
-    height : 280.4px;
+    height : 320.4px;
+    border-radius: 30px;
   }
 
   .myPageProjectCardWrpr:hover > .hoverProjectCard{

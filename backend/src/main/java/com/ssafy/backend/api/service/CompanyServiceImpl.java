@@ -33,7 +33,7 @@ public class CompanyServiceImpl implements CompanyService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Company createCompany(CompanyRegisterPostReq companyRegisterInfo) {
+    public Company createCompany(CompanyRegisterPostReq companyRegisterInfo, String publicKey, String privateKey) {
         // 닉네임 중복 확인
         validateDuplicateMember(companyRegisterInfo);
         // 이메일 중복 확인
@@ -48,6 +48,9 @@ public class CompanyServiceImpl implements CompanyService{
         company.setEmail(companyRegisterInfo.getEmail());
         company.setName(companyRegisterInfo.getName());
         company.setPhone(companyRegisterInfo.getPhone());
+        company.setAccountAddress(companyRegisterInfo.getAccountAddress());
+        company.setPublicKey(publicKey);
+        company.setPrivateKey(privateKey);
 
         return companyRepository.save(company);
     }
@@ -106,6 +109,12 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
+    public String getCompanyAccountAddressByUsername(String username) {
+        String accountAddress = companyRepositorySupport.findCompanyAccountAddressByUsername(username);
+        return accountAddress;
+    }
+
+    @Override
     public CompanyInfo createCompanyInfo(Company company, CompanyInfoPostReq companyInfoPostReq) {
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setCompany(company);
@@ -137,5 +146,11 @@ public class CompanyServiceImpl implements CompanyService{
             ReflectionUtils.setField(field, company, value);
         });
         return companyRepository.save(company);
+    }
+
+    @Override
+    public String getCompanyAccountAddressByCompanyId(Long companyId) {
+        String accountAddress = companyRepositorySupport.findCompanyAccountAddressByCompanyId(companyId);
+        return accountAddress;
     }
 }

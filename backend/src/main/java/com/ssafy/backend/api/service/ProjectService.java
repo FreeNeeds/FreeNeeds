@@ -16,11 +16,13 @@ public interface ProjectService {
     Page<Project> getProjects(Pageable pageable);
     Project getProjectByProjectId(Long projectId);
 
-    void createProject(ProjectRegisterPostReq registerInfo, Company company);
+    Project createProject(ProjectRegisterPostReq registerInfo, Company company);
 
     void createProjectTech(Long projectId, List<String> techList);
 
     List<Tech> getTechsByProjectId(Long projectId);
 
     List<Project> getProjectsByTechs(List<String> techList, String locationSi, String locationGu, String category, List<String> domainList);
+
+    List<Project> getProjectsByCompanyId(Long companyId);
 }

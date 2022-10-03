@@ -42,8 +42,8 @@ public class ProjectController {
             @RequestBody @ApiParam(value="프로젝트 정보", required = true) ProjectRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
         SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
         Company company = companyDetails.getCompany();
-        projectService.createProject(registerInfo,company);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//        Project project = projectService.createProject(registerInfo,company);
+        return new ResponseEntity<Project>(projectService.createProject(registerInfo,company), HttpStatus.OK);
     }
 
 //    @GetMapping()
@@ -121,4 +121,18 @@ public class ProjectController {
     public List<Project> getProjectList(Pageable pageable) {
         return projectService.getProjects(pageable).getContent();
     }
+
+
+    @GetMapping("/company/{companyId}")
+    @ApiOperation(value = "프로젝트 기업 조회", notes = "프로젝트를 기업ID를 통해 List로 받아옵니다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getProjectByCompanyId(@PathVariable("companyId") Long companyId) {
+        return new ResponseEntity<List<Project>>(projectService.getProjectsByCompanyId(companyId), HttpStatus.OK);
+    }
+
 }

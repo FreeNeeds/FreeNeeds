@@ -1,9 +1,9 @@
 <template>
-  <div id="freelancer-list">
+  <div id="freelancer-list" v-if="isDataLoaded">
     <!-- <div>{{ totalUserList }}</div>
     <div>{{ freelancerCardLst }}</div>
     <div>{{ freelancerDataReceive }}</div> -->
-
+    <!-- {{ pageIdx }} -->
     <FreelancerCard
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
@@ -21,145 +21,172 @@ import * as EstimateInstance from "@/api/estimate.js";
 
 export default {
   props: {
-    username: "",
-    name: ""
+    idx: Number,
+    pageIdx: Number,
+    btnIdx: Number,
+    isFilter: Boolean
   },
-
   async mounted() {
+    // console.log(this.searchOption.page);
+    // console.log(this.pageIdx + " : " + this.idx);
+    // console.log("설마 이거 다시 실행함?");
     /** 전체 유저 리스트 받아오기 */
-    console.log("????");
+    // console.log("????");
     await userInstance.getUserList(this.searchOption, res => {
       this.totalUserList = res.data;
     });
-
-    /** 유저 프로필 정보 받아오기 */
-    for (let i = 0; i < this.totalUserList.length; i++) {
-      console.log(this.totalUserList[i]);
-      await userInstance.getUserProfile(
-        this.totalUserList[i].username,
-        res => {
-          const data = this.totalUserList[i];
-          data.resume.title = res.data.title;
-          data.resume.introduce = res.data.introduce;
-          data.resume.career_period = res.data.career_period;
-          data.resume.profileId = res.data.profileId;
-          this.freelancerDataReceive.push(data);
-        },
-        () => {
-          const data = this.totalUserList[i];
-          data.resume = {};
-          data.resume.title = "";
-          data.resume.introduce = "";
-          data.resume.career_period = 0;
-          data.resume.profileId = "";
-          this.freelancerDataReceive.push(data);
-        }
-      );
-    }
-    console.log(this.freelancerDataReceive);
-
-    /** 유저 프로필 기술 받아오기 */
-
-    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
-      if (this.freelancerDataReceive[i].resume.profileId != "") {
-        await userInstance.getUserTech(
-          this.freelancerDataReceive[i].resume.profileId,
+    await this.settingFreelancer();
+    this.isDataLoaded = true;
+  },
+  methods: {
+    async settingFreelancer() {
+      // thos.totalUserList: [],
+      this.freelancerDataReceive = [];
+      this.freelancerCardLst = [];
+      /** 유저 프로필 정보 받아오기 */
+      for (let i = 0; i < this.totalUserList.length; i++) {
+        // console.log(this.totalUserList[i]);
+        await userInstance.getUserProfile(
+          this.totalUserList[i].username,
           res => {
             // console.log(res);
-            this.freelancerDataReceive[i].tech = res.data;
-          }
-        );
-      }
-    }
-    console.log(this.freelancerDataReceive);
-    /** 유저 평가 받아오기 */
-    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
-      await EstimateInstance.getUserEstimate(
-        this.freelancerDataReceive[i].username,
-        res => {
-          console.log(res);
-          if (res.data.length > 0) {
-            this.freelancerDataReceive[i].estimate = res.data;
-          } else {
-            const data = [
-              {
-                profession: 0,
-                ontime: 0,
-                active: 0,
-                communication: 0,
-                reEmployment: 0
-              }
-            ];
-            this.freelancerDataReceive[i].estimate = data;
-          }
-        }
-      );
-    }
-    console.log(this.freelancerDataReceive);
-    /** 유저 프로젝트 이력 가져오기 */
-    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
-      this.freelancerDataReceive[i].projectCareer = [];
-
-      await userInstance.getUserProject(
-        this.freelancerDataReceive[i].username,
-        res => {
-          for (let j = 0; j < res.data.length; j++) {
-            const data = {
-              projectCareerId: res.data[j].projectCareerId,
-              category: res.data[j].category,
-              domain: res.data[j].domain,
-              company_name: res.data[j].companyName,
-              title: res.data[j].title,
-              content: res.data[j].content,
-              startDate: res.data[j].start_date,
-              endDate: res.data[j].end_date
-            };
-            this.freelancerDataReceive[i].projectCareer.push(data);
-          }
-        },
-        err => {}
-      );
-    }
-    console.log(this.freelancerDataReceive);
-    /** 유저 프로젝트 이력 기술 가져오기 */
-    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
-      for (
-        let j = 0;
-        j < this.freelancerDataReceive[i].projectCareer.length;
-        j++
-      ) {
-        await userInstance.getUserProjectTech(
-          this.freelancerDataReceive[i].projectCareer[j].projectCareerId,
-          res => {
-            this.freelancerDataReceive[i].projectCareer[j].projectCareerTech =
-              res.data;
+            const data = this.totalUserList[i];
+            data.resume = {};
+            data.resume = res.data;
+            data.resume.career_period = res.data.creer_period;
+            // data.resume.title = res.data.title;
+            // data.resume.introduce = res.data.introduce;
+            // data.resume.career_period = res.data.creer_period;
+            // data.resume.profileId = res.data.profileId;
+            this.freelancerDataReceive.push(data);
           },
-          err => {
-            this.freelancerDataReceive[i].projectCareer[
-              j
-            ].projectCareerTech = [];
+          () => {
+            const data = this.totalUserList[i];
+            data.resume = {};
+            data.resume.title = "";
+            data.resume.introduce = "";
+            data.resume.career_period = 0;
+            data.resume.profileId = "";
+            this.freelancerDataReceive.push(data);
           }
         );
       }
-    }
-    console.log(this.freelancerDataReceive);
-    for (let i = 0; i < this.freelancerDataReceive.length; i++) {
-      this.freelancerCardLst.push({
-        id: i,
-        body: this.freelancerDataReceive[i]
-      });
+      // console.log(this.freelancerDataReceive);
+
+      /** 유저 프로필 기술 받아오기 */
+
+      for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+        if (this.freelancerDataReceive[i].resume.profileId != "") {
+          userInstance.getUserTech(
+            this.freelancerDataReceive[i].resume.profileId,
+            res => {
+              // console.log(res);
+              // console.log(res);
+              this.freelancerDataReceive[i].tech = [];
+              for (let k = 0; k < res.data.length; k++) {
+                this.freelancerDataReceive[i].tech.push(res.data[k].techName);
+              }
+            }
+          );
+        }
+      }
+      // console.log(this.freelancerDataReceive);
+      /** 유저 평가 받아오기 */
+      for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+        await EstimateInstance.getUserEstimate(
+          this.freelancerDataReceive[i].username,
+          res => {
+            // console.log(res);
+            if (res.data.length > 0) {
+              this.freelancerDataReceive[i].estimate = res.data;
+            } else {
+              const data = [
+                {
+                  profession: 0,
+                  ontime: 0,
+                  active: 0,
+                  communication: 0,
+                  reEmployment: 0
+                }
+              ];
+              this.freelancerDataReceive[i].estimate = data;
+            }
+          }
+        );
+      }
+      // console.log(this.freelancerDataReceive);
+      /** 유저 프로젝트 이력 가져오기 */
+      for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+        this.freelancerDataReceive[i].projectCareer = [];
+
+        await userInstance.getUserProject(
+          this.freelancerDataReceive[i].username,
+          res => {
+            // console.log(res);
+            for (let j = 0; j < res.data.length; j++) {
+              const data = {
+                projectCareerId: res.data[j].projectCareerId,
+                category: res.data[j].category,
+                domain: res.data[j].domain,
+                company_name: res.data[j].companyName,
+                title: res.data[j].title,
+                content: res.data[j].content,
+                startDate: res.data[j].start_date,
+                endDate: res.data[j].end_date,
+                projectCareerTech: []
+              };
+              this.freelancerDataReceive[i].projectCareer.push(data);
+            }
+          },
+          err => {}
+        );
+      }
+
+      for (let i = 0; i < this.freelancerDataReceive.length; i++) {
+        this.freelancerCardLst.push({
+          id: i,
+          body: this.freelancerDataReceive[i]
+        });
+      }
     }
   },
-  methods: {},
   components: {
     FreelancerCard
+  },
+  watch: {
+    freelancerFilter: async function() {
+      console.log("???");
+      this.totalUserList = [];
+      const filterdata = {
+        techList: this.freelancerFilter,
+        page: this.searchOption.page,
+        size: this.searchOption.size
+      };
+      if (this.pageIdx == 0) {
+        this.isDataLoaded = false;
+        await userInstance.getFilterUserList(filterdata, res => {
+          this.totalUserList = res.data;
+          // console.log("???");
+          console.log(this.totalUserList);
+        });
+        await this.settingFreelancer();
+        this.isDataLoaded = true;
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(["freelancerFilter"])
   },
   data() {
     return {
       searchOption: {
-        page: 0,
-        size: 10
+        page: this.pageIdx * 5 + this.btnIdx,
+        size: 4
       },
+
+      pagePackage: 0,
+      pageindex: 0,
+      isDataLoaded: false,
       totalUserList: [],
       freelancerDataReceive: [],
       freelancerCardLst: []
@@ -229,15 +256,23 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .freelancer-contents {
   max-width: 800px;
   max-height: 250px;
   margin: 0 auto;
   margin-top: 30px;
+
 }
 
 .freelancer-contents:hover {
   background-color: #b4b4b4;
 }
+
+#freelancer-list{
+  padding-bottom: 10px;
+}
+
+
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <b-card
-    class="freelancer-contents myPageProjectCardWrpr"
+    class="freelancer-contents myPageFreelancerCardWrpr"
     img-src="https://placekitten.com/300/300"
     img-left
     >
@@ -10,7 +10,7 @@
       <div class="row justify-content-between">
         <b-card-title class="col-6">
           {{ nameErase }}
-          <span style="font-size : 14px">| {{ freelancerCard.body.resume.career_period }}년 경력</span>
+          <span style="font-size : 14px">| {{ profile.creer_period }}년 경력</span>
         </b-card-title>
         <b-card-text class="col-6 text-end align-items-center">
           <div class="star-ratings d-inline-block mx-2">
@@ -25,17 +25,16 @@
             </div>
           </div>
           {{ Math.round((ratingToPercent) / 20 * 100) / 100}} 
-          <span style="font-size : 12px; color : gray"> / 평가 {{ freelancerCard.body.estimate.length }} 개</span>
+          <span style="font-size : 12px; color : gray"> / 평가 {{ estimate.length }} 개</span>
         </b-card-text>
       </div>
       <div class="row justify-content-end my-2">
         <b-card-text class="col-7">
           <div class="mb-2">
-            {{ freelancerCard.body.resume.title }} <br>
-            {{ freelancerCard.body.resume.title }}
+            {{ profile.title }}
           </div>
           <FreelancerCardSkill
-          v-for="skillItem in freelancerCard.body.tech"
+          v-for="skillItem in profileTech"
           :key="skillItem"
           :skillItem="skillItem"
           >
@@ -45,15 +44,29 @@
           <hr>
           <div class="row justify-content-between">
             <div class="col-8">계약한 프로젝트 : </div>
-            <div class="col-4">총 {{ freelancerCard.body.projectCareer.length }} 건 </div>
+            <div class="col-4">총 {{ projectCareer.length }} 건 </div>
           </div>
           <hr>
         </div>
       </div>
       <recruitApplyMemberItemDetail
-      :id=freelancerCardId
-      :freelancerDetailReceive="freelancerCard.body"
-      :id_=this.freelancerCard.id
+      :id=freelancerCardIdModal
+      :id_=freelancerCardId
+      :nameErase="nameErase"
+      :projectCareer="projectCareer"
+      :resume="resume"
+      :profile="profile"
+      :estimate="estimate"
+      :profileTech="profileTech"
+      :profession="profession"
+      :ontime="ontime"
+      :active="active"
+      :communication="communication"
+      :reEmployment="reEmployment"
+      :ratingToPercent="ratingToPercent"
+      :projectId="projectId"
+      :state="state"
+      @moveToIngContract="moveToIngContract"
       ></recruitApplyMemberItemDetail>
   </b-card>
 </template>
@@ -62,6 +75,7 @@
   import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
   import recruitApplyMemberItemDetail from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetail.vue'
+  import { createInstance } from "@/api/index.js";
 
   export default {
     name : 'recruitApplyMemberItem',
@@ -70,29 +84,79 @@
         nameErase : "",
         ratingToPercent : 0,
         freelancerCardIdEdit : "#id",
-        freelancerCardId : "id"
+        freelancerCardIdModal: "id",
+        projectCareer : [],
+        resume : {},
+        profile : {},
+        estimate : [],
+        profileTech : [],
+        profession : 0,
+        ontime : 0,
+        active : 0,
+        communication : 0,
+        reEmployment : 0,
       }
     },
     props : {
-      freelancerCard : Object
+      freelancerCardId : Number,
+      projectId : Number,
+      state : String,
     },
     mounted() {
-      for (let i = 0; i < this.freelancerCard.body.name.length; i++){
-        if (i == 1) this.nameErase += "*"
-        else this.nameErase += this.freelancerCard.body.name[i]
-      }
-      for (let i = 0; i < this.freelancerCard.body.estimate.length; i++) {
-        this.ratingToPercent += this.freelancerCard.body.estimate[i].profession
-        + this.freelancerCard.body.estimate[i].ontime + this.freelancerCard.body.estimate[i].active
-        + this.freelancerCard.body.estimate[i].communication + this.freelancerCard.body.estimate[i].reEmployment
-      }
-      this.ratingToPercent = this.ratingToPercent / (5 * this.freelancerCard.body.estimate.length)
-      this.ratingToPercent = this.ratingToPercent * 20
-      this.freelancerCardIdEdit += String(this.freelancerCard.id)
-      this.freelancerCardId += String(this.freelancerCard.id)
+      this.freelancerCardIdModal += this.freelancerCardId
+      createInstance().get('/users/username/' + String(this.freelancerCardId)).then(res => {
+        let username = res.data
+        createInstance().get('/users/project/' + username).then(res => {
+          for (let i = 0; i < res.data.length; i++) {
+            this.projectCareer.push({
+              body : res.data[i]
+            })
+          }
+        })
+        createInstance().get('/users/resume/' + username).then(res => {
+          this.resume = res.data
+        })
+        createInstance().get('/users/profile/' + username).then(res => {
+          this.profile = res.data
+          for (let i = 0; i < this.profile.name.length; i++){
+            if (i == 1) this.nameErase += "*"
+            else this.nameErase += this.profile.name[i]
+          }
+          createInstance().get('/users/profile/tech/' + String(res.data.profileId)).then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+              this.profileTech.push(res.data[i].techName)
+            }
+          })
+        })
+        createInstance().get('/estimates/' + username).then(res => {
+          for (let i = 0; i < res.data.length; i++) {
+            this.estimate.push(res.data[i])
+          }
+
+          for (let i = 0; i < this.estimate.length; i++) {
+            this.profession += this.estimate[i].profession
+            this.ontime += this.estimate[i].ontime 
+            this.active += this.estimate[i].active
+            this.communication += this.estimate[i].communication 
+            this.reEmployment += this.estimate[i].reEmployment
+          }
+          
+          this.profession = this.profession / (this.estimate.length)
+          this.ontime = this.ontime / (this.estimate.length)
+          this.active = this.active / (this.estimate.length)
+          this.communication = this.communication / (this.estimate.length)
+          this.reEmployment = this.reEmployment / (this.estimate.length)
+          this.ratingToPercent = (this.profession + this.ontime + this.active + this.communication + this.reEmployment) / 5
+          this.ratingToPercent = this.ratingToPercent * 20
+          console.log(this.profession)
+        })
+      })
+      this.freelancerCardIdEdit += String(this.freelancerCardId)
     },
     methods: {
-      
+      moveToIngContract(value) {
+        this.$emit('moveToIngContract',value)
+      }
     },
     components : {
     FreelancerCardSkill,
@@ -103,11 +167,11 @@
 </script>
 
 <style>
-  .myPageProjectCardWrpr:hover {
+  .myPageFreelancerCardWrpr:hover {
     background-color: rgba(0, 0, 0, 0.1) !important;
   }
 
-  .myPageProjectCardWrpr:hover > .card-body > .hoverProjectCard{
+  .myPageFreelancerCardWrpr:hover > .card-body > .hoverProjectCard{
     display: block !important;
   }
 

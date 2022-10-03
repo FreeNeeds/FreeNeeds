@@ -220,10 +220,10 @@
                   style="width: 1px; height: 87%; margin-top: 22px; background-color: gray"
                 ></div>
               </div>
-              <div class="d-inline-block mx-auto my-3">
+              <div class="d-inline-block mx-auto my-3" style="width : 229px !important">
                 <FreelancerCardSkill
                   v-for="skillItem in freelancerDetailReceive.tech"
-                  :key="skillItem"
+                  :key="`id${id_}${skillItem}`"
                   :skillItem="skillItem"
                 >
                 </FreelancerCardSkill>
@@ -258,7 +258,7 @@
           <hr class="project-card-line" style="margin-bottom : 40px" />
           <div :id="projectDetailNavItem">
             <FreelancerProjectCard
-              v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
+              v-for="freelancerProjectCard in projectDetailValue"
               :key="freelancerProjectCard.id"
               :freelancerProjectCard="freelancerProjectCard"
             >
@@ -268,7 +268,7 @@
             <div class="row mx-2 my-4">
               <div class="projectDetailHeadItem projectDetailItem">학력</div>
             </div>
-            <div class="d-flex mx-3 my-2">
+            <div class="d-flex mx-4  my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.highschool }}
               </div>
@@ -277,7 +277,7 @@
                 {{ freelancerEducation.education.highschool_end_date }}
               </div>
             </div>
-            <div class="d-flex mx-3 my-2">
+            <div class="d-flex mx-4 my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.university }}
               </div>
@@ -290,7 +290,7 @@
               <div class="projectDetailHeadItem projectDetailItem">경력</div>
             </div>
             <div
-              class="d-flex mx-3 my-2"
+              class="d-flex mx-4 my-2"
               v-for="freelancerCareerItem in freelancerEducation.careerList"
             >
               <div class="freelancerEducationName">
@@ -305,8 +305,8 @@
               <div class="projectDetailHeadItem projectDetailItem">자격증</div>
             </div>
             <div
-              class="d-flex mx-3 mt-2"
-              style="margin-bottom : 60px"
+              class="d-flex mx-4 mt-2"
+              
               v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
@@ -322,6 +322,7 @@
               @click="openProjectModal"
               id="ProjectDetailApplyBtn"
               class="freelancerFloatBtn"
+              v-if="loginType == 'company'"
             >
               인터뷰 요청하기
             </button>
@@ -440,10 +441,13 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
-
+import { mapGetters } from "vuex";
 import * as userInstance from "@/api/user.js";
-
+import * as projectInstance from "@/api/project.js";
 export default {
+  computed: {
+    ...mapGetters(["loginType", "loginUserInfo"])
+  },
   name: "FreelancerDetail",
   components: {
     HeaderNav,
@@ -474,7 +478,8 @@ export default {
       reEmployment: 0,
       ratingToPercent: 0,
       myProjectLst: [],
-
+      projectDetailValue: [],
+      // projectData: {}
       projectData: {
         id: "1",
         category: "개발",
@@ -531,6 +536,21 @@ export default {
     };
   },
   mounted() {
+    // console.log(this.freelancerDetailReceive);
+    this.projectDetailValue = [];
+    for (
+      let i = 0;
+      i < this.freelancerDetailReceive.projectCareer.length;
+      i++
+    ) {
+      let tempdata = {};
+      tempdata.body = this.freelancerDetailReceive.projectCareer[i];
+      tempdata.id = "FDR" + i;
+      // console.log(this.freelancerDetailReceive.projectCareer[i]);
+      this.projectDetailValue.push(tempdata);
+    }
+
+    // this.projectDetailValue.body = this.freelancerDetailReceive.projectCareer;
     let id__ = String(this.id_);
     // console.log(id__);
     this.freelancerProjectModalId += id__;
@@ -559,18 +579,18 @@ export default {
       ].reEmployment;
     }
 
-    this.profession = this.profession / 5;
-    this.ontime = this.ontime / 5;
-    this.active = this.active / 5;
-    this.communication = this.communication / 5;
-    this.reEmployment = this.reEmployment / 5;
+    this.profession = this.profession / this.freelancerDetailReceive.estimate.length;
+    this.ontime = this.ontime / this.freelancerDetailReceive.estimate.length;
+    this.active = this.active / this.freelancerDetailReceive.estimate.length;
+    this.communication = this.communication / this.freelancerDetailReceive.estimate.length;
+    this.reEmployment = this.reEmployment / this.freelancerDetailReceive.estimate.length;
     this.ratingToPercent =
       (this.profession +
         this.ontime +
         this.active +
         this.communication +
         this.reEmployment) /
-      this.freelancerDetailReceive.estimate.length;
+      5;
     this.ratingToPercent = this.ratingToPercent * 20;
     userInstance.getUserResume(
       this.freelancerDetailReceive.username,
@@ -594,11 +614,16 @@ export default {
         this.freelancerEducation = data;
       }
     );
+
     for (let i = 0; i < 5; i++) {
       this.myProjectLst.push({
         id: "ids" + String(i),
         body: this.projectData
       });
+    }
+    if (this.loginType == "company") {
+      let ProjectList = [];
+      const filter = projectInstance.getProjectList();
     }
   },
   props: {
@@ -752,7 +777,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;
@@ -763,6 +788,7 @@ export default {
   background-color: rgb(219, 219, 217);
   padding: 30px;
 }
+
 #project-resume {
   margin-top: 30px;
 }
