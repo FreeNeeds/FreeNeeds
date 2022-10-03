@@ -361,6 +361,8 @@ import ProjectDetailSkill from "../../Project/ProjectDetailSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
 import html2canvas from 'html2canvas'
+import { freelancerSignEscrow } from "@/utils/EscrowFactory";
+import * as userInstance from "@/api/user.js";
 
 export default {
   name: "ApplyProjectDetailIng",
@@ -412,7 +414,10 @@ export default {
       signatureComplete : "signatureComplete",
       alreadyDoneContract : "alreadyDoneContract",
       projectDetailNavItemProject : "projectDetailNavItemProject",
-      resumeDetailNavItemProject : "resumeDetailNavItemProject"
+      resumeDetailNavItemProject: "resumeDetailNavItemProject",
+      freelancerAccount: "",
+      companyAccount:"",
+      
     }
   },
   mounted() {
@@ -471,10 +476,11 @@ export default {
     })
 
     this.remainDate = Math.ceil((new Date(this.projectDataReceive.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) -
-        1)
-    this.remainDate = "D - " + String(this.remainDate)
+      1);
+    this.remainDate = "D - " + String(this.remainDate);
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
-        (1000 * 60 * 60 * 24))
+      (1000 * 60 * 60 * 24));
+    userInstance.getUserAccountAddress(this.id_, res => { this.freelancerAccount = res.data });
   },
   props : {
     projectDataReceive : Object,
@@ -659,7 +665,7 @@ export default {
       }
     },
 
-    clickSendContract() {
+    async clickSendContract() {
       let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
       let totalContent = ''
       for (let i = 0; i < contractInputs.length; i++) {
@@ -673,6 +679,21 @@ export default {
       totalContent).then(res => {
         console.log(res)
       })
+
+
+      //totalContent를 pdf 변환하는 코드 작성
+
+
+      //pdf변환 완료 후 암호화 로직 백엔드로 데이터 보내서 가져와야함
+
+      //컨트랙트에 서명한 데이터까지 올리는 코드
+      let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      let hashData = "ceee4d91fb12f9c5b790254063cc0c7b4c0799b101590bcbd602c31023174de3";
+
+      freelancerSignEscrow(accounts, this.freelancerAccount, this.companyAccount, hashData);
+
+
+
       createInstance().put('/apply', {
         userId : this.$store.state.accounts.loginUserInfo.id,
         projectId : this.projectDataReceive.projectId,

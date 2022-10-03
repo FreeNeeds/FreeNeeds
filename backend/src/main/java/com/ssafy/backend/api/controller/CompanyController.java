@@ -124,4 +124,17 @@ public class CompanyController {
         String accountAddress = companyService.getCompanyAccountAddressByUsername(username);
         return ResponseEntity.status(200).body(accountAddress);
     }
+
+    @GetMapping("/account/{companyId}")
+    @ApiOperation(value = "기업 회원 계좌 주소 조회", notes = "기업 회원의 계좌 주소를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getAccountAddressByUserId(@PathVariable("companyId") Long companyId) {
+        String accountAddress = companyService.getCompanyAccountAddressByCompanyId(companyId);
+        return ResponseEntity.status(200).body(accountAddress);
+    }
 }

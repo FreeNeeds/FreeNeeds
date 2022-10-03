@@ -147,4 +147,10 @@ public class CompanyServiceImpl implements CompanyService{
         });
         return companyRepository.save(company);
     }
+
+    @Override
+    public String getCompanyAccountAddressByCompanyId(Long companyId) {
+        String accountAddress = companyRepositorySupport.findCompanyAccountAddressByCompanyId(companyId);
+        return accountAddress;
+    }
 }
