@@ -880,6 +880,7 @@ const CASH_CONTRACT_ABI = JSON.parse(
 	]`
 );
 
+
 export {
 	ESCROWFACTORY_CONTRACT_ABI,
   	ESCROW_CONTRACT_ABI,
