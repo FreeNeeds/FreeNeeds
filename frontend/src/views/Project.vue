@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
+    <div id="banner"><img src="../assets/images/banner2.jpg" alt="" width="95%"/></div>
     <!--<SearchBar></SearchBar>-->
     <div style="overflow : hidden; width: 1320px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
@@ -564,13 +564,10 @@ export default {
   text-align: center;
   margin: 0 auto;
   margin-bottom: 10px; 
+  margin-left: 30px;
   
 }
-img sc{
-  image-rendering: -webkit-optimize-contrast;
-  display: block;
-  margin: auto;
-}
+
 .activePage {
   font-size: 22px !important;
   color: blue !important;

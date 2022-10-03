@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner2.jpg" alt="" width="95%"/></div>
+    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
     <FilterBtn></FilterBtn>
     <div style="overflow : hidden; width: 1320px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
@@ -283,13 +283,10 @@ export default {
   text-align: center;
   margin: 0 auto;
   margin-bottom: 10px; 
+margin-left: 30px;
   
 }
-img :scope{
-  image-rendering: -webkit-optimize-contrast;
-  display: block;
-  margin: auto;
-}
+
 
 .activePage {
   font-size: 22px !important;
