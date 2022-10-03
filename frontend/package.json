@@ -19,6 +19,7 @@
     "bootstrap": "^5.2.1",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.3.2",
+    "crypto": "^1.0.1",
     "html2canvas": "^1.4.1",
     "qs": "^6.11.0",
     "vue": "^2.7.10",
