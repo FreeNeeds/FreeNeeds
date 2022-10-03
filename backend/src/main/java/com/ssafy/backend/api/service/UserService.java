@@ -55,5 +55,7 @@ public interface UserService {
 
     String getUserAccountAddressByUsername(String username);
 
+	String getUserAccountAddressByUserId(Long userId);
+
 	String getUsernameByUserId(Long userId);
 }

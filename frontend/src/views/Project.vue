@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div id="banner"></div>
+    <div id="banner"><img src="../assets/images/banner2.jpg" alt="" width="95%"/></div>
     <!--<SearchBar></SearchBar>-->
     <div style="overflow : hidden; width: 1320px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
@@ -558,10 +558,14 @@ export default {
 <style>
 #banner {
   width: 100%;
-  height: 130px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: #eaf5fb;
+  
+  display: flex;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 10px; 
+  margin-left: 30px;
+  
 }
 
 .activePage {
@@ -572,9 +576,11 @@ export default {
 .pageItem {
   font-size: 20px;
   color: gray;
+  transition: all 0.3s ease 0s;
 }
 
 .pageItem:hover {
+  cursor: pointer;
   font-size: 22px !important;
   color: blue !important;
 }

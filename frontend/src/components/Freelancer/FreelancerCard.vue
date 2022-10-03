@@ -1,12 +1,13 @@
 <template>
   <div v-if="isDataLoad">
+    
     <b-card
       class="freelancer-contents"
-      img-src="https://placekitten.com/300/300"
+      :img-src=logo
       img-left
       data-bs-toggle="modal"
       :data-bs-target="freelancerCardIdEdit"
-      style="overflow:hidden"
+      style="overflow:hidden; border-radius:20px;"
     >
       <div class="row justify-content-between">
         <b-card-title class="col-6">
@@ -39,7 +40,7 @@
         <b-card-text class="col-7">
           <div class="mb-2">
             {{ freelancerCard.body.resume.title }} <br />
-            {{ freelancerCard.body.resume.title }}
+            
           </div>
           <FreelancerCardSkill
             v-for="(skillItem, index) in freelancerCard.body.tech"
@@ -70,6 +71,7 @@
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
 import * as userInstance from "@/api/user.js";
+import logo from "@/assets/images/freech.png"
 export default {
   data() {
     return {
@@ -79,7 +81,8 @@ export default {
       freelancerCardId: "id",
       projectNumber: 0,
       estimateNumber: 0,
-      isDataLoad: false
+      isDataLoad: false,
+      logo
     };
   },
   props: {
@@ -142,6 +145,7 @@ export default {
 <style>
 .tech-contents {
   margin: 3px;
+  
 }
 
 .freelancer-contents {
@@ -149,7 +153,8 @@ export default {
   height: 200px !important;
   margin: 0 auto;
   margin-top: 30px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease 0s;
 }
 
 .freelancer-contents > img {
