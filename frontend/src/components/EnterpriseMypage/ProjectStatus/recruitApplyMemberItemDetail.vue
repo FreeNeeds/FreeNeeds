@@ -459,7 +459,7 @@
         <div class="sureContractModalCtnr">
           <h5 class="mt-5"><h3 class="fw-bold d-inline-block">{{ nameErase }}</h3> 님에게 <br>작성한 계약서를 보내겠습니까?</h5>
           <div class="m-auto">
-            <button @click="clickSendContract" class="signatureBtn my-3 mx-2">네</button>
+            <button @click="clickSendContract(), createContract()" class="signatureBtn my-3 mx-2">네</button>
             <button @click="clickNotSendContract" class="signatureBtn my-3 mx-2">아니요</button>
           </div>
         </div>
@@ -475,7 +475,9 @@ import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/Fre
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
-import html2canvas from 'html2canvas'
+import html2canvas from 'html2canvas';
+import { createEscrow } from "@/utils/EscrowFactory.js";
+import * as userInstance from "@/api/user.js";
 
 export default {
   name: "recruitApplyMemberItemDetail",
@@ -488,6 +490,8 @@ export default {
   },
   data() {
     return{
+      amount: 3000, // 계약금
+      freelancerAccount: "", // 프리랜서 지갑 주소
       idx : 0,
       myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
       selectProjectFreelancerName : "",
@@ -561,8 +565,7 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
-
-    console.log(id__)
+    userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   props : {
     nameErase : String,
@@ -582,6 +585,11 @@ export default {
     projectId : Number,
   },  
   methods: {
+    createContract: async function() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      createEscrow(accounts[0], this.freelancerAccount, this.amount);
+    },
+
     clickFreelancerDetailNavProject() {
       let removeProjectDetailItem = document.querySelector('#' + this.FreelancerDetailNavProject)
       let removeResumeDetailItem = document.querySelector("#" + this.FreelancerDetailNavResume)
