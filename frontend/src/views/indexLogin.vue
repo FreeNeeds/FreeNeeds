@@ -29,10 +29,10 @@ export default {};
 </script>
 
 <style>
-.index-signup-text {
+/* .index-signup-text {
   padding-top: 28%;
   padding-bottom: 28%;
-  padding-left: 45%;
+
   font-size: 30px;
   font-weight: bold;
 }
@@ -51,19 +51,25 @@ export default {};
   text-decoration: none;
 }
 .freelancer-selectbox {
-  background-color: #3c3c3c;
+ 
+  transition: all 0.3s ease 0s;
   color: white;
+  border-radius: 20px;
 }
 .company-selectbox {
   background-color: #f6f6f6;
+  transition: all 0.3s ease 0s;
   color: black;
+  border-radius: 20px;
 }
 .freelancer-selectbox:hover {
-  background-color: #3c3c3c;
+
   color: white;
+   transform: translateY(-3px) ;
 }
 .company-selectbox:hover {
-  background-color: #f6f6f6;
-  color: black;
-}
+  opacity: 0.8;
+   transform: translateY(-3px) ;
+} */
+
 </style>
