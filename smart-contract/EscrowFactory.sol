@@ -11,9 +11,7 @@ contract EscrowFactory is Ownable{
     address public cashContractAddress;
 
     Escrow[] public escrows;
-    
-    mapping(address => address[]) public enterpriseToEscrowAddress;
-    mapping(address => address[]) public freelancerToEscrowAddress;
+    mapping(address => mapping(address => Escrow)) public enterpriseToFreelancerToEscrow;
     
 
     constructor(address _cashContractAddresss) public {
@@ -25,34 +23,17 @@ contract EscrowFactory is Ownable{
         Escrow escrow = new Escrow(cashContractAddress, msg.sender, _freelancer, _amount);
         escrow.pay();
         escrows.push(escrow);
-        enterpriseToEscrowAddress[msg.sender].push(address(escrow));
-        freelancerToEscrowAddress[_freelancer].push(address(escrow));
+        enterpriseToFreelancerToEscrow[msg.sender][_freelancer] = escrow;
         emit CreateEscrow(_freelancer, msg.sender, address(escrow));
     }
 
     function freelancerSignEscrow(address _freelancer, address _enterprise, string memory _hashData) public {
-        for(uint256 i =0; i<escrows.length;i++){
-            if(_freelancer == escrows[i].getFreelancer() && _enterprise == escrows[i].getEnterprise()){
-                escrows[i].inputHash(_hashData);
-                emit NewEscrow(address(escrows[i].getFreelancer), address(escrows[i].getEnterprise), _hashData);
-            }
-        }
+        enterpriseToFreelancerToEscrow[_enterprise][_freelancer].inputHash(_hashData);
+        emit NewEscrow(_freelancer, _enterprise, _hashData);
     }
 
-    function findTxAddress(address _freelancer, address _enterprise) public view returns(address){
-        for(uint256 i =0; i<escrows.length;i++){
-            if(_freelancer == escrows[i].getFreelancer() && _enterprise == escrows[i].getEnterprise()){
-                return address(escrows[i]);
-            }
-        } 
-    }
-
-    function getEnterpriseToEscrowAddress(address _enterprise) public view returns(address[] memory) {
-      return enterpriseToEscrowAddress[_enterprise];
-    }
-
-    function getFreelancerToEscrowAddress(address _freelancer) public view returns(address[] memory) {
-      return freelancerToEscrowAddress[_freelancer];
+    function getEnterpriseToFreelancerToEscrow(address _enterprise, address _freelancer) public view returns(address) {
+      return address(enterpriseToFreelancerToEscrow[_enterprise][_freelancer]);
     }
 }
 
@@ -66,9 +47,6 @@ contract CashInterface {
 
 contract Escrow {
     CashInterface public cashContract;
-
-    enum State {Paid, Agreed, Withdraw}
-    State public state;
 
     string private hashData;
     address private enterprise;
@@ -113,25 +91,14 @@ contract Escrow {
         return amount;
     }
 
-    function getState() public view returns(State){
-        return state;
-    }
 
     function pay() public returns (bool){
         cashContract.send(enterprise, amount);
         return true;
     }
 
-    function agree() public onlyEnterprise returns (bool){
-        require(state == State.Paid);
-        state = State.Agreed;
-        return true;
-    }
-
-    function withdraw() public onlyFreelancer returns (bool){
-        require(state == State.Agreed);
+    function withdraw() public returns (bool){
         cashContract.transfer(freelancer, amount);
-        state = State.Withdraw;
         return true;
     }
 
