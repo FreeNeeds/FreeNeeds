@@ -73,7 +73,7 @@
     ></div>
     <div
       v-rellax="{
-        speed: 10
+        speed: 17
       }"
       class="circle5"
     ></div>

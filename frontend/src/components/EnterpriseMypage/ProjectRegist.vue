@@ -93,7 +93,7 @@
           </svg>
         </div>
       
-        <div id="skillCandidateCtnr" class=" col-8 mx-5 my-3 text-center" style="width : 50%">
+        <div id="skillCandidateCtnr" class=" col-8 mx-5 my-3 text-center" style="width : 45%">
           <FilterSkillCandidate
             v-for="skillCandidate in FilterSkillCandidate"
             :key="skillCandidate"
@@ -102,28 +102,29 @@
            
           ></FilterSkillCandidate>
         </div>
-        <div class="row mx-2 my-2">
+        <hr class="project-card-line mb-4">
+        <div class="row  my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">프로젝트명</div>
-          <input v-model="projectInfo.title" class="col-2 mb-1 form-control" type="text">
+          <input v-model="projectInfo.title" class="col-2 mx-1 mb-1 form-control" type="text">
         </div>
-        <div class="row mx-2 my-2">
+        <div class="row my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem"> 내용 </div>
-            <textarea v-model="projectInfo.content" class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
+            <textarea v-model="projectInfo.content" class="col-7 mx-1 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
           </div>
         
-        <div class="row mx-2 my-2">
+        <div class="row  my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
           <input v-model="projectInfo.workStartTime" class="col-2 mb-1 form-control" type="time">
           <div class="col-1 projectDetailItem text-center">  ~ </div>
-          <input v-model="projectInfo.workEndTime" class="col-2 mb-1 form-control" type="time">
+          <input v-model="projectInfo.workEndTime" class="col-2 mx-1 mb-1 form-control" type="time">
         </div>   
-        <div class="row mx-2 my-2">
+        <div class="row  my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  지역시</div>
-          <input v-model="projectInfo.locationSi" class="col-2 mb-1 form-control" type="text" placeholder="대전광역시">
+          <input v-model="projectInfo.locationSi" class="col-2  mb-1 form-control" type="text" placeholder="대전광역시">
        
-          <input v-model="projectInfo.locationGu" class="col-2 mb-1 mx-2 form-control" type="text" placeholder="유성구">
+          <input v-model="projectInfo.locationGu" class="col-2 mx-1 mb-1  form-control" type="text" placeholder="유성구">
         </div>
-        <div class="row mx-2 my-2">
+        <div class="row  my-2">
          
         </div>
         <button @click="clickRegisterProject" class="signatureBtn m-auto my-4" style="width : 150px !important">등록하기</button>
@@ -296,7 +297,7 @@ import store from "@/store/index.js";
   }
 </script>
 
-<style scoped>
+<style>
   .form-control {
     width : 20% !important
   }
