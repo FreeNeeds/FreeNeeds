@@ -75,6 +75,12 @@
       v-rellax="{
         speed: 10
       }"
+      class="circle5"
+    ></div>
+    <div
+      v-rellax="{
+        speed: 10
+      }"
       class="circle4"
     ></div>
     <div
@@ -681,6 +687,16 @@ transition: all 0.3s ease 0s;
   border-radius: 100%;
   background-color: rgba(254, 255, 179, 0.762);
   position: absolute;
-  left: 55%;
+  left: 65%;
+}
+
+.circle5 {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: rgba(110, 253, 141, 0.301);
+  position: absolute;
+  left: 20%;
+  top: 500%;
 }
 </style>
