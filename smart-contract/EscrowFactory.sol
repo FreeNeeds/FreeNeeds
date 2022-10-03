@@ -23,6 +23,7 @@ contract EscrowFactory is Ownable{
 
     function createEscrow(address _freelancer, uint256 _amount) public {
         Escrow escrow = new Escrow(cashContractAddress, msg.sender, _freelancer, _amount);
+        escrow.pay();
         escrows.push(escrow);
         enterpriseToEscrowAddress[msg.sender].push(address(escrow));
         freelancerToEscrowAddress[_freelancer].push(address(escrow));
@@ -66,7 +67,7 @@ contract CashInterface {
 contract Escrow {
     CashInterface public cashContract;
 
-    enum State {Created, Paid, Agreed, Withdraw}
+    enum State {Paid, Agreed, Withdraw}
     State public state;
 
     string private hashData;
@@ -116,10 +117,8 @@ contract Escrow {
         return state;
     }
 
-    function pay() public onlyEnterprise returns (bool){
-        require(state == State.Created);
+    function pay() public returns (bool){
         cashContract.send(enterprise, amount);
-        state = State.Paid;
         return true;
     }
 
