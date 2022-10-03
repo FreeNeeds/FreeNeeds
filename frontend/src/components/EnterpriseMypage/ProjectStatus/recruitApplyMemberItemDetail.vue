@@ -429,7 +429,7 @@
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button @click="clickCompleteWriteContract()" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
+                    <button @click="clickCompleteWriteContract" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
                   </div>
                   <h5 class="text-center d-none" style="color : red" :id=alreadyDoneContract>이미 전달된 계약서 입니다.</h5>
                   <div class="d-none my-2 fw-bold text-center" style="color : red" :id="notSign">
@@ -459,7 +459,7 @@
         <div class="sureContractModalCtnr">
           <h5 class="mt-5"><h3 class="fw-bold d-inline-block">{{ nameErase }}</h3> 님에게 <br>작성한 계약서를 보내겠습니까?</h5>
           <div class="m-auto">
-            <button @click="clickSendContract(), createContract()" class="signatureBtn my-3 mx-2">네</button>
+            <button @click="clickSendContract" class="signatureBtn my-3 mx-2">네</button>
             <button @click="clickNotSendContract" class="signatureBtn my-3 mx-2">아니요</button>
           </div>
         </div>
@@ -475,8 +475,7 @@ import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/Fre
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
-import { createEscrow } from "@/utils/EscrowFactory.js";
-import * as userInstance from "@/api/user.js";
+import html2canvas from 'html2canvas'
 
 export default {
   name: "recruitApplyMemberItemDetail",
@@ -489,8 +488,6 @@ export default {
   },
   data() {
     return{
-      amount: 3000, // 계약금
-      freelancerAccount: "", // 프리랜서 지갑 주소
       idx : 0,
       myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
       selectProjectFreelancerName : "",
@@ -564,12 +561,8 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
-<<<<<<< HEAD
 
     console.log(id__)
-=======
-    userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
->>>>>>> 784b1512866eae34021251a0077369403c8d594b
   },
   props : {
     nameErase : String,
@@ -589,11 +582,6 @@ export default {
     projectId : Number,
   },  
   methods: {
-    createContract: async function() {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      createEscrow(accounts[0], this.freelancerAccount, this.amount);
-    },
-
     clickFreelancerDetailNavProject() {
       let removeProjectDetailItem = document.querySelector('#' + this.FreelancerDetailNavProject)
       let removeResumeDetailItem = document.querySelector("#" + this.FreelancerDetailNavResume)
