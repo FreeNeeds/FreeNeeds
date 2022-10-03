@@ -564,7 +564,12 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
+<<<<<<< HEAD
+
+    console.log(id__)
+=======
     userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
+>>>>>>> 784b1512866eae34021251a0077369403c8d594b
   },
   props : {
     nameErase : String,

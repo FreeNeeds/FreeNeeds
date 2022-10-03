@@ -92,8 +92,7 @@
             />
           </svg>
         </div>
-      
-        <div id="skillCandidateCtnr" class=" col-8 mx-5 my-3 text-center" style="width : 45%">
+          <div id="skillCandidateCtnr" class=" col-8 mx-5 my-3 text-center" style="width : 45%">
           <FilterSkillCandidate
             v-for="skillCandidate in FilterSkillCandidate"
             :key="skillCandidate"

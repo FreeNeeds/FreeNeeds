@@ -22,7 +22,7 @@
       <div class="row project-card-header-item">
         <div class="col-2 ">
           <div class="project-card-header-round" v-if="remainDate != 0">
-            D - {{ remainDate }}
+            {{ remainDate }}
           </div>
           <div class="project-card-header-round" v-else>
             D-Day
@@ -69,7 +69,8 @@
     name : "recruitCardItem",
     props : {
       projectCardItem : Object,
-      projectCardCarousel : Object
+      projectCardCarousel : Object,
+      state : String
     },
     data() {
       return {
@@ -105,8 +106,9 @@
       this.remainDate = Math.ceil(
         (this.projectData.deadline.getTime() - new Date().getTime()) /
           (1000 * 60 * 60 * 24) -
-          1
-      );
+          1);
+      if (this.remainDate < 0) this.remainDate = '마감'
+      else this.remainDate = 'D - ' + String(this.remainDate)
       this.projectCardItemEdit += 'myPageProjectDetailId' + String(this.projectCardItem.projectId)
 
     },
@@ -116,7 +118,8 @@
     methods : {
       clickApplyMemberBtn() {
         this.$router.push({name : "apply", params: {
-              projectId : this.projectCardItem.projectId
+              projectId : this.projectCardItem.projectId,
+              state : this.state
               }});
       }
     }

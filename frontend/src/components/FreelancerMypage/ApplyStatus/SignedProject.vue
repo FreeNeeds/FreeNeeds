@@ -1,7 +1,7 @@
 <template>
   <div v-if="isDataLoaded">
     <!-- {{ projectDataList }} -->
-    <div class="carousel-wrapper-mine mx-auto mt-4" id="carouselWrapperMyPageCompanyRecruit">
+    <div class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit" id="carouselWrapperMyPageCompanyRecruit">
       <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
         <div v-for="(item, index) of projectDataList" :key="index">
           <!-- {{ item }} -->

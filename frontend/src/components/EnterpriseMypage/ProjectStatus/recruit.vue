@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="carousel-wrapper-mine mx-auto mt-4" data-bs-touch="false" id="carouselWrapperMyPageCompanyRecruit">
+    <div class="carousel-wrapper-mine carouselWrapperMyPageCompanyRecruit mx-auto mt-4" data-bs-touch="false" id="recruitCarouselWrapperMyPageCompanyRecruit">
       <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
         <recruitCardItem
         v-for="projectCardItem in myProjectLst"
         :key="projectCardItem.projectIdEdit"
         :projectCardItem="projectCardItem"
+        :state="state"
         ></recruitCardItem>
       </div>
       <recruitProjectDetail
@@ -43,6 +44,7 @@
       return {
         idx : 0,
         myProjectLst : [],
+        state : "recruit"
       }
     },
     mounted() {
@@ -65,6 +67,11 @@
             }
           }
       })
+
+      if (this.myProjectLst.length === 0) {
+        document.querySelector('#carouselWrapperMyPageCompanyRecruit').setAttribute('style','background-color : lightgray')
+      }
+      
     },
     methods : {
       prevBtnClick() {
@@ -91,7 +98,7 @@
   .prevMyPageCompany {
     position: absolute;
     top : 255px;
-    left : 560px;
+    left : 515px;
     height : 219px;
     background-color: #f9f9f9;
     border : 0px;
@@ -106,7 +113,7 @@
     border : 0px;
   }
 
-  #carouselWrapperMyPageCompanyRecruit{
+  .carouselWrapperMyPageCompanyRecruit{
     width: 660px !important;
     height: 320px !important;
     margin-left : 180px !important

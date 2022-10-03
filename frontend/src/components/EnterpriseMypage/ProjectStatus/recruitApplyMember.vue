@@ -45,7 +45,452 @@
       :key="freelancerCard.id"
       :projectId="projectIdTmp"
       :state="stateAfter"
-      :freelancerCardId="freelancerCard.body.user.userId"></recruitApplyMemberItemAfter>
+      :stateTmp="stateTmp"
+      :freelancerCardId="freelancerCard.body.user.userId"
+      @clickEstimateBtn="clickEstimateBtn"
+      ></recruitApplyMemberItemAfter>      
+    </div>
+    <div id="estimateModalWrpr" class="d-none estimateModalWrpr">
+      <div class="estimateModal">
+        <button
+        @click="clickEstimateModalCloseBtn"
+        type="button"
+        id="estimateModalCloseBtn"
+        class="btn-close"
+        ></button>
+        <h5 class="mt-4 text-center">
+          <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
+          님을 평가해주세요
+        </h5>
+        <div class="d-flex align-items-center">
+          <h5 style="width: 110px; margin-top : 20px; margin-left : 30px; margin-bottom : 0px">전문성</h5>
+          <h5 style="width: 15px; margin-top : 25px;"></h5>
+          <div class="d-inline-block" style="margin-top: 20px">
+            <div class="star-ratings d-inline-block mx-2">
+              <label for="radio1" id="select1" style="position: fixed; top : 220px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio2" id="select2" style="position: fixed; top : 220px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio3" id="select3" style="position: fixed; top : 220px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio4" id="select4" style="position: fixed; top : 220px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio5" id="select5" style="position: fixed; top : 220px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio6" id="select6" style="position: fixed; top : 220px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio7" id="select7" style="position: fixed; top : 220px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio8" id="select8" style="position: fixed; top : 220px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio9" id="select9" style="position: fixed; top : 220px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio10" id="select10" style="position: fixed; top : 220px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <input id="radio0" type="radio" name="radioGroup1" class="radio">
+              <input id="radio1" type="radio" name="radioGroup1" class="radio">
+              <input id="radio2" type="radio" name="radioGroup1" class="radio">
+              <input id="radio3" type="radio" name="radioGroup1" class="radio">
+              <input id="radio4" type="radio" name="radioGroup1" class="radio">
+              <input id="radio5" type="radio" name="radioGroup1" class="radio">
+              <input id="radio6" type="radio" name="radioGroup1" class="radio">
+              <input id="radio7" type="radio" name="radioGroup1" class="radio">
+              <input id="radio8" type="radio" name="radioGroup1" class="radio">
+              <input id="radio9" type="radio" name="radioGroup1" class="radio">
+              <input id="radio10" type="radio" name="radioGroup1" class="radio">
+              <div
+                class="star-ratings-fill star-ratings-fill-start space-x-2 text-lg"
+              >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <h5 style="width: 110px; margin-top : 20px; margin-left : 30px; margin-bottom : 0px">일정준수</h5>
+          <h5 style="width: 15px; margin-top : 25px;"></h5>
+          <div class="d-inline-block" style="margin-top: 20px">
+            <div class="star-ratings d-inline-block mx-2">
+              <label for="radio11" id="select1" style="position: fixed; top : 280px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio12" id="select2" style="position: fixed; top : 280px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio13" id="select3" style="position: fixed; top : 280px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio14" id="select4" style="position: fixed; top : 280px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio15" id="select5" style="position: fixed; top : 280px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio16" id="select6" style="position: fixed; top : 280px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio17" id="select7" style="position: fixed; top : 280px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio18" id="select8" style="position: fixed; top : 280px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio19" id="select9" style="position: fixed; top : 280px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio20" id="select10" style="position: fixed; top : 280px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <input id="radio0" type="radio" name="radioGroup2" class="radio">
+              <input id="radio11" type="radio" name="radioGroup2" class="radio">
+              <input id="radio12" type="radio" name="radioGroup2" class="radio">
+              <input id="radio13" type="radio" name="radioGroup2" class="radio">
+              <input id="radio14" type="radio" name="radioGroup2" class="radio">
+              <input id="radio15" type="radio" name="radioGroup2" class="radio">
+              <input id="radio16" type="radio" name="radioGroup2" class="radio">
+              <input id="radio17" type="radio" name="radioGroup2" class="radio">
+              <input id="radio18" type="radio" name="radioGroup2" class="radio">
+              <input id="radio19" type="radio" name="radioGroup2" class="radio">
+              <input id="radio20" type="radio" name="radioGroup2" class="radio">
+              <div
+                class="star-ratings-fill star-ratings-fill-start space-x-2 text-lg"
+              >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <h5 style="width: 110px; margin-top : 20px; margin-left : 30px; margin-bottom : 0px">적극성</h5>
+          <h5 style="width: 15px; margin-top : 25px;"></h5>
+          <div class="d-inline-block" style="margin-top: 20px">
+            <div class="star-ratings d-inline-block mx-2">
+              <label for="radio21" id="select1" style="position: fixed; top : 340px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio22" id="select2" style="position: fixed; top : 340px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio23" id="select3" style="position: fixed; top : 340px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio24" id="select4" style="position: fixed; top : 340px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio25" id="select5" style="position: fixed; top : 340px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio26" id="select6" style="position: fixed; top : 340px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio27" id="select7" style="position: fixed; top : 340px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio28" id="select8" style="position: fixed; top : 340px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio29" id="select9" style="position: fixed; top : 340px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio30" id="select10" style="position: fixed; top : 340px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <input id="radio0" type="radio" name="radioGroup3" class="radio">
+              <input id="radio21" type="radio" name="radioGroup3" class="radio">
+              <input id="radio22" type="radio" name="radioGroup3" class="radio">
+              <input id="radio23" type="radio" name="radioGroup3" class="radio">
+              <input id="radio24" type="radio" name="radioGroup3" class="radio">
+              <input id="radio25" type="radio" name="radioGroup3" class="radio">
+              <input id="radio26" type="radio" name="radioGroup3" class="radio">
+              <input id="radio27" type="radio" name="radioGroup3" class="radio">
+              <input id="radio28" type="radio" name="radioGroup3" class="radio">
+              <input id="radio29" type="radio" name="radioGroup3" class="radio">
+              <input id="radio30" type="radio" name="radioGroup3" class="radio">
+              <div
+                class="star-ratings-fill star-ratings-fill-start space-x-2 text-lg"
+              >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <h5 style="width: 110px; margin-top : 20px; margin-left : 30px; margin-bottom : 0px">의사소통</h5>
+          <h5 style="width: 15px; margin-top : 25px;"></h5>
+          <div class="d-inline-block" style="margin-top: 20px">
+            <div class="star-ratings d-inline-block mx-2">
+              <label for="radio31" id="select1" style="position: fixed; top : 400px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio32" id="select2" style="position: fixed; top : 400px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio33" id="select3" style="position: fixed; top : 400px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio34" id="select4" style="position: fixed; top : 400px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio35" id="select5" style="position: fixed; top : 400px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio36" id="select6" style="position: fixed; top : 400px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio37" id="select7" style="position: fixed; top : 400px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio38" id="select8" style="position: fixed; top : 400px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio39" id="select9" style="position: fixed; top : 400px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio40" id="select10" style="position: fixed; top : 400px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <input id="radio0" type="radio" name="radioGroup4" class="radio">
+              <input id="radio31" type="radio" name="radioGroup4" class="radio">
+              <input id="radio32" type="radio" name="radioGroup4" class="radio">
+              <input id="radio33" type="radio" name="radioGroup4" class="radio">
+              <input id="radio34" type="radio" name="radioGroup4" class="radio">
+              <input id="radio35" type="radio" name="radioGroup4" class="radio">
+              <input id="radio36" type="radio" name="radioGroup4" class="radio">
+              <input id="radio37" type="radio" name="radioGroup4" class="radio">
+              <input id="radio38" type="radio" name="radioGroup4" class="radio">
+              <input id="radio39" type="radio" name="radioGroup4" class="radio">
+              <input id="radio40" type="radio" name="radioGroup4" class="radio">
+              <div
+                class="star-ratings-fill star-ratings-fill-start space-x-2 text-lg"
+              >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <h5 style="width: 110px; margin-top : 20px; margin-left : 30px; margin-bottom : 0px">재고용의사 </h5>
+          <h5 style="width: 15px; margin-top : 25px;"></h5>
+          <div class="d-inline-block" style="margin-top: 20px">
+            <div class="star-ratings d-inline-block mx-2">
+              <label for="radio41" id="select1" style="position: fixed; top : 460px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio42" id="select2" style="position: fixed; top : 460px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio43" id="select3" style="position: fixed; top : 460px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio44" id="select4" style="position: fixed; top : 460px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio45" id="select5" style="position: fixed; top : 460px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio46" id="select6" style="position: fixed; top : 460px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio47" id="select7" style="position: fixed; top : 460px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio48" id="select8" style="position: fixed; top : 460px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio49" id="select9" style="position: fixed; top : 460px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <label for="radio50" id="select10" style="position: fixed; top : 460px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <input id="radio40" type="radio" name="radioGroup5" class="radio">
+              <input id="radio41" type="radio" name="radioGroup5" class="radio">
+              <input id="radio42" type="radio" name="radioGroup5" class="radio">
+              <input id="radio43" type="radio" name="radioGroup5" class="radio">
+              <input id="radio44" type="radio" name="radioGroup5" class="radio">
+              <input id="radio45" type="radio" name="radioGroup5" class="radio">
+              <input id="radio46" type="radio" name="radioGroup5" class="radio">
+              <input id="radio47" type="radio" name="radioGroup5" class="radio">
+              <input id="radio48" type="radio" name="radioGroup5" class="radio">
+              <input id="radio49" type="radio" name="radioGroup5" class="radio">
+              <input id="radio50" type="radio" name="radioGroup5" class="radio">
+              <div
+                class="star-ratings-fill star-ratings-fill-start space-x-2 text-lg"
+              >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(255, 205, 14)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="star-ratings-base space-x-2 text-lg">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <button @click="completeEstimate" class="estimateCompleteBtn">평가완료</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +506,10 @@ export default {
     projectId : {
       type : Number,
       default : 0
+    },
+    state : {
+      type : String,
+      default : ""
     }
   },
   data() {
@@ -73,6 +522,7 @@ export default {
       stateBefore : "before",
       stateIng : "Ing",
       stateAfter : "After",
+      nameErase : "",
       freelancerCardItem : {
         projectCareerId : "1",
         category : "개발",
@@ -156,6 +606,7 @@ export default {
   },
   mounted() {
     this.projectIdTmp = this.$route.params.projectId
+    this.stateTmp = this.$route.params.state
     createInstance().get('/apply/project' , {
       params : {
         projectId : String(this.$route.params.projectId)
@@ -257,6 +708,22 @@ export default {
       if (idxTmp > -1) this.beforeFreelancerCardLst.splice(idxTmp,1)
 
       this.ingFreelancerCardLst.push(itemToFind)
+    },
+
+    clickEstimateBtn(value) {
+      console.log(value)
+      this.nameErase = value.nameErase
+      document.querySelector('body').style.overflow = 'hidden'
+      document.querySelector('#estimateModalWrpr').classList.remove('d-none')
+    },
+
+    clickEstimateModalCloseBtn() {
+      document.querySelector('body').style.overflow = 'scroll'
+      document.querySelector('#estimateModalWrpr').classList.add('d-none')
+    },
+
+    completeEstimate() {
+        
     }
   }
 };
