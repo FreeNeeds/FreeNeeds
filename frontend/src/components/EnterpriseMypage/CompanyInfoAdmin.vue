@@ -1,7 +1,7 @@
 <template> 
   <div id="projectDetailCtnr">
     <div class="row mx-2 my-2">
-      <div class="projectDetailHeadItem projectDetailItem">  {{ name }}님의 기업정보</div>
+      <div class="projectDetailHeadItem projectDetailItem" style="font-size:30px;">  {{ name }} 님의 기업정보</div>
       <hr style="width: 90%; margin-top:40px; margin-bottom: 0; margin-left : 10px" />
     </div>
     <div class="mx-2 my-5">
@@ -28,8 +28,16 @@
 
 <script>
 import * as companyInstance from "@/api/company.js";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
+  computed: {
+    ...mapGetters(["accessToken", "isLogin","loginUserInfo"])
+  },
+  mounted(){
+    console.log(this.$store.getters.loginUserInfo);
+    this.name=this.$store.getters.loginUserInfo.name;
+  },
   data() {
     return {
       name: "ddd",

@@ -73,7 +73,7 @@
     ></div>
     <div
       v-rellax="{
-        speed: 10
+        speed: 17
       }"
       class="circle5"
     ></div>
@@ -433,7 +433,7 @@ export default {
    
       for (let j = 0; j < 3; j++) {
         for (let i = 0; i < this.recmdFreelancer[j].name.length; i++) {
-          console.log(this.recmdFreelancer[j].name[i]);
+          
           if (i == 1) this.nameErase[j] += "*";
           else this.nameErase[j] += this.recmdFreelancer[j].name[i];
         }
