@@ -585,8 +585,11 @@ export default {
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
   height: 300px;
+transition: all 0.3s ease 0s;
 
-
+}
+.descFree-user:hover{
+  transform: translateY(-3px) ;
 }
 
 .descFree-project {
@@ -598,10 +601,12 @@ export default {
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
   height: 300px;
+   transition: all 0.3s ease 0s;
+
 }
 
 .descFree-project :hover {
-  transform: scale(1.1);
+ transform: translateY(-3px) ;
 }
 
 .freeicon {

@@ -1,7 +1,15 @@
 <template>
   <div>
+    
     <button @click="startInterval" id="filterBtn" data-bs-toggle="modal" data-bs-target="#filterModal">
-    필터
+    <img
+                  class="freelancericon btnimg"
+                  width="55px"
+                  src="@/assets/images/freech6.png"
+                  alt=""
+                  
+              />
+              필터
     </button>
     <div id="filterModal"
     class="modal text-center"
@@ -730,5 +738,10 @@
     top : 20px;
     left : 572px;
     font-weight: 700;
+  }
+  .btnimg{
+    position: absolute;
+    top:-50px;
+    left: 7px;
   }
   </style>
