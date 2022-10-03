@@ -42,31 +42,30 @@
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
           <select v-model="projectInfo.category" class="form-select text-center" aria-label="Default select example">
-            <option selected style="padding-right: 2px">개발</option>
-            <option value="1" style="padding-right: 2px">개발</option>
-            <option value="2" style="padding-right: 2px">디자인</option>
-            <option value="3" style="padding-right: 2px">기획</option>
+            <option value="개발" selected style="padding-right: 2px">개발</option>
+            <option value="디자인" style="padding-right: 2px">디자인</option>
+            <option value="기획" style="padding-right: 2px">기획</option>
           </select>
         </div>  
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
           <select v-model="projectInfo.domain" class="form-select text-center" aria-label="Default select example">
-            <option selected style="padding-right: 2px">웹사이트</option>
-            <option value="1" style="padding-right: 2px">앱(APP)</option>
-            <option value="2" style="padding-right: 2px">커머스/쇼핑몰</option>
-            <option value="3" style="padding-right: 2px">퍼블리싱</option>
-            <option value="4" style="padding-right: 2px">네트워크/보안</option>
-            <option value="5" style="padding-right: 2px">게임</option>
-            <option value="6" style="padding-right: 2px">일반소프트웨어</option>
-            <option value="7" style="padding-right: 2px">제품</option>
-            <option value="8" style="padding-right: 2px">영상</option>
+            <option value="웹사이트" selected style="padding-right: 2px">웹사이트</option>
+            <option value="앱" style="padding-right: 2px">앱(APP)</option>
+            <option value="커머스/쇼핑몰" style="padding-right: 2px">커머스/쇼핑몰</option>
+            <option value="퍼블리싱" style="padding-right: 2px">퍼블리싱</option>
+            <option value="네트워크/보안" style="padding-right: 2px">네트워크/보안</option>
+            <option value="게임" style="padding-right: 2px">게임</option>
+            <option value="일반소프트웨어" style="padding-right: 2px">일반소프트웨어</option>
+            <option value="제품" style="padding-right: 2px">제품</option>
+            <option value="영상" style="padding-right: 2px">영상</option>
             <option value="9" style="padding-right: 2px">그래픽</option>
           </select>
         </div> 
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
-            <textarea v-model="projectInfo.task" class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
-          </div>
+          <input v-model="projectInfo.task" class="col-2 mb-1 form-control" type="text">
+        </div>
         </div> 
         <div id="skillSelectCtnr my-3" style="margin-left : 100px; margin-right : 100px">
           <FilterSkillSelect
@@ -79,7 +78,7 @@
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  기술</div>
           <div id="skillSearchCtnr" style="width : 350px; background-color: white; margin-left : 0px">
-          <input type="text" id="skillSearchBar" autocomplete="off" />
+          <input placeholder="기술명을 검색하세요"  type="text" id="skillSearchBar" autocomplete="off" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -93,22 +92,25 @@
             />
           </svg>
         </div>
-        <div id="skillCandidateCtnr" class="mx-5 my-3 text-center" style="width : 80%">
+      
+        <div id="skillCandidateCtnr" class=" col-8 mx-5 my-3 text-center" style="width : 50%">
           <FilterSkillCandidate
             v-for="skillCandidate in FilterSkillCandidate"
             :key="skillCandidate"
             :skillCandidate="skillCandidate"
             @insertSkill="insertSkill"
+           
           ></FilterSkillCandidate>
         </div>
         <div class="row mx-2 my-2">
-          <div class="col-3 projectDetailHeadItem projectDetailItem">  프로젝트명</div>
+          <div class="col-3 projectDetailHeadItem projectDetailItem">프로젝트명</div>
           <input v-model="projectInfo.title" class="col-2 mb-1 form-control" type="text">
         </div>
         <div class="row mx-2 my-2">
-          <div class="col-3 projectDetailHeadItem projectDetailItem">  내용</div>
-          <input v-model="projectInfo.content" class="col-2 mb-1 form-control" type="text">
-        </div>
+          <div class="col-3 projectDetailHeadItem projectDetailItem"> 내용 </div>
+            <textarea v-model="projectInfo.content" class="col-7 mb-1 form-control" style="width : 500px !important; height : 100px"></textarea>
+          </div>
+        
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
           <input v-model="projectInfo.workStartTime" class="col-2 mb-1 form-control" type="time">
@@ -300,10 +302,18 @@ import store from "@/store/index.js";
   }
 
   .form-select {
-    width : 20% !important
+    width : 20% !important;
+   
   }
 
   .hiddenScroll {
     overflow: hidden !important;
+  }
+
+  #skillCandidateCtnr{
+  border-radius: 20px;
+    background-color: #fff;
+    position: relative;
+    left: 19%;
   }
 </style>

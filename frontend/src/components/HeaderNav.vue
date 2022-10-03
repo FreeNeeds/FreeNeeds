@@ -106,7 +106,8 @@ export default {
 .container-fluid {
   /* margin-top: 1% !important;
   margin-left: 10% !important;
-  margin-right: 10% !important; */
+   */
+margin-right: 10% !important;
   /* background: #0099CC;
 	background: linear-gradient(to bottom,  #151d24,  #34615c); */
   height: 100px;
