@@ -296,7 +296,7 @@ import store from "@/store/index.js";
   }
 </script>
 
-<style>
+<style scoped>
   .form-control {
     width : 20% !important
   }
