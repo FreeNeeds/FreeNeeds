@@ -17,3 +17,8 @@
     }
   }
 </script>
+<style>
+.skillCandidateLetter:hover{
+  cursor: pointer;
+}
+</style>
