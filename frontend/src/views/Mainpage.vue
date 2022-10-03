@@ -450,6 +450,11 @@ export default {
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+.mainNav{
+  position: relative;
+  top:10vh;
+}
 .main-intro-container {
   margin-bottom: 200px;
 }
