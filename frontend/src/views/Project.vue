@@ -576,9 +576,11 @@ export default {
 .pageItem {
   font-size: 20px;
   color: gray;
+  transition: all 0.3s ease 0s;
 }
 
 .pageItem:hover {
+  cursor: pointer;
   font-size: 22px !important;
   color: blue !important;
 }
