@@ -363,6 +363,8 @@ import { createInstance } from "@/api/index.js";
 import html2canvas from 'html2canvas'
 import { freelancerSignEscrow } from "@/utils/EscrowFactory";
 import * as userInstance from "@/api/user.js";
+import * as companyInstance from "@/api/company.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "ApplyProjectDetailIng",
@@ -419,6 +421,9 @@ export default {
       companyAccount:"",
       
     }
+  },
+  computed: {
+    ...mapGetters(["loginUserInfo"])
   },
   mounted() {
     let id__ = this.idEdit
@@ -480,7 +485,8 @@ export default {
     this.remainDate = "D - " + String(this.remainDate);
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
       (1000 * 60 * 60 * 24));
-    userInstance.getUserAccountAddress(this.id_, res => { this.freelancerAccount = res.data });
+    // userInstance.getUserAccountAddress(this.loginUserInfo.id, res => { this.freelancerAccount = res.data });
+    companyInstance.getCompanyAccountAddress(this.companyDataReceive.id, res => { this.companyAccount = res.data });
   },
   props : {
     projectDataReceive : Object,
@@ -686,14 +692,16 @@ export default {
 
       //pdf변환 완료 후 암호화 로직 백엔드로 데이터 보내서 가져와야함
 
+
+      
       //컨트랙트에 서명한 데이터까지 올리는 코드
       let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       let hashData = "ceee4d91fb12f9c5b790254063cc0c7b4c0799b101590bcbd602c31023174de3";
 
-      freelancerSignEscrow(accounts, this.freelancerAccount, this.companyAccount, hashData);
+      freelancerSignEscrow(accounts[0], this.companyAccount, hashData);
 
 
-
+      // 계약 테이블 저장
       createInstance().put('/apply', {
         userId : this.$store.state.accounts.loginUserInfo.id,
         projectId : this.projectDataReceive.projectId,

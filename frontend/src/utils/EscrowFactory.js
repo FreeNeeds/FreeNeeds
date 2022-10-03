@@ -13,10 +13,10 @@ function createEscrow(address,freelancer,amount) {
 }
 
 // 프리랜서 서명
-function freelancerSignEscrow(address,freelancer, enterprise, hashData) { 
+function freelancerSignEscrow(freelancer, enterprise, hashData) { 
   let contract = new web3.eth.Contract(ESCROWFACTORY_CONTRACT_ABI, ESCROWFACTORY_CONTRACT_ADDRESS);
   contract.methods.freelancerSignEscrow(freelancer, enterprise, hashData)
-  .send({ from: address }).then(console.log);
+  .send({ from: freelancer }).then(console.log);
 }
 
 // 프리랜서와 기업으로 계약 주소 찾기

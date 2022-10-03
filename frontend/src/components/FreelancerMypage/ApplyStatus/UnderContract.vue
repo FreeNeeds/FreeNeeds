@@ -117,11 +117,14 @@ export default {
         res => {
           console.log(res);
           const data = {
+            id : res.data.companyInfo.company.companyId,
             ceo: res.data.companyInfo.ceo,
             name: res.data.companyInfo.company.name,
             call: res.data.companyInfo.company.phone,
             address: res.data.companyInfo.address
           };
+          // console.log("data출력");
+          // console.log(data);
           this.projectDataList[i].companyData = data;
         }
       );
