@@ -6,7 +6,8 @@
     >
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
         <button id="completeDetailBtn" data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn">상세보기</button>
-        <button @click=clickEstimateBtn :id="completeEstimateBtn" class="completeEstimateAfterBtn myPageProjectDetailBtn d-none" style="top : 85px; left : -30px">평가하기</button>
+        <button @click=clickEstimateBtn :id="completeEstimateBtn" class="completeEstimateAfterBtn myPageProjectDetailBtn d-none" style="top : 65px; left : -30px">평가하기</button>
+        <button @click=clickCalBtn :id="completeCalBtn" class="completeEstimateAfterBtn myPageProjectDetailBtn newClrBtn d-none" style="top : 115px; left : -180px">정산하기</button>
       </div>
       <div class="row justify-content-between">
         <b-card-title class="col-6">
@@ -48,6 +49,12 @@
             <div class="col-4">총 {{ projectCareer.length }} 건 </div>
           </div>
           <hr>
+        </div>
+      </div>
+      <div id="calWrpr" class="d-none calWrpr">
+        <div class="cal text-center">
+          <h4 class="mt-5">정산이 완료되었습니다.</h4>
+          <button @click="calClose" class="estimateCompleteBtn" style="top : 300px">확인</button>
         </div>
       </div>
       <recruitApplyMemberItemDetailIng
@@ -96,9 +103,11 @@
         active : 0,
         communication : 0,
         reEmployment : 0,
+        username : '',
         estimateModalWrpr : "estimateModalWrpr",
         completeDetailBtn : "completeDetailBtn",
-        completeEstimateBtn : "completeEstimateBtn"
+        completeEstimateBtn : "completeEstimateBtn",
+        completeCalBtn : "completeCalBtn"
       }
     },
     props : {
@@ -109,8 +118,10 @@
     },
     mounted() {
       this.freelancerCardIdModal += this.freelancerCardId
+      this.completeCalBtn += this.freelancerCardId
       createInstance().get('/users/username/' + String(this.freelancerCardId)).then(res => {
         let username = res.data
+        this.username = res.data
         createInstance().get('/users/project/' + username).then(res => {
           for (let i = 0; i < res.data.length; i++) {
             this.projectCareer.push({
@@ -161,11 +172,13 @@
       this.estimateModalWrpr += String(this.freelancerCardId)
       if (this.stateTmp === "complete") {
         for (let item of document.querySelectorAll('#completeDetailBtn')) {
-          item.setAttribute('style','top : 30px;')
+          item.setAttribute('style','top : 15px;')
         }
         for (let item of document.querySelectorAll('.completeEstimateAfterBtn')) {
           item.classList.remove('d-none')
         }
+
+        
       }
       this.freelancerCardIdEdit += String(this.freelancerCardId)
     },
@@ -177,13 +190,19 @@
       clickEstimateBtn() {
         this.$emit("clickEstimateBtn",{
           nameErase : this.nameErase,
-          freelancerCardId : this.freelancerCardId
+          freelancerCardId : this.freelancerCardId,
+          username : this.username
         })
       },
 
+      clickCalBtn() {
+        document.querySelector('body').style.overflow = 'hidden'
+        document.querySelector('#calWrpr').classList.remove('d-none')
+      },
 
-      completeEstimate() {
-        
+      calClose() {
+        document.querySelector('body').style.overflow = 'scroll'
+        document.querySelector('#calWrpr').classList.add('d-none')
       }
     },
     components : {
@@ -255,6 +274,10 @@
     width : 0%;
   }
 
+  .newClrBtn {
+    background-color: rgb(252, 121, 91);
+  }
+  
   #select1:hover ~ .star-ratings-fill {
     width: 10% !important;
   }
@@ -512,5 +535,27 @@
     position: fixed;
     top : 550px;
     left : 705px;
+  }
+
+  .calWrpr {
+    position: fixed;
+    top : 0px;
+    left : 0px;
+    z-index: 2;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .cal {
+    position: fixed;
+    top: 180px;
+    right: 560px;
+    background-color: white;
+    border-radius: 30px;
+    height: 220px; 
+    border: 1px solid lightgray;
+    width: 400px;
+    margin: auto;
   }
 </style>
