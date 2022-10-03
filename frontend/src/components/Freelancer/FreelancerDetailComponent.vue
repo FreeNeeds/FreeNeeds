@@ -543,6 +543,14 @@ export default {
 .deactiveProjectDetailItem {
   display: none;
 }
+.info-change-btn {
+  background-color: #5d8aff;
+  color: white;
+  font-weight: 24px;
+  border: none;
+  padding: 3px 10px 3px 10px;
+  border-radius: 5px;
+}
 .resume-add-btn {
   background-color: #5d8aff;
   color: white;

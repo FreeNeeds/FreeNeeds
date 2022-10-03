@@ -20,6 +20,8 @@
         </div>
       </div>
     </div>
+    <freelancer-detail v-if="isModalOn"></freelancer-detail>
+
     <button
       class="prev prevFreelancervue"
       type="button"
@@ -106,9 +108,12 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerList from "@/components/Freelancer/FreelancerList.vue";
 import FilterBtn from "@/components/Freelancer/Filter/FilterBtn.vue";
 import { toChecksumAddress } from "web3-utils";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetailForList.vue";
 import { mapGetters } from "vuex";
 export default {
-  computed: { ...mapGetters(["freelancerFilter"]) },
+  computed: {
+    ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
+  },
   data() {
     return {
       /** 실제 페이지 1,2.....,10.. */
@@ -270,7 +275,13 @@ export default {
     }
   },
 
-  components: { HeaderNav, FilterBtn, FooterNav, FreelancerList }
+  components: {
+    HeaderNav,
+    FilterBtn,
+    FooterNav,
+    FreelancerList,
+    FreelancerDetail
+  }
 };
 </script>
 

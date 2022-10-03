@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import FreelancerCard from "@/components/Freelancer/FreelancerCard.vue";
+import FreelancerCard from "@/components/Freelancer/FreelancerCardNoModal.vue";
 import { mapActions, mapGetters } from "vuex";
 
 import * as userInstance from "@/api/user.js";
