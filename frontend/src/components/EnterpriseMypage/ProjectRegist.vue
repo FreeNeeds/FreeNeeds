@@ -42,7 +42,6 @@
         <div class="row mx-2 my-2">
           <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
           <select v-model="projectInfo.category" class="form-select text-center" aria-label="Default select example">
-            <option selected style="padding-right: 2px">개발</option>
             <option value="1" style="padding-right: 2px">개발</option>
             <option value="2" style="padding-right: 2px">디자인</option>
             <option value="3" style="padding-right: 2px">기획</option>
@@ -93,7 +92,7 @@
             />
           </svg>
         </div>
-        <div id="skillCandidateCtnr" class="mx-5 my-3 text-center" style="width : 80%">
+        <div id="skillCandidateCtnr" class="mx-5 my-3 text-center" style="width : 85%">
           <FilterSkillCandidate
             v-for="skillCandidate in FilterSkillCandidate"
             :key="skillCandidate"

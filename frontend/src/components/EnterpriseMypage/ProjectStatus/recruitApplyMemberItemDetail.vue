@@ -561,6 +561,8 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
+
+    console.log(id__)
   },
   props : {
     nameErase : String,
