@@ -50,6 +50,12 @@
       @clickEstimateBtn="clickEstimateBtn"
       ></recruitApplyMemberItemAfter>      
     </div>
+    <div id="alreadyDoneEstimateWrpr" class="d-none alreadyDoneEstimateWrpr">
+      <div class="alreadyDoneEstimate text-center">
+        <h4 class="mt-5">이미 평가를 마친 프리랜서입니다.</h4>
+        <button @click="alreadyDoneClose" class="estimateCompleteBtn" style="top : 300px">확인</button>
+      </div>
+    </div>
     <div id="estimateModalWrpr" class="d-none estimateModalWrpr">
       <div class="estimateModal">
         <button
@@ -518,11 +524,14 @@ export default {
       beforeFreelancerCardLst : [],
       ingFreelancerCardLst : [],
       afterFreelancerCardLst : [],
+      isEstimate : [],
       projectIdTmp : 0,
       stateBefore : "before",
       stateIng : "Ing",
       stateAfter : "After",
       nameErase : "",
+      username : '',
+      freeTmpId : '',
       freelancerCardItem : {
         projectCareerId : "1",
         category : "개발",
@@ -712,9 +721,16 @@ export default {
 
     clickEstimateBtn(value) {
       console.log(value)
-      this.nameErase = value.nameErase
-      document.querySelector('body').style.overflow = 'hidden'
-      document.querySelector('#estimateModalWrpr').classList.remove('d-none')
+      if (!this.isEstimate.includes(value.freelancerCardId)) {
+        this.nameErase = value.nameErase
+        this.username = value.username
+        this.freeTmpId = value.freelancerCardId
+        document.querySelector('body').style.overflow = 'hidden'
+        document.querySelector('#estimateModalWrpr').classList.remove('d-none')
+      } else {
+        document.querySelector('body').style.overflow = 'hidden'
+        document.querySelector('.alreadyDoneEstimateWrpr').classList.remove('d-none')
+      }
     },
 
     clickEstimateModalCloseBtn() {
@@ -723,7 +739,24 @@ export default {
     },
 
     completeEstimate() {
-        
+      let tmp = document.querySelectorAll('.star-ratings-fill-start')
+      console.log(tmp[0].offsetWidth)
+      createInstance().post('/estimates/' + this.username, {
+        profession : tmp[0].offsetWidth / 40,
+        ontime : tmp[1].offsetWidth / 40,
+        active : tmp[2].offsetWidth / 40,
+        communication : tmp[3].offsetWidth / 40,
+        reEmployment : tmp[4].offsetWidth / 40
+      }).then(res => {
+        console.log(res)
+        this.isEstimate.push(this.freeTmpId)    
+      })
+      document.querySelector('body').style.overflow = 'scroll'
+      document.querySelector('#estimateModalWrpr').classList.add('d-none')
+    },
+
+    alreadyDoneClose() {
+      document.querySelector('#alreadyDoneEstimateWrpr').classList.add('d-none')
     }
   }
 };
@@ -732,5 +765,27 @@ export default {
 <style>
   .activeContract {
     background-color : lightblue;
+  }
+
+  .alreadyDoneEstimateWrpr {
+    position: fixed;
+    top : 0px;
+    left : 0px;
+    z-index: 2;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .alreadyDoneEstimate {
+    position: fixed;
+    top: 180px;
+    right: 560px;
+    background-color: white;
+    border-radius: 30px;
+    height: 220px; 
+    border: 1px solid lightgray;
+    width: 400px;
+    margin: auto;
   }
 </style>
