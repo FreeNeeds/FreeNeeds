@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div id="banner"></div>
+    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
     <FilterBtn></FilterBtn>
     <div style="overflow : hidden; width: 1320px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
@@ -62,7 +62,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
-    <div class="text-center">
+    <div class="text-center paging">
       <div
         @click="clickPageOne"
         id="page1"
@@ -285,14 +285,19 @@ export default {
 };
 </script>
 
-<style>
+<style >
 #banner {
   width: 100%;
-  height: 130px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: #eaf5fb;
+  
+  display: flex;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 10px; 
+margin-left: 30px;
+  
 }
+
 
 .activePage {
   font-size: 22px !important;
@@ -333,5 +338,9 @@ export default {
 }
 .freelancer-list-wrapper {
   width: 1300px;
+}
+
+.paging{
+  /* margin: 15px; */
 }
 </style>

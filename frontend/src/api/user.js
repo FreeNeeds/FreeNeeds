@@ -186,6 +186,14 @@ async function getUserResume(username, success, fail) {
     .catch(fail);
 }
 
+/** 프리랜서 지갑 주소 조회 */
+async function getUserAccountAddress(userId, success, fail) {
+  await instance
+    .get(`users/account/${userId}`)
+    .then(success)
+    .catch(fail);
+}
+
 export {
   signupFreelancer,
   getUserResume,
@@ -201,5 +209,6 @@ export {
   changeUserProfile,
   setUserProfile,
   getFilterUserList,
-  getUserList
+  getUserList,
+  getUserAccountAddress
 };

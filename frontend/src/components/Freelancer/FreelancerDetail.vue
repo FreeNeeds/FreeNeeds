@@ -268,7 +268,7 @@
             <div class="row mx-2 my-4">
               <div class="projectDetailHeadItem projectDetailItem">학력</div>
             </div>
-            <div class="d-flex mx-3 my-2">
+            <div class="d-flex mx-4  my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.highschool }}
               </div>
@@ -277,7 +277,7 @@
                 {{ freelancerEducation.education.highschool_end_date }}
               </div>
             </div>
-            <div class="d-flex mx-3 my-2">
+            <div class="d-flex mx-4 my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.university }}
               </div>
@@ -290,7 +290,7 @@
               <div class="projectDetailHeadItem projectDetailItem">경력</div>
             </div>
             <div
-              class="d-flex mx-3 my-2"
+              class="d-flex mx-4 my-2"
               v-for="freelancerCareerItem in freelancerEducation.careerList"
             >
               <div class="freelancerEducationName">
@@ -305,8 +305,8 @@
               <div class="projectDetailHeadItem projectDetailItem">자격증</div>
             </div>
             <div
-              class="d-flex mx-3 mt-2"
-              style="margin-bottom : 60px"
+              class="d-flex mx-4 mt-2"
+              
               v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
@@ -777,7 +777,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;
@@ -788,6 +788,7 @@ export default {
   background-color: rgb(219, 219, 217);
   padding: 30px;
 }
+
 #project-resume {
   margin-top: 30px;
 }

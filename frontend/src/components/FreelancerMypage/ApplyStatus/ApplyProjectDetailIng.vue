@@ -361,6 +361,11 @@ import ProjectDetailSkill from "../../Project/ProjectDetailSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
 import html2canvas from 'html2canvas'
+import { freelancerSignEscrow } from "@/utils/EscrowFactory";
+import * as userInstance from "@/api/user.js";
+import * as companyInstance from "@/api/company.js";
+import { mapGetters } from "vuex";
+import hashData from "@/utils/hashData.js";
 
 export default {
   name: "ApplyProjectDetailIng",
@@ -412,8 +417,14 @@ export default {
       signatureComplete : "signatureComplete",
       alreadyDoneContract : "alreadyDoneContract",
       projectDetailNavItemProject : "projectDetailNavItemProject",
-      resumeDetailNavItemProject : "resumeDetailNavItemProject"
+      resumeDetailNavItemProject: "resumeDetailNavItemProject",
+      // freelancerAccount: "",
+      companyAccount:"",
+      
     }
+  },
+  computed: {
+    ...mapGetters(["loginUserInfo"])
   },
   mounted() {
     let id__ = this.idEdit
@@ -452,7 +463,6 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
-
     this.ProjectDetailNavProject += this.idEdit
     this.ProjectDetailNavResume += this.idEdit
     this.projectDetailNavItemProject += this.idEdit
@@ -471,10 +481,22 @@ export default {
     })
 
     this.remainDate = Math.ceil((new Date(this.projectDataReceive.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) -
-        1)
-    this.remainDate = "D - " + String(this.remainDate)
+      1);
+    this.remainDate = "D - " + String(this.remainDate);
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
-        (1000 * 60 * 60 * 24))
+      (1000 * 60 * 60 * 24));
+    // userInstance.getUserAccountAddress(this.loginUserInfo.id, res => { this.freelancerAccount = res.data });
+    companyInstance.getCompanyAccountAddress(this.projectDataReceive.company.companyId, res => {
+      // console.log("res출력");
+      // console.log(res);
+      this.companyAccount = res.data;
+      // console.log(res.data);
+    });
+    
+    // console.log("회사 계좌정보");
+    // console.log(this.companyAccount);
+    // console.log(this.projectDataReceive);
+    // console.log(this.projectDataReceive.company.companyId);
   },
   props : {
     projectDataReceive : Object,
@@ -659,7 +681,7 @@ export default {
       }
     },
 
-    clickSendContract() {
+    async clickSendContract() {
       let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
       let totalContent = ''
       for (let i = 0; i < contractInputs.length; i++) {
@@ -669,10 +691,37 @@ export default {
       totalContent += '`'
       
       totalContent += document.querySelector('#' + this.imgSign).src
+      console.log("total 컨텐츠");
+      console.log(totalContent);
+      console.log("계좌정보 출력");
+      console.log(this.companyAccount);
+
       createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
       totalContent).then(res => {
         console.log(res)
       })
+      
+      //컨트랙트에 서명한 데이터까지 올리는 코드
+      let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log("프리랜서 계좌주소");
+      console.log(accounts[0]);
+      let result = hashData.getHashData(totalContent);
+      
+      // console.log("해시값 출력");
+      // console.log(result);
+      // let companyEncrypt = "";
+      // let freelancerEncrypt = "";
+
+      //기업 암호화
+
+
+      //프리랜서 암호화
+      
+
+      freelancerSignEscrow(accounts[0], this.companyAccount, result);
+
+
+      // 계약 테이블 저장
       createInstance().put('/apply', {
         userId : this.$store.state.accounts.loginUserInfo.id,
         projectId : this.projectDataReceive.projectId,
