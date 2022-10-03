@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="navbar-nav justify-content-between align-items-center">
           <div id="logo" @click="routeMainPage">
-            <img src="../assets/images/freeneeds.png" width="150px" alt="" />
+            <img src="../assets/images/freeneeds.png" width="130px" alt="" />
           </div>
           <div>
             <span
@@ -104,24 +104,42 @@ export default {
 
 <style>
 .container-fluid {
-  margin-top: 1% !important;
+  /* margin-top: 1% !important;
   margin-left: 10% !important;
-  margin-right: 10% !important;
+  margin-right: 10% !important; */
+  /* background: #0099CC;
+	background: linear-gradient(to bottom,  #151d24,  #34615c); */
+  height: 100px;
+   margin-left: 5% !important;
+
 }
 .navbar-nav {
   width: 100% !important;
+   /* background-color: rgb(51, 199, 232); */
 }
 .nav-item {
   font-size: 20px;
   text-align: center;
 }
+
+.auth-group {
+  transition: all 0.3s ease 0s;
+  font-size: 18px;
+}
 .auth-group:hover {
-  font-size: 24px;
+  font-size: 19px;
   font-weight: bolder;
+  transform: translateY(-3px) ;
+   cursor: pointer;
+}
+.menuBar {
+ transition: all 0.3s ease 0s;
 }
 .menuBar:hover {
-  font-size: 28px !important;
+  font-size: 25px !important;
   font-weight: bolder;
+  cursor: pointer;
+  transform: translateY(-3px) ;
 }
 #findProject {
   width: 150px;
