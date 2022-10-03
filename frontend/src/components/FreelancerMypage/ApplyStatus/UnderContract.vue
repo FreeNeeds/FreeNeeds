@@ -125,6 +125,7 @@ export default {
           };
           // console.log("data출력");
           // console.log(data);
+          // console.log(data.id);
           this.projectDataList[i].companyData = data;
         }
       );
