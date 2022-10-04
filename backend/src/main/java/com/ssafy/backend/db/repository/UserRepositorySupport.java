@@ -70,4 +70,9 @@ public class UserRepositorySupport{
                 .where(qUser.userId.eq(userId)).fetchOne();
         return username;
     }
+
+//    public boolean existsByUsername(String username){
+//        return  jpaQueryFactory.selectFrom(qUser).from(qUser)
+//                .where(qUser.userId.eq(userId)).fetchOne();
+//    }
 }
