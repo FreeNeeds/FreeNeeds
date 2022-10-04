@@ -14,6 +14,7 @@
             type="text"
             id="loginCIdInput"
             class="login-input-wrapper"
+            @keydown.enter="login"
           />
         </div>
       </div>
@@ -29,6 +30,7 @@
                 type="password"
                 id="loginCPasswordInput"
                 class="login-input-wrapper  password-input-wrapper"
+                @keydown.enter="login"
               />
             </div>
             <div
@@ -86,9 +88,7 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-    
-  },
+  mounted() {},
   created() {},
   methods: {
     ...mapActions(["freelancerLoginA", "companyLoginA"]),

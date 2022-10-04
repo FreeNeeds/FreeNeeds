@@ -20,6 +20,7 @@
             >프로필 소개</label
           >
           <input
+            style="width:100% !important"
             type="email"
             class="form-control"
             id="correctUserprofileIntroduce"
@@ -78,6 +79,7 @@
               v-for="skillCandidate in FilterSkillCandidate"
               :key="skillCandidate"
               @click="insertSkill(skillCandidate)"
+              class="skill-candidate-items"
             >
               {{ skillCandidate }}
             </div>
@@ -94,6 +96,7 @@
             id="correntUserInfoIntroduction"
             rows="6"
             v-model="userInfo.introduce"
+            style="width:100% !important"
           ></textarea>
         </div>
       </div>
@@ -172,7 +175,7 @@ export default {
   methods: {
     async currectUserInfo() {
       const data = {
-        career_period: this.userInfo.career_period,
+        creer_period: this.userInfo.career_period,
         introduce: this.userInfo.introduce,
         title: this.userInfo.title
       };
@@ -261,6 +264,11 @@ export default {
 </script>
 
 <style>
+.skill-candidate-items:hover {
+  font-weight: bold;
+  font-size: larger;
+  color: blue;
+}
 .correct-userinfo-content-wrapper {
   background-color: #eaeaea;
   border-radius: 30px;

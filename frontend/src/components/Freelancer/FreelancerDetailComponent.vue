@@ -331,7 +331,7 @@
       v-if="isDataLoad"
     >
     </add-career-modal-vue>
-    <add-project-modal-vue></add-project-modal-vue>
+    <add-project-modal-vue v-if="isDataLoad"></add-project-modal-vue>
   </div>
 </template>
 
@@ -542,6 +542,14 @@ export default {
 <style>
 .deactiveProjectDetailItem {
   display: none;
+}
+.info-change-btn {
+  background-color: #5d8aff;
+  color: white;
+  font-weight: 24px;
+  border: none;
+  padding: 3px 10px 3px 10px;
+  border-radius: 5px;
 }
 .resume-add-btn {
   background-color: #5d8aff;

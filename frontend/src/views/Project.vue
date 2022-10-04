@@ -1,6 +1,8 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner2.jpg" alt="" width="95%"/></div>
+    <div id="banner">
+      <img src="../assets/images/banner2.jpg" alt="" width="95%" />
+    </div>
     <!--<SearchBar></SearchBar>-->
     <div style="overflow : hidden; width: 1320px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
@@ -558,14 +560,13 @@ export default {
 <style>
 #banner {
   width: 100%;
-  
+
   display: flex;
   align-content: center;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   margin-left: 30px;
-  
 }
 
 .activePage {
@@ -587,7 +588,7 @@ export default {
 
 .prevProjectvue {
   position: absolute !important;
-  top: 270px !important;
+  top: 200px !important;
   left: 45px !important;
   height: 600px !important;
   width: 70px !important;
@@ -596,7 +597,7 @@ export default {
 
 .nextProjectvue {
   position: absolute !important;
-  top: 270px !important;
+  top: 200px !important;
   right: 45px !important;
   height: 600px !important;
   width: 70px !important;

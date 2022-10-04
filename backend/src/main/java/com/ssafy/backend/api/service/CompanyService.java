@@ -16,7 +16,6 @@ public interface CompanyService {
 
     void validateDuplicateMember(CompanyRegisterPostReq companyRegisterInfo);
 
-    void validateDuplicateEmail(CompanyRegisterPostReq companyRegisterInfo);
 
     void validateDuplicateName(CompanyRegisterPostReq companyRegisterInfo);
 

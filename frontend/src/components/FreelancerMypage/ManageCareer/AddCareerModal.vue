@@ -33,6 +33,7 @@
                   placeholder="학교명"
                   aria-label="default input example"
                   v-model="EducationInfo.education.highschool"
+                  style="width:100% !important"
                 />
               </div>
               <div class="col-3">
@@ -68,13 +69,14 @@
                   placeholder="학교명"
                   aria-label="default input example"
                   v-model="EducationInfo.education.university"
+                  style="width:100% !important"
                 />
                 <input
                   class="form-control"
                   type="text"
                   placeholder="전공"
                   aria-label="default input example"
-                  style="margin-top:10px"
+                  style="margin-top:10px;width:100% !important"
                   v-model="EducationInfo.education.major"
                 />
               </div>
@@ -118,6 +120,7 @@
                       placeholder="회사명"
                       aria-label="default input example"
                       v-model="item.companyName"
+                      style="width:100% !important"
                     />
                   </div>
                   <div class="col-4">
@@ -127,6 +130,7 @@
                       placeholder="부서명"
                       aria-label="default input example"
                       v-model="item.department"
+                      style="width:100% !important"
                     />
                   </div>
                   <div class="col-4">
@@ -136,6 +140,7 @@
                       placeholder="직책명"
                       aria-label="default input example"
                       v-model="item.position"
+                      style="width:100% !important"
                     />
                   </div>
                 </div>
@@ -204,6 +209,7 @@
                       placeholder="자격증명"
                       aria-label="default input example"
                       v-model="item.name"
+                      style="width:100% !important"
                     />
                   </div>
                   <div class="col">
@@ -213,6 +219,7 @@
                       placeholder="인증기관"
                       aria-label="default input example"
                       v-model="item.certification"
+                      style="width:100% !important"
                     />
                   </div>
                 </div>
@@ -227,10 +234,11 @@
                   <div class="col-5">
                     <input
                       class="form-control"
-                      type="text"
+                      type="date"
                       placeholder="취득일자"
                       aria-label="default input example"
                       v-model="item.date"
+                      style="width:100% !important"
                     />
                   </div>
                   <div class="col"></div>
@@ -262,7 +270,9 @@
           >
             취소
           </button>
-          <button type="button" class="btn btn-primary">저장</button>
+          <button type="button" class="btn btn-primary" @click="applyCareer">
+            저장
+          </button>
         </div>
       </div>
     </div>
@@ -285,6 +295,7 @@ export default {
     };
   },
   methods: {
+    applyCareer() {},
     addCareerCareerList() {
       this.EducationInfo.careerList.push({
         companyName: "",

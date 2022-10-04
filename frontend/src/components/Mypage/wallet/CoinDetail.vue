@@ -67,6 +67,9 @@ export default {
 </script>
 
 <style>
+.coin-status-list-item:hover {
+  cursor: pointer;
+}
 .coin-detail-wrapper {
   margin-top: 30px;
 }
