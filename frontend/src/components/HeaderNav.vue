@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
+    <nav class="big-nav navbar navbar-expand-lg navbar-light ">
+  <div class="container-fluid">
         <div class="navbar-nav justify-content-between align-items-center">
           <div id="logo" @click="routeMainPage">
             <img src="../assets/images/freeneeds.png" width="130px" alt="" />
@@ -52,7 +52,8 @@
           </div>
         </div>
       </div>
-    </nav>
+</nav>
+    
   </div>
 </template>
 
@@ -103,6 +104,11 @@ export default {
 </script>
 
 <style>
+.big-nav{
+  background-color: #fff;
+  height: 90px;
+border-bottom: 1px inset rgba(77,139,250,0.28);
+}
 .container-fluid {
   /* margin-top: 1% !important;
   margin-left: 10% !important;
@@ -169,5 +175,9 @@ margin-right: 10% !important;
 #logoutBtn {
   width: 100px;
   /* display: none; */
+}
+
+#logo{
+  cursor: pointer;
 }
 </style>
