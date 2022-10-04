@@ -88,7 +88,7 @@
                   />
                 </svg>
               </div>
-              <div id="skillCandidateCtnr" class="mx-5 my-3">
+              <div id="skillCandidateCtnr" class="mx-5 my-3" style="left : 0px">
                 <FilterSkillCandidate
                   v-for="(skillCandidate, index) in FilterSkillCandidate"
                   :key="`FSC-${index}`"
@@ -204,7 +204,7 @@
 
       skillCandidateCtnrTmp.setAttribute(
         "style",
-        "height: 250px; overflow-y: auto"
+        "height: 250px; overflow-y: auto; left : 0px"
       );
       for (let i = 0; i < skills.length; i++)
         this.FilterSkillCandidate.push(skills[i]);
@@ -274,6 +274,8 @@
             this.RegionDetailLst.push(city);
           if (this.RegionDetailLst.length > 8) {
             regionDetailBtnGroupTmp.setAttribute("style", "height: 300px");
+          } else {
+            regionDetailBtnGroupTmp.setAttribute("style","position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(124px, -41.6px, 0px);")
           }
         } else {
           regionDetail.setAttribute("style", "display: none");
@@ -736,7 +738,7 @@
   .warnFilter {
     position: fixed;
     top : 20px;
-    left : 572px;
+    left : 600px;
     font-weight: 700;
   }
   .btnimg{
