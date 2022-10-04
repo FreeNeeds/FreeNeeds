@@ -277,6 +277,10 @@ export default {
     },
     async getMetamask() {
       if (window.ethereum) {
+        await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0X3" }],
+        });
         // first we check if metamask is installed
         var accounts = await window.ethereum.request({
           method: "eth_requestAccounts"
