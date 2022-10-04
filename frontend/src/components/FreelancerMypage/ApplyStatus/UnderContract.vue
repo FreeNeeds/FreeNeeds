@@ -1,35 +1,79 @@
 <template>
-  <div class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit" id="carouselWrapperMyPageCompanyRecruit">
-    <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
-    <!-- {{ projectDataList }} -->
-      <div v-for="(item, index) of projectDataList" :key="index">
-        <!-- {{ item }} -->
-        <recruit-card-item-freelancer
-          :projectCardItem="item.projectData"
-        ></recruit-card-item-freelancer>
+  <div v-if="isDataLoaded">
+    <div v-if="projectDataList.length == 0">
+      <div class="apply-status-no-project-wrapper">
+        프로젝트가 없습니다
       </div>
     </div>
-    <apply-project-detail-ing
-      v-for="(item, index) of projectDataList" 
-      :key=item.idEdit
-      :id=item.idEdit
-      :projectDataReceive="item.projectData"
-      :companyDataReceive="item.companyData"
-      :idEdit="`pmc${item.projectData.projectId}`"
-      @moveToAfterContract="moveToAfterContract"
-    ></apply-project-detail-ing>
-    <button @click="prevBtnClick" style="top: 230px" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-      </svg>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button @click="nextBtnClick" style="top: 230px" class="nextMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-      </svg>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <div
+      class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
+      id="carouselWrapperMyPageCompanyRecruit"
+    >
+      <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
+        <!-- {{ projectDataList }} -->
+        <div v-for="(item, index) of projectDataList" :key="index">
+          <!-- {{ item }} -->
+          <recruit-card-item-freelancer
+            :projectCardItem="item.projectData"
+          ></recruit-card-item-freelancer>
+        </div>
+      </div>
+      <apply-project-detail-ing
+        v-for="item of projectDataList"
+        :key="item.idEdit"
+        :id="item.idEdit"
+        :projectDataReceive="item.projectData"
+        :companyDataReceive="item.companyData"
+        :idEdit="`pmc${item.projectData.projectId}`"
+        @moveToAfterContract="moveToAfterContract"
+      ></apply-project-detail-ing>
+      <button
+        @click="prevBtnClick"
+        style="top: 230px"
+        class="prevMyPageCompany"
+        type="button"
+        data-bs-target="#carouselExampleControlsNoTouching"
+        data-bs-slide="prev"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="black"
+          class="bi bi-chevron-left"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+          />
+        </svg>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        @click="nextBtnClick"
+        style="top: 230px"
+        class="nextMyPageCompany"
+        type="button"
+        data-bs-target="#carouselExampleControlsNoTouching"
+        data-bs-slide="next"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="black"
+          class="bi bi-chevron-right"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+          />
+        </svg>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -43,7 +87,8 @@ import recruitCardItemFreelancer from "./recruitCardItemFreelancer.vue";
 export default {
   data() {
     return {
-      idx : 0,
+      isDataLoaded: false,
+      idx: 0,
       projectDataList: [
         // {
         //   projectData: {
@@ -101,7 +146,8 @@ export default {
           projectData.deadline = new Date(projectData.deadline);
           data.state = "인터뷰완료";
           data.projectData = projectItem.project;
-          data.idEdit = "myPageProjectDetailId" + String(data.projectData.projectId)
+          data.idEdit =
+            "myPageProjectDetailId" + String(data.projectData.projectId);
           console.log("data");
           console.log(data);
           this.projectDataList.push(data);
@@ -117,7 +163,7 @@ export default {
         res => {
           console.log(res);
           const data = {
-            id : res.data.companyInfo.company.companyId,
+            id: res.data.companyInfo.company.companyId,
             ceo: res.data.companyInfo.ceo,
             name: res.data.companyInfo.company.name,
             call: res.data.companyInfo.company.phone,
@@ -138,30 +184,38 @@ export default {
     ApplyProjectDetailIng,
     recruitCardItemFreelancer
   },
-  methods : {
+  methods: {
     moveToAfterContract(value) {
-      const itemToFind = this.projectDataList.find(function(item) {return item.idEdit === "myPageProjectDetailId" + String(value)})
-      const idxTmp = this.projectDataList.indexOf(itemToFind)
-      if (idxTmp > -1) this.projectDataList.splice(idxTmp,1)
+      const itemToFind = this.projectDataList.find(function(item) {
+        return item.idEdit === "myPageProjectDetailId" + String(value);
+      });
+      const idxTmp = this.projectDataList.indexOf(itemToFind);
+      if (idxTmp > -1) this.projectDataList.splice(idxTmp, 1);
     },
 
     prevBtnClick() {
-      if (this.idx === 0) this.idx = this.projectDataList.length - 1
-      else 
-        this.idx--
-      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx  + 'px, 0, 0)'
+      if (this.idx === 0) this.idx = this.projectDataList.length - 1;
+      else this.idx--;
+      document.querySelector("#carouselMyPageCompanyRecruit").style.transform =
+        "translate3d(" + -660 * this.idx + "px, 0, 0)";
     },
     nextBtnClick() {
-      if (this.idx === this.projectDataList.length - 1) this.idx = 0
-      else 
-        this.idx++
-      document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx + 'px, 0, 0)'
-    },
+      if (this.idx === this.projectDataList.length - 1) this.idx = 0;
+      else this.idx++;
+      document.querySelector("#carouselMyPageCompanyRecruit").style.transform =
+        "translate3d(" + -660 * this.idx + "px, 0, 0)";
+    }
   }
 };
 </script>
 
 <style>
+.apply-status-no-project-wrapper {
+  color: royalblue;
+  font-size: 36px;
+  text-align: center;
+  padding-top: 100px;
+}
 .undercontract-project-card-btn-wrapper {
   text-align: center;
   padding-top: 400px;
