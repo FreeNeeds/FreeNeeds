@@ -3,25 +3,39 @@ import store from "@/store/index.js";
 
 const instance = createInstance();
 
-function getCompanySign(id, hash) { 
+async function getCompanySign(id, hash) { 
   var signData = "";
-  instance
-    .get(`/contracts/companySign`, {companyId:id,plainData:hash})
-    .then(success => {
-      console.log("성공");
-      console.log(success)
-      signData = success;
+  await instance
+    .get(`/contracts/companySign`, {
+      params: { companyId: id, plainData: hash }
     })
-    .catch();
+    .then(success => {
+      console.log("기업 암호화 성공");
+      console.log(success)
+      signData = success.data;
+    })
+    .catch(fail => { 
+      console.log(fail);
+    });
   
   return signData;
 }
 
-function getUserSign(userId, plainData,success,fail) { 
-  instance
-    .get(`/contracts/userSign`,userId,plainData)
-    .then(success)
-    .catch(fail);
+async function getUserSign(id,hash) { 
+  var signData = "";
+  await instance
+    .get(`/contracts/userSign`,{
+      params: { userId: id, plainData: hash }
+    })
+    .then(success => { 
+      console.log("유저 암호화 성공");
+      console.log(success);
+      signData = success.data;
+    })
+    .catch(fail => {
+      console.log(fail)
+    });
+  return signData;
 }
 
 export default{

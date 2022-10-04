@@ -705,10 +705,10 @@ export default {
       console.log("계좌정보 출력");
       console.log(this.companyAccount);
 
-      // createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
-      // totalContent).then(res => {
-      //   console.log(res)
-      // })
+      createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
+      totalContent).then(res => {
+        console.log(res)
+      })
       
       //컨트랙트에 서명한 데이터까지 올리는 코드
       let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -719,18 +719,17 @@ export default {
       
       console.log("해시값 출력");
       console.log(result);
-      // let freelancerEncrypt = "";
       
       //기업 암호화
-      let companyEncrypt = signInstance.getCompanySign(this.projectDataReceive.company.companyId,result);
+      let companyEncrypt = await signInstance.getCompanySign(this.projectDataReceive.company.companyId,result);
       console.log("기업 전자서명 출력");
       console.log(companyEncrypt);
       
-
+      
       //프리랜서 암호화
-      // signInstance.getUserSign(this.$store.state.accounts.loginUserInfo.id,result);
-      // console.log("프리랜서 전자서명 출력");
-      // console.log(userEncrypt);
+      let freelancerEncrypt = await signInstance.getUserSign(this.$store.state.accounts.loginUserInfo.id,result);
+      console.log("프리랜서 전자서명 출력");
+      console.log(freelancerEncrypt);
 
 
       freelancerSignEscrow(accounts[0], this.companyAccount, result);

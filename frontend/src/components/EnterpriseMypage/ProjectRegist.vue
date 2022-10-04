@@ -83,47 +83,102 @@
       </div>
       <hr class="project-card-line mb-4" />
       <div>
-        <div class="row mx-2 my-2">
+        <div class="row mx-2 my-2 ">
           <div class="col-3 projectDetailHeadItem projectDetailItem">분야</div>
           <select
             v-model="projectInfo.category"
-            class="form-select text-center"
+            class="form-select text-center project-regist-select-wrapper"
             aria-label="Default select example"
           >
-            <option value="개발" selected style="padding-right: 2px"
+            <option
+              value="개발"
+              selected
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >개발</option
             >
-            <option value="디자인" style="padding-right: 2px">디자인</option>
-            <option value="기획" style="padding-right: 2px">기획</option>
+            <option
+              value="디자인"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >디자인</option
+            >
+            <option
+              value="기획"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >기획</option
+            >
           </select>
         </div>
-        <div class="row mx-2 my-2">
+        <div class="row mx-2 my-2 ">
           <div class="col-3 projectDetailHeadItem projectDetailItem">형태</div>
           <select
             v-model="projectInfo.domain"
-            class="form-select text-center"
+            class="form-select text-center project-regist-select-wrapper"
             aria-label="Default select example"
           >
-            <option value="웹사이트" selected style="padding-right: 2px"
+            <option
+              value="웹사이트"
+              selected
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >웹사이트</option
             >
-            <option value="앱" style="padding-right: 2px">앱(APP)</option>
-            <option value="커머스/쇼핑몰" style="padding-right: 2px"
+            <option
+              value="앱"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >앱(APP)</option
+            >
+            <option
+              value="커머스/쇼핑몰"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >커머스/쇼핑몰</option
             >
-            <option value="퍼블리싱" style="padding-right: 2px"
+            <option
+              value="퍼블리싱"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >퍼블리싱</option
             >
-            <option value="네트워크/보안" style="padding-right: 2px"
+            <option
+              value="네트워크/보안"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >네트워크/보안</option
             >
-            <option value="게임" style="padding-right: 2px">게임</option>
-            <option value="일반소프트웨어" style="padding-right: 2px"
+            <option
+              value="게임"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >게임</option
+            >
+            <option
+              value="일반소프트웨어"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
               >일반소프트웨어</option
             >
-            <option value="제품" style="padding-right: 2px">제품</option>
-            <option value="영상" style="padding-right: 2px">영상</option>
-            <option value="9" style="padding-right: 2px">그래픽</option>
+            <option
+              value="제품"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >제품</option
+            >
+            <option
+              value="영상"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >영상</option
+            >
+            <option
+              value="9"
+              style="padding-right: 2px"
+              class="project-regist-select-item"
+              >그래픽</option
+            >
           </select>
         </div>
         <div class="row mx-2 my-2">
@@ -418,13 +473,12 @@ export default {
               document
                 .querySelector("#completeRegisterProject")
                 .classList.remove("d-none");
-              
             })
             .catch(err => {
               alert("프로젝트 등록에 실패했습니다. 입력값을 확인해주세요");
             });
         })
-        .catch(err=>{
+        .catch(err => {
           alert("프로젝트 등록에 실패했습니다. 입력값을 확인해주세요");
         });
     },
@@ -445,6 +499,12 @@ export default {
 </script>
 
 <style>
+.project-regist-select-item:hover {
+  cursor: pointer;
+}
+.project-regist-select-wrapper:hover {
+  cursor: pointer;
+}
 .form-control {
   width: 20% !important;
 }
