@@ -207,7 +207,7 @@
               style="width: 1px; height: 87%; margin-top: 22px; background-color: gray"
             ></div>
           </div>
-          <div class="d-inline-block mx-auto my-3">
+          <div class="d-inline-block mx-auto my-3" style="width : 229px">
             <FreelancerCardSkill
               v-for="(skillItem, index) in freelancerDetailReceive.tech"
               :key="`FDR-T-${index}`"
@@ -542,6 +542,14 @@ export default {
 <style>
 .deactiveProjectDetailItem {
   display: none;
+}
+.info-change-btn {
+  background-color: #5d8aff;
+  color: white;
+  font-weight: 24px;
+  border: none;
+  padding: 3px 10px 3px 10px;
+  border-radius: 5px;
 }
 .resume-add-btn {
   background-color: #5d8aff;

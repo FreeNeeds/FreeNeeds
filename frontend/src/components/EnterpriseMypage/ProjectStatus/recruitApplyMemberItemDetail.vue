@@ -429,7 +429,7 @@
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button @click="clickCompleteWriteContract()" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
+                    <button @click="clickCompleteWriteContract" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
                   </div>
                   <h5 class="text-center d-none" style="color : red" :id=alreadyDoneContract>이미 전달된 계약서 입니다.</h5>
                   <div class="d-none my-2 fw-bold text-center" style="color : red" :id="notSign">
@@ -475,6 +475,7 @@ import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/Fre
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
+import html2canvas from 'html2canvas';
 import { createEscrow } from "@/utils/EscrowFactory.js";
 import * as userInstance from "@/api/user.js";
 
