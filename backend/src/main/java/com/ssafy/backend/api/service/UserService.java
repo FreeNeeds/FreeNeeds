@@ -58,4 +58,7 @@ public interface UserService {
 	String getUserAccountAddressByUserId(Long userId);
 
 	String getUsernameByUserId(Long userId);
+
+	boolean checkUsernameDuplicate(String username);
+
 }
