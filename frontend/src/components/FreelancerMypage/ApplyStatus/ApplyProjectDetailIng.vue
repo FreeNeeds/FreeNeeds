@@ -374,6 +374,7 @@ import * as userInstance from "@/api/user.js";
 import * as companyInstance from "@/api/company.js";
 import { mapGetters } from "vuex";
 import hashData from "@/utils/hashData.js";
+import signInstance from "@/api/sign.js";
 
 export default {
   name: "ApplyProjectDetailIng",
@@ -704,27 +705,33 @@ export default {
       console.log("계좌정보 출력");
       console.log(this.companyAccount);
 
-      createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
-      totalContent).then(res => {
-        console.log(res)
-      })
+      // createInstance().patch('/contracts/' + this.$store.state.accounts.loginUserInfo.id + '/' + this.projectDataReceive.projectId,
+      // totalContent).then(res => {
+      //   console.log(res)
+      // })
       
       //컨트랙트에 서명한 데이터까지 올리는 코드
       let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       console.log("프리랜서 계좌주소");
       console.log(accounts[0]);
       let result = hashData.getHashData(totalContent);
+
       
-      // console.log("해시값 출력");
-      // console.log(result);
-      // let companyEncrypt = "";
+      console.log("해시값 출력");
+      console.log(result);
       // let freelancerEncrypt = "";
-
+      
       //기업 암호화
-
+      let companyEncrypt = signInstance.getCompanySign(this.projectDataReceive.company.companyId,result);
+      console.log("기업 전자서명 출력");
+      console.log(companyEncrypt);
+      
 
       //프리랜서 암호화
-      
+      // signInstance.getUserSign(this.$store.state.accounts.loginUserInfo.id,result);
+      // console.log("프리랜서 전자서명 출력");
+      // console.log(userEncrypt);
+
 
       freelancerSignEscrow(accounts[0], this.companyAccount, result);
 
