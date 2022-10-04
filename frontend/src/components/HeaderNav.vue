@@ -121,8 +121,11 @@ margin-right: 10% !important;
 .nav-item {
   font-size: 20px;
   text-align: center;
+  
 }
-
+#logo{
+  cursor: pointer;
+}
 .auth-group {
   transition: all 0.3s ease 0s;
   font-size: 18px;
