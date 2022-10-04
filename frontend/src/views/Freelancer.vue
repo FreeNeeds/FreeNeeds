@@ -396,6 +396,7 @@ export default {
   display: flex;
   align-content: center;
   text-align: center;
+  padding-top: 20px;
   margin: 0 auto;
   margin-bottom: 10px;
   margin-left: 30px;
