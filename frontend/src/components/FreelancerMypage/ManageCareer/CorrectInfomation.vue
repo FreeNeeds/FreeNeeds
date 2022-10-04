@@ -20,6 +20,7 @@
             >프로필 소개</label
           >
           <input
+            style="width:100% !important"
             type="email"
             class="form-control"
             id="correctUserprofileIntroduce"
@@ -78,6 +79,7 @@
               v-for="skillCandidate in FilterSkillCandidate"
               :key="skillCandidate"
               @click="insertSkill(skillCandidate)"
+              class="skill-candidate-items"
             >
               {{ skillCandidate }}
             </div>
@@ -94,6 +96,7 @@
             id="correntUserInfoIntroduction"
             rows="6"
             v-model="userInfo.introduce"
+            style="width:100% !important"
           ></textarea>
         </div>
       </div>
@@ -261,6 +264,11 @@ export default {
 </script>
 
 <style>
+.skill-candidate-items:hover {
+  font-weight: bold;
+  font-size: larger;
+  color: blue;
+}
 .correct-userinfo-content-wrapper {
   background-color: #eaeaea;
   border-radius: 30px;

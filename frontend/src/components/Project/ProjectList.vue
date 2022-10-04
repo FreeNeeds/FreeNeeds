@@ -1,12 +1,14 @@
 <template>
   <div id="projectList" class="container">
     <div class="row ms-3">
-    <ProjectCardStatic class="projectCardInProjectFind" v-for="projectCardItem in projectCardLst"
-    :key="projectCardItem.projectId"
-    :projectCardItem="projectCardItem"
-    @clickDetailOpen="clickDetailOpen"
-    >
-    </ProjectCardStatic>
+      <ProjectCardStatic
+        class="projectCardInProjectFind"
+        v-for="projectCardItem in projectCardLst"
+        :key="projectCardItem.projectId"
+        :projectCardItem="projectCardItem"
+        @clickDetailOpen="clickDetailOpen"
+      >
+      </ProjectCardStatic>
     </div>
     <!--<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
       <div class="carousel-inner px-3">
@@ -33,38 +35,41 @@
 </template>
 
 <script>
-  import ProjectCardStatic from './ProjectCardStatic.vue';
-  
-  export default {
-    name: 'ProjectList',
-    props : {
-      projectCardLst : Array
-    },
-    mounted() {   
-      //document.querySelector(".carousel-item").classList.add("active")
-    },
-    components : {
-      ProjectCardStatic
-    },
-    methods : {
-      clickDetailOpen(value) {
-        this.$emit("clickDetailOpen",value)
-      }
+import ProjectCardStatic from "./ProjectCardStatic.vue";
+
+export default {
+  name: "ProjectList",
+  props: {
+    projectCardLst: Array
+  },
+  mounted() {
+    //document.querySelector(".carousel-item").classList.add("active")
+  },
+  components: {
+    ProjectCardStatic
+  },
+  methods: {
+    clickDetailOpen(value) {
+      this.$emit("clickDetailOpen", value);
     }
   }
+};
 </script>
 
 <style>
-  #projectList {
-    width : 1300px !important;
-    margin: auto; 
-  }
+#projectList {
+  width: 1300px !important;
+  margin: auto;
+}
 
-  .projectCardInProjectFind {
-    width : 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.projectCardInProjectFind {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.projectCardInProjectFind:hover {
+  cursor: pointer;
+}
 </style>

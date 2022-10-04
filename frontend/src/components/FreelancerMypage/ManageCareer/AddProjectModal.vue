@@ -70,7 +70,9 @@
               <hr />
 
               <div class="mb-3" style="display:inline;">
-                <label for="addProjectSearch" style="display:inline;"
+                <label
+                  for="addProjectSearch"
+                  style="display:inline; margin-right: 20px;"
                   >기술 검색</label
                 >
                 <input
@@ -90,6 +92,7 @@
                 <div
                   v-for="skillCandidate in FilterSkillCandidate"
                   :key="skillCandidate"
+                  class="add-project-skill-item"
                   @click="insertSkill(skillCandidate)"
                 >
                   {{ skillCandidate }}
@@ -101,7 +104,7 @@
             <label
               class="add-project-label"
               for="addProjectCompanyName"
-              style="display:inline-block"
+              style="display:inline-block; padding-right: 30px;"
               >기업명</label
             >
             <input
@@ -118,7 +121,7 @@
             <label
               class="add-project-label"
               for="addProjectProjectName"
-              style="display:inline-block"
+              style="display:inline-block; padding-right: 30px;"
               >프로젝트 명</label
             >
             <input
@@ -135,7 +138,7 @@
             <label
               class="add-project-label"
               for="addProjectWorkContent"
-              style="display:inline-block"
+              style="display:inline-block;"
               >담당 업무</label
             >
             <textarea
@@ -143,6 +146,7 @@
               id="addProjectWorkContent"
               rows="6"
               v-model="projectData.content"
+              style="width:100% !important"
             ></textarea>
           </div>
           <div class="add-project-items add-project-">
@@ -208,9 +212,9 @@ export default {
       if (!isDuplicate) {
         this.FilterSkillCandidate.push(candidate);
       }
-      let skillCandidateCtnrTmp = document.querySelector(
-        "#candidateSkillsWrapperI"
-      );
+      // let skillCandidateCtnrTmp = document.querySelector(
+      //   "#candidateSkillsWrapperI"
+      // );
 
       // if (this.FilterSkillCandidate.length > 10) {
       //   skillCandidateCtnrTmp.removeAttribute("style");
@@ -237,6 +241,7 @@ export default {
         projectId = res.data;
       });
       console.log(this.FilterSkillLst + " : " + projectId);
+      $("addProjectModal").modal("hidden");
       userInstance.setUserProjectTech(projectId, this.FilterSkillLst, res => {
         // router.push({
         //   name: "mypage"
@@ -341,6 +346,11 @@ export default {
 </script>
 
 <style>
+.add-project-skill-item:hover {
+  font-weight: bold;
+  font-size: larger;
+  color: blue;
+}
 .add-project-standard-datepicker {
   margin-left: 10px;
   margin-right: 10px;

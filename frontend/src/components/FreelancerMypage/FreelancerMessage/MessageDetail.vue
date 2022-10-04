@@ -5,6 +5,7 @@
         <div class="col-1">
           <div class="d-flex justify-content-between">
             <input
+              class="message-delete-checkbox"
               type="checkbox"
               :value="selectedMessage"
               @change="updatecheckmessage"
@@ -19,7 +20,10 @@
           </div>
         </div>
         <div class="col-11">
-          <div class="col-11" @click="changeSelectedMessage(index)">
+          <div
+            class="col-11 message-open-btn"
+            @click="changeSelectedMessage(index)"
+          >
             {{ message.title }}
           </div>
         </div>
@@ -182,6 +186,12 @@ export default {
 </script>
 
 <style>
+.message-open-btn:hover {
+  cursor: pointer;
+}
+.message-delete-checkbox:hover {
+  cursor: pointer;
+}
 .message-hr-decoration {
   margin-top: 15px;
   margin-bottom: 15px;

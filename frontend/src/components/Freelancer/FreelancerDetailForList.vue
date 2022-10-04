@@ -882,6 +882,9 @@ export default {
 </script>
 
 <style>
+.projectDetailNav:hover {
+  cursor: pointer;
+}
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;

@@ -146,6 +146,7 @@
             </div>
             <div class="col-5">
               <select
+                style="width:100% !important"
                 v-model="user.emailDomain"
                 name="emailadress"
                 id="emailSelectBar"
@@ -166,8 +167,8 @@
         <label for="registerCNumberInput" class="register-input-label"
           >지갑연결</label
         >
-       <button @click="getMetamask">지갑 가져오기</button>
-       <div>연결된 지갑주소 : {{user.accountAddress}}</div>
+        <button @click="getMetamask">지갑 가져오기</button>
+        <div>연결된 지갑주소 : {{ user.accountAddress }}</div>
       </div>
       <div class="regist-terms-input-form">
         <div class="form-check">
@@ -217,7 +218,7 @@ export default {
         email: "",
         emailDomain: "",
         passwordConfirm: "",
-        accountAddress:""
+        accountAddress: ""
       },
       validationPattern: {
         pwdCheckPattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+-])(?=.*[0-9]).{9,16}$/,
@@ -254,8 +255,11 @@ export default {
       this.isDuplicatedId = false;
     },
     async getMetamask() {
-      if (window.ethereum){ // first we check if metamask is installed
-        var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (window.ethereum) {
+        // first we check if metamask is installed
+        var accounts = await window.ethereum.request({
+          method: "eth_requestAccounts"
+        });
         this.user.accountAddress = accounts[0];
       }
     },
@@ -286,7 +290,7 @@ export default {
       }
     },
     Signup() {
-      console.log("유저정뵈:"+this.user);
+      console.log("유저정뵈:" + this.user);
       this.user.emailadress = `${this.email}@${this.emailDomain}`;
       this.schema.isValid(this.user).then((valid, msg) => {
         if (!valid) {
@@ -309,10 +313,10 @@ export default {
       ) {
         alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
-      } else if (!this.user.accountAddress) { 
-        alert("지갑을 등록해주세요")
+      } else if (!this.user.accountAddress) {
+        alert("지갑을 등록해주세요");
         return;
-      }else if (!this.termsCheck) {
+      } else if (!this.termsCheck) {
         alert("이용약관에 동의해주세요.");
         return;
       }
