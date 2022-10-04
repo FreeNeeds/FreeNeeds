@@ -3,6 +3,7 @@
     <div id="banner">
       <img src="../assets/images/banner2.jpg" alt="" width="95%" />
     </div>
+    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
     <!--<SearchBar></SearchBar>-->
     <div style="overflow : hidden; width: 1320px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
@@ -28,7 +29,7 @@
       class="prev prevProjectvue"
       type="button"
       @click="clickPrevBtnProject"
-      style="top : 295px !important"
+      style="top : 380px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +50,7 @@
       class="next nextProjectvue"
       type="button"
       @click="clickNextBtnProject"
-      style="top : 295px !important"
+      style="top : 380px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +139,6 @@
         10
       </div>
     </div>
-    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
   </b-container>
 </template>
 
@@ -590,7 +590,7 @@ export default {
 
 .prevProjectvue {
   position: absolute !important;
-  top: 200px !important;
+  top: 270px !important;
   left: 45px !important;
   height: 600px !important;
   width: 70px !important;
@@ -599,7 +599,7 @@ export default {
 
 .nextProjectvue {
   position: absolute !important;
-  top: 200px !important;
+  top: 270px !important;
   right: 45px !important;
   height: 600px !important;
   width: 70px !important;
