@@ -81,7 +81,12 @@ export default {
   methods: {
     ...mapActions(["freelancerLoginA", "companyLoginA"]),
     // 확인
-    login() {
+    async login() {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0X3" }],
+      });
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
       if (this.loginType == "company") {
         this.companyLogin();
       } else {
