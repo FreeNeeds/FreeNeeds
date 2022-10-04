@@ -153,4 +153,10 @@ public class CompanyServiceImpl implements CompanyService{
         String accountAddress = companyRepositorySupport.findCompanyAccountAddressByCompanyId(companyId);
         return accountAddress;
     }
+
+    @Override
+    public Company getCompanyByCompanyId(Long companyId) {
+        Company company = companyRepository.findCompanyByCompanyId(companyId);
+        return company;
+    }
 }
