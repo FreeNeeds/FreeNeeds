@@ -6,9 +6,7 @@
       data-bs-toggle="modal"
       data-bs-target="#ffilterModal"
     >
-     
       필터
-      
     </button>
     <div
       id="ffilterModal"
@@ -38,7 +36,7 @@
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-          <h5 class="fw-blod warnFilter" style="color : red">
+          <h5 class="fw-blod warnFilter" style="color : royalblue">
             적어도 한 개 이상의 필터를 적용해주세요!
           </h5>
           <b-container>
@@ -69,7 +67,7 @@
                   />
                 </svg>
               </div>
-              <div id="skillCandidateCtnr" class="mx-5 my-3">
+              <div id="FskillCandidateCtnr" class="mx-5 my-3">
                 <FilterSkillCandidate
                   v-for="(skillCandidate, index) in FilterSkillCandidate"
                   :key="`FSC-${index}`"
@@ -122,9 +120,9 @@ export default {
   mounted() {
     let inputBox = document.querySelector("#skillSearchBar");
     let pre = inputBox.value;
-    let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+    let FskillCandidateCtnrTmp = document.querySelector("#FskillCandidateCtnr");
 
-    skillCandidateCtnrTmp.setAttribute(
+    FskillCandidateCtnrTmp.setAttribute(
       "style",
       "height: 250px; overflow-y: auto"
     );
@@ -140,7 +138,9 @@ export default {
       });
       const idx = this.FilterSkillCandidate.indexOf(itemToFind);
       if (idx > -1) this.FilterSkillCandidate.splice(idx, 1);
-      let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+      let FskillCandidateCtnrTmp = document.querySelector(
+        "#FskillCandidateCtnr"
+      );
       if (this.FilterSkillCandidate.length < 10) {
         skillCandidateCtnrTmp.removeAttribute("style");
         skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left: 0px");
@@ -167,10 +167,12 @@ export default {
           this.FilterSkillCandidate.push(candidate);
         }
       }
-      let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+      let FskillCandidateCtnrTmp = document.querySelector(
+        "#FskillCandidateCtnr"
+      );
       if (this.FilterSkillCandidate.length > 10) {
-        skillCandidateCtnrTmp.removeAttribute("style");
-        skillCandidateCtnrTmp.setAttribute(
+        FskillCandidateCtnrTmp.removeAttribute("style");
+        FskillCandidateCtnrTmp.setAttribute(
           "style",
           "margin: 20px; height: 250px; overflow-y: auto"
         );
@@ -202,7 +204,9 @@ export default {
       this.isStop = 0;
       let inputBox = document.querySelector("#skillSearchBar");
       let pre = inputBox.value;
-      let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
+      let FskillCandidateCtnrTmp = document.querySelector(
+        "#FskillCandidateCtnr"
+      );
 
       let interval = setInterval(() => {
         console.log(this.isStop);
@@ -248,14 +252,14 @@ export default {
           }
 
           if (this.FilterSkillCandidate.length > 10) {
-            skillCandidateCtnrTmp.removeAttribute("style");
-            skillCandidateCtnrTmp.setAttribute(
+            FskillCandidateCtnrTmp.removeAttribute("style");
+            FskillCandidateCtnrTmp.setAttribute(
               "style",
               "height: 250px; overflow-y: auto"
             );
           } else {
-            skillCandidateCtnrTmp.removeAttribute("style");
-            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+            FskillCandidateCtnrTmp.removeAttribute("style");
+            FskillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
           }
           pre = post;
         }

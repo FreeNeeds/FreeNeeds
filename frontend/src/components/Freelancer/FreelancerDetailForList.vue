@@ -895,6 +895,7 @@ export default {
   background-color: rgb(219, 219, 217);
   padding: 30px;
 }
+
 #project-resume {
   margin-top: 30px;
 }
@@ -1010,13 +1011,9 @@ export default {
   margin: auto;
   display: none;
 }
-
 .carousel-wrapper-mine {
-  width: 640px !important;
-  height: 219px !important;
   overflow: hidden;
 }
-
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);

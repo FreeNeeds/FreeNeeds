@@ -61,7 +61,7 @@ async function getCompanyProject(companyId, success, fail) {
     .catch(fail);
 }
 
-export {
+export default{
   getCompanyProject,
   getProjectList,
   registProject,
