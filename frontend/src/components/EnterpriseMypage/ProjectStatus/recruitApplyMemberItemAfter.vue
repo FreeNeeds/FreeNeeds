@@ -53,8 +53,8 @@
       </div>
       <div id="calWrpr" class="d-none calWrpr">
         <div class="cal text-center">
-          <h4 class="mt-5">정산이 완료되었습니다.</h4>
-          <button @click="calClose" class="estimateCompleteBtn" style="top : 300px">확인</button>
+          <h4 class="mt-5">정산하시겠습니까?</h4>
+          <button @click="calClose(), withdraw()" class="estimateCompleteBtn" style="top : 300px">네</button>
         </div>
       </div>
       <recruitApplyMemberItemDetailIng
@@ -84,11 +84,15 @@
   import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
   import recruitApplyMemberItemDetailIng from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetailIng.vue'
   import { createInstance } from "@/api/index.js";
+  import { enterprisePayFreelancer } from "@/utils/EscrowFactory.js";
+  import * as userInstance from "@/api/user.js";
 
   export default {
     name : 'recruitApplyMemberItemAfter',
     data() {
       return {
+        freelancerAccount: "",
+        escrowAddress: "0xC404bD07bcd3131433a2489CE8Ac5Cb2c41B967b",
         nameErase : "",
         ratingToPercent : 0,
         freelancerCardIdEdit : "#id",
@@ -181,8 +185,17 @@
         
       }
       this.freelancerCardIdEdit += String(this.freelancerCardId)
+      userInstance.getUserAccountAddress(this.freelancerCardId, res => {this.freelancerAccount = res.data})
+      // createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.freelancerCardId),
+      //   ).then(res => {this.escrowAddress = res.data.escrowAddress})
     },
+
     methods: {
+      withdraw: async function() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      enterprisePayFreelancer(accounts[0], this.freelancerAccount);
+      },
+
       moveToIngContract(value) {
         this.$emit('moveToIngContract',value)
       },
