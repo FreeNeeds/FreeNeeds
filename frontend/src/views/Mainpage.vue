@@ -569,6 +569,7 @@ export default {
   padding: auto;
   padding: 20px;
   margin: 0px;
+  margin-bottom: 5px;
   border-radius: 26px;
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
@@ -595,7 +596,7 @@ export default {
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
-  height: 300px;
+  height: 220px;
 transition: all 0.3s ease 0s;
 
 }
