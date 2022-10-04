@@ -782,7 +782,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;
@@ -908,12 +908,6 @@ export default {
   width: 900px;
   margin: auto;
   display: none;
-}
-
-.carousel-wrapper-mine {
-  width: 640px !important;
-
-  overflow: hidden;
 }
 
 .carousel-wrapper-mine > .carousel-mine {
