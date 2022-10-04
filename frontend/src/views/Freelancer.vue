@@ -63,7 +63,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
-    <div class="text-center paging">
+    <div class="text-center paging mt-3">
       <div
         @click="clickPageOne"
         id="page1"
