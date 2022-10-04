@@ -93,16 +93,14 @@ public class ContractController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getHashEncodeCompany(
-            @ApiIgnore Authentication authentication, @RequestParam String cid) {
-        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
-        String username = companyDetails.getUsername();
-        Company company = companyService.getCompanyByUsername(username).get();
+            @RequestParam Long companyId, @RequestParam String plainData) {
+        Company company = companyService.getCompanyByCompanyId(companyId);
 
         //로그인 된 기업 회원의 개인키 가져오기
         String privateKey = company.getPrivateKey();
 
         //개인키로 암호화하기
-        String encryptedText = RSAUtil.encode(cid, privateKey);
+        String encryptedText = RSAUtil.encode(plainData, privateKey);
 
         //개인키로 암호화 된 값 전달하기
         return ResponseEntity.status(200).body(encryptedText);
@@ -117,27 +115,21 @@ public class ContractController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getHashEncodeUser(
-            @ApiIgnore Authentication authentication, @RequestParam String cid) {
-        System.out.println("원본 해시값: " + cid);
-
-        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-        String userId = userDetails.getUsername();
-        User user = userService.getUserByUsername(userId).get();
+            @RequestParam Long userId, @RequestParam String plainData) {
+        User user = userService.getUserByUserId(userId).get();
 
         //로그인 된 프리랜서 회원의 개인키 가져오기
         String privateKey = user.getPrivateKey();
 
         //개인키로 암호화하기
-        String encryptedText = RSAUtil.encode(cid, privateKey);
-        System.out.println("로그인 한 회원의 개인키로 => " + privateKey);
-        System.out.println("암호화: " + encryptedText);
+        String encryptedText = RSAUtil.encode(plainData, privateKey);
 
         //개인키로 암호화 된 값 전달하기
         return ResponseEntity.status(200).body(encryptedText);
     }
 
     @GetMapping("/companyCheck")
-    @ApiOperation(value = "기업 공개키로 복호화", notes = "로그인한 기업의 공개키로 복호화하여 원본과 일치한지 확인한다.")
+    @ApiOperation(value = "기업 공개키 복호화", notes = "로그인한 기업의 공개키로 복호화하여 원본과 일치한지 확인한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -145,28 +137,21 @@ public class ContractController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getCompanyCheck(
-            @ApiIgnore Authentication authentication,
-            @RequestBody String encryptedData) {
-        SsafyCompanyDetails companyDetails = (SsafyCompanyDetails)authentication.getDetails();
-        String username = companyDetails.getUsername();
-        Company company = companyService.getCompanyByUsername(username).get();
+            @RequestParam Long companyId, @RequestParam String encryptedData) {
+        Company company = companyService.getCompanyByCompanyId(companyId);
 
         //로그인 된 기업 회원의 공개키 가져오기
         String publicKey = company.getPublicKey();
 
         //공개키로 암호화하기
         String decryptedText = RSAUtil.decode(encryptedData, publicKey);
-        System.out.println("로그인 한 회원의 공개키로 => " + publicKey);
-        System.out.println("복호화 된 내용: " + decryptedText);
-
-        //복호화 했을 경우 일치한다면 true 리턴하게 할 것인지 아니면 원본 해시값을 보낼 것인지? 아니면 둘 다 보낼 것인지?
 
         //공개키로 복호화 된 값 전달하기
         return ResponseEntity.status(200).body(decryptedText);
     }
 
     @GetMapping("/userCheck")
-    @ApiOperation(value = "프리랜서 공개키로 복호화", notes = "로그인한 프리랜서의 공개키로 복호화하여 원본과 일치한지 확인한다.")
+    @ApiOperation(value = "프리랜서 공개키 복호화", notes = "로그인한 프리랜서의 공개키로 복호화하여 원본과 일치한지 확인한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -174,23 +159,14 @@ public class ContractController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> getUserCheck(
-            @ApiIgnore Authentication authentication,
-            @RequestBody String encryptedData) {
-        SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-        String userId = userDetails.getUsername();
-        User user = userService.getUserByUsername(userId).get();
-
-        System.out.println(encryptedData);
+            @RequestParam Long userId, @RequestParam String encryptedData) {
+        User user = userService.getUserByUserId(userId).get();
 
         //로그인 된 프리랜서 회원의 공개키 가져오기
         String publicKey = user.getPublicKey();
 
         //공개키로 복호화하기
         String decryptedText = RSAUtil.decode(encryptedData, publicKey);
-        System.out.println("로그인 한 회원의 공개키로 => " + publicKey);
-        System.out.println("복호화 된 내용: " + decryptedText);
-
-        //복호화 했을 경우 일치한다면 true 리턴하게 할 것인지 아니면 원본 해시값을 보낼 것인지? 아니면 둘 다 보낼 것인지?
 
         //공개키로 복호화 된 값 전달하기
         return ResponseEntity.status(200).body(decryptedText);

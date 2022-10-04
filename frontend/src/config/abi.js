@@ -1,6 +1,26 @@
 const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 	`[
 		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_amount",
+					"type": "uint256"
+				}
+			],
+			"name": "createEscrow",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
 			"inputs": [
 				{
 					"internalType": "address",
@@ -36,6 +56,31 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			],
 			"name": "CreateEscrow",
 			"type": "event"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_enterprise",
+					"type": "address"
+				},
+				{
+					"internalType": "string",
+					"name": "_hashData",
+					"type": "string"
+				}
+			],
+			"name": "freelancerSignEscrow",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
 		},
 		{
 			"anonymous": false,
@@ -82,50 +127,15 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "event"
 		},
 		{
-			"constant": true,
-			"inputs": [],
-			"name": "admin",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "cashContractAddress",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
 			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "_freelancer",
+					"name": "newOwner",
 					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_amount",
-					"type": "uint256"
 				}
 			],
-			"name": "createEscrow",
+			"name": "transferOwnership",
 			"outputs": [],
 			"payable": false,
 			"stateMutability": "nonpayable",
@@ -168,7 +178,7 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"name": "enterpriseToFreelancerToEscrow",
 			"outputs": [
 				{
-					"internalType": "contract Escrow",
+					"internalType": "address",
 					"name": "",
 					"type": "address"
 				}
@@ -199,31 +209,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "function"
 		},
 		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_enterprise",
-					"type": "address"
-				},
-				{
-					"internalType": "string",
-					"name": "_hashData",
-					"type": "string"
-				}
-			],
-			"name": "freelancerSignEscrow",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
 			"constant": true,
 			"inputs": [],
 			"name": "owner",
@@ -236,21 +221,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			],
 			"payable": false,
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "newOwner",
-					"type": "address"
-				}
-			],
-			"name": "transferOwnership",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
 			"type": "function"
 		}
 	]`

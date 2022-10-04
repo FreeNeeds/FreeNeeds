@@ -1,6 +1,8 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
+    <div id="banner">
+      <img src="../assets/images/banner1.jpg" alt="" width="95%" />
+    </div>
     <FilterBtn></FilterBtn>
     <div style="overflow : hidden; width: 1320px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
@@ -14,14 +16,15 @@
               :idx="idx"
               :pageIdx="pageIdx"
               :btnIdx="value"
-              :isFilter="isFilter"
             ></FreelancerList>
           </div>
         </div>
       </div>
     </div>
+    <freelancer-detail></freelancer-detail>
+
     <button
-      class="prev prevProjectvue"
+      class="prev prevFreelancervue"
       type="button"
       @click="clickPrevBtnProject"
     >
@@ -41,7 +44,7 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <button
-      class="next nextProjectvue"
+      class="next nextFreelancervue"
       type="button"
       @click="clickNextBtnProject"
     >
@@ -106,9 +109,12 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerList from "@/components/Freelancer/FreelancerList.vue";
 import FilterBtn from "@/components/Freelancer/Filter/FilterBtn.vue";
 import { toChecksumAddress } from "web3-utils";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetailForList.vue";
 import { mapGetters } from "vuex";
 export default {
-  computed: { ...mapGetters(["freelancerFilter"]) },
+  computed: {
+    ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
+  },
   data() {
     return {
       /** 실제 페이지 1,2.....,10.. */
@@ -120,7 +126,7 @@ export default {
       pageMax: 0,
       filterIdx: -1,
       limitIdx: -1,
-      isFilter: false,
+
       remainDate: 0,
       periodWork: 0,
       reLoad: true
@@ -270,23 +276,27 @@ export default {
     }
   },
 
-  components: { HeaderNav, FilterBtn, FooterNav, FreelancerList }
+  components: {
+    HeaderNav,
+    FilterBtn,
+    FooterNav,
+    FreelancerList,
+    FreelancerDetail
+  }
 };
 </script>
 
-<style >
+<style>
 #banner {
   width: 100%;
-  
+
   display: flex;
   align-content: center;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 10px; 
-margin-left: 30px;
-  
+  margin-bottom: 10px;
+  margin-left: 30px;
 }
-
 
 .activePage {
   font-size: 22px !important;
@@ -303,18 +313,18 @@ margin-left: 30px;
   color: blue !important;
 }
 
-.prevProjectvue {
+.prevFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   left: 45px !important;
   height: 600px !important;
   width: 70px !important;
   background-color: #f9f9f9 !important;
 }
 
-.nextProjectvue {
+.nextFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   right: 45px !important;
   height: 600px !important;
   width: 70px !important;
@@ -329,7 +339,7 @@ margin-left: 30px;
   width: 1300px;
 }
 
-.paging{
+.paging {
   /* margin: 15px; */
 }
 </style>
