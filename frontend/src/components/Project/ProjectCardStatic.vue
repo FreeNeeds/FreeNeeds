@@ -8,7 +8,7 @@
   >
     <img
       class="wrapperImgProjectCarousel"
-      src="@/assets/images/freeneeds.png"
+      src="@/assets/images/하얀색.png"
       alt=""
       style="width : 1296px"
     />
