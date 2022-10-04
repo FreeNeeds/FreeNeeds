@@ -16,6 +16,7 @@
               :idx="idx"
               :pageIdx="pageIdx"
               :btnIdx="value"
+              class="row"
             ></FreelancerList>
           </div>
         </div>
@@ -27,6 +28,7 @@
       class="prev prevFreelancervue"
       type="button"
       @click="clickPrevBtnProject"
+      style="top : 275px !important; left : 40px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +49,7 @@
       class="next nextFreelancervue"
       type="button"
       @click="clickNextBtnProject"
+      style="top : 275px !important; right : 40px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
