@@ -186,8 +186,8 @@
         <label for="registerCNumberInput" class="register-input-label"
           >지갑연결</label
         >
-        <button @click="getMetamask">지갑 가져오기</button>
-        <div>연결된 지갑주소 : {{ user.accountAddress }}</div>
+        <button class="btn btn-info connect-wallet-btn" @click="getMetamask">지갑 가져오기</button>
+        <div class="connected-wallet alert alert-primary">프리니즈에 연결된 지갑주소 : {{ user.accountAddress }}</div>
       </div>
       <div class="regist-terms-input-form">
         <div class="form-check">
@@ -440,5 +440,11 @@ export default {
 }
 .regist-header {
   margin-bottom: 50px;
+}
+.connected-wallet{
+
+}
+.connect-wallet-btn{
+  margin: 5px 0px 5px 0px;
 }
 </style>

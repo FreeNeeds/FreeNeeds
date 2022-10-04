@@ -47,19 +47,7 @@
         </div>
       </div>
 
-      <div class="login-terms-input-form">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label" for="flexCheckDefault">
-            자동 로그인
-          </label>
-        </div>
-      </div>
+      
       <div class="login-submit-btn-wrapper">
         <button type="button" class="btn btn-primary btn-lg" @click="login">
           <div style="padding-left:50px;padding-right:50px">
