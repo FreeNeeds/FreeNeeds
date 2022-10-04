@@ -172,7 +172,7 @@ export default {
   methods: {
     async currectUserInfo() {
       const data = {
-        career_period: this.userInfo.career_period,
+        creer_period: this.userInfo.career_period,
         introduce: this.userInfo.introduce,
         title: this.userInfo.title
       };

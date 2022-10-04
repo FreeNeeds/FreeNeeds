@@ -1,6 +1,11 @@
 <template>
   <div :id="projectCardCarousel.id">
-    <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 640px;">
+    <img
+      class="wrapperImgProjectCarousel"
+      src="@/assets/images/하얀색.png"
+      alt=""
+      style="width : 640px;"
+    />
     <div class="row project-card-header-item">
       <div class="col-2 ">
         <div class="project-card-header-round ">
@@ -52,23 +57,23 @@
 </template>
 
 <script>
-  export default {
-    name : "ProjectCardCarousel",
-    props : {
-      projectData : Object,
-      projectCardCarousel : Object
-    },
-    data() {
-      return {
-        remainDate : "",
-      }
-    },
-    mounted() {
-      this.remainDate = Math.ceil(
-        (this.projectData.deadline.getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24) -
-          1
-      )
-    },
+export default {
+  name: "ProjectCardCarousel",
+  props: {
+    projectData: Object,
+    projectCardCarousel: Object
+  },
+  data() {
+    return {
+      remainDate: ""
+    };
+  },
+  mounted() {
+    this.remainDate = Math.ceil(
+      (this.projectData.deadline.getTime() - new Date().getTime()) /
+        (1000 * 60 * 60 * 24) -
+        1
+    );
   }
+};
 </script>
