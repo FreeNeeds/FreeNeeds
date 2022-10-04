@@ -12,4 +12,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     Optional<Company> findCompanyByUsername(String username);
 
+    Company findCompanyByCompanyId(Long companyId);
 }
