@@ -539,7 +539,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .deactiveProjectDetailItem {
   display: none;
 }
@@ -692,7 +692,9 @@ export default {
   margin: auto;
   display: none;
 }
-
+.carousel-wrapper-mine {
+  overflow: hidden;
+}
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);

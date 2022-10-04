@@ -782,7 +782,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;
@@ -909,7 +909,9 @@ export default {
   margin: auto;
   display: none;
 }
-
+.carousel-wrapper-mine {
+  overflow: hidden;
+}
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);
