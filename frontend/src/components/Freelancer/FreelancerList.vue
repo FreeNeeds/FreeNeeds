@@ -183,7 +183,7 @@ export default {
   data() {
     return {
       searchOption: {
-        page: this.pageIdx * 5 + this.btnIdx,
+        page: this.pageIdx * 10 + this.btnIdx,
         size: 4
       },
 
