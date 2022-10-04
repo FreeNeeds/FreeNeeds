@@ -392,9 +392,6 @@ export default {
     },
 
     clickRegisterProject() {
-      document
-        .querySelector("#completeRegisterProject")
-        .classList.remove("d-none");
       document.querySelector("body").classList.add("hiddenScroll");
       // console.log(this.projectInfo);
 
@@ -418,7 +415,17 @@ export default {
             )
             .then(res => {
               console.log(res);
+              document
+                .querySelector("#completeRegisterProject")
+                .classList.remove("d-none");
+              
+            })
+            .catch(err => {
+              alert("프로젝트 등록에 실패했습니다. 입력값을 확인해주세요");
             });
+        })
+        .catch(err=>{
+          alert("프로젝트 등록에 실패했습니다. 입력값을 확인해주세요");
         });
     },
 
@@ -427,6 +434,7 @@ export default {
         .querySelector("#completeRegisterProject")
         .classList.add("d-none");
       document.querySelector("body").classList.remove("hiddenScroll");
+      this.$router.push("/mypage/company/projectstatus/recruit");
     }
   },
   components: {

@@ -8,7 +8,8 @@
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
       :freelancerCard="freelancerCard"
-      class="freelancer-list-card-wrapper"
+      class="freelancer-list-card-wrapper col-6"
+      style="padding : 0px"
     ></FreelancerCard>
   </div>
 </template>
@@ -182,7 +183,7 @@ export default {
   data() {
     return {
       searchOption: {
-        page: this.pageIdx * 5 + this.btnIdx,
+        page: this.pageIdx * 10 + this.btnIdx,
         size: 4
       },
 

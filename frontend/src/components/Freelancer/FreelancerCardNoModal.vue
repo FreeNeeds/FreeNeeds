@@ -2,19 +2,19 @@
   <div v-if="isDataLoad">
     <b-card
       class="freelancer-contents"
-      img-src="https://placekitten.com/300/300"
+      :img-src=logo
       img-left
       @click="openFreelancerListModal"
-      style="overflow:hidden"
+      style="overflow:hidden; width : 92% !important"
     >
       <div class="row justify-content-between">
-        <b-card-title class="col-6">
+        <b-card-title class="col-5">
           {{ nameErase }}
           <span style="font-size : 14px"
             >| {{ freelancerCard.body.resume.career_period }}년 경력</span
           >
         </b-card-title>
-        <b-card-text class="col-6 text-end align-items-center">
+        <b-card-text class="col-7 text-end align-items-center">
           <div class="star-ratings d-inline-block mx-2">
             <div
               class="star-ratings-fill space-x-2 text-lg"
@@ -35,7 +35,7 @@
         </b-card-text>
       </div>
       <div class="row justify-content-end my-2">
-        <b-card-text class="col-7">
+        <b-card-text>
           <div class="mb-2">{{ freelancerCard.body.resume.title }}</div>
           <FreelancerCardSkill
             v-for="(skillItem, index) in freelancerCard.body.tech"
@@ -44,14 +44,6 @@
           >
           </FreelancerCardSkill>
         </b-card-text>
-        <div class="col-5">
-          <hr />
-          <div class="row justify-content-between">
-            <div class="col-8">계약한 프로젝트 :</div>
-            <div class="col-4">총 {{ projectNumber }} 건</div>
-          </div>
-          <hr />
-        </div>
       </div>
     </b-card>
   </div>
@@ -61,6 +53,7 @@
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import { mapActions } from "vuex";
 import * as userInstance from "@/api/user.js";
+import logo from "@/assets/images/freech.png"
 export default {
   data() {
     return {
@@ -68,7 +61,8 @@ export default {
       ratingToPercent: 0,
       projectNumber: 0,
       estimateNumber: 0,
-      isDataLoad: false
+      isDataLoad: false,
+      logo
     };
   },
   props: {

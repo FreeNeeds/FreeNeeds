@@ -1,13 +1,25 @@
 <template>
   <div>
-    <button
-      @click="startInterval"
-      id="freelancerFilterBtn"
-      data-bs-toggle="modal"
-      data-bs-target="#ffilterModal"
-    >
-      필터
-    </button>
+    <div class="d-flex justify-content-end" style="margin-top:50px">
+      <button
+        @click="startInterval"
+        id="freelancerFilterBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#ffilterModal"
+      >
+        <div style="position:absolute">
+          <img
+            class="freelancericon btnimg"
+            width="55px"
+            src="@/assets/images/freech6.png"
+            alt=""
+          />
+        </div>
+        <div>
+          필터
+        </div>
+      </button>
+    </div>
     <div
       id="ffilterModal"
       class="modal text-center"
@@ -15,10 +27,14 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       data-bs-backdrop="false"
-      style="background-color: rgba(0, 0, 0, 0.5);"
+      style="background-color: rgba(0, 0, 0, 0.15);"
     >
       <div class="modal-dialog" id="FFilterModalWrapper">
-        <div class="modal-content" id="FFilterModalContent">
+        <div
+          class="modal-content"
+          id="FFilterModalContent"
+          style="height : 500px; overflow-y: scroll;"
+        >
           <button
             @click="clickFilterModalCloseBtn"
             type="button"
@@ -32,6 +48,7 @@
             type="button"
             id="FilterModalApplyBtn"
             class="d-none"
+            style="top : 500px"
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
@@ -141,8 +158,11 @@ export default {
         "#FskillCandidateCtnr"
       );
       if (this.FilterSkillCandidate.length < 10) {
-        FskillCandidateCtnrTmp.removeAttribute("style");
-        FskillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+        skillCandidateCtnrTmp.removeAttribute("style");
+        skillCandidateCtnrTmp.setAttribute(
+          "style",
+          "overflow-y: auto; left: 0px"
+        );
       }
     },
 
@@ -292,9 +312,6 @@ export default {
   margin-left: 64%;
   margin-top: 3px;
   margin-bottom: 8px;
-  position: absolute;
-  top: 900px;
-  right: 160px;
 }
 
 #filterBtn:hover {
@@ -561,5 +578,9 @@ export default {
   border-radius: 10px;
   background-clip: padding-box;
   border: 2px solid transparent;
+}
+
+#FFilterModalContent::-webkit-scrollbar {
+  width: 0px;
 }
 </style>

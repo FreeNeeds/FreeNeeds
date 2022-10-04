@@ -1,10 +1,10 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
+    <nav class="big-nav navbar navbar-expand-lg navbar-light ">
+  <div class="container-fluid">
         <div class="navbar-nav justify-content-between align-items-center">
           <div id="logo" @click="routeMainPage">
-            <img src="../assets/images/freeneeds.png" width="130px" alt="" />
+            <img src="../assets/images/freeneeds.png" width="100px" alt="" />
           </div>
           <div>
             <span
@@ -52,7 +52,8 @@
           </div>
         </div>
       </div>
-    </nav>
+</nav>
+    
   </div>
 </template>
 
@@ -103,6 +104,11 @@ export default {
 </script>
 
 <style>
+.big-nav{
+  background-color: #fff;
+  height: 70px;
+border-bottom: 1px inset rgba(77,139,250,0.28);
+}
 .container-fluid {
   /* margin-top: 1% !important;
   margin-left: 10% !important;
@@ -119,16 +125,16 @@ margin-right: 10% !important;
    /* background-color: rgb(51, 199, 232); */
 }
 .nav-item {
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 }
 
 .auth-group {
   transition: all 0.3s ease 0s;
-  font-size: 18px;
+  font-size: 16px;
 }
 .auth-group:hover {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: bolder;
   transform: translateY(-3px) ;
    cursor: pointer;
@@ -137,7 +143,7 @@ margin-right: 10% !important;
  transition: all 0.3s ease 0s;
 }
 .menuBar:hover {
-  font-size: 25px !important;
+  font-size: 23px !important;
   font-weight: bolder;
   cursor: pointer;
   transform: translateY(-3px) ;
@@ -145,11 +151,11 @@ margin-right: 10% !important;
 #findProject {
   width: 150px;
   margin-right: 75px;
-  font-size: 24px;
+  font-size: 22px;
 }
 #findFreelancer {
   width: 150px;
-  font-size: 24px;
+  font-size: 22px;
 }
 #loginBtn {
   width: 100px;
@@ -169,5 +175,9 @@ margin-right: 10% !important;
 #logoutBtn {
   width: 100px;
   /* display: none; */
+}
+
+#logo{
+  cursor: pointer;
 }
 </style>
