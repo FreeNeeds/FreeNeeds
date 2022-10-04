@@ -136,6 +136,9 @@ export default {
 </script>
 
 <style>
+.freelancer-contents:hover {
+  cursor: pointer;
+}
 .tech-contents {
   margin: 3px;
 }

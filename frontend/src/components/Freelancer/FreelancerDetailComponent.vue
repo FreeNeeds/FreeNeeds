@@ -331,7 +331,7 @@
       v-if="isDataLoad"
     >
     </add-career-modal-vue>
-    <add-project-modal-vue></add-project-modal-vue>
+    <add-project-modal-vue v-if="isDataLoad"></add-project-modal-vue>
   </div>
 </template>
 

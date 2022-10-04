@@ -8,6 +8,7 @@
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
       :freelancerCard="freelancerCard"
+      class="freelancer-list-card-wrapper"
     ></FreelancerCard>
   </div>
 </template>
