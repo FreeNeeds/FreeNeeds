@@ -1,6 +1,8 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
+    <div id="banner">
+      <img src="../assets/images/banner1.jpg" alt="" width="95%" />
+    </div>
     <FilterBtn></FilterBtn>
     <div style="overflow : hidden; width: 1320px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
@@ -14,13 +16,12 @@
               :idx="idx"
               :pageIdx="pageIdx"
               :btnIdx="value"
-              :isFilter="isFilter"
             ></FreelancerList>
           </div>
         </div>
       </div>
     </div>
-    <freelancer-detail v-if="isModalOn"></freelancer-detail>
+    <freelancer-detail></freelancer-detail>
 
     <button
       class="prev prevFreelancervue"
@@ -125,7 +126,7 @@ export default {
       pageMax: 0,
       filterIdx: -1,
       limitIdx: -1,
-      isFilter: false,
+
       remainDate: 0,
       periodWork: 0,
       reLoad: true
@@ -285,19 +286,17 @@ export default {
 };
 </script>
 
-<style >
+<style>
 #banner {
   width: 100%;
-  
+
   display: flex;
   align-content: center;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 10px; 
-margin-left: 30px;
-  
+  margin-bottom: 10px;
+  margin-left: 30px;
 }
-
 
 .activePage {
   font-size: 22px !important;
@@ -340,7 +339,7 @@ margin-left: 30px;
   width: 1300px;
 }
 
-.paging{
+.paging {
   /* margin: 15px; */
 }
 </style>

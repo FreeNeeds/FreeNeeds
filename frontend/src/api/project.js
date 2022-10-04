@@ -18,9 +18,7 @@ function getProjectList(filter, success, fail) {
 function registProject(registerInfo, success, fail) {
   // console.log(registerInfo);
   instance
-    .post(`/project`, registerInfo,
-    { headers: store.getters.authHeader }
-    )
+    .post(`/project`, registerInfo, { headers: store.getters.authHeader })
     .then(success)
     .catch(fail);
 }
@@ -42,10 +40,10 @@ function getFilterProject(filter, success, fail) {
 }
 
 /** 프로젝트 관련 기술 조회 */
-function getProjectTech(projectId, success, fail) {
+async function getProjectTech(projectId, success, fail) {
   instance
     .get(`/project/tech/${projectId}`)
-    .then(success)
+    .then(await success)
     .catch(fail);
 }
 
@@ -56,7 +54,15 @@ function setProjectTech(projectId, success, fail) {
     .catch(fail);
 }
 
-export default {
+async function getCompanyProject(companyId, success, fail) {
+  instance
+    .get(`/project/company/${companyId}`)
+    .then(success)
+    .catch(fail);
+}
+
+export {
+  getCompanyProject,
   getProjectList,
   registProject,
   getProjectInfo,

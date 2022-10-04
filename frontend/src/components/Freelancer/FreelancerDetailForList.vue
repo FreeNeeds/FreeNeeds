@@ -340,6 +340,108 @@
         </div>
       </div>
     </div>
+    <div class="freelancerProjectModalCtnr" :id="freelancerProjectModalCtnrId">
+      <div class="freelancerProjectModal" :id="freelancerProjectModalId">
+        <div class="d-block" :id="normalProjectFreelancerModal">
+          <button
+            @click="clickSelectProjectFreelancerCloseModal"
+            type="button"
+            id="selectProjectFreelancerCloseModal"
+            class="btn-close"
+          ></button>
+          <h5 class="mt-5">
+            <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
+            님에게 제안할 프로젝트를 골라주세요
+          </h5>
+          <div
+            class="carousel-wrapper-mine mx-auto mt-4"
+            data-bs-touch="false"
+            :id="carouselWrapperMine"
+          >
+            <div class="carousel-mine" :id="carouselMine">
+              <ProjectCardCarousel
+                v-for="projectCardCarousel in myProjectLst"
+                :key="projectCardCarousel.id"
+                :projectCardCarousel="projectCardCarousel"
+                :projectData="projectCardCarousel.body"
+              ></ProjectCardCarousel>
+            </div>
+            <button
+              @click="prevBtnClick"
+              class="prev"
+              type="button"
+              data-bs-target="#carouselExampleControlsNoTouching"
+              data-bs-slide="prev"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="black"
+                class="bi bi-chevron-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                />
+              </svg>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              @click="nextBtnClick"
+              class="next"
+              type="button"
+              data-bs-target="#carouselExampleControlsNoTouching"
+              data-bs-slide="next"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="black"
+                class="bi bi-chevron-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <button
+            @click="clickSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3"
+          >
+            선택
+          </button>
+        </div>
+        <div class="d-none" :id="sureSelectProjectFreelancer">
+          <h5 class="mt-5">
+            <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
+            님에게
+            <h4 class="fw-bold text-primary mt-2 mb-3">
+              "{{ selectProjectFreelancerName }}"
+            </h4>
+            프로젝트를 제안하시겠습니까?
+          </h5>
+          <button
+            @click="clickSureSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3 mx-2"
+          >
+            네
+          </button>
+          <button
+            @click="clickNotYetSelectProjectFreelancer"
+            class="ProjectApplyBtn my-3 mx-2"
+          >
+            아니요
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -350,6 +452,7 @@ import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
 import { mapGetters, mapActions } from "vuex";
 import * as userInstance from "@/api/user.js";
 import * as projectInstance from "@/api/project.js";
+import * as applyInstance from "@/api/apply.js";
 export default {
   watch: {
     async freelancerInfoDetail() {
@@ -509,7 +612,29 @@ export default {
       idx: 0,
       // nameErase: "",
       selectProjectFreelancerName: "",
-
+      // projectData: {
+      //   id: "1",
+      //   category: "개발",
+      //   demain: "웹사이트",
+      //   location: "대한민국 어딘가...",
+      //   skill: ["Java", "Mysql", "SpringBoot"],
+      //   title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
+      //   content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+      //   startDate: new Date("2022-09-10"),
+      //   endDate: new Date("2022-09-16"),
+      //   startDateSummry: "2022-09-10",
+      //   endDateSummry: "2022-09-16",
+      //   deadline: new Date("2022-11-30"),
+      //   recruitNumber: 3,
+      //   task:
+      //     "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
+      //   workstyle: "재택",
+      //   workStartTime: "오전 08:00",
+      //   workEndTime: "오후 16:00",
+      //   lowPrice: "200만원",
+      //   highPrice: "300만원",
+      //   careerPeriod: 3
+      // },
       // profession: 0,
       // ontime: 0,
       // active: 0,
@@ -525,6 +650,47 @@ export default {
     };
   },
   async mounted() {
+    await projectInstance.getCompanyProject(
+      this.loginUserInfo.id,
+      async res => {
+        console.log(res);
+        for (let i = 0; i < res.data.length; i++) {
+          let projectdata = {
+            id: res.data[i].projectId,
+            category: res.data[i].category,
+            demain: res.data[i].domain,
+            locationSi: res.data[i].locationSi,
+            locationGu: res.data[i].locationGu,
+            skill: [],
+            title: res.data[i].title,
+            content: res.data[i].content,
+            startDate: new Date(res.data[i].startDate),
+            endDate: new Date(res.data[i].endDate),
+            startDateSummry: res.data[i].startDate,
+            endDateSummry: res.data[i].endDate,
+            deadline: new Date(res.data[i].deadline),
+            recruitNumber: res.data[i].recruitNumber,
+            task: res.data[i].task,
+            workstyle: res.data[i].workStyle,
+            workStartTime: res.data[i].workStartTime,
+            workEndTime: res.data[i].workEndTime,
+            lowPrice: res.data[i].lowPrice + "만원",
+            highPrice: res.data[i].highPrice + "만원",
+            careerPeriod: res.data[i].careerPeriod
+          };
+          await projectInstance.getProjectTech(projectdata.id, res => {
+            console.log(res);
+            for (let j = 0; j < res.data.length; j++) {
+              projectdata.skill.push(res.data[j].techName);
+            }
+          });
+          this.myProjectLst.push({
+            id: "ids" + i,
+            body: projectdata
+          });
+        }
+      }
+    );
     await userInstance.getUserResume(
       this.freelancerInfoDetail.username,
       res => {
@@ -547,10 +713,11 @@ export default {
         this.freelancerEducation = data;
       }
     );
-    if (this.loginType == "company") {
-      let ProjectList = [];
-      const filter = projectInstance.getProjectList();
-    }
+
+    // if (this.loginType == "company") {
+    //   let ProjectList = [];
+    //   const filter = projectInstance.getProjectList();
+    // }
     this.isDataLoad = true;
   },
 
@@ -676,6 +843,15 @@ export default {
       );
       normalProjectFreelancerModalTmp.classList.remove("d-none");
       sureSelectProjectFreelancerTmp.classList.add("d-none");
+      console.log(this.freelancerInfoDetail);
+      const applydata = {
+        projectId: this.myProjectLst[this.idx].body.id,
+        state: "지원완료",
+        userId: this.freelancerInfoDetail.userId
+      };
+      applyInstance.ApplyProject(applydata, res => {
+        alert("인터뷰 요청이 완료되었습니다.");
+      });
     },
 
     clickNotYetSelectProjectFreelancer() {

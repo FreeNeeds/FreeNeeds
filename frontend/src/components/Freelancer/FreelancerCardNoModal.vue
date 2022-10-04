@@ -36,10 +36,7 @@
       </div>
       <div class="row justify-content-end my-2">
         <b-card-text class="col-7">
-          <div class="mb-2">
-            {{ freelancerCard.body.resume.title }} <br />
-            {{ freelancerCard.body.resume.title }}
-          </div>
+          <div class="mb-2">{{ freelancerCard.body.resume.title }}</div>
           <FreelancerCardSkill
             v-for="(skillItem, index) in freelancerCard.body.tech"
             :key="index"
@@ -128,6 +125,7 @@ export default {
     openFreelancerListModal() {
       this.setFreelancerInfoDetail(this.freelancerCard.body);
       // this.setIsModalOn(true);
+      console.log("????");
       $("#freelancerListDetailModal").modal("show");
     }
   },
