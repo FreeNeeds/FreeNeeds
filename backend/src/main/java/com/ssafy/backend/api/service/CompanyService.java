@@ -39,4 +39,6 @@ public interface CompanyService {
     String getCompanyAccountAddressByUsername(String username);
 
     String getCompanyAccountAddressByCompanyId(Long companyId);
+
+    Company getCompanyByCompanyId(Long companyId);
 }
