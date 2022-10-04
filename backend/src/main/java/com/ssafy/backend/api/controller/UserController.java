@@ -358,4 +358,11 @@ public class UserController {
 	public ResponseEntity<?> getProjectByFilter(@RequestParam List<String> techList, Pageable pageable ) {
 		return new ResponseEntity<List<User>>(userService.getFreelancersByTechsPaging(techList,pageable).getContent(), HttpStatus.OK);
 	}
+
+	// 아이디 중복 확인
+	@GetMapping("/username/{username}/exists")
+	public ResponseEntity<Boolean> checkUsernameDuplicate(@PathVariable String username) {
+		return ResponseEntity.ok(userService.checkUsernameDuplicate(username));
+
+	}
 }

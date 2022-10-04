@@ -23,13 +23,32 @@
           </div>
           <div class="col-3">
             <button
+            
               type="button"
               class="btn btn-outline-primary id-duplicate-confirm-btn"
               @click="checkIdDuplicate"
             >
               중복검사
             </button>
+            
+            
           </div>
+          <div
+            v-if="isDuplicatedIdTried&&isDuplicatedId"
+             
+              class="mt-3 my-3 btn btn-warning id-duplicate-confirm-btn"
+      
+              style="width:500px; margin-left:10px"
+            >
+              중복된 아이디입니다.
+            </div>
+          <div
+            v-if="isDuplicatedIdTried&&!isDuplicatedId"
+              class="mt-3 my-3 btn btn-light id-duplicate-confirm-btn"
+              style="width:500px; margin-left:10px"
+            >
+              사용가능한 아이디입니다
+            </div>
         </div>
       </div>
       <div class="register-item-wrapper">
@@ -197,6 +216,7 @@
 <script>
 import * as yup from "yup";
 import { mapActions, mapGetters } from "vuex";
+import { createInstance } from "@/api/index.js";
 
 export default {
   props: {
@@ -208,6 +228,7 @@ export default {
       termsCheck: false,
       isDuplicatedEmail: false,
       isDuplicatedId: false,
+      isDuplicatedIdTried: false,
       isAuthorized: false,
       user: {
         id: "",
@@ -263,7 +284,16 @@ export default {
       this.settestdata(this.fortest);
     },
     checkIdDuplicate() {
-      this.isDuplicatedId = !this.isDuplicatedId;
+      
+      createInstance().get("/users/username/"+this.user.id+"/exists")
+      .then(res=>{
+        console.log(res)
+        this.isDuplicatedId = res.data;
+        console.log(this.isDuplicatedId)
+        this.isDuplicatedIdTried = true;
+        });
+      
+
     },
     changePasswordConfirmVisible() {
       this.passwordConfirmvisible = !this.passwordConfirmvisible;
