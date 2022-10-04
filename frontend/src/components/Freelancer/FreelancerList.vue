@@ -8,7 +8,8 @@
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
       :freelancerCard="freelancerCard"
-      class="freelancer-list-card-wrapper"
+      class="freelancer-list-card-wrapper col-6"
+      style="padding : 0px"
     ></FreelancerCard>
   </div>
 </template>
