@@ -567,6 +567,7 @@ export default {
   align-content: center;
   text-align: center;
   margin: 0 auto;
+  padding-top: 20px;
   margin-bottom: 10px;
   margin-left: 30px;
 }
