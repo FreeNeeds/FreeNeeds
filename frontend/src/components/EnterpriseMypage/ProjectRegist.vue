@@ -47,7 +47,7 @@
               근무방식
             </div>
             <input
-              v-model="projectInfo.workstyle"
+              v-model="projectInfo.workStyle"
               class="col-2 mb-1 form-control"
               type="text"
             />
