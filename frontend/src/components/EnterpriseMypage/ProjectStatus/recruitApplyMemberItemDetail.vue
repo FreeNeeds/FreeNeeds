@@ -244,13 +244,21 @@
                     <p class="d-inline-block">다음과 같이 근로계약을 체결한다.</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 : </p>
+                    <p class="d-inline-block">1. 근로개시일 및 종료일 : </p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="margin-left : 165px">
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <p class="d-inline-block">년</p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">월</p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">일까지</p>  
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -814,37 +822,31 @@ export default {
       } else {
         btnSelect += '1'
       }
-      console.log(1)
       if (document.querySelector('#' + this.notIncentiveBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(2)
       if (document.querySelector('#' + this.recruitInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(3)
       if (document.querySelector('#' + this.accidentInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(4)
       if (document.querySelector('#' + this.personInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(5)
       if (document.querySelector('#' + this.healthInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(6)
       createInstance().post('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
       {
         imgSRC : btnSelect,
