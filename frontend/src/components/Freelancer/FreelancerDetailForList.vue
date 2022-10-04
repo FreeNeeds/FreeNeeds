@@ -271,6 +271,7 @@
               v-for="freelancerProjectCard in projectDetailValue"
               :key="freelancerProjectCard.id"
               :freelancerProjectCard="freelancerProjectCard"
+              style="margin-left : 0px !important"
             >
             </FreelancerProjectCard>
           </div>
@@ -316,7 +317,6 @@
             </div>
             <div
               class="d-flex mx-3 mt-2"
-              style="margin-bottom : 60px"
               v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
@@ -895,6 +895,7 @@ export default {
   background-color: rgb(219, 219, 217);
   padding: 30px;
 }
+
 #project-resume {
   margin-top: 30px;
 }
@@ -1010,13 +1011,9 @@ export default {
   margin: auto;
   display: none;
 }
-
 .carousel-wrapper-mine {
-  width: 640px !important;
-  height: 219px !important;
   overflow: hidden;
 }
-
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);

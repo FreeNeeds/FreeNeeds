@@ -220,7 +220,10 @@
                   style="width: 1px; height: 87%; margin-top: 22px; background-color: gray"
                 ></div>
               </div>
-              <div class="d-inline-block mx-auto my-3" style="width : 229px !important">
+              <div
+                class="d-inline-block mx-auto my-3"
+                style="width : 229px !important"
+              >
                 <FreelancerCardSkill
                   v-for="skillItem in freelancerDetailReceive.tech"
                   :key="`id${id_}${skillItem}`"
@@ -306,7 +309,6 @@
             </div>
             <div
               class="d-flex mx-4 mt-2"
-              
               v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
@@ -579,11 +581,14 @@ export default {
       ].reEmployment;
     }
 
-    this.profession = this.profession / this.freelancerDetailReceive.estimate.length;
+    this.profession =
+      this.profession / this.freelancerDetailReceive.estimate.length;
     this.ontime = this.ontime / this.freelancerDetailReceive.estimate.length;
     this.active = this.active / this.freelancerDetailReceive.estimate.length;
-    this.communication = this.communication / this.freelancerDetailReceive.estimate.length;
-    this.reEmployment = this.reEmployment / this.freelancerDetailReceive.estimate.length;
+    this.communication =
+      this.communication / this.freelancerDetailReceive.estimate.length;
+    this.reEmployment =
+      this.reEmployment / this.freelancerDetailReceive.estimate.length;
     this.ratingToPercent =
       (this.profession +
         this.ontime +
@@ -777,7 +782,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;
@@ -904,13 +909,9 @@ export default {
   margin: auto;
   display: none;
 }
-
 .carousel-wrapper-mine {
-  width: 640px !important;
-  height: 219px !important;
   overflow: hidden;
 }
-
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);

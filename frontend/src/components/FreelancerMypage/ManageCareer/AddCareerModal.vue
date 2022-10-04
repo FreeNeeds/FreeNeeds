@@ -19,6 +19,7 @@
           ></button>
         </div>
         <div class="modal-body">
+          {{ EducationInfo }}
           <div class="career-items-header">학력사항</div>
           <hr />
           <div>
@@ -280,6 +281,7 @@
 </template>
 
 <script>
+import * as userInstance from "@/api/user.js";
 export default {
   props: {
     freelancerDetailReceive: Object
@@ -295,7 +297,14 @@ export default {
     };
   },
   methods: {
-    applyCareer() {},
+    applyCareer() {
+      if (!this.freelancerDetailReceive.idData) {
+        userInstance.setUserResume(this.EducationInfo, res => {
+          alert("이력정보가 변경되었습니다.");
+          this.$router.push({ name: "managecareer" });
+        });
+      }
+    },
     addCareerCareerList() {
       this.EducationInfo.careerList.push({
         companyName: "",

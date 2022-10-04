@@ -125,13 +125,21 @@
                     <p class="d-inline-block">다음과 같이 근로계약을 체결한다.</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 : </p>
+                    <p class="d-inline-block">1. 근로개시일 및 종료일 : </p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="margin-left : 165px">
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <p class="d-inline-block">년</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">월</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">일까지</p>  
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -553,7 +561,7 @@ export default {
           if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
-          document.querySelector('#' + this.imgSignCompany).src = tmp[30]
+          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
         })
         this.isContractOpen = true
       }

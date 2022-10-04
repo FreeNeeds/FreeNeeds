@@ -28,6 +28,7 @@
       class="prev prevProjectvue"
       type="button"
       @click="clickPrevBtnProject"
+      style="top : 295px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +49,7 @@
       class="next nextProjectvue"
       type="button"
       @click="clickNextBtnProject"
+      style="top : 295px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

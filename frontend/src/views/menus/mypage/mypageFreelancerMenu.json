@@ -10,18 +10,5 @@
     "hidden": false,
     "path": "/mypage/freelancer/managecareer",
     "children": []
-  },
-
-  "freelancerWallet": {
-    "name": "나의 지갑",
-    "hidden": false,
-    "path": "/mypage/freelancer/freelancerwallet",
-    "children": []
-  },
-  "freelancermessage": {
-    "name": "메세지",
-    "hidden": false,
-    "path": "/mypage/freelancer/freelancermessage",
-    "children": []
   }
 }

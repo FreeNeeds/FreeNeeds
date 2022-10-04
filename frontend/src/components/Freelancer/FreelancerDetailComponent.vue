@@ -454,11 +454,13 @@ export default {
     await userInstance.getUserResume(
       this.freelancerDetailReceive.username,
       res => {
+        res.data.isData = true;
         this.freelancerEducation = res.data;
       },
       err => {
         // console.log("이거 실행 안됨?");
         const data = {
+          isData: false,
           careerList: [],
           certificateList: [],
           education: {
@@ -692,13 +694,9 @@ export default {
   margin: auto;
   display: none;
 }
-
 .carousel-wrapper-mine {
-  width: 640px !important;
-  height: 219px !important;
   overflow: hidden;
 }
-
 .carousel-wrapper-mine > .carousel-mine {
   display: flex;
   transform: translate3d(0, 0, 0);

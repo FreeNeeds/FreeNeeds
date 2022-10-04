@@ -244,13 +244,21 @@
                     <p class="d-inline-block">다음과 같이 근로계약을 체결한다.</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 : </p>
+                    <p class="d-inline-block">1. 근로개시일 및 종료일 : </p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="margin-left : 165px">
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <p class="d-inline-block">년</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">월</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">일까지</p>  
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -428,7 +436,7 @@
                     <div style="width : 0px">
                     <p style="position : relative; top : 6px; left : 50px; width : 100px">(서명)</p>
                     </div>
-                    <img :id=imgSign src="" alt="" style="width: 132.6px; height: 67.6px; margin-bottom: 10px">
+                    <img :id=imgSign src="" alt="">
                   </div>
                 </div>
               </div>
@@ -605,11 +613,11 @@ export default {
           if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
-          document.querySelector('#' + this.imgSignCompany).src = tmp[30]
+          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
           console.log(tmp.length)
           if (tmp.length === 32) {
-            console.log('hly')
-            document.querySelector('#' + this.imgSign).src = tmp[31]
+            document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
+            document.querySelector('#' + this.imgSign).src = tmp[34]
           }
         })
         this.isContractOpen = true
