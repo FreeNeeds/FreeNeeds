@@ -695,7 +695,7 @@ export default {
 
 .carousel-wrapper-mine {
   width: 640px !important;
-  height: 219px !important;
+
   overflow: hidden;
 }
 
