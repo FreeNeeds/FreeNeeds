@@ -35,7 +35,7 @@
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-          <h5 class="fw-blod warnFilter" style="color : red">
+          <h5 class="fw-blod warnFilter" style="color : royalblue">
             적어도 한 개 이상의 필터를 적용해주세요!
           </h5>
           <b-container>
