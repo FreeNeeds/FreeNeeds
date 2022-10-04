@@ -32,8 +32,8 @@ contract EscrowFactory is Ownable{
         emit NewEscrow(_freelancer, _enterprise, _hashData);
     }
 
-    function getEnterpriseToFreelancerToEscrow(address _enterprise, address _freelancer) public view returns(address) {
-      return address(enterpriseToFreelancerToEscrow[_enterprise][_freelancer]);
+    function enterprisePayFreelancer(address _enterprise, address _freelancer) public {
+        enterpriseToFreelancerToEscrow[_enterprise][_freelancer].withdraw();
     }
 }
 
@@ -101,5 +101,4 @@ contract Escrow {
         cashContract.transfer(freelancer, amount);
         return true;
     }
-
 }

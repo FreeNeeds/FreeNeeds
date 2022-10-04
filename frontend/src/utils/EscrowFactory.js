@@ -26,6 +26,13 @@ function findTxAddress(freelancer, enterprise) {
     .then(result => console.log(result));
 }
 
+// 기업이 프리랜서에게 정산하기
+function enterprisePayFreelancer(enterprise, freelancer) { 
+  let contract = new web3.eth.Contract(ESCROWFACTORY_CONTRACT_ABI, ESCROWFACTORY_CONTRACT_ADDRESS);
+  contract.methods.enterprisePayFreelancer(enterprise, freelancer)
+    .send({ from: enterprise }).then(console.log);
+}
+
 // 계약금 동결
 function pay(enterprise, escrowAddress) {
   let contract = new web3.eth.Contract(ESCROW_CONTRACT_ABI, escrowAddress);
@@ -43,11 +50,11 @@ function agree(enterprise, escrowAddress) {
 }
 
 // 프리랜서 인출
-function withdraw(freelancer, escrowAddress) {
+function withdraw(enterprise, escrowAddress) {
   let contract = new web3.eth.Contract(ESCROW_CONTRACT_ABI, escrowAddress);
   contract.methods
       .withdraw()
-      .send({ from: freelancer }).then(console.log);
+      .send({ from: enterprise }).then(console.log);
 }
 
 // 계약상태현황
@@ -65,6 +72,6 @@ export {
   findTxAddress,
   pay,
   agree,
-  withdraw,
+  enterprisePayFreelancer,
   getState
 }
