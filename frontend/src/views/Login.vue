@@ -92,6 +92,7 @@ export default {
   created() {},
   methods: {
     ...mapActions(["freelancerLoginA", "companyLoginA"]),
+    // 확인
     login() {
       if (this.loginType == "company") {
         this.companyLogin();
