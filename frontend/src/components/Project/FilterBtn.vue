@@ -208,9 +208,6 @@
       );
       for (let i = 0; i < skills.length; i++)
         this.FilterSkillCandidate.push(skills[i]);
-      
-      
-      
     },
     methods : {
       insertSkill(value) {
@@ -223,7 +220,7 @@
         let skillCandidateCtnrTmp = document.querySelector("#skillCandidateCtnr");
         if (this.FilterSkillCandidate.length < 10) {
           skillCandidateCtnrTmp.removeAttribute("style");
-          skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+          skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left : 0px");
         }
       },
 
@@ -252,7 +249,7 @@
           skillCandidateCtnrTmp.removeAttribute("style");
           skillCandidateCtnrTmp.setAttribute(
             "style",
-            "margin: 20px; height: 250px; overflow-y: auto"
+            "margin: 20px; height: 250px; overflow-y: auto; left : 0px"
           );
         }
       },
