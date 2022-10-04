@@ -16,17 +16,5 @@
     "hidden": false,
     "path": "/mypage/company/companyinfoadmin",
     "children": []
-  },
-  "companyWallet": {
-    "name": "나의 지갑",
-    "hidden": false,
-    "path": "/mypage/company/companywallet",
-    "children": []
-  },
-  "companymessage": {
-    "name": "메세지",
-    "hidden": false,
-    "path": "/mypage/company/companymessage",
-    "children": []
   }
 }
