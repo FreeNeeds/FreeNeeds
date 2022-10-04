@@ -539,7 +539,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .deactiveProjectDetailItem {
   display: none;
 }
@@ -691,12 +691,6 @@ export default {
   width: 900px;
   margin: auto;
   display: none;
-}
-
-.carousel-wrapper-mine {
-  width: 640px !important;
-
-  overflow: hidden;
 }
 
 .carousel-wrapper-mine > .carousel-mine {
