@@ -693,11 +693,5 @@ export default {
   border: 2px solid transparent;
 }
 
-  .warnFilter {
-    position: fixed;
-    top : 15px;
-    left : 580px;
-    font-size: 20px;
-    font-weight: 700;
-  }
+  
 </style>

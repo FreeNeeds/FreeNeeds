@@ -23,13 +23,32 @@
           </div>
           <div class="col-3">
             <button
+            
               type="button"
               class="btn btn-outline-primary id-duplicate-confirm-btn"
               @click="checkIdDuplicate"
             >
               중복검사
             </button>
+            
+            
           </div>
+          <div
+            v-if="isDuplicatedIdTried&&isDuplicatedId"
+             
+              class="mt-3 my-3 btn btn-warning id-duplicate-confirm-btn"
+      
+              style="width:500px; margin-left:10px"
+            >
+              중복된 아이디입니다.
+            </div>
+          <div
+            v-if="isDuplicatedIdTried&&!isDuplicatedId"
+              class="mt-3 my-3 btn btn-light id-duplicate-confirm-btn"
+              style="width:500px; margin-left:10px"
+            >
+              사용가능한 아이디입니다
+            </div>
         </div>
       </div>
       <div class="register-item-wrapper">
@@ -146,6 +165,7 @@
             </div>
             <div class="col-5">
               <select
+                style="width:100% !important"
                 v-model="user.emailDomain"
                 name="emailadress"
                 id="emailSelectBar"
@@ -166,8 +186,8 @@
         <label for="registerCNumberInput" class="register-input-label"
           >지갑연결</label
         >
-       <button @click="getMetamask">지갑 가져오기</button>
-       <div>연결된 지갑주소 : {{user.accountAddress}}</div>
+        <button class="btn btn-info connect-wallet-btn" @click="getMetamask">지갑 가져오기</button>
+        <div class="connected-wallet alert alert-primary">프리니즈에 연결된 지갑주소 : {{ user.accountAddress }}</div>
       </div>
       <div class="regist-terms-input-form">
         <div class="form-check">
@@ -197,6 +217,7 @@
 <script>
 import * as yup from "yup";
 import { mapActions, mapGetters } from "vuex";
+import { createInstance } from "@/api/index.js";
 
 export default {
   props: {
@@ -208,6 +229,7 @@ export default {
       termsCheck: false,
       isDuplicatedEmail: false,
       isDuplicatedId: false,
+      isDuplicatedIdTried: false,
       isAuthorized: false,
       user: {
         id: "",
@@ -217,7 +239,7 @@ export default {
         email: "",
         emailDomain: "",
         passwordConfirm: "",
-        accountAddress:""
+        accountAddress: ""
       },
       validationPattern: {
         pwdCheckPattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+-])(?=.*[0-9]).{9,16}$/,
@@ -254,8 +276,11 @@ export default {
       this.isDuplicatedId = false;
     },
     async getMetamask() {
-      if (window.ethereum){ // first we check if metamask is installed
-        var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (window.ethereum) {
+        // first we check if metamask is installed
+        var accounts = await window.ethereum.request({
+          method: "eth_requestAccounts"
+        });
         this.user.accountAddress = accounts[0];
       }
     },
@@ -263,7 +288,16 @@ export default {
       this.settestdata(this.fortest);
     },
     checkIdDuplicate() {
-      this.isDuplicatedId = !this.isDuplicatedId;
+      
+      createInstance().get("/users/username/"+this.user.id+"/exists")
+      .then(res=>{
+        console.log(res)
+        this.isDuplicatedId = res.data;
+        console.log(this.isDuplicatedId)
+        this.isDuplicatedIdTried = true;
+        });
+      
+
     },
     changePasswordConfirmVisible() {
       this.passwordConfirmvisible = !this.passwordConfirmvisible;
@@ -286,7 +320,7 @@ export default {
       }
     },
     Signup() {
-      console.log("유저정뵈:"+this.user);
+      console.log("유저정뵈:" + this.user);
       this.user.emailadress = `${this.email}@${this.emailDomain}`;
       this.schema.isValid(this.user).then((valid, msg) => {
         if (!valid) {
@@ -309,10 +343,10 @@ export default {
       ) {
         alert("이메일 형태가 아닙니다. 다시 확인해주세요.");
         return;
-      } else if (!this.user.accountAddress) { 
-        alert("지갑을 등록해주세요")
+      } else if (!this.user.accountAddress) {
+        alert("지갑을 등록해주세요");
         return;
-      }else if (!this.termsCheck) {
+      } else if (!this.termsCheck) {
         alert("이용약관에 동의해주세요.");
         return;
       }
@@ -406,5 +440,11 @@ export default {
 }
 .regist-header {
   margin-bottom: 50px;
+}
+.connected-wallet{
+
+}
+.connect-wallet-btn{
+  margin: 5px 0px 5px 0px;
 }
 </style>

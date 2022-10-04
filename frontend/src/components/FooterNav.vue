@@ -13,10 +13,10 @@
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <!-- Content -->
               <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>FreeNeeds
+                 <img width="230px" src="../assets/images/freeneedsfooter.png" alt="" />
               </h6>
-              <p>
-                wow!
+              <p class="copyright-text">
+                Copyright © 2022 - FreeNeeds All Rights Reserved.
               </p>
             </div>
             <!-- Grid column -->
@@ -26,22 +26,22 @@
               <!-- Links -->
               <h6 class="text-uppercase fw-bold mb-4">Developer</h6>
               <p>
-                <a href="#!" class="text-reset">A</a>
+                <a href="#!" class="text-reset text-developer">SUGEUN PARK</a>
               </p>
               <p>
-                <a href="#!" class="text-reset">DAIN LEE</a>
+                <a href="#!" class="text-reset text-developer">JAEYEONG PARK</a>
               </p>
               <p>
-                <a href="#!" class="text-reset">B</a>
+                <a href="#!" class="text-reset text-developer">MOONJO SUNG</a>
               </p>
               <p>
-                <a href="#!" class="text-reset">SUGEUN PARK</a>
+                <a href="#!" class="text-reset text-developer">YOUNGJIN YOO</a>
               </p>
               <p>
-                <a href="#!" class="text-reset">C</a>
+                <a href="#!" class="text-reset text-developer">DAIN LEE</a>
               </p>
               <p>
-                <a href="#!" class="text-reset">JAEYEONG PARK</a>
+                <a href="#!" class="text-reset text-developer">DAYEON JO</a>
               </p>
             </div>
             <!-- Grid column -->
@@ -49,7 +49,7 @@
             <!-- Grid column -->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Role</h6>
+              <!-- <h6 class="text-uppercase fw-bold mb-4">Role</h6>
               <p>
                 <a href="#!" class="text-reset">Designer</a>
               </p>
@@ -67,15 +67,15 @@
               </p>
               <p>
                 <a href="#!" class="text-reset">CI/CD</a>
-              </p>
+              </p> -->
             </div>
             <!-- Grid column -->
 
             <!-- Grid column -->
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-              <p><i class="fas fa-home me-3"></i> 대전광역시 유성구</p>
+              <!-- <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <p><i class="fas fa-home me-3"></i> 대전광역시 유성구</p> -->
             </div>
             <!-- Grid column -->
           </div>
@@ -85,12 +85,12 @@
       <!-- Section: Links  -->
 
       <!-- Copyright -->
-      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
+      <!-- <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
         © 2022 Copyright:
         <a class="text-reset fw-bold" href="https://i7b202.p.ssafy.io/"
           >i7b202.p.ssafy.io</a
         >
-      </div>
+      </div> -->
       <!-- Copyright -->
     </footer>
   </div>
@@ -116,6 +116,13 @@ cursor: pointer;
 padding: 15px 20px;
 border-radius: 100%;
 }
-
+.copyright-text{
+  padding: 0px 0px 0px 10px;
+  font-size: 13px;
+}
+.text-developer{
+  text-decoration: none;
+  font-size: 14px;
+}
 
 </style>

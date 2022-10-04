@@ -6,8 +6,13 @@
     aria-hidden="true"
     data-bs-backdrop="false"
     style="background-color: rgba(0, 0, 0, 0.15);"
+    id="freelancerListDetailModal"
   >
-    <div class="modal-dialog modal-lg" id="freelancerModalWrapper">
+    <div
+      class="modal-dialog modal-lg"
+      id="freelancerModalWrapper"
+      v-if="isDataLoad"
+    >
       <div class="modal-content" id="freelancerDetailModalContent">
         <button
           type="button"
@@ -15,12 +20,14 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          @click="closeFreelancerDetailModal"
         ></button>
+
         <div id="freelancerDetailCtnr">
           <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
             <div class="row m-2">
               <h4 class="text-start fw-bold">
-                {{ freelancerDetailReceive.resume.title }}
+                {{ freelancerInfoDetail.resume.title }}
               </h4>
             </div>
             <div class="d-flex mx-4">
@@ -42,7 +49,7 @@
                 |
               </div>
               <div class="d-inline-block mx-2">
-                경력 {{ freelancerDetailReceive.resume.career_period }}년
+                경력 {{ freelancerInfoDetail.resume.career_period }}년
               </div>
             </div>
             <div class="d-flex mt-4">
@@ -225,8 +232,8 @@
                 style="width : 229px !important"
               >
                 <FreelancerCardSkill
-                  v-for="skillItem in freelancerDetailReceive.tech"
-                  :key="`id${id_}${skillItem}`"
+                  v-for="skillItem in freelancerInfoDetail.tech"
+                  :key="`id${freelancerInfoDetail.userId}${skillItem}`"
                   :skillItem="skillItem"
                 >
                 </FreelancerCardSkill>
@@ -237,7 +244,7 @@
             </div>
             <div class="row mx-3">
               <div class="text-start">
-                {{ freelancerDetailReceive.resume.introduce }}
+                {{ freelancerInfoDetail.resume.introduce }}
               </div>
             </div>
           </div>
@@ -264,6 +271,7 @@
               v-for="freelancerProjectCard in projectDetailValue"
               :key="freelancerProjectCard.id"
               :freelancerProjectCard="freelancerProjectCard"
+              style="margin-left : 0px !important"
             >
             </FreelancerProjectCard>
           </div>
@@ -271,7 +279,7 @@
             <div class="row mx-2 my-4">
               <div class="projectDetailHeadItem projectDetailItem">학력</div>
             </div>
-            <div class="d-flex mx-4  my-2">
+            <div class="d-flex mx-3 my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.highschool }}
               </div>
@@ -280,7 +288,7 @@
                 {{ freelancerEducation.education.highschool_end_date }}
               </div>
             </div>
-            <div class="d-flex mx-4 my-2">
+            <div class="d-flex mx-3 my-2">
               <div class="freelancerEducationName">
                 {{ freelancerEducation.education.university }}
               </div>
@@ -293,7 +301,7 @@
               <div class="projectDetailHeadItem projectDetailItem">경력</div>
             </div>
             <div
-              class="d-flex mx-4 my-2"
+              class="d-flex mx-3 my-2"
               v-for="freelancerCareerItem in freelancerEducation.careerList"
             >
               <div class="freelancerEducationName">
@@ -308,7 +316,7 @@
               <div class="projectDetailHeadItem projectDetailItem">자격증</div>
             </div>
             <div
-              class="d-flex mx-4 mt-2"
+              class="d-flex mx-3 mt-2"
               v-for="freelancerCareerItem in freelancerEducation.certificateList"
             >
               <div class="freelancerEducationName">
@@ -355,7 +363,7 @@
                 v-for="projectCardCarousel in myProjectLst"
                 :key="projectCardCarousel.id"
                 :projectCardCarousel="projectCardCarousel"
-                :projectData="projectData"
+                :projectData="projectCardCarousel.body"
               ></ProjectCardCarousel>
             </div>
             <button
@@ -438,167 +446,253 @@
 </template>
 
 <script>
-import HeaderNav from "@/components/HeaderNav.vue";
-import FooterNav from "@/components/FooterNav.vue";
 import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/FreelancerProjectCard.vue";
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import ProjectCardCarousel from "../Project/ProjectCardCarousel.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import * as userInstance from "@/api/user.js";
 import * as projectInstance from "@/api/project.js";
+import * as applyInstance from "@/api/apply.js";
 export default {
+  watch: {
+    async freelancerInfoDetail() {
+      await userInstance.getUserResume(
+        this.freelancerInfoDetail.username,
+        res => {
+          this.freelancerEducation = res.data;
+        },
+        err => {
+          const data = {
+            careerList: [],
+            certificateList: [],
+            education: {
+              highschool: "---",
+              highschool_end_date: "",
+              highschool_start_date: "",
+              major: "",
+              university: "---",
+              university_end_date: "",
+              university_start_date: ""
+            }
+          };
+          this.freelancerEducation = data;
+        }
+      );
+    }
+  },
   computed: {
-    ...mapGetters(["loginType", "loginUserInfo"])
+    ...mapGetters(["loginType", "loginUserInfo", "freelancerInfoDetail"]),
+    nameErase() {
+      let nameErasedata = "";
+      for (let i = 0; i < this.freelancerInfoDetail.name.length; i++) {
+        if (i == 1) nameErasedata += "*";
+        else nameErasedata += this.freelancerInfoDetail.name[i];
+      }
+      return nameErasedata;
+    },
+    projectDetailValue() {
+      let projectDetailTemp = [];
+      for (let i = 0; i < this.freelancerInfoDetail.projectCareer.length; i++) {
+        let tempdata = {};
+        tempdata.body = this.freelancerInfoDetail.projectCareer[i];
+        tempdata.id = "FDR" + i;
+        // console.log(this.freelancerInfoDetail.projectCareer[i]);
+        projectDetailTemp.push(tempdata);
+      }
+      return projectDetailTemp;
+    },
+    freelancerProjectModalId() {
+      return "freeProModal" + this.freelancerInfoDetail.userId;
+    },
+    freelancerProjectModalCtnrId() {
+      return "freeProModalCtnr" + this.freelancerInfoDetail.userId;
+    },
+    carouselWrapperMine() {
+      return "carouselWrpp" + this.freelancerInfoDetail.userId;
+    },
+    carouselMine() {
+      return "carousel" + this.freelancerInfoDetail.userId;
+    },
+    FreelancerDetailNavProject() {
+      return "FreelancerDetailNavProject" + this.freelancerInfoDetail.userId;
+    },
+    FreelancerDetailNavResume() {
+      return "FreelancerDetailNav" + this.freelancerInfoDetail.userId;
+    },
+    projectDetailNavItem() {
+      return "프로젝트item" + this.freelancerInfoDetail.userId;
+    },
+    resumeDetailNavItem() {
+      return "이력서item" + this.freelancerInfoDetail.userId;
+    },
+    normalProjectFreelancerModal() {
+      return "normalProjectFreelancerModal" + this.freelancerInfoDetail.userId;
+    },
+    sureSelectProjectFreelancer() {
+      return "sureSelectProjectFreelancer" + this.freelancerInfoDetail.userId;
+    },
+    profession() {
+      let data = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        data += this.freelancerInfoDetail.estimate[i].profession;
+      }
+      return data / this.freelancerInfoDetail.estimate.length;
+    },
+    ontime() {
+      let data = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        data += this.freelancerInfoDetail.estimate[i].ontime;
+      }
+      return data / this.freelancerInfoDetail.estimate.length;
+    },
+    active() {
+      let data = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        data += this.freelancerInfoDetail.estimate[i].active;
+      }
+      return data / this.freelancerInfoDetail.estimate.length;
+    },
+    communication() {
+      let data = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        data += this.freelancerInfoDetail.estimate[i].communication;
+      }
+      return data / this.freelancerInfoDetail.estimate.length;
+    },
+    reEmployment() {
+      let data = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        data += this.freelancerInfoDetail.estimate[i].reEmployment;
+      }
+      return data / this.freelancerInfoDetail.estimate.length;
+    },
+    ratingToPercent() {
+      let professionTemp = 0;
+      let ontimeTemp = 0;
+      let activeTemp = 0;
+      let communicationTemp = 0;
+      let reEmploymentTemp = 0;
+      let toreturn = 0;
+      for (let i = 0; i < this.freelancerInfoDetail.estimate.length; i++) {
+        professionTemp += this.freelancerInfoDetail.estimate[i].profession;
+        ontimeTemp += this.freelancerInfoDetail.estimate[i].ontime;
+        activeTemp += this.freelancerInfoDetail.estimate[i].active;
+        communicationTemp += this.freelancerInfoDetail.estimate[i]
+          .communication;
+        reEmploymentTemp += this.freelancerInfoDetail.estimate[i].reEmployment;
+      }
+      professionTemp =
+        professionTemp / this.freelancerInfoDetail.estimate.length;
+      ontimeTemp = ontimeTemp / this.freelancerInfoDetail.estimate.length;
+      activeTemp = activeTemp / this.freelancerInfoDetail.estimate.length;
+      communicationTemp =
+        communicationTemp / this.freelancerInfoDetail.estimate.length;
+      reEmploymentTemp =
+        reEmploymentTemp / this.freelancerInfoDetail.estimate.length;
+      toreturn =
+        (professionTemp +
+          ontimeTemp +
+          activeTemp +
+          communicationTemp +
+          reEmploymentTemp) /
+        5;
+      toreturn = toreturn * 20;
+      return toreturn;
+    }
   },
   name: "FreelancerDetail",
   components: {
-    HeaderNav,
-    FooterNav,
     FreelancerProjectCard,
     FreelancerCardSkill,
     ProjectCardCarousel
   },
   data() {
     return {
+      isDataLoad: false,
       idx: 0,
-      nameErase: "",
+      // nameErase: "",
       selectProjectFreelancerName: "",
-      freelancerProjectModalId: "freeProModal",
-      freelancerProjectModalCtnrId: "freeProModalCtnr",
-      carouselWrapperMine: "carouselWrpp",
-      carouselMine: "carousel",
-      normalProjectFreelancerModal: "normalProjectFreelancerModal",
-      sureSelectProjectFreelancer: "sureSelectProjectFreelancer",
-      FreelancerDetailNavProject: "FreelancerDetailNavProject",
-      FreelancerDetailNavResume: "FreelancerDetailNav",
-      projectDetailNavItem: "프로젝트item",
-      resumeDetailNavItem: "이력서item",
-      profession: 0,
-      ontime: 0,
-      active: 0,
-      communication: 0,
-      reEmployment: 0,
-      ratingToPercent: 0,
+      // projectData: {
+      //   id: "1",
+      //   category: "개발",
+      //   demain: "웹사이트",
+      //   location: "대한민국 어딘가...",
+      //   skill: ["Java", "Mysql", "SpringBoot"],
+      //   title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
+      //   content: "AI기반 Firescout 솔루션 ux/ui 디자인",
+      //   startDate: new Date("2022-09-10"),
+      //   endDate: new Date("2022-09-16"),
+      //   startDateSummry: "2022-09-10",
+      //   endDateSummry: "2022-09-16",
+      //   deadline: new Date("2022-11-30"),
+      //   recruitNumber: 3,
+      //   task:
+      //     "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
+      //   workstyle: "재택",
+      //   workStartTime: "오전 08:00",
+      //   workEndTime: "오후 16:00",
+      //   lowPrice: "200만원",
+      //   highPrice: "300만원",
+      //   careerPeriod: 3
+      // },
+      // profession: 0,
+      // ontime: 0,
+      // active: 0,
+      // communication: 0,
+      // reEmployment: 0,
+      // ratingToPercent: 0,
       myProjectLst: [],
-      projectDetailValue: [],
+      // projectDetailValue: [],
       // projectData: {}
-      projectData: {
-        id: "1",
-        category: "개발",
-        demain: "웹사이트",
-        location: "대한민국 어딘가...",
-        skill: ["Java", "Mysql", "SpringBoot"],
-        title: "AI기반 Firescout 솔루션 ux/ui 디자인 ",
-        content: "AI기반 Firescout 솔루션 ux/ui 디자인",
-        startDate: new Date("2022-09-10"),
-        endDate: new Date("2022-09-16"),
-        startDateSummry: "2022-09-10",
-        endDateSummry: "2022-09-16",
-        deadline: new Date("2022-11-30"),
-        recruitNumber: 3,
-        task:
-          "1) Native UI/UX <br> 2) 단말 내 시스템 연동 <br> 3) API 서버 연동",
-        workstyle: "재택",
-        workStartTime: "오전 08:00",
-        workEndTime: "오후 16:00",
-        lowPrice: "200만원",
-        highPrice: "300만원",
-        careerPeriod: 3
-      },
 
       freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"],
-      freelancerEducation: {
-        careerList: [
-          {
-            companyName: "(주)엠로",
-            department: "웹개발부",
-            end_date: "2020-02-01",
-            position: "수석연구원",
-            start_date: "2015-03-01"
-          }
-        ],
-        certificateList: [
-          {
-            certification: "한국산업인력공단",
-            date: "2014-11-01",
-            name: "정보처리기사"
-          }
-        ],
-        education: {
-          highschool: "싸피고등학교",
-          highschool_end_date: "2010-02-01",
-          highschool_start_date: "2007-03-01",
-          major: "컴퓨터공학과",
-          university: "싸피대학교",
-          university_end_date: "2015-02-01",
-          university_start_date: "2010-03-01"
-        }
-      }
+      freelancerDetailLst: ["프로젝트item", "이력서item"]
     };
   },
-  mounted() {
-    // console.log(this.freelancerDetailReceive);
-    this.projectDetailValue = [];
-    for (
-      let i = 0;
-      i < this.freelancerDetailReceive.projectCareer.length;
-      i++
-    ) {
-      let tempdata = {};
-      tempdata.body = this.freelancerDetailReceive.projectCareer[i];
-      tempdata.id = "FDR" + i;
-      // console.log(this.freelancerDetailReceive.projectCareer[i]);
-      this.projectDetailValue.push(tempdata);
-    }
-
-    // this.projectDetailValue.body = this.freelancerDetailReceive.projectCareer;
-    let id__ = String(this.id_);
-    // console.log(id__);
-    this.freelancerProjectModalId += id__;
-    this.freelancerProjectModalCtnrId += id__;
-    this.carouselWrapperMine += id__;
-    this.carouselMine += id__;
-    this.FreelancerDetailNavProject += id__;
-    this.FreelancerDetailNavResume += id__;
-    this.projectDetailNavItem += id__;
-    this.resumeDetailNavItem += id__;
-    this.normalProjectFreelancerModal += id__;
-    this.sureSelectProjectFreelancer += id__;
-    for (let i = 0; i < this.freelancerDetailReceive.name.length; i++) {
-      if (i == 1) this.nameErase += "*";
-      else this.nameErase += this.freelancerDetailReceive.name[i];
-    }
-    for (let i = 0; i < this.freelancerDetailReceive.estimate.length; i++) {
-      this.profession += this.freelancerDetailReceive.estimate[i].profession;
-      this.ontime += this.freelancerDetailReceive.estimate[i].ontime;
-      this.active += this.freelancerDetailReceive.estimate[i].active;
-      this.communication += this.freelancerDetailReceive.estimate[
-        i
-      ].communication;
-      this.reEmployment += this.freelancerDetailReceive.estimate[
-        i
-      ].reEmployment;
-    }
-
-    this.profession =
-      this.profession / this.freelancerDetailReceive.estimate.length;
-    this.ontime = this.ontime / this.freelancerDetailReceive.estimate.length;
-    this.active = this.active / this.freelancerDetailReceive.estimate.length;
-    this.communication =
-      this.communication / this.freelancerDetailReceive.estimate.length;
-    this.reEmployment =
-      this.reEmployment / this.freelancerDetailReceive.estimate.length;
-    this.ratingToPercent =
-      (this.profession +
-        this.ontime +
-        this.active +
-        this.communication +
-        this.reEmployment) /
-      5;
-    this.ratingToPercent = this.ratingToPercent * 20;
-    userInstance.getUserResume(
-      this.freelancerDetailReceive.username,
+  async mounted() {
+    await projectInstance.getCompanyProject(
+      this.loginUserInfo.id,
+      async res => {
+        console.log(res);
+        for (let i = 0; i < res.data.length; i++) {
+          let projectdata = {
+            id: res.data[i].projectId,
+            category: res.data[i].category,
+            demain: res.data[i].domain,
+            locationSi: res.data[i].locationSi,
+            locationGu: res.data[i].locationGu,
+            skill: [],
+            title: res.data[i].title,
+            content: res.data[i].content,
+            startDate: new Date(res.data[i].startDate),
+            endDate: new Date(res.data[i].endDate),
+            startDateSummry: res.data[i].startDate,
+            endDateSummry: res.data[i].endDate,
+            deadline: new Date(res.data[i].deadline),
+            recruitNumber: res.data[i].recruitNumber,
+            task: res.data[i].task,
+            workstyle: res.data[i].workStyle,
+            workStartTime: res.data[i].workStartTime,
+            workEndTime: res.data[i].workEndTime,
+            lowPrice: res.data[i].lowPrice + "만원",
+            highPrice: res.data[i].highPrice + "만원",
+            careerPeriod: res.data[i].careerPeriod
+          };
+          await projectInstance.getProjectTech(projectdata.id, res => {
+            console.log(res);
+            for (let j = 0; j < res.data.length; j++) {
+              projectdata.skill.push(res.data[j].techName);
+            }
+          });
+          this.myProjectLst.push({
+            id: "ids" + i,
+            body: projectdata
+          });
+        }
+      }
+    );
+    await userInstance.getUserResume(
+      this.freelancerInfoDetail.username,
       res => {
         this.freelancerEducation = res.data;
       },
@@ -620,22 +714,18 @@ export default {
       }
     );
 
-    for (let i = 0; i < 5; i++) {
-      this.myProjectLst.push({
-        id: "ids" + String(i),
-        body: this.projectData
-      });
-    }
-    if (this.loginType == "company") {
-      let ProjectList = [];
-      const filter = projectInstance.getProjectList();
-    }
+    // if (this.loginType == "company") {
+    //   let ProjectList = [];
+    //   const filter = projectInstance.getProjectList();
+    // }
+    this.isDataLoad = true;
   },
-  props: {
-    freelancerDetailReceive: Object,
-    id_: Number
-  },
+
   methods: {
+    // ...mapActions(["setIsModalOn"]),
+    closeFreelancerDetailModal() {
+      // this.setIsModalOn(false);
+    },
     openProjectModal() {
       let freelancerProjectModalCtnrTmp = document.querySelector(
         "#" + this.freelancerProjectModalCtnrId
@@ -753,6 +843,15 @@ export default {
       );
       normalProjectFreelancerModalTmp.classList.remove("d-none");
       sureSelectProjectFreelancerTmp.classList.add("d-none");
+      console.log(this.freelancerInfoDetail);
+      const applydata = {
+        projectId: this.myProjectLst[this.idx].body.id,
+        state: "지원완료",
+        userId: this.freelancerInfoDetail.userId
+      };
+      applyInstance.ApplyProject(applydata, res => {
+        alert("인터뷰 요청이 완료되었습니다.");
+      });
     },
 
     clickNotYetSelectProjectFreelancer() {
@@ -783,6 +882,9 @@ export default {
 </script>
 
 <style>
+.projectDetailNav:hover {
+  cursor: pointer;
+}
 #freelancer-detail {
   margin: 0 auto;
   margin-top: 50px;

@@ -8,12 +8,14 @@
       v-for="(freelancerCard, index) in freelancerCardLst"
       :key="index"
       :freelancerCard="freelancerCard"
+      class="freelancer-list-card-wrapper col-6"
+      style="padding : 0px"
     ></FreelancerCard>
   </div>
 </template>
 
 <script>
-import FreelancerCard from "@/components/Freelancer/FreelancerCard.vue";
+import FreelancerCard from "@/components/Freelancer/FreelancerCardNoModal.vue";
 import { mapActions, mapGetters } from "vuex";
 
 import * as userInstance from "@/api/user.js";
@@ -23,8 +25,7 @@ export default {
   props: {
     idx: Number,
     pageIdx: Number,
-    btnIdx: Number,
-    isFilter: Boolean
+    btnIdx: Number
   },
   async mounted() {
     // console.log(this.searchOption.page);
@@ -158,10 +159,12 @@ export default {
       console.log("???");
       this.totalUserList = [];
       const filterdata = {
-        techList: this.freelancerFilter,
         page: this.searchOption.page,
-        size: this.searchOption.size
+        size: this.searchOption.size,
+        techList: this.freelancerFilter
       };
+
+      console.log(filterdata);
       if (this.pageIdx == 0) {
         this.isDataLoaded = false;
         await userInstance.getFilterUserList(filterdata, res => {
@@ -180,7 +183,7 @@ export default {
   data() {
     return {
       searchOption: {
-        page: this.pageIdx * 5 + this.btnIdx,
+        page: this.pageIdx * 10 + this.btnIdx,
         size: 4
       },
 
@@ -256,23 +259,19 @@ export default {
 };
 </script>
 
-<style >
+<style>
 .freelancer-contents {
   max-width: 800px;
   max-height: 250px;
   margin: 0 auto;
   margin-top: 30px;
-
 }
 
 .freelancer-contents:hover {
   background-color: #b4b4b4;
 }
 
-#freelancer-list{
+#freelancer-list {
   padding-bottom: 10px;
 }
-
-
-
 </style>

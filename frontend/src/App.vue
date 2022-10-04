@@ -5,7 +5,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view />
+    <router-view style="width:1526.400px" />
     <footer-nav-vue></footer-nav-vue>
   </div>
 </template>

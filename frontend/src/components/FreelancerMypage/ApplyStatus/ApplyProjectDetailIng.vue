@@ -125,13 +125,21 @@
                     <p class="d-inline-block">다음과 같이 근로계약을 체결한다.</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 : </p>
+                    <p class="d-inline-block">1. 근로개시일 및 종료일 : </p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="margin-left : 165px">
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <p class="d-inline-block">년</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">월</p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">일까지</p>  
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -366,6 +374,7 @@ import * as userInstance from "@/api/user.js";
 import * as companyInstance from "@/api/company.js";
 import { mapGetters } from "vuex";
 import hashData from "@/utils/hashData.js";
+import signInstance from "@/api/sign.js";
 
 export default {
   name: "ApplyProjectDetailIng",
@@ -553,7 +562,7 @@ export default {
           if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
-          document.querySelector('#' + this.imgSignCompany).src = tmp[30]
+          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
         })
         this.isContractOpen = true
       }
@@ -706,17 +715,22 @@ export default {
       console.log("프리랜서 계좌주소");
       console.log(accounts[0]);
       let result = hashData.getHashData(totalContent);
-      
-      // console.log("해시값 출력");
-      // console.log(result);
-      // let companyEncrypt = "";
-      // let freelancerEncrypt = "";
 
+      
+      console.log("해시값 출력");
+      console.log(result);
+      
       //기업 암호화
-
-
-      //프리랜서 암호화
+      let companyEncrypt = await signInstance.getCompanySign(this.projectDataReceive.company.companyId,result);
+      console.log("기업 전자서명 출력");
+      console.log(companyEncrypt);
       
+      
+      //프리랜서 암호화
+      let freelancerEncrypt = await signInstance.getUserSign(this.$store.state.accounts.loginUserInfo.id,result);
+      console.log("프리랜서 전자서명 출력");
+      console.log(freelancerEncrypt);
+
 
       freelancerSignEscrow(accounts[0], this.companyAccount, result);
 

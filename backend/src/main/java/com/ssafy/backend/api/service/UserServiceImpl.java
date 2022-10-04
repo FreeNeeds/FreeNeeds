@@ -263,4 +263,9 @@ public class UserServiceImpl implements UserService {
 	public String getUsernameByUserId(Long userId) {
 		return userRepositorySupport.findUsernameByUserId(userId);
 	}
+
+	@Override
+	public boolean checkUsernameDuplicate(String username) {
+		return userRepository.existsByUsername(username);
+	}
 }

@@ -54,39 +54,51 @@ export default {
       router.push("/");
     },
     freelancerLoginA({ commit }, loginInfo) {
-      authInstance.freelancerLogin(loginInfo, res => {
-        commit("SET_ACCESSTOKEN", res.data.accessToken);
-        const loginUserDate = {
-          email: res.data.email,
-          id: res.data.id,
-          name: res.data.name,
-          phone: res.data.phone,
-          username: res.data.username
-        };
-        console.log(res);
-        console.log(loginUserDate);
-        commit("SET_LOGINUSERINFO", loginUserDate);
-        commit("SET_LOGINTYPE", "freelancer");
-      });
-      router.push("/");
+      authInstance.freelancerLogin(
+        loginInfo,
+        res => {
+          commit("SET_ACCESSTOKEN", res.data.accessToken);
+          const loginUserDate = {
+            email: res.data.email,
+            id: res.data.id,
+            name: res.data.name,
+            phone: res.data.phone,
+            username: res.data.username
+          };
+          console.log(res);
+          console.log(loginUserDate);
+          commit("SET_LOGINUSERINFO", loginUserDate);
+          commit("SET_LOGINTYPE", "freelancer");
+          router.push("/");
+        },
+        err => {
+          alert("로그인 정보가 올바르지 않습니다.");
+        }
+      );
     },
     companyLoginA({ commit }, loginInfo) {
       console.log(loginInfo);
-      authInstance.companyLogin(loginInfo, res => {
-        commit("SET_ACCESSTOKEN", res.data.accessToken);
-        const loginUserDate = {
-          email: res.data.email,
-          id: res.data.companyId,
-          name: res.data.name,
-          phone: res.data.phone,
-          username: res.data.username
-        };
-        console.log(res);
-        console.log(loginUserDate);
-        commit("SET_LOGINUSERINFO", loginUserDate);
-        commit("SET_LOGINTYPE", "company");
-      });
-      router.push("/");
+      authInstance.companyLogin(
+        loginInfo,
+        res => {
+          commit("SET_ACCESSTOKEN", res.data.accessToken);
+          const loginUserDate = {
+            email: res.data.email,
+            id: res.data.companyId,
+            name: res.data.name,
+            phone: res.data.phone,
+            username: res.data.username
+          };
+          console.log(res);
+          console.log(loginUserDate);
+          commit("SET_LOGINUSERINFO", loginUserDate);
+          commit("SET_LOGINTYPE", "company");
+          router.push("/");
+        },
+        err => {
+          alert("로그인 정보가 올바르지 않습니다.");
+        }
+      );
     },
     signupFreelancer({}, FreelancerInfo) {
       // console.log(FreelancerInfo);

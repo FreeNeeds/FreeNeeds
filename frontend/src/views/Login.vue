@@ -14,6 +14,7 @@
             type="text"
             id="loginCIdInput"
             class="login-input-wrapper"
+            @keydown.enter="login"
           />
         </div>
       </div>
@@ -29,6 +30,7 @@
                 type="password"
                 id="loginCPasswordInput"
                 class="login-input-wrapper  password-input-wrapper"
+                @keydown.enter="login"
               />
             </div>
             <div
@@ -45,19 +47,7 @@
         </div>
       </div>
 
-      <div class="login-terms-input-form">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label" for="flexCheckDefault">
-            자동 로그인
-          </label>
-        </div>
-      </div>
+      
       <div class="login-submit-btn-wrapper">
         <button type="button" class="btn btn-primary btn-lg" @click="login">
           <div style="padding-left:50px;padding-right:50px">
@@ -86,13 +76,17 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-    
-  },
+  mounted() {},
   created() {},
   methods: {
     ...mapActions(["freelancerLoginA", "companyLoginA"]),
-    login() {
+    // 확인
+    async login() {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0X3" }],
+      });
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
       if (this.loginType == "company") {
         this.companyLogin();
       } else {

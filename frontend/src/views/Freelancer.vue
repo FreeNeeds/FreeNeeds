@@ -1,12 +1,15 @@
 <template>
   <b-container>
-    <div id="banner"><img src="../assets/images/banner1.jpg" alt="" width="95%"/></div>
-    <FilterBtn></FilterBtn>
+    <div id="banner">
+      <img src="../assets/images/banner1.jpg" alt="" width="95%" />
+    </div>
+
+    <FilterBtn style=""></FilterBtn>
     <div style="overflow : hidden; width: 1320px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
         <div
           clsss="freelancer-list-wrapper"
-          v-for="(value, index) in (pageMax + 1) * 5"
+          v-for="(value, index) in (pageMax + 1) * 10"
           :key="index"
         >
           <div style="width:1300px">
@@ -14,16 +17,19 @@
               :idx="idx"
               :pageIdx="pageIdx"
               :btnIdx="value"
-              :isFilter="isFilter"
+              class="row"
             ></FreelancerList>
           </div>
         </div>
       </div>
     </div>
+    <freelancer-detail></freelancer-detail>
+
     <button
-      class="prev prevProjectvue"
+      class="prev prevFreelancervue"
       type="button"
       @click="clickPrevBtnProject"
+      style="top : 275px !important; left : 40px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -41,9 +47,10 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <button
-      class="next nextProjectvue"
+      class="next nextFreelancervue"
       type="button"
       @click="clickNextBtnProject"
+      style="top : 275px !important; right : 40px !important"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +67,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
-    <div class="text-center paging">
+    <div class="text-center paging mt-3">
       <div
         @click="clickPageOne"
         id="page1"
@@ -96,6 +103,41 @@
       >
         5
       </div>
+      <div
+        @click="clickPagesix"
+        id="page6"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        6
+      </div>
+      <div
+        @click="clickPageseven"
+        id="page7"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        7
+      </div>
+      <div
+        @click="clickPageeight"
+        id="page8"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        8
+      </div>
+      <div
+        @click="clickPagenine"
+        id="page9"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        9
+      </div>
+      <div
+        @click="clickPageten"
+        id="page10"
+        class="d-inline-block fw-bold mx-2 pageItem"
+      >
+        10
+      </div>
     </div>
   </b-container>
 </template>
@@ -106,9 +148,12 @@ import FooterNav from "@/components/FooterNav.vue";
 import FreelancerList from "@/components/Freelancer/FreelancerList.vue";
 import FilterBtn from "@/components/Freelancer/Filter/FilterBtn.vue";
 import { toChecksumAddress } from "web3-utils";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetailForList.vue";
 import { mapGetters } from "vuex";
 export default {
-  computed: { ...mapGetters(["freelancerFilter"]) },
+  computed: {
+    ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
+  },
   data() {
     return {
       /** 실제 페이지 1,2.....,10.. */
@@ -120,7 +165,7 @@ export default {
       pageMax: 0,
       filterIdx: -1,
       limitIdx: -1,
-      isFilter: false,
+
       remainDate: 0,
       periodWork: 0,
       reLoad: true
@@ -206,6 +251,70 @@ export default {
       document.querySelector(".carouselProjectWrpr").style.transform =
         "translate3d(" + -1300 * this.idx + "px, 0, 0)";
     },
+    clickPagesix() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page6").classList.add("activePage");
+      this.btnIdx = 6;
+      this.idx = parseInt(document.querySelector("#page6").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPageseven() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page7").classList.add("activePage");
+      this.btnIdx = 7;
+      this.idx = parseInt(document.querySelector("#page7").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPageeight() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page8").classList.add("activePage");
+      this.btnIdx = 8;
+      this.idx = parseInt(document.querySelector("#page8").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPagenine() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page9").classList.add("activePage");
+      this.btnIdx = 9;
+      this.idx = parseInt(document.querySelector("#page9").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
+
+    clickPageten() {
+      let tmp = document.querySelectorAll(".pageItem");
+      for (let i = 0; i < tmp.length; i++) {
+        if (tmp[i].classList.contains("activePage"))
+          tmp[i].classList.remove("activePage");
+      }
+      document.querySelector("#page10").classList.add("activePage");
+      this.btnIdx = 10;
+      this.idx = parseInt(document.querySelector("#page10").innerText) - 1;
+      document.querySelector(".carouselProjectWrpr").style.transform =
+        "translate3d(" + -1300 * this.idx + "px, 0, 0)";
+    },
 
     clickNextBtnProject() {
       console.log(this.limitIdx);
@@ -217,13 +326,13 @@ export default {
           .classList.remove("activePage");
         this.idx++;
         this.btnIdx++;
-        if (this.btnIdx === 6) {
+        if (this.btnIdx === 11) {
           this.pageIdx++;
           // console.log("???");
           this.reLoad = false;
           let btnTmp = document.querySelectorAll(".pageItem");
           for (let i = 0; i < btnTmp.length; i++) {
-            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) + 5;
+            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) + 10;
             if (
               this.filterIdx != -1 &&
               parseInt(btnTmp[i].innerText) >= this.filterIdx
@@ -256,9 +365,9 @@ export default {
           for (let i = 0; i < btnTmp.length; i++) {
             if (btnTmp[i].classList.contains("d-none"))
               btnTmp[i].classList.remove("d-none");
-            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) - 5;
+            btnTmp[i].innerText = parseInt(btnTmp[i].innerText) - 10;
           }
-          this.btnIdx = 5;
+          this.btnIdx = 10;
         }
         document
           .querySelector("#page" + this.btnIdx)
@@ -270,23 +379,28 @@ export default {
     }
   },
 
-  components: { HeaderNav, FilterBtn, FooterNav, FreelancerList }
+  components: {
+    HeaderNav,
+    FilterBtn,
+    FooterNav,
+    FreelancerList,
+    FreelancerDetail
+  }
 };
 </script>
 
-<style >
+<style>
 #banner {
   width: 100%;
-  
+
   display: flex;
   align-content: center;
   text-align: center;
+  padding-top: 20px;
   margin: 0 auto;
-  margin-bottom: 10px; 
-margin-left: 30px;
-  
+  margin-bottom: 10px;
+  margin-left: 30px;
 }
-
 
 .activePage {
   font-size: 22px !important;
@@ -303,18 +417,18 @@ margin-left: 30px;
   color: blue !important;
 }
 
-.prevProjectvue {
+.prevFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   left: 45px !important;
   height: 600px !important;
   width: 70px !important;
   background-color: #f9f9f9 !important;
 }
 
-.nextProjectvue {
+.nextFreelancervue {
   position: absolute !important;
-  top: 420px !important;
+  top: 500px !important;
   right: 45px !important;
   height: 600px !important;
   width: 70px !important;
@@ -329,7 +443,7 @@ margin-left: 30px;
   width: 1300px;
 }
 
-.paging{
+.paging {
   /* margin: 15px; */
 }
 </style>

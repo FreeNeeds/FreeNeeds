@@ -36,8 +36,7 @@ public class CompanyServiceImpl implements CompanyService{
     public Company createCompany(CompanyRegisterPostReq companyRegisterInfo, String publicKey, String privateKey) {
         // 닉네임 중복 확인
         validateDuplicateMember(companyRegisterInfo);
-        // 이메일 중복 확인
-        validateDuplicateEmail(companyRegisterInfo);
+
         // 기업명 중복 확인
         validateDuplicateName(companyRegisterInfo);
 
@@ -62,12 +61,6 @@ public class CompanyServiceImpl implements CompanyService{
         }
     }
 
-    @Override
-    public void validateDuplicateEmail(CompanyRegisterPostReq companyRegisterInfo) {
-        if (getCompanyByEmail(companyRegisterInfo.getEmail()).orElse(null) != null) {
-            throw new IllegalStateException("중복된 이메일입니다.");
-        }
-    }
 
     @Override
     public void validateDuplicateName(CompanyRegisterPostReq companyRegisterInfo) {
@@ -152,5 +145,11 @@ public class CompanyServiceImpl implements CompanyService{
     public String getCompanyAccountAddressByCompanyId(Long companyId) {
         String accountAddress = companyRepositorySupport.findCompanyAccountAddressByCompanyId(companyId);
         return accountAddress;
+    }
+
+    @Override
+    public Company getCompanyByCompanyId(Long companyId) {
+        Company company = companyRepository.findCompanyByCompanyId(companyId);
+        return company;
     }
 }

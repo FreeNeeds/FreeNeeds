@@ -244,13 +244,21 @@
                     <p class="d-inline-block">다음과 같이 근로계약을 체결한다.</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 : </p>
+                    <p class="d-inline-block">1. 근로개시일 및 종료일 : </p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
                     <p class="d-inline-block">년</p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">일부터</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="margin-left : 165px">
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 80px"></div>
+                    <p class="d-inline-block">년</p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">월</p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
+                    <p class="d-inline-block">일까지</p>  
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -429,7 +437,7 @@
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button @click="clickCompleteWriteContract(), createContract()" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
+                    <button @click="clickCompleteWriteContract" class="signatureBtn m-auto" :id=signatureComplete>작성완료</button>
                   </div>
                   <h5 class="text-center d-none" style="color : red" :id=alreadyDoneContract>이미 전달된 계약서 입니다.</h5>
                   <div class="d-none my-2 fw-bold text-center" style="color : red" :id="notSign">
@@ -459,7 +467,7 @@
         <div class="sureContractModalCtnr">
           <h5 class="mt-5"><h3 class="fw-bold d-inline-block">{{ nameErase }}</h3> 님에게 <br>작성한 계약서를 보내겠습니까?</h5>
           <div class="m-auto">
-            <button @click="clickSendContract" class="signatureBtn my-3 mx-2">네</button>
+            <button @click="clickSendContract(), createContract()" class="signatureBtn my-3 mx-2">네</button>
             <button @click="clickNotSendContract" class="signatureBtn my-3 mx-2">아니요</button>
           </div>
         </div>
@@ -475,6 +483,7 @@ import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/Fre
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
+import html2canvas from 'html2canvas';
 import { createEscrow } from "@/utils/EscrowFactory.js";
 import * as userInstance from "@/api/user.js";
 
@@ -813,37 +822,31 @@ export default {
       } else {
         btnSelect += '1'
       }
-      console.log(1)
       if (document.querySelector('#' + this.notIncentiveBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(2)
       if (document.querySelector('#' + this.recruitInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(3)
       if (document.querySelector('#' + this.accidentInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(4)
       if (document.querySelector('#' + this.personInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(5)
       if (document.querySelector('#' + this.healthInsureBtn).classList.contains('d-none')) {
         btnSelect += '0'
       } else {
         btnSelect += '1'
       }
-      console.log(6)
       createInstance().post('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
       {
         imgSRC : btnSelect,

@@ -16,7 +16,6 @@ public interface CompanyService {
 
     void validateDuplicateMember(CompanyRegisterPostReq companyRegisterInfo);
 
-    void validateDuplicateEmail(CompanyRegisterPostReq companyRegisterInfo);
 
     void validateDuplicateName(CompanyRegisterPostReq companyRegisterInfo);
 
@@ -39,4 +38,6 @@ public interface CompanyService {
     String getCompanyAccountAddressByUsername(String username);
 
     String getCompanyAccountAddressByCompanyId(Long companyId);
+
+    Company getCompanyByCompanyId(Long companyId);
 }
