@@ -169,10 +169,11 @@ async function setUserProjectTech(projectId, techList, success, fail) {
 }
 
 /** 유저 이력 사항 등록 */
-
 async function setUserResume(registerResumeInfo, success, fail) {
   await instance
-    .post(`users/resume`, registerResumeInfo)
+    .post(`users/resume`, registerResumeInfo, {
+      headers: store.getters.authHeader
+    })
     .then(success)
     .catch(fail);
 }
