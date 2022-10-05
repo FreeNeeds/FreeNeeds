@@ -658,12 +658,6 @@ export default {
   font-size: 15px;
 }
 
-#freelancerDetailModalCloseBtn {
-  position: fixed;
-  top: 55px;
-  right: 400px;
-}
-
 .freelancerFloatBtn {
   position: fixed;
   top: 620px;

@@ -19,6 +19,7 @@
     data-bs-backdrop="false"
     style="background-color: rgba(0, 0, 0, 0.3);"
     >
+    <h5 class="fw-blod warnFilter" style="color : red">적어도 한 개 이상의 필터를 적용해주세요!</h5>
       <div class="modal-dialog" id="FilterModalWrapper">
         <div class="modal-content" id="FilterModalContent">
           <button
@@ -39,7 +40,6 @@
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-          <h5 class="fw-blod warnFilter" style="color : red">적어도 한 개 이상의 필터를 적용해주세요!</h5>
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
             <b-container id="FilterCategory">
@@ -436,11 +436,11 @@
               skillCandidateCtnrTmp.removeAttribute("style");
               skillCandidateCtnrTmp.setAttribute(
                 "style",
-                "height: 250px; overflow-y: auto"
+                "height: 250px; overflow-y: auto; left : 0px"
               );
             } else {
               skillCandidateCtnrTmp.removeAttribute("style");
-              skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+              skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left : 0px");
             }
             pre = post;
           }
@@ -460,12 +460,8 @@
     font-size: 17px;
     font-weight: bold; 
     background-color: white;
-    margin-left: 64%;
-    margin-top: 3px;
-    margin-bottom: 8px;
-    position: absolute;
-    top : 900px;
-    right : 160px;
+    position: relative !important;
+    top : -65px !important;
   }
 
   #filterBtn:hover{
@@ -486,16 +482,16 @@
   }
 
   #FilterModalApplyBtn {
-    position: fixed;
-    top: 645px;
-    right: 540px;
+    position: fixed !important;
+    bottom : 11% !important;
+    left : 61% !important;
     z-index: 2;
     border-radius: 40px;
-    border: 1px solid lightgray;
+    border: 0px solid lightgray;
     background-color: #6ecdb1;
     font-size: 15px;
     font-weight: bold;
-    width: 105px;
+    width: 115px;
     height: 40px;
   }
 
@@ -516,9 +512,9 @@
   }
 
   #FilterModalCloseBtn {
-    position: fixed;
-    top: 65px;
-    right: 540px;
+    position: fixed !important;
+    left : 64% !important;
+    bottom : 87% !important;
   }
 
   #FilterModalTitle {
@@ -733,14 +729,23 @@
   }
 
   .warnFilter {
-    position: fixed;
-    top : 20px;
-    left : 600px;
-    font-weight: 700;
+    margin-top : 1% !important;
+    margin-bottom : 0px !important;
+    font-size: 22px;
+    font-weight: 600;
   }
+
   .btnimg{
     position: absolute;
     top:-50px;
     left: 7px;
+  }
+
+  .modal-content {
+    position: fixed !important;
+    width : 35% !important;
+    height : 82% !important;
+    left : 32.5% !important;
+    bottom : 10vh !important;
   }
   </style>

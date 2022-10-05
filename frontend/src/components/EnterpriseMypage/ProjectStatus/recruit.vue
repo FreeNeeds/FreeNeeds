@@ -16,20 +16,20 @@
       :idEdit=projectCardItem.projectIdEdit
       :projectDataReceive=projectCardItem
       >
-      </recruitProjectDetail>
-      <button @click="prevBtnClick" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-        </svg>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button @click="nextBtnClick" class="nextMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-        <span class="visually-hidden">Next</span>
-      </button>    
+      </recruitProjectDetail> 
     </div>
+    <button @click="prevBtnClick" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button @click="nextBtnClick" class="nextMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+      <span class="visually-hidden">Next</span>
+    </button>   
   </div>
 </template>
 
@@ -96,19 +96,21 @@
 
 <style>
   .prevMyPageCompany {
-    position: absolute;
-    top : 255px;
-    left : 515px;
-    height : 219px;
+    position: relative;
+    top : -314px !important;
+    left : 90px;
+    height : 314px;
+    z-index: 2; 
     background-color: #f9f9f9;
     border : 0px;
   }
 
   .nextMyPageCompany {
-    position: absolute;
-    top : 255px;
-    right : 180px;
-    height : 219px;
+    position: relative;
+    top : -314px !important;
+    left : 800px;
+    height : 314px;
+    z-index: 2; 
     background-color: #f9f9f9;
     border : 0px;
   }

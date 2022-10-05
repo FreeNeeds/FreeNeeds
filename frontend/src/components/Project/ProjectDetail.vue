@@ -281,8 +281,8 @@ export default {
 
   #ProjectDetailModalCloseBtn {
     position: fixed;
-    top : 55px;
-    right : 400px;
+    bottom : 86.5% !important;
+    left : 72% !important;
   }
 
   .project-card-wrapper {
@@ -390,8 +390,8 @@ export default {
 
   #applyModal {
     position: fixed;
-    top: 130px;
-    right: 600px;
+    bottom : 50% !important;
+    left : 41.5% !important;
     background-color: white;
     border-radius: 20px;
     height: 170px; 

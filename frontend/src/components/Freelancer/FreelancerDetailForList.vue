@@ -13,7 +13,7 @@
       id="freelancerModalWrapper"
       v-if="isDataLoad"
     >
-      <div class="modal-content" id="freelancerDetailModalContent">
+      <div class="modal-content modal-content-freelancer-detail" id="freelancerDetailModalContent">
         <button
           type="button"
           id="freelancerDetailModalCloseBtn"
@@ -979,8 +979,8 @@ export default {
 
 #freelancerDetailModalCloseBtn {
   position: fixed;
-  top: 55px;
-  right: 400px;
+  bottom : 87% !important;
+  left : 72.5% !important;
 }
 
 .freelancerFloatBtn {
@@ -1042,5 +1042,10 @@ export default {
   position: fixed;
   top: 160px;
   right: 350px;
+}
+
+.modal-content-freelancer-detail {
+  width : 50vw !important;
+  left : 25.5% !important;
 }
 </style>

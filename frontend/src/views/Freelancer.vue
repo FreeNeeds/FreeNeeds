@@ -4,7 +4,7 @@
       <img src="../assets/images/banner1.jpg" alt="" width="95%" />
     </div>
     <FilterBtn></FilterBtn>
-    <div style="overflow : hidden; width: 1320px; height: auto">
+    <div style="overflow : hidden; width: 1300px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
         <div
           clsss="freelancer-list-wrapper"

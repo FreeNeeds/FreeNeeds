@@ -4,7 +4,10 @@
       <img src="../assets/images/banner2.jpg" alt="" width="95%" />
     </div>
     <!--<SearchBar></SearchBar>-->
-    <div style="overflow : hidden; width: 1320px; height: 650px">
+    <div class="d-flex justify-content-end" style="height : 0px; margin-right : 60px">
+    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
+    </div>
+    <div style="overflow : hidden; width: 1300px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
         <ProjectListWrpr
           v-for="projectList in projectCardMap"
@@ -138,7 +141,6 @@
         10
       </div>
     </div>
-    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
   </b-container>
 </template>
 

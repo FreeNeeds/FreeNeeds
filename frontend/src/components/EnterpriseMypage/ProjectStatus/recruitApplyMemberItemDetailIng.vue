@@ -189,6 +189,7 @@
                   v-for="freelancerProjectCard in projectCareer"
                   :key="freelancerProjectCard.body.projectCareerId"
                   :freelancerProjectCard="freelancerProjectCard"
+                  style="margin-left : 0px !important"
                   >
                   </FreelancerProjectCard>
                 </div>

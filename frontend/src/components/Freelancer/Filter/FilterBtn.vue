@@ -281,22 +281,7 @@ export default {
   font-weight: bold;
   text-align: center;
 }
-#filterBtn {
-  border-radius: 30px !important;
-  width: 100px !important;
-  height: 40px !important;
-  border: 2px solid rgb(209, 207, 207);
-  text-align: center;
-  font-size: 17px;
-  font-weight: bold;
-  background-color: white;
-  margin-left: 64%;
-  margin-top: 3px;
-  margin-bottom: 8px;
-  position: absolute;
-  top: 900px;
-  right: 160px;
-}
+
 
 #filterBtn:hover {
   background-color: #6ecdb1;
@@ -317,20 +302,6 @@ export default {
   overflow-y: scroll;
 }
 
-#FilterModalApplyBtn {
-  position: fixed;
-  top: 645px;
-  right: 540px;
-  z-index: 2;
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 105px;
-  height: 40px;
-}
-
 #FilterModalApplyBtn:hover {
   background-color: #3c74c9;
   color: white;
@@ -345,12 +316,6 @@ export default {
 
 #FilterModalContent::-webkit-scrollbar {
   width: 0px !important;
-}
-
-#FilterModalCloseBtn {
-  position: fixed;
-  top: 65px;
-  right: 540px;
 }
 
 #FilterModalTitle {
@@ -372,16 +337,6 @@ export default {
   margin-bottom: 3px;
 }
 
-.FilterBtn {
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 15px;
-  border: 1px solid lightgray;
-  background-color: white;
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 .FilterBtn:hover {
   border: 1px solid black;
