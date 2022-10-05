@@ -49,11 +49,12 @@
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-          <h5 class="fw-blod warnFilter" style="color : red">
-            적어도 한 개 이상의 필터를 적용해주세요!
-          </h5>
+
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
+            <h5 class="fw-blod warnFilter" style="color : royalblue">
+              적어도 한 개 이상의 필터를 적용해주세요!
+            </h5>
             <b-container id="FilterCategory">
               <div class="FilterKeyword">분야</div>
               <hr />
@@ -765,9 +766,6 @@ export default {
 }
 
 .warnFilter {
-  position: fixed;
-  top: 20px;
-  left: 600px;
   font-weight: 700;
 }
 .btnimg {

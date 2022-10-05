@@ -1,9 +1,7 @@
 <template>
   <div v-if="isDataLoaded">
     <div v-if="projectDataList.length == 0">
-      <div class="apply-status-no-project-wrapper">
-        프로젝트가 없습니다
-      </div>
+      <no-project-view-vue></no-project-view-vue>
     </div>
     <div
       class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
@@ -82,7 +80,7 @@ import * as companyInstance from "@/api/company.js";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import ApplyProjectDetail from "./ApplyProjectDetail.vue";
-
+import NoProjectViewVue from "../../Mypage/NoProjectView.vue";
 export default {
   data() {
     return {
@@ -179,7 +177,8 @@ export default {
   components: {
     ProjectCard,
     ApplyProjectDetail,
-    recruitCardItemFreelancer
+    recruitCardItemFreelancer,
+    NoProjectViewVue
   },
   methods: {
     prevBtnClick() {
