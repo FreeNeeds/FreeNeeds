@@ -27,7 +27,7 @@
           class="ProjectDetailApplyBtn freelancerFloatBtn"
           style="z-index : 2"
         >
-          계약서 보기
+          ㅋ
         </button>
         <button
           @click="closeContractPaper"

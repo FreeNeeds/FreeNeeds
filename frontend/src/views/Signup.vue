@@ -381,9 +381,11 @@ export default {
 }
 .regist-terms-input-form .form-check-input {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-terms-input-form .form-check-label {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-email-input-wrapper {
   padding: 10px;
