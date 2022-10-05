@@ -1334,7 +1334,9 @@ export default {
         result
       );
       console.log("기업 전자서명 출력");
-      console.log(companyEncrypt);
+      console.log(companyEncrypt.encryptData);
+      console.log(companyEncrypt.publicKey);
+
 
       //프리랜서 암호화
       let freelancerEncrypt = await signInstance.getUserSign(
@@ -1342,7 +1344,8 @@ export default {
         result
       );
       console.log("프리랜서 전자서명 출력");
-      console.log(freelancerEncrypt);
+      console.log(freelancerEncrypt.encryptData);
+      console.log(freelancerEncrypt.publicKey);
 
       freelancerSignEscrow(accounts[0], this.companyAccount, result);
 
