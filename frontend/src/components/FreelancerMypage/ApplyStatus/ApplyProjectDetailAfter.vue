@@ -509,7 +509,7 @@ export default {
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
           document.querySelector('#' + this.imgSignCompany).src = tmp[33]
-          if (tmp.length === 32) {
+          if (tmp.length === 35) {
             document.querySelector('#' + this.imgSign).src = tmp[34]
           }
         })

@@ -1167,7 +1167,7 @@ export default {
                 .classList.remove("d-none");
             document.querySelector("#" + this.imgSignCompany).src = tmp[33];
             console.log(tmp.length);
-            if (tmp.length === 32) {
+            if (tmp.length === 35) {
               document
                 .querySelector("#" + this.imgSign)
                 .setAttribute(
