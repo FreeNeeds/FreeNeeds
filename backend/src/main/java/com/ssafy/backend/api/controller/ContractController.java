@@ -2,6 +2,7 @@ package com.ssafy.backend.api.controller;
 
 import com.ssafy.backend.api.request.ContractRegisterPostReq;
 import com.ssafy.backend.api.response.ContractRes;
+import com.ssafy.backend.api.response.EncryptRes;
 import com.ssafy.backend.api.service.CompanyService;
 import com.ssafy.backend.api.service.ContractService;
 import com.ssafy.backend.api.service.ProjectService;
@@ -99,11 +100,14 @@ public class ContractController {
         //로그인 된 기업 회원의 개인키 가져오기
         String privateKey = company.getPrivateKey();
 
+        // 기업 회원의 공개키 가져오기
+        String publicKey = company.getPublicKey();
+
         //개인키로 암호화하기
         String encryptedText = RSAUtil.encode(plainData, privateKey);
 
         //개인키로 암호화 된 값 전달하기
-        return ResponseEntity.status(200).body(encryptedText);
+        return ResponseEntity.status(200).body(EncryptRes.of(200, "success", encryptedText, publicKey));
     }
 
     @GetMapping("/userSign")
@@ -121,11 +125,13 @@ public class ContractController {
         //로그인 된 프리랜서 회원의 개인키 가져오기
         String privateKey = user.getPrivateKey();
 
+        String publicKey = user.getPublicKey();
+
         //개인키로 암호화하기
         String encryptedText = RSAUtil.encode(plainData, privateKey);
 
         //개인키로 암호화 된 값 전달하기
-        return ResponseEntity.status(200).body(encryptedText);
+        return ResponseEntity.status(200).body(EncryptRes.of(200, "success", encryptedText, publicKey));
     }
 
     @GetMapping("/companyCheck")
