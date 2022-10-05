@@ -935,7 +935,8 @@ export default {
       projectDetailNavItemProject: "projectDetailNavItemProject",
       resumeDetailNavItemProject: "resumeDetailNavItemProject",
       // freelancerAccount: "",
-      companyAccount: ""
+      companyAccount: "",
+      contractId: 0,
     };
   },
   computed: {
@@ -1347,7 +1348,17 @@ export default {
       console.log(freelancerEncrypt.encryptData);
       console.log(freelancerEncrypt.publicKey);
 
-      freelancerSignEscrow(accounts[0], this.companyAccount, result);
+      await createInstance()
+        .get("/contracts", {
+          userId: this.$store.state.accounts.loginUserInfo.id,
+          projectId: this.projectDataReceive.projectId,
+        })
+        .then(res => {
+          console.log("찍히냐", res.data.contractId);
+          this.contractId = res.data.contractId;
+        })
+
+      freelancerSignEscrow(accounts[0], this.companyAccount, this.contractId, result, companyEncrypt.encryptData, companyEncrypt.publicKey, freelancerEncrypt.encryptData, freelancerEncrypt.publicKey);
 
       // 계약 테이블 저장
       createInstance()
