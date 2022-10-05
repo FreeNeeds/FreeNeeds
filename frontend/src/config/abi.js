@@ -1,26 +1,6 @@
 const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 	`[
 		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_amount",
-					"type": "uint256"
-				}
-			],
-			"name": "createEscrow",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
 			"inputs": [
 				{
 					"internalType": "address",
@@ -58,49 +38,42 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "event"
 		},
 		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_enterprise",
-					"type": "address"
-				},
-				{
-					"internalType": "string",
-					"name": "_hashData",
-					"type": "string"
-				}
-			],
-			"name": "freelancerSignEscrow",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
 			"anonymous": false,
 			"inputs": [
 				{
 					"indexed": true,
-					"internalType": "address",
-					"name": "freelancer",
-					"type": "address"
-				},
-				{
-					"indexed": true,
-					"internalType": "address",
-					"name": "enterprise",
-					"type": "address"
+					"internalType": "uint256",
+					"name": "contractId",
+					"type": "uint256"
 				},
 				{
 					"indexed": false,
 					"internalType": "string",
 					"name": "hashData",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "enterpriseEncrypt",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "freelancerEncrypt",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "enterprisePublicKey",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "freelancerPublicKey",
 					"type": "string"
 				}
 			],
@@ -127,15 +100,50 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "event"
 		},
 		{
+			"constant": true,
+			"inputs": [],
+			"name": "admin",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "cashContractAddress",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
 			"constant": false,
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "newOwner",
+					"name": "_freelancer",
 					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_amount",
+					"type": "uint256"
 				}
 			],
-			"name": "transferOwnership",
+			"name": "createEscrow",
 			"outputs": [],
 			"payable": false,
 			"stateMutability": "nonpayable",
@@ -178,7 +186,7 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"name": "enterpriseToFreelancerToEscrow",
 			"outputs": [
 				{
-					"internalType": "address",
+					"internalType": "contract Escrow",
 					"name": "",
 					"type": "address"
 				}
@@ -209,6 +217,56 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "function"
 		},
 		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_enterprise",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_contractId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "_hashData",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterpriseEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterprisePublicKey",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerPublicKey",
+					"type": "string"
+				}
+			],
+			"name": "freelancerSignEscrow",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
 			"constant": true,
 			"inputs": [],
 			"name": "owner",
@@ -221,6 +279,21 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			],
 			"payable": false,
 			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "newOwner",
+					"type": "address"
+				}
+			],
+			"name": "transferOwnership",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
 			"type": "function"
 		}
 	]`
@@ -338,9 +411,29 @@ const ESCROW_CONTRACT_ABI = JSON.parse(
 					"internalType": "string",
 					"name": "_hashData",
 					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterpriseEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterprisePublicKey",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerPublicKey",
+					"type": "string"
 				}
 			],
-			"name": "inputHash",
+			"name": "inputData",
 			"outputs": [],
 			"payable": false,
 			"stateMutability": "nonpayable",
