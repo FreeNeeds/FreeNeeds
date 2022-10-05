@@ -454,11 +454,13 @@ export default {
     await userInstance.getUserResume(
       this.freelancerDetailReceive.username,
       res => {
+        res.data.isData = true;
         this.freelancerEducation = res.data;
       },
       err => {
         // console.log("이거 실행 안됨?");
         const data = {
+          isData: false,
           careerList: [],
           certificateList: [],
           education: {

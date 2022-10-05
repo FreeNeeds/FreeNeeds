@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container v-if="idDataLoad">
     <!--상단 네비게이션 바-->
     <!-- {{ loginUserInfo }} -->
     <div class="mainNav">
@@ -322,13 +322,12 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row > 
+            <b-row>
               <b-col></b-col>
               <b-col class="freename col-8">{{ nameErase[0] }} 님</b-col>
               <b-col></b-col>
-               </b-row>
-          </div></b-col
-        >
+            </b-row></div
+        ></b-col>
         <b-col
           ><div class="descFree-user">
             <b-row>
@@ -342,13 +341,12 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row > 
+            <b-row>
               <b-col></b-col>
               <b-col class="freename col-8">{{ nameErase[1] }} 님</b-col>
               <b-col></b-col>
-               </b-row>
-          </div></b-col
-        >
+            </b-row></div
+        ></b-col>
         <b-col
           ><div class="descFree-user">
             <b-row>
@@ -362,13 +360,12 @@
               /></b-col>
               <b-col></b-col>
             </b-row>
-            <b-row > 
+            <b-row>
               <b-col></b-col>
               <b-col class="freename col-8">{{ nameErase[2] }} 님</b-col>
               <b-col></b-col>
-               </b-row>
-          </div></b-col
-        >
+            </b-row></div
+        ></b-col>
       </b-row>
     </div>
   </b-container>
@@ -398,7 +395,8 @@ export default {
       sliding: null,
       recmdFreelancer: [],
       recmdProject: [],
-      nameErase: []
+      nameErase: [],
+      idDataLoad: false
     };
   },
   methods: {
@@ -419,28 +417,28 @@ export default {
     HeaderNav,
     FooterNav
   },
-  mounted() {
+  async mounted() {
     const instance = createInstance();
-    this.nameErase=["","",""];
-    
-    instance.get(`/project?page=0&size=3`).then(success => {
+    this.nameErase = ["", "", ""];
+
+    await instance.get(`/project?page=0&size=3`).then(success => {
       this.recmdProject = success.data;
       console.log(this.recmdProject);
     });
 
-    instance.get(`/users?page=0&size=3`).then(success => {
+    await instance.get(`/users?page=0&size=3`).then(success => {
       this.recmdFreelancer = success.data;
-   
+
       for (let j = 0; j < 3; j++) {
         for (let i = 0; i < this.recmdFreelancer[j].name.length; i++) {
-          
           if (i == 1) this.nameErase[j] += "*";
           else this.nameErase[j] += this.recmdFreelancer[j].name[i];
         }
         console.log(this.recmdFreelancer[j].username);
       }
-      
     });
+
+    this.idDataLoad = true;
   }
 };
 </script>
@@ -451,9 +449,9 @@ export default {
   font-family: "Noto Sans KR", sans-serif;
 }
 
-.mainNav{
+.mainNav {
   position: relative;
-  top:10vh;
+  top: 10vh;
 }
 .main-intro-container {
   margin-bottom: 200px;
@@ -569,6 +567,7 @@ export default {
   padding: auto;
   padding: 20px;
   margin: 0px;
+  margin-bottom: 5px;
   border-radius: 26px;
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
@@ -595,12 +594,11 @@ export default {
   background: #f9f9f9;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
-  height: 300px;
-transition: all 0.3s ease 0s;
-
+  height: 220px;
+  transition: all 0.3s ease 0s;
 }
-.descFree-user:hover{
-  transform: translateY(-3px) ;
+.descFree-user:hover {
+  transform: translateY(-3px);
 }
 
 .descFree-project {
@@ -612,12 +610,11 @@ transition: all 0.3s ease 0s;
   box-shadow: 5px 5px 9px #dedede, -5px -5px 9px #ffffff;
   width: 400px;
   height: 300px;
-   transition: all 0.3s ease 0s;
-
+  transition: all 0.3s ease 0s;
 }
 
 .descFree-project :hover {
- transform: translateY(-3px) ;
+  transform: translateY(-3px);
 }
 
 .freeicon {
@@ -652,7 +649,6 @@ transition: all 0.3s ease 0s;
 
 .freelancericon {
   margin: 15px;
-
 }
 
 .freename {

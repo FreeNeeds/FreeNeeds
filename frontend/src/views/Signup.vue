@@ -186,8 +186,8 @@
         <label for="registerCNumberInput" class="register-input-label"
           >지갑연결</label
         >
-        <button @click="getMetamask">지갑 가져오기</button>
-        <div>연결된 지갑주소 : {{ user.accountAddress }}</div>
+        <button class="btn btn-info connect-wallet-btn" @click="getMetamask">지갑 가져오기</button>
+        <div class="connected-wallet alert alert-primary">프리니즈에 연결된 지갑주소 : {{ user.accountAddress }}</div>
       </div>
       <div class="regist-terms-input-form">
         <div class="form-check">
@@ -277,6 +277,10 @@ export default {
     },
     async getMetamask() {
       if (window.ethereum) {
+        await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0X3" }],
+        });
         // first we check if metamask is installed
         var accounts = await window.ethereum.request({
           method: "eth_requestAccounts"
@@ -377,9 +381,11 @@ export default {
 }
 .regist-terms-input-form .form-check-input {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-terms-input-form .form-check-label {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-email-input-wrapper {
   padding: 10px;
@@ -440,5 +446,11 @@ export default {
 }
 .regist-header {
   margin-bottom: 50px;
+}
+.connected-wallet{
+
+}
+.connect-wallet-btn{
+  margin: 5px 0px 5px 0px;
 }
 </style>

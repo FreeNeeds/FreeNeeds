@@ -1,13 +1,25 @@
 <template>
   <div>
-    <button
-      @click="startInterval"
-      id="freelancerFilterBtn"
-      data-bs-toggle="modal"
-      data-bs-target="#ffilterModal"
-    >
-      필터
-    </button>
+    <div class="d-flex justify-content-end" style="margin-top:50px">
+      <button
+        @click="startInterval"
+        id="freelancerFilterBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#ffilterModal"
+      >
+        <div style="position:absolute">
+          <img
+            class="freelancericon btnimg"
+            width="55px"
+            src="@/assets/images/freech6.png"
+            alt=""
+          />
+        </div>
+        <div>
+          필터
+        </div>
+      </button>
+    </div>
     <div
       id="ffilterModal"
       class="modal text-center"
@@ -18,7 +30,11 @@
       style="background-color: rgba(0, 0, 0, 0.15);"
     >
       <div class="modal-dialog" id="FFilterModalWrapper">
-        <div class="modal-content" id="FFilterModalContent" style="height : 500px; overflow-y: scroll;">
+        <div
+          class="modal-content"
+          id="FFilterModalContent"
+          style="height : 500px; overflow-y: scroll;"
+        >
           <button
             @click="clickFilterModalCloseBtn"
             type="button"
@@ -143,7 +159,10 @@ export default {
       );
       if (this.FilterSkillCandidate.length < 10) {
         skillCandidateCtnrTmp.removeAttribute("style");
-        skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left: 0px");
+        skillCandidateCtnrTmp.setAttribute(
+          "style",
+          "overflow-y: auto; left: 0px"
+        );
       }
     },
 
@@ -281,7 +300,6 @@ export default {
   font-weight: bold;
   text-align: center;
 }
-
 
 #filterBtn:hover {
   background-color: #6ecdb1;

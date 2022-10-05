@@ -2,7 +2,7 @@
   <div v-if="isDataLoad">
     <b-card
       class="freelancer-contents"
-      img-src="https://placekitten.com/300/300"
+      :img-src=logo
       img-left
       @click="openFreelancerListModal"
       style="overflow:hidden; width : 92% !important"
@@ -53,6 +53,7 @@
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import { mapActions } from "vuex";
 import * as userInstance from "@/api/user.js";
+import logo from "@/assets/images/freech.png"
 export default {
   data() {
     return {
@@ -60,7 +61,8 @@ export default {
       ratingToPercent: 0,
       projectNumber: 0,
       estimateNumber: 0,
-      isDataLoad: false
+      isDataLoad: false,
+      logo
     };
   },
   props: {
