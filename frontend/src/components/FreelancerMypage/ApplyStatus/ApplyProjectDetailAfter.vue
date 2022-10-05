@@ -4,7 +4,7 @@
       <div class="modal-content" style="z-index : -1">
         <button type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
         <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtn" style="z-index : 2">계약서 보기</button>
-        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
+        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
@@ -20,11 +20,11 @@
                     <div class="row">
                       <div class="col-3 projectDetailHeadItem projectDetailItem">  모집인원</div>
                       <div class="col-8 projectDetailItem"> {{ projectDataReceive.recruitNumber}} 명</div>
-                    </div>  
+                    </div>
                     <div class="row">
                       <div class="col-3 projectDetailHeadItem projectDetailItem">  경력기간</div>
                       <div class="col-8 projectDetailItem"> {{ projectDataReceive.careerPeriod}} 년</div>
-                    </div> 
+                    </div>
                     <div class="row">
                       <div class="col-3 projectDetailHeadItem projectDetailItem">  근무기간</div>
                       <div class="col-8 projectDetailItem"> {{ projectDataReceive.startDateSummry }} ~ {{ projectDataReceive.endDateSummry }} ( {{ periodWork }} 일 )</div>
@@ -32,23 +32,23 @@
                     <div class="row">
                       <div class="col-3 projectDetailHeadItem projectDetailItem">  근무방식</div>
                       <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStyle}} </div>
-                    </div> 
+                    </div>
                     <div class="row">
                       <div class="col-3 projectDetailHeadItem projectDetailItem">  금액</div>
                       <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }} ~ {{ projectDataReceive.highPrice }}/월(근무 확정시, 단가 확정)</div>
                     </div>
                   </div>
-                  <div class="col-2 my-3 mx-3" id="remainDateWrapperInProjectDetail"> 
+                  <div class="col-2 my-3 mx-3" id="remainDateWrapperInProjectDetail">
                     <div class="my-2" id="remainDateWrapperInProjectDetailDate">
-                      {{ remainDate }} 
+                      {{ remainDate }}
                     </div>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="d-flex" id="projectDetailNavCtnr">
                 <div @click="clickProjectDetailNavProject" class="col-2 projectDetailNav activeProjectDetailNav" :id=ProjectDetailNavProject>
                   프로젝트
-                </div>  
+                </div>
                 <div @click="clickProjectDetailNavResume" class="col-2 projectDetailNav" :id=ProjectDetailNavResume>
                   기업정보
                 </div>
@@ -58,11 +58,11 @@
                 <div class="row mx-2 my-2">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  분야</div>
                   <div class="col-8 projectDetailItem"> {{ projectDataReceive.category }}</div>
-                </div>  
+                </div>
                 <div class="row mx-2 my-2">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  형태</div>
                   <div class="col-8 projectDetailItem"> {{ projectDataReceive.domain }}</div>
-                </div> 
+                </div>
                 <div class="row mx-2 my-2">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  담당업무 </div>
                   <div class="col-8 projectDetailItem" id="taskItem"> {{ projectDataReceive.task }}</div>
@@ -77,7 +77,7 @@
                     >
                     </ProjectDetailSkill>
                   </div>
-                </div> 
+                </div>
                 <div class="row mx-2 my-2">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  프로젝트명</div>
                   <div class="col-8 projectDetailItem"> {{ projectDataReceive.title }}</div>
@@ -85,7 +85,7 @@
                 <div class="row mx-2 my-2">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  근무시간</div>
                   <div class="col-8 projectDetailItem"> {{ projectDataReceive.workStartTime }} ~ {{ projectDataReceive.workEndTime }}</div>
-                </div>   
+                </div>
                 <div class="row mx-2 mt-2" style="padding-bottom: 80px">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  지역</div>
                   <div class="col-8 projectDetailItem"> {{ projectDataReceive.locationSi }} {{ projectDataReceive.locationGu }}</div>
@@ -139,7 +139,7 @@
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
                     <p class="d-inline-block">월</p>
                     <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 50px"></div>
-                    <p class="d-inline-block">일까지</p>  
+                    <p class="d-inline-block">일까지</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">2. 근무장소 : </p>
@@ -437,7 +437,7 @@ export default {
     this.applyModalCtnr += this.idEdit
     this.leftApply += this.idEdit
     this.completeApply += this.idEdit
-    
+
     this.projectDataReceive.skill = []
     createInstance().get('/project/tech/' + this.projectDataReceive.projectId).then(res =>{
       for (let i = 0; i < res.data.length; i++) {
@@ -457,7 +457,7 @@ export default {
     projectDataReceive : Object,
     companyDataReceive : Object,
     idEdit : String
-  }, 
+  },
   methods: {
     clickProjectDetailNavProject() {
       let removeProjectDetailItem = document.querySelector('#' + this.ProjectDetailNavProject)
@@ -509,7 +509,7 @@ export default {
           if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
           document.querySelector('#' + this.imgSignCompany).src = tmp[33]
-          if (tmp.length === 32) {
+          if (tmp.length === 35) {
             document.querySelector('#' + this.imgSign).src = tmp[34]
           }
         })
@@ -518,12 +518,12 @@ export default {
 
       myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnr')
       myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnrAfter')
-      
+
       contractTmp.classList.remove('d-none')
       carouselTmp.style.transform = 'translate3d(-800px, 0, 0)'
       ProjectDetailApplyBtnTmp.classList.add('d-none')
       closeContractPaperBtnTmp.classList.remove('d-none')
-      
+
       setTimeout(function() {
         carouselTmp.classList.remove('carousel-mine')
         carouselTmp.classList.add('carousel-mine-fast')

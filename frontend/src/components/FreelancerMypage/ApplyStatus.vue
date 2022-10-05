@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top:30px">
     <div class="row ">
       <div class="d-flex justify-content-end menu-list-wrapper">
         <router-link
@@ -64,7 +64,7 @@ export default {
   width: 100%;
   height: 3px;
   position: absolute;
-  bottom: -1px;
+  bottom: -2px;
   left: 1px;
   background: black;
 }
