@@ -4,7 +4,7 @@
       <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button @click="closeFreelancerDetailAfter" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
         <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 보기</button>
-        <button @click="openCoinPaper" class="ProjectDetailApplyBtn coinModalBtn" style="z-index : 2">코인보기</button>
+        <button @click="openCoinPaper" class="ProjectDetailApplyBtn coinModalBtn" style="z-index : 2">블록체인</button>
         <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -191,7 +191,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block" style="width : 78px">
-                    
+
                     </p>
                     <div
                       :id="contractInputItem"
@@ -214,7 +214,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block" style="width : 84px">
-                    
+
                     </p>
                     <p class="d-inline-block">
                       갑과 을의 합의 하에 본 계약 기간은 연장 될 수 있다.
@@ -227,7 +227,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex mt-2">
                     <p class="d-inline-block">
-                      총 계약금액은 
+                      총 계약금액은
                     </p>
                     <div
                       :id="contractInputItem"
@@ -367,7 +367,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block">
-                      계약일자 : 
+                      계약일자 :
                     </p>
                     <div
                       :id="contractInputItem"
@@ -383,7 +383,7 @@
                       style="width : 50px"
                     ></div>
                     <p class="d-inline-block">
-                      월 
+                      월
                     </p>
                     <div
                       :id="contractInputItem"
@@ -645,7 +645,7 @@ export default {
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
         (1000 * 60 * 60 * 24))
 
-    
+
       if (!this.isContractOpen) {
         createInstance().get('/contracts?projectId=' + this.projectDataReceive.projectId + '&userId=' + String(this.$store.state.accounts.loginUserInfo.id),
         ).then(res => {
