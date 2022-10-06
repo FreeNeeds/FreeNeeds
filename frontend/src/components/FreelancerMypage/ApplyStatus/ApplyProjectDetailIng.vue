@@ -14,6 +14,7 @@
     >
       <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button
+          @click="closeFreelancerDetailIng"
           type="button"
           id="freelancerDetailModalCloseBtn"
           class="btn-close"
@@ -1392,6 +1393,10 @@ export default {
       document
         .querySelector("#" + this.sureContractModal)
         .classList.add("d-none");
+    },
+
+    closeFreelancerDetailIng() {
+      document.querySelector('body').style.overflow = 'scroll'
     }
   }
 };

@@ -438,18 +438,18 @@ export default {
         i
       ].reEmployment;
     }
-    this.profession = this.profession / 5;
-    this.ontime = this.ontime / 5;
-    this.active = this.active / 5;
-    this.communication = this.communication / 5;
-    this.reEmployment = this.reEmployment / 5;
+    this.profession = this.profession / this.freelancerDetailReceive.estimate.length;
+    this.ontime = this.ontime / this.freelancerDetailReceive.estimate.length;
+    this.active = this.active / this.freelancerDetailReceive.estimate.length;
+    this.communication = this.communication / this.freelancerDetailReceive.estimate.length;
+    this.reEmployment = this.reEmployment / this.freelancerDetailReceive.estimate.length;
     this.ratingToPercent =
       (this.profession +
         this.ontime +
         this.active +
         this.communication +
         this.reEmployment) /
-      this.freelancerDetailReceive.estimate.length;
+      5
     this.ratingToPercent = this.ratingToPercent * 20;
     await userInstance.getUserResume(
       this.freelancerDetailReceive.username,

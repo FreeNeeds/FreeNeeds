@@ -155,9 +155,12 @@ export default {
     ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
   },
   mounted() {
-    let intervalAlways = setInterval(function() {
-      document.querySelector('body').style.overflow = 'scroll'
-    },500)
+    console.log(document.querySelectorAll('.btn-close'))
+    for (let item of document.querySelectorAll('.btn-close')) {
+      item.addEventListener('click', () => {
+        document.querySelector('body').style.overflow = 'scroll'
+      })
+    }
   },
   data() {
     return {

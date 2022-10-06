@@ -655,6 +655,12 @@ export default {
     };
   },
   async mounted() {
+    console.log(document.querySelectorAll('.btn-close'))
+    for (let item of document.querySelectorAll('.btn-close')) {
+      item.addEventListener('click', () => {
+        document.querySelector('body').style.overflow = 'scroll'
+      })
+    }
     await projectInstance.getCompanyProject(
       this.loginUserInfo.id,
       async res => {
@@ -730,6 +736,7 @@ export default {
     // ...mapActions(["setIsModalOn"]),
     closeFreelancerDetailModal() {
       // this.setIsModalOn(false);
+      document.querySelector('body').style.overflow = 'scroll'
     },
     openProjectModal() {
       let freelancerProjectModalCtnrTmp = document.querySelector(
