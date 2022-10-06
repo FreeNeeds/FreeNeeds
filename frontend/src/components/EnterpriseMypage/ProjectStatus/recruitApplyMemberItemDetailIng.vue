@@ -361,6 +361,7 @@
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
+                      :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
