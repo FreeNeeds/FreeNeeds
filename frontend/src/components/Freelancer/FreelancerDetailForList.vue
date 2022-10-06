@@ -343,12 +343,14 @@
     <div class="freelancerProjectModalCtnr" :id="freelancerProjectModalCtnrId">
       <div class="freelancerProjectModal" :id="freelancerProjectModalId">
         <div class="d-block" :id="normalProjectFreelancerModal">
-          <button
-            @click="clickSelectProjectFreelancerCloseModal"
-            type="button"
-            id="selectProjectFreelancerCloseModal"
-            class="btn-close"
-          ></button>
+          <div style="height : 0px">
+            <button
+              @click="clickSelectProjectFreelancerCloseModal"
+              type="button"
+              id="selectProjectFreelancerCloseModal"
+              class="btn-close"
+            ></button>
+          </div>
           <h5 class="mt-5">
             <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
             님에게 제안할 프로젝트를 골라주세요
@@ -367,7 +369,9 @@
                 :projectData="projectCardCarousel.body"
               ></ProjectCardCarousel>
             </div>
-            <button
+          </div>
+          <div style="height : 0px">
+          <button
               @click="prevBtnClick"
               class="prev"
               type="button"
@@ -411,7 +415,7 @@
               </svg>
               <span class="visually-hidden">Next</span>
             </button>
-          </div>
+            </div>
           <button
             @click="clickSelectProjectFreelancer"
             class="ProjectApplyBtn"
@@ -675,8 +679,8 @@ export default {
             workstyle: res.data[i].workStyle,
             workStartTime: res.data[i].workStartTime,
             workEndTime: res.data[i].workEndTime,
-            lowPrice: res.data[i].lowPrice + "만원",
-            highPrice: res.data[i].highPrice + "만원",
+            lowPrice: res.data[i].lowPrice + "FC",
+            highPrice: res.data[i].highPrice + "FC",
             careerPeriod: res.data[i].careerPeriod
           };
           await projectInstance.getProjectTech(projectdata.id, res => {
@@ -807,7 +811,7 @@ export default {
       );
       freelancerProjectModalTmp.setAttribute(
         "style",
-        "width: 600px; height: 250px; right: 475px; display: block"
+        "width: 600px; height: 250px; left : 33vw !important; display: block"
       );
       normalProjectFreelancerModalTmp.classList.add("d-none");
       sureSelectProjectFreelancerTmp.classList.remove("d-none");
@@ -838,10 +842,7 @@ export default {
       freelancerProjectModalCtnrTmp.setAttribute("style", "z-index : -1");
       freelancerProjectModalTmp.setAttribute("style", "display : none");
 
-      freelancerProjectModalTmp.setAttribute(
-        "style",
-        "width: 900px; height: 400px; right: 325px;"
-      );
+      
       normalProjectFreelancerModalTmp.classList.remove("d-none");
       sureSelectProjectFreelancerTmp.classList.add("d-none");
       console.log(this.freelancerInfoDetail);
@@ -1002,13 +1003,13 @@ export default {
 
 .freelancerProjectModal {
   position: fixed;
-  top: 140px;
-  right: 325px;
+  bottom: 33vh !important;
+  left : 23vw !important;
   background-color: white;
   border-radius: 20px;
   height: 400px;
   border: 1px solid lightgray;
-  width: 900px;
+  width: 55vw;
   margin: auto;
   display: none;
 }
@@ -1022,27 +1023,27 @@ export default {
 }
 
 .prev {
-  position: fixed;
-  top: 265px;
-  left: 360px;
-  height: 219px;
+  position: relative;
+  right: 350px;
+  top : -245px;
+  height : 234px;
   background-color: white;
   border: 0px;
 }
 
 .next {
-  position: fixed;
-  top: 265px;
-  right: 370px;
-  height: 219px;
+  position: relative;
+  left : 350px;
+  top : -245px;
+  height: 234px;
   background-color: white;
   border: 0px;
 }
 
 #selectProjectFreelancerCloseModal {
-  position: fixed;
-  top: 160px;
-  right: 350px;
+  position: relative !important;
+  top : 10px;
+  left  : 25.5vw;
 }
 
 .modal-content-freelancer-detail {

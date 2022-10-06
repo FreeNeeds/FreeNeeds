@@ -194,6 +194,10 @@ export default {
     };
   },
   mounted() {
+    let intervalAlways = setInterval(function() {
+      document.querySelector('body').style.overflow = 'scroll'
+    },500)
+
     createInstance()
       .get("/project", {
         params: {

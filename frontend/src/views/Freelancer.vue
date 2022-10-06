@@ -154,6 +154,11 @@ export default {
   computed: {
     ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
   },
+  mounted() {
+    let intervalAlways = setInterval(function() {
+      document.querySelector('body').style.overflow = 'scroll'
+    },500)
+  },
   data() {
     return {
       /** 실제 페이지 1,2.....,10.. */
