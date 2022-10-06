@@ -51,7 +51,7 @@
                   </div>
                   <div class="d-flex mt-4">
                     <div class="d-inline-block" id="freelancerDetailResumeImg">
-                      <img src="https://placekitten.com/300/300" alt="" />
+                      <img :src=imgSrc alt="" />
                     </div>
                     <div class="d-inline-block" style="width: 270px">
                       <div class="d-flex mt-3 mb-2 justify-content-between">
@@ -363,7 +363,6 @@
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      @keyup.enter="keyEnter"
                       style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
                   </div>
@@ -837,6 +836,7 @@ export default {
     reEmployment : Number,
     id_ : Number,
     projectId : Number,
+    imgSrc : String,
   },  
   mounted() {
     let id__ = String(this.id_)
@@ -875,6 +875,7 @@ export default {
     this.notSign += id__
     this.sureContractModal += id__
     this.coinModal += id__
+    
     userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   methods: {

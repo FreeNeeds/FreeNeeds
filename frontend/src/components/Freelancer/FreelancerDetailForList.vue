@@ -54,7 +54,7 @@
             </div>
             <div class="d-flex mt-4">
               <div class="d-inline-block" id="freelancerDetailResumeImg">
-                <img src="https://placekitten.com/300/300" alt="" />
+                <img :src=logo alt="" />
               </div>
               <div class="d-inline-block" style="width: 270px">
                 <div class="d-flex mt-3 mb-2 justify-content-between">
@@ -731,7 +731,9 @@ export default {
     // }
     this.isDataLoad = true;
   },
-
+  props : {
+    logo : String
+  },
   methods: {
     // ...mapActions(["setIsModalOn"]),
     closeFreelancerDetailModal() {

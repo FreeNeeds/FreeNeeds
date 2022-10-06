@@ -1,8 +1,9 @@
 <template>
   <b-card
     class="freelancer-contents myPageFreelancerCardWrpr"
-    img-src="@/assets/images/freech.png"
+    img-src="@/assets/images/하얀색.png"
     img-left
+    :id="representiveImgBefore"
     style="overflow : hidden"
     >
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
@@ -67,6 +68,7 @@
       :ratingToPercent="ratingToPercent"
       :projectId="projectId"
       :state="state"
+      :imgSrc="randomImg"
       @moveToIngContract="moveToIngContract"
       ></recruitApplyMemberItemDetail>
   </b-card>
@@ -96,6 +98,8 @@
         active : 0,
         communication : 0,
         reEmployment : 0,
+        representiveImgBefore : "representiveImgBefore",
+        randomImg : ''
       }
     },
     props : {
@@ -104,6 +108,12 @@
       state : String,
     },
     mounted() {
+      this.representiveBefore += String(this.freelancerCardId)
+      let randomImgs = ["/img/freech.178cb336.png","/img/freech3.1c86f4e1.png","/img/freech4.da4bdf39.png","/img/freech5.e069d918.png"]
+      this.randomImg =  randomImgs[Math.floor(Math.random()*randomImgs.length)]
+      setTimeout(() => {
+        document.querySelector('#' + this.representiveImgBefore + '> img').src = this.randomImg
+      },10)
       this.freelancerCardIdModal += this.freelancerCardId
       createInstance().get('/users/username/' + String(this.freelancerCardId)).then(res => {
         let username = res.data
