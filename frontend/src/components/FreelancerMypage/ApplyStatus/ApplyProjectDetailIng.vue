@@ -12,8 +12,9 @@
       id="freelancerModalWrapper"
       style="z-index : -1"
     >
-      <div class="modal-content" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button
+          @click="closeFreelancerDetailIng"
           type="button"
           id="freelancerDetailModalCloseBtn"
           class="btn-close"
@@ -24,10 +25,10 @@
         <button
           @click="openContractPaper"
           :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
+          class="ProjectDetailApplyBtn"
+          style="z-index : 2; position: fixed; width: 200px !important; bottom : 11vh; left: 44vw;"
         >
-          ㅋ
+          계약서보기
         </button>
         <button
           @click="closeContractPaper"
@@ -258,437 +259,302 @@
                 class="wrapperImgProjectCarousel"
                 src="@/assets/images/하얀색.png"
                 alt=""
-                style="width : 800px;"
+                style="width : 50vw;"
               />
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
-                  <div contenteditable="false" class="d-flex">
+                  <div contenteditable="false" class="d-flex justify-content-center">
+                    <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
+                      @keyup.enter="keyEnter"
+                      style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
-                    <p class="d-inline-block">(이하 "사업주"라 함)과(와)</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex justify-content-center mb-3">
+                    <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
+                      @keyup.enter="keyEnter"
+                      style="padding-left: 7px; padding-right: 7px; border-left : 1px solid black; border-top: 1px solid black; border-bottom: 3px solid black; border-right: 3px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
-                    <p class="d-inline-block">(이하 "근로자"라 함)은</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">
-                      다음과 같이 근로계약을 체결한다.
+                      (이하 "갑"이라 한다.)와 (이하 "을"이라 한다.)은 계약건명에 명시된 업무작업을
                     </p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 및 종료일 :</p>
+                    <p class="d-inline-block">
+                      수행하기 위해 다음과 같이 계약을 체결한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="height : 30px">
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block fw-bold" style="font-size : 18px">
+                      제1조 【 목 적 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-2">
+                    <p class="d-inline-block">
+                      본 계약은 "갑"이 "을"에게 의뢰한 OOO의 업무를 "갑"에게 공급함에 있어 "갑"과 "을"사이에
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      필요한 사항을 정하는 것을 목적으로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제2조 【 계 약 기 간 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-2">
+                    <p class="d-inline-block">
+                      계약 기간은
+                    </p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
+                    <p>년</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">월</p>
+                    <p>월</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">일부터</p>
+                    <p>일로부터</p>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 165px"
-                  >
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block" style="width : 78px">
+                    
+                    </p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
+                    <p>년</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">월</p>
+                    <p>월</p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">일까지</p>
+                    <p>일까지로 하며,</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">2. 근무장소 :</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">3. 업무의 내용 :</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">4. 소정근로시간 :</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분부터</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분까지</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block" style="margin-left : 130px">
-                      (휴게시간 :
+                    <p class="d-inline-block" style="width : 84px">
+                    
                     </p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분~</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분)</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">5. 근무일/휴일 : 매주</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
                     <p class="d-inline-block">
-                      일(또는 매일단위)근무, 주휴일 매주
+                      갑과 을의 합의 하에 본 계약 기간은 연장 될 수 있다.
                     </p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">요일</p>
                   </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">6. 임금</p>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제3조 【 계 약 금 액 】
+                    </p>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">- 월(일, 시간)급 :</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 250px"
-                    ></div>
-                    <p class="d-inline-block">원</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">- 상여금 : 있음</p>
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="incentiveBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 250px"
-                    ></div>
-                    <p class="d-inline-block">원 / 없음</p>
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="notIncentiveBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
+                  <div contenteditable="false" class="d-flex mt-2">
                     <p class="d-inline-block">
-                      - 임금지급일 : 매월(매주 또는 매일)
+                      총 계약금액은 
                     </p>
                     <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 30px"
-                    ></div>
-                    <p class="d-inline-block">일(휴일의 경우는 전일 지급)</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 지급방법 : 근로자에게 코인 지갑에 입금
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">7. 연차유급휴가</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 연차유급휴가는 근로기준법에서 정하는 바에 따라 부여함
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">
-                      8. 사회보험 적용여부(해당란에 체크)
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px;  margin-right : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="recruitInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      고용보험
-                    </p>
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-right : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="accidentInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      산재보험
-                    </p>
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px;  margin-right : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="personInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      국민연금
-                    </p>
-                    <div
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-right : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="healthInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      건강보험
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">9. 근로계약서 교부</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여
-                      근로자의 교부요구와
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 42px;"
-                  >
-                    <p class="d-inline-block">
-                      관계없이 근로자에게 교부함(근로기준법 제17조 이행)
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">
-                      10. 근로계약, 취업규칙 등의 성실한 이행의무
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을
-                      지키고 성실하게 이행
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 42px;"
-                  >
-                    <p class="d-inline-block">하여야 함</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">11. 기 타</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 이 계약에 정함이 없는 사항은 근로기준법령에 의함
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex justify-content-center"
-                    style="margin-left : 30px"
-                  >
-                    <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
+                    <p class="d-inline-block">
+                      FC으로 하며,
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      작업완료와 동시에 "갑"은 "을"에게 지급하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제4조 【 납 품 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      작업완료와 동시에 최종 결과물은 "을"이 "갑"에게 지급하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제5조 【 비 밀 유 지 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "을"은 본 작업과 관련된 어떠한 일체의 정보를 외부에 누설하거나 유출해서는 안되며
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      이로 인해 발생하는 모든 책임은 "을"이 진다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제6조 【 자 료 제 공 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "갑"은 "을"이 작업을 수행하는데 필요한 일체의 자료를 제공하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제7조 【 근 무 조 건 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (1) 본 계약 상의 업무를 수행하기 위해 출근 등과 관련된 사항은 자유로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (2) 본 계약 내용 외에도 다른 필요한 업무가 필요한 경우 "갑"은 "을"이 추가로 작업을 수행하는
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block" style="width: 25px"></p>
+                    <p class="d-inline-block">
+                      부분에 대한 인건비와 계약 기간은 상호 협의 하에 결정한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제8조 【 해 지 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mb-3">
+                    <p class="d-inline-block">
+                      "갑"과 "을"은 다음 각 호에 해당될 경우 본 계약을 해지할 수 있다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (1) 정당한 이유 없이 작업 진행이 이루어지지 않을 때
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (2) 정당한 이유 없이 계약기간에 작업완료가 불가능하다고 판단될 때
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (3) "갑"이 계약금액을 지급하지 않았을 경우
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제9조 【 손 해 배 상 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "을"의 귀책사유로 인하여 본 계약이 불이행이 되었을 경우 "을"은 "갑"이 제시한 손해배상의
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      책임을 진다. (이 때, 손해배상은
+                    </p>
                     <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 80px"
+                    ></div>
+                    <p class="d-inline-block">
+                      FC로 한다.)
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제10조 【 소 송 분 할 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mb-3">
+                    <p class="d-inline-block">
+                      본 계약으로 발생하는 분쟁은
+                    </p>
+                    <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 80px"
+                    ></div>
+                    <p class="d-inline-block">
+                      법원을 관할법원으로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex justify-content-center mb-3">
+                    <p class="d-inline-block">
+                      계약일자 : 
+                    </p>
+                    <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 80px"
+                    ></div>
+                    <p class="d-inline-block">
+                      년
+                    </p>
+                    <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">월</p>
+                    <p class="d-inline-block">
+                      월 
+                    </p>
                     <div
+                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">일</p>
+                    <p class="d-inline-block">
+                      일
+                    </p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">(사업주) 사업체명 :</p>
@@ -935,7 +801,8 @@ export default {
       projectDetailNavItemProject: "projectDetailNavItemProject",
       resumeDetailNavItemProject: "resumeDetailNavItemProject",
       // freelancerAccount: "",
-      companyAccount: ""
+      companyAccount: "",
+      contractId: 0,
     };
   },
   computed: {
@@ -1108,32 +975,8 @@ export default {
             for (let i = 0; i < contractInputs.length; i++) {
               contractInputs[i].innerText = tmp[i];
             }
-            if (res.data.imgSRC[0] === "1")
-              document
-                .querySelector("#" + this.incentiveBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[1] === "1")
-              document
-                .querySelector("#" + this.notIncentiveBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[2] === "1")
-              document
-                .querySelector("#" + this.recruitInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[3] === "1")
-              document
-                .querySelector("#" + this.accidentInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[4] === "1")
-              document
-                .querySelector("#" + this.personInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[5] === "1")
-              document
-                .querySelector("#" + this.healthInsureBtn)
-                .classList.remove("d-none");
 
-            document.querySelector("#" + this.imgSignCompany).src = tmp[33];
+            document.querySelector("#" + this.imgSignCompany).src = tmp[21];
           });
         this.isContractOpen = true;
       }
@@ -1334,7 +1177,9 @@ export default {
         result
       );
       console.log("기업 전자서명 출력");
-      console.log(companyEncrypt);
+      console.log(companyEncrypt.encryptData);
+      console.log(companyEncrypt.publicKey);
+
 
       //프리랜서 암호화
       let freelancerEncrypt = await signInstance.getUserSign(
@@ -1342,9 +1187,26 @@ export default {
         result
       );
       console.log("프리랜서 전자서명 출력");
-      console.log(freelancerEncrypt);
+      console.log(freelancerEncrypt.encryptData);
+      console.log(freelancerEncrypt.publicKey);
 
-      freelancerSignEscrow(accounts[0], this.companyAccount, result);
+      console.log("출력하기");
+      console.log(this.$store.state.accounts.loginUserInfo.id)
+      console.log(this.projectDataReceive.projectId)
+      await createInstance()
+        .get(`/contracts`, {
+          params: {projectId: this.projectDataReceive.projectId,userId: this.$store.state.accounts.loginUserInfo.id}
+        })
+        .then(res => {
+          console.log("찍히냐", res.data.contractId);
+          this.contractId = res.data.contractId;
+        })
+        // .catch(err => { 
+        //   console.log("에러출력");
+        //   console.log(err);
+        // })
+
+      freelancerSignEscrow(accounts[0], this.companyAccount, this.contractId, result, companyEncrypt.encryptData, companyEncrypt.publicKey, freelancerEncrypt.encryptData, freelancerEncrypt.publicKey);
 
       // 계약 테이블 저장
       createInstance()
@@ -1372,6 +1234,10 @@ export default {
       document
         .querySelector("#" + this.sureContractModal)
         .classList.add("d-none");
+    },
+
+    closeFreelancerDetailIng() {
+      document.querySelector('body').style.overflow = 'scroll'
     }
   }
 };

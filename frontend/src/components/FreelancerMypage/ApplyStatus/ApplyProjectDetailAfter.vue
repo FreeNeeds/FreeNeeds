@@ -1,8 +1,8 @@
 <template>
   <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
     <div class="modal-dialog modal-lg" id="freelancerModalWrapper" style="z-index : -1">
-      <div class="modal-content" style="z-index : -1">
-        <button type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
+        <button @click="closeFreelancerDetailAfter" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
         <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtn" style="z-index : 2">계약서 보기</button>
         <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
@@ -111,7 +111,7 @@
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
-              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 800px;">
+              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
@@ -501,16 +501,10 @@ export default {
           for(let i = 0; i < contractInputs.length; i++) {
             contractInputs[i].innerText = tmp[i]
           }
-          if (res.data.imgSRC[0] === '1') document.querySelector('#' + this.incentiveBtn).classList.remove('d-none')
-          if (res.data.imgSRC[1] === '1') document.querySelector('#' + this.notIncentiveBtn).classList.remove('d-none')
-          if (res.data.imgSRC[2] === '1') document.querySelector('#' + this.recruitInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
-          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
-          if (tmp.length === 32) {
-            document.querySelector('#' + this.imgSign).src = tmp[34]
+          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+          if (tmp.length === 23) {
+            document.querySelector('#' + this.imgSign).src = tmp[22]
           }
         })
         this.isContractOpen = true
@@ -556,6 +550,10 @@ export default {
         contractTmp.classList.add('d-none')
       },350)
     },
+
+    closeFreelancerDetailAfter() {
+      document.querySelector('body').style.overflow = 'scroll'
+    }
   },
 };
 </script>

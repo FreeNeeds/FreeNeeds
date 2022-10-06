@@ -84,7 +84,7 @@ export default {
       if (window.ethereum){
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0X3" }],
+        params: [{ chainId: "0Xaa36a7" }],
       });
       await window.ethereum.request({ method: 'eth_requestAccounts' });}
       if (this.loginType == "company") {

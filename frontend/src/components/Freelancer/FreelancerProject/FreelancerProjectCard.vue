@@ -40,6 +40,7 @@ export default {
     FreelancerCardSkill
   },
   mounted() {
+    console.log('wow')
     console.log(this.freelancerProjectCard);
   }
 };

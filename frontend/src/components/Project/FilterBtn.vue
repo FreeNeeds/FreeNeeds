@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="margin-top:50px">
+    <div class="d-flex justify-content-end">
       <button
         @click="startInterval"
         id="filterBtn"
@@ -49,7 +49,6 @@
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
             <h5 class="fw-blod warnFilter" style="color : royalblue">
@@ -472,11 +471,11 @@ export default {
             skillCandidateCtnrTmp.removeAttribute("style");
             skillCandidateCtnrTmp.setAttribute(
               "style",
-              "height: 250px; overflow-y: auto"
+              "height: 250px; overflow-y: auto; left : 0px"
             );
           } else {
             skillCandidateCtnrTmp.removeAttribute("style");
-            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left : 0px");
           }
           pre = post;
         }
@@ -500,6 +499,8 @@ export default {
   margin-top: 3px;
   margin-bottom: 8px;
   margin-right: 50px;
+  position: relative !important;
+  
 }
 
 #filterBtn:hover {
@@ -519,18 +520,18 @@ export default {
 }
 
 #FilterModalApplyBtn {
-  position: fixed;
-  top: 645px;
-  right: 540px;
-  z-index: 2;
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 105px;
-  height: 40px;
-}
+    position: fixed !important;
+    bottom : 12% !important;
+    left : 59% !important;
+    z-index: 2;
+    border-radius: 40px;
+    border: 0px solid lightgray;
+    background-color: #6ecdb1;
+    font-size: 15px;
+    font-weight: bold;
+    width: 115px;
+    height: 40px;
+  }
 
 #FilterModalApplyBtn:hover {
   background-color: #3c74c9;
@@ -548,11 +549,11 @@ export default {
   width: 0px !important;
 }
 
-#FilterModalCloseBtn {
-  position: fixed;
-  top: 65px;
-  right: 540px;
-}
+  #FilterModalCloseBtn {
+    position: fixed !important;
+    left : 64% !important;
+    bottom : 87% !important;
+  }
 
 #FilterModalTitle {
   font-size: 24px;
@@ -765,12 +766,32 @@ export default {
   border: 2px solid transparent;
 }
 
-.warnFilter {
-  font-weight: 700;
-}
-.btnimg {
-  position: absolute;
-  top: -55px;
-  left: 7px;
-}
-</style>
+  *::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+
+  .warnFilter {
+    margin-top : 1% !important;
+    margin-bottom : 0px !important;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .btnimg{
+    position: absolute;
+    top:-50px;
+    left: 7px;
+  }
+
+  .modal-content {
+    position: fixed !important;
+    width : 35% !important;
+    height : 82% !important;
+    left : 32.5% !important;
+    bottom : 10vh !important;
+  }
+  </style>
+

@@ -1,8 +1,8 @@
 <template>
   <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
     <div class="modal-dialog modal-lg" id="ProjectDetailModalWrapper">
-      <div class="modal-content" id="ProjectDetailModalContent">
-        <button type="button" id="ProjectDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-content modal-content-project-show" id="ProjectDetailModalContent">
+        <button @click="closeProjectDetail" type="button" id="ProjectDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <div id="projectDetailCtnr">
           <div id="remainDateInProjectTitle" class="text-start"> {{ projectDataReceive.title}} </div>
           <div class="container my-4 py-2" id="projectDetailHeadCtnr">
@@ -165,6 +165,10 @@
             ResumeDetailItem.classList.remove('deactiveProjectDetailItem')
         }
       },
+
+      closeProjectDetail() {
+        document.querySelector('body').style.overflow = 'scroll'
+      }
 
     },
     components : {

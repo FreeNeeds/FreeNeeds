@@ -3,6 +3,7 @@
     class="freelancer-contents myPageFreelancerCardWrpr"
     img-src="https://placekitten.com/300/300"
     img-left
+    style="overflow : hidden"
     >
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
         <button data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn" >상세보기</button>
@@ -105,6 +106,7 @@
     mounted() {
       this.freelancerCardIdModal += this.freelancerCardId
       createInstance().get('/users/username/' + String(this.freelancerCardId)).then(res => {
+        console.log(res)
         let username = res.data
         createInstance().get('/users/project/' + username).then(res => {
           for (let i = 0; i < res.data.length; i++) {
@@ -112,9 +114,11 @@
               body : res.data[i]
             })
           }
+          console.log(res)
         })
         createInstance().get('/users/resume/' + username).then(res => {
           this.resume = res.data
+          console.log(res)
         })
         createInstance().get('/users/profile/' + username).then(res => {
           this.profile = res.data

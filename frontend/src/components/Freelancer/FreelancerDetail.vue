@@ -875,12 +875,6 @@ export default {
   font-size: 15px;
 }
 
-#freelancerDetailModalCloseBtn {
-  position: fixed;
-  top: 55px;
-  right: 400px;
-}
-
 .freelancerFloatBtn {
   position: fixed;
   top: 620px;
@@ -897,18 +891,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.freelancerProjectModal {
-  position: fixed;
-  top: 140px;
-  right: 325px;
-  background-color: white;
-  border-radius: 20px;
-  height: 400px;
-  border: 1px solid lightgray;
-  width: 900px;
-  margin: auto;
-  display: none;
-}
 .carousel-wrapper-mine {
   overflow: hidden;
 }
@@ -918,27 +900,4 @@ export default {
   transition: transform 0.2s;
 }
 
-.prev {
-  position: fixed;
-  top: 265px;
-  left: 360px;
-  height: 219px;
-  background-color: white;
-  border: 0px;
-}
-
-.next {
-  position: fixed;
-  top: 265px;
-  right: 370px;
-  height: 219px;
-  background-color: white;
-  border: 0px;
-}
-
-#selectProjectFreelancerCloseModal {
-  position: fixed;
-  top: 160px;
-  right: 350px;
-}
 </style>
