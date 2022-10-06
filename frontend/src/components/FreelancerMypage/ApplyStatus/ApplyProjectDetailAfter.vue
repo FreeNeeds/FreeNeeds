@@ -455,35 +455,45 @@
             </div>
           </div>
           <div class="mt-3 mx-4" style="box-shadow : 0px 5px 10px rgba(0,0,0,0.25);">
-            <div class="d-flex" style="height: 50px;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
-              <div class="test">{{ hashData }}</div>
-              <div style="font-size : 22px">...</div>
+            <div class="d-flex justify-content-between" style="height: 50px;">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
+              <div class="test col-8" :id="longLetterOne">{{ hashData }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickOneLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
-            <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
-              <div class="test">{{ enterprisePublicKey }}</div>
-              <div style="font-size : 22px">...</div>
+            <div class="d-flex justify-content-between" style="height: 50px; background-color: #f6f6f6;">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
+              <div class="test col-8" :id="longLetterTwo">{{ enterprisePublicKey }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickTwoLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex" style="height: 50px">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
-              <div class="test">{{ enterpriseEncrypt }}</div>
-              <div style="font-size : 22px">...</div>
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
+              <div class="test col-8" :id="longLetterThree">{{ enterpriseEncrypt }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickThreeLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
-              <div class="test">{{ freelancerPublicKey }}</div>
-              <div style="font-size : 22px">...</div>
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
+              <div class="test col-8" :id="longLetterFour">{{ freelancerPublicKey }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickFourLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex " style="height: 50px">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
-              <div class="test">{{ freelancerEncrypt }}</div>
-              <div style="font-size : 22px">...</div>
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
+              <div class="test col-8" :id="longLetterFive">{{ freelancerEncrypt }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickFiveLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
           </div>
         </div>
@@ -560,7 +570,13 @@ export default {
       enterpriseEncrypt: "",
       enterprisePublicKey: "",
       freelancerEncrypt: "",
-      freelancerPublicKey: ""
+      freelancerPublicKey: "",
+      longLetterOne : "longLetterOne",
+      longLetterTwo : "longLetterTwo",
+      longLetterThree : "longLetterThree",
+      longLetterFour : "longLetterFour",
+      longLetterFive : "longLetterFive",
+      resSave : '',
     }
   },
   mounted() {
@@ -601,6 +617,11 @@ export default {
     this.notSign += id__
     this.sureContractModal += id__
     this.coinModal += id__
+    this.longLetterOne += id__
+    this.longLetterTwo += id__
+    this.longLetterThree += id__
+    this.longLetterFour += id__
+    this.longLetterFive += id__
     this.ProjectDetailNavProject += this.idEdit
     this.ProjectDetailNavResume += this.idEdit
     this.projectDetailNavItemProject += this.idEdit
@@ -624,20 +645,12 @@ export default {
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
         (1000 * 60 * 60 * 24))
 
-    let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
+    
       if (!this.isContractOpen) {
         createInstance().get('/contracts?projectId=' + this.projectDataReceive.projectId + '&userId=' + String(this.$store.state.accounts.loginUserInfo.id),
         ).then(res => {
           this.contractId = res.data.contractId;
-          let tmp = res.data.content.split('`')
-          for(let i = 0; i < contractInputs.length; i++) {
-            contractInputs[i].innerText = tmp[i]
-          }
-
-          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
-          if (tmp.length === 23) {
-            document.querySelector('#' + this.imgSign).src = tmp[22]
-          }
+          this.resSave = res.data
         })
         this.isContractOpen = true
       }
@@ -682,6 +695,16 @@ export default {
       let closeContractPaperBtnTmp = document.querySelector('#' + this.closeContractPaperBtn)
       let myPageFreelancerDetailModalContentWrpr = document.querySelector('#' + this.myPageFreelancerDetailModalContentWrpr)
 
+      let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
+      let tmp = this.resSave.content.split('`')
+      for(let i = 0; i < contractInputs.length; i++) {
+        contractInputs[i].innerText = tmp[i]
+      }
+
+      document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+      if (tmp.length === 23) {
+        document.querySelector('#' + this.imgSign).src = tmp[22]
+      }
 
       myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnr')
       myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnrAfter')
@@ -742,6 +765,69 @@ export default {
 
     clickCloseCoinModal() {
       document.querySelector('#' + this.coinModal).classList.add('d-none')
+    },
+
+    clickOneLong() {
+      let tmp = document.querySelector('#' + this.longLetterOne).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+            document.querySelector('#' + this.longLetterOne).innerText = '복사완료'
+            setTimeout(() => {
+              document.querySelector('#' + this.longLetterOne).innerHTML = tmp
+            },)
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickTwoLong() {
+      let tmp = document.querySelector('#' + this.longLetterTwo).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickThreeLong() {
+      let tmp = document.querySelector('#' + this.longLetterThree).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickFourLong() {
+      let tmp = document.querySelector('#' + this.longLetterFour).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickFiveLong() {
+      let tmp = document.querySelector('#' + this.longLetterFive).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
     },
   },
 };

@@ -1169,7 +1169,7 @@ export default {
         if (i === 8) this.amount = parseInt(contractInputs[i].innerText)
       }
       totalContent += document.querySelector("#" + this.imgSign).src;
-      console.log(this.amount)
+      console.log(totalContent.split('`').length)
 
 
       const accounts = await window.ethereum.request({

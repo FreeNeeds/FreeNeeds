@@ -356,7 +356,7 @@
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
               <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
-                <h3>표준근로계약서</h3>
+                <h3>프리랜서 고용계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
@@ -694,40 +694,45 @@
             </div>
           </div>
           <div class="mt-3 mx-4" style="box-shadow : 0px 5px 10px rgba(0,0,0,0.25);">
-            <div class="d-flex" style="height: 50px;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
-              <div class="test" :id="longLetterOne">{{ hashData }}</div>
-              <div style="font-size : 22px">...</div>
-              <img src="@/assets/images/copy_512.png" @click="clickOneLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
+            <div class="d-flex justify-content-between" style="height: 50px;">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
+              <div class="test col-8" :id="longLetterOne">{{ hashData }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickOneLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
-            <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
-              <div class="test" :id="longLetterTwo">{{ enterprisePublicKey }}</div>
-              <div style="font-size : 22px">...</div>
-              <img src="@/assets/images/copy_512.png" @click="clickTwoLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
+            <div class="d-flex justify-content-between" style="height: 50px; background-color: #f6f6f6;">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
+              <div class="test col-8" :id="longLetterTwo">{{ enterprisePublicKey }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickTwoLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex" style="height: 50px">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
-              <div class="test" :id="longLetterThree">{{ enterpriseEncrypt }}</div>
-              <div style="font-size : 22px">...</div>
-              <img src="@/assets/images/copy_512.png" @click="clickThreeLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
+              <div class="test col-8" :id="longLetterThree">{{ enterpriseEncrypt }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickThreeLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
-              <div class="test" :id="longLetterFour">{{ freelancerPublicKey }}</div>
-              <div style="font-size : 22px">...</div>
-              <img src="@/assets/images/copy_512.png" @click="clickFourLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
+              <div class="test col-8" :id="longLetterFour">{{ freelancerPublicKey }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickFourLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
             <div class="d-flex " style="height: 50px">
-              <div style="width: 20px"></div>
-              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
-              <div class="test" :id="longLetterFive">{{ freelancerEncrypt }}</div>
-              <div style="font-size : 22px">...</div>
-              <img src="@/assets/images/copy_512.png" @click="clickFiveLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
+              <div class="col-3" style="text-align : start; padding-left: 17px; margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
+              <div class="test col-8" :id="longLetterFive">{{ freelancerEncrypt }}</div>
+              <div class="col-1" style="font-size : 22px">
+                ...
+                <img src="@/assets/images/copy_512.png" @click="clickFiveLong" style="width : 25px; height : 25px; margin-top: 10px; margin-right : 20px">
+              </div>
             </div>
           </div>
         </div>
@@ -805,7 +810,8 @@ export default {
       enterpriseEncrypt: "",
       enterprisePublicKey: "",
       freelancerEncrypt: "",
-      freelancerPublicKey: ""
+      freelancerPublicKey: "",
+      resSave : '',
     }
   },
   mounted() {
@@ -852,24 +858,12 @@ export default {
     this.longLetterFour += id__
     this.longLetterFive += id__
 
-    let contractInputs = document.querySelectorAll(
-      "#" + this.contractInputItem
-    );
     if (!this.isContractOpen) {
       createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
       ).then(res => {
         this.contractId = res.data.contractId;
         console.log(res.data)
-        let tmp = res.data.content.split('`')
-        for(let i = 0; i < contractInputs.length; i++) {
-          contractInputs[i].innerText = tmp[i]
-        }
-        document.querySelector('#' + this.imgSignCompany).src = tmp[21]
-        console.log(tmp.length)
-        if (tmp.length === 23) {
-          document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
-          document.querySelector('#' + this.imgSign).src = tmp[22]
-        }
+        this.resSave = res.data
       })
       this.isContractOpen = true
     }
@@ -956,6 +950,20 @@ export default {
         "#" + this.myPageFreelancerDetailModalContentWrpr
       );
 
+      let contractInputs = document.querySelectorAll(
+      "#" + this.contractInputItem)
+      
+      let tmp = this.resSave.content.split('`')
+      for(let i = 0; i < contractInputs.length; i++) {
+        contractInputs[i].innerText = tmp[i]
+      }
+      document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+      console.log(tmp.length)
+      if (tmp.length === 23) {
+        document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
+        document.querySelector('#' + this.imgSign).src = tmp[22]
+      }
+        
       myPageFreelancerDetailModalContentTmp.classList.remove(
         "myPageFreelancerDetailCtnr"
       );
@@ -1097,7 +1105,7 @@ export default {
 
 <style>
   .test {
-    width : 400px; overflow : hidden; font-size: 22px; line-height: 42px;
+    display: flex; overflow : hidden; font-size: 22px; line-height: 42px;
   }
 
 </style>
