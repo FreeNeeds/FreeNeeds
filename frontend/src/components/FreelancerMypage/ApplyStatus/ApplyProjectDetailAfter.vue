@@ -501,16 +501,10 @@ export default {
           for(let i = 0; i < contractInputs.length; i++) {
             contractInputs[i].innerText = tmp[i]
           }
-          if (res.data.imgSRC[0] === '1') document.querySelector('#' + this.incentiveBtn).classList.remove('d-none')
-          if (res.data.imgSRC[1] === '1') document.querySelector('#' + this.notIncentiveBtn).classList.remove('d-none')
-          if (res.data.imgSRC[2] === '1') document.querySelector('#' + this.recruitInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
-          if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
 
-          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
-          if (tmp.length === 35) {
-            document.querySelector('#' + this.imgSign).src = tmp[34]
+          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+          if (tmp.length === 23) {
+            document.querySelector('#' + this.imgSign).src = tmp[22]
           }
         })
         this.isContractOpen = true
