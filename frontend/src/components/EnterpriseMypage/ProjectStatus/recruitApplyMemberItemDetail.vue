@@ -781,7 +781,7 @@ export default {
   },
   data() {
     return {
-      amount: 3000, // 계약금
+      amount: 0, // 계약금
       freelancerAccount: "", // 프리랜서 지갑 주소
       idx : 0,
       coinModal : "coinModal",
@@ -1169,9 +1169,11 @@ export default {
       let btnSelect = "";
       for (let i = 0; i < contractInputs.length; i++) {
         totalContent += contractInputs[i].innerText + "`";
+        
+        if (i === 8) this.amount = parseInt(contractInputs[i].innerText)
       }
       totalContent += document.querySelector("#" + this.imgSign).src;
-
+      console.log(this.amount)
       createInstance()
         .post(
           "/contracts?projectId=" +
