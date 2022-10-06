@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="isDataLoaded">
+    <div v-if="projectDataList.length == 0">
+      <no-project-view-vue></no-project-view-vue>
+    </div>
     <!-- {{ projectDataList }} -->
     <div v-for="(item, index) of projectDataList" :key="index">
       <!-- {{ item }} -->
@@ -45,6 +48,9 @@ import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import * as companyInstance from "@/api/company.js";
+import ProjectDetailVue from "../../Project/ProjectDetail.vue";
+import NoProjectViewVue from "../../Mypage/NoProjectView.vue";
+
 export default {
   methods: {
     freelancerrefuseProject(index) {
@@ -155,7 +161,8 @@ export default {
     this.isDataLoaded = true;
   },
   components: {
-    ProjectCard
+    ProjectCard,
+    NoProjectViewVue
   }
 };
 </script>

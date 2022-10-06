@@ -1,9 +1,7 @@
 <template>
   <div v-if="isDataLoaded">
     <div v-if="projectDataList.length == 0">
-      <div class="apply-status-no-project-wrapper">
-        프로젝트가 없습니다
-      </div>
+      <no-project-view-vue></no-project-view-vue>
     </div>
     <!-- {{ projectDataList }} -->
     <div
@@ -84,6 +82,7 @@ import ApplyProjectDetailAfter from "./ApplyProjectDetailAfter.vue";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import * as companyInstance from "@/api/company.js";
+import NoProjectViewVue from "../../Mypage/NoProjectView.vue";
 export default {
   data() {
     return {
@@ -192,7 +191,8 @@ export default {
   components: {
     ProjectCard,
     recruitCardItemFreelancer,
-    ApplyProjectDetailAfter
+    ApplyProjectDetailAfter,
+    NoProjectViewVue
   }
 };
 </script>

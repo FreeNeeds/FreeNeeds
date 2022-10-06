@@ -1,20 +1,27 @@
 <template>
   <div>
-    <div class="carousel-wrapper-mine carouselWrapperMyPageCompanyRecruit mx-auto mt-4" data-bs-touch="false" id="recruitCarouselWrapperMyPageCompanyRecruit">
+    <div v-if="myProjectLst.length == 0">
+      <no-project-view-vue></no-project-view-vue>
+    </div>
+    <div
+      class="carousel-wrapper-mine carouselWrapperMyPageCompanyRecruit mx-auto mt-4"
+      data-bs-touch="false"
+      id="recruitCarouselWrapperMyPageCompanyRecruit"
+    >
       <div class="carousel-mine" id="carouselMyPageCompanyRecruit">
         <recruitCardItem
-        v-for="projectCardItem in myProjectLst"
-        :key="projectCardItem.projectIdEdit"
-        :projectCardItem="projectCardItem"
-        :state="state"
+          v-for="projectCardItem in myProjectLst"
+          :key="projectCardItem.projectIdEdit"
+          :projectCardItem="projectCardItem"
+          :state="state"
         ></recruitCardItem>
       </div>
       <recruitProjectDetail
-      v-for="projectCardItem in myProjectLst"
-      :key=projectCardItem.projectId
-      :id=projectCardItem.projectIdEdit
-      :idEdit=projectCardItem.projectIdEdit
-      :projectDataReceive=projectCardItem
+        v-for="projectCardItem in myProjectLst"
+        :key="projectCardItem.projectId"
+        :id="projectCardItem.projectIdEdit"
+        :idEdit="projectCardItem.projectIdEdit"
+        :projectDataReceive="projectCardItem"
       >
       </recruitProjectDetail> 
     </div>
@@ -34,64 +41,73 @@
 </template>
 
 <script>
-  import recruitCardItem from './recruitCardItem.vue'
-  import recruitProjectDetail from './recruitProjectDetail.vue'
-  import { createInstance } from "@/api/index.js";
-
-  export default {
-    name : "recruit",
-    data() {
-      return {
-        idx : 0,
-        myProjectLst : [],
-        state : "recruit"
-      }
-    },
-    mounted() {
-      /*for(let i = 0; i < 5; i++) {
+import recruitCardItem from "./recruitCardItem.vue";
+import recruitProjectDetail from "./recruitProjectDetail.vue";
+import { createInstance } from "@/api/index.js";
+import NoProjectViewVue from "../../Mypage/NoProjectView.vue";
+export default {
+  name: "recruit",
+  data() {
+    return {
+      idx: 0,
+      myProjectLst: [],
+      state: "recruit"
+    };
+  },
+  mounted() {
+    /*for(let i = 0; i < 5; i++) {
         this.myProjectLst.push({
           id : "idMyPageCompanyStatus" + String(i),
           body : this.projectData
         })
       }*/
-      createInstance().get('/project/company/' + String(this.$store.state.accounts.loginUserInfo.id)).then(res => {
-          for (let i = 0; i < res.data.length; i++) {
-            let remainDateTmp = Math.ceil(
-              (new Date(res.data[i].deadline).getTime() - new Date().getTime()) /
-                (1000 * 60 * 60 * 24) - 1
-            );
-            if (remainDateTmp >= 0) {
-              res.data[i].projectIdEdit = "myPageProjectDetailId" + String(res.data[i].projectId)
-              res.data[i].skill = []
-              this.myProjectLst.push(res.data[i])
-            }
+    createInstance()
+      .get(
+        "/project/company/" +
+          String(this.$store.state.accounts.loginUserInfo.id)
+      )
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          let remainDateTmp = Math.ceil(
+            (new Date(res.data[i].deadline).getTime() - new Date().getTime()) /
+              (1000 * 60 * 60 * 24) -
+              1
+          );
+          if (remainDateTmp >= 0) {
+            res.data[i].projectIdEdit =
+              "myPageProjectDetailId" + String(res.data[i].projectId);
+            res.data[i].skill = [];
+            this.myProjectLst.push(res.data[i]);
           }
-      })
+        }
+      });
 
-      if (this.myProjectLst.length === 0) {
-        document.querySelector('#carouselWrapperMyPageCompanyRecruit').setAttribute('style','background-color : lightgray')
-      }
-      
-    },
-    methods : {
-      prevBtnClick() {
-        if (this.idx === 0) this.idx = this.myProjectLst.length - 1
-        else 
-          this.idx--
-        document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx  + 'px, 0, 0)'
-      },
-      nextBtnClick() {
-        if (this.idx === this.myProjectLst.length - 1) this.idx = 0
-        else 
-          this.idx++
-        document.querySelector('#carouselMyPageCompanyRecruit').style.transform = 'translate3d(' + -660 * this.idx + 'px, 0, 0)'
-      },
-    },
-    components : {
-      recruitCardItem,
-      recruitProjectDetail
+    if (this.myProjectLst.length === 0) {
+      document
+        .querySelector("#carouselWrapperMyPageCompanyRecruit")
+        .setAttribute("style", "background-color : lightgray");
     }
+  },
+  methods: {
+    prevBtnClick() {
+      if (this.idx === 0) this.idx = this.myProjectLst.length - 1;
+      else this.idx--;
+      document.querySelector("#carouselMyPageCompanyRecruit").style.transform =
+        "translate3d(" + -660 * this.idx + "px, 0, 0)";
+    },
+    nextBtnClick() {
+      if (this.idx === this.myProjectLst.length - 1) this.idx = 0;
+      else this.idx++;
+      document.querySelector("#carouselMyPageCompanyRecruit").style.transform =
+        "translate3d(" + -660 * this.idx + "px, 0, 0)";
+    }
+  },
+  components: {
+    recruitCardItem,
+    recruitProjectDetail,
+    NoProjectViewVue
   }
+};
 </script>
 
 <style>
@@ -115,9 +131,9 @@
     border : 0px;
   }
 
-  .carouselWrapperMyPageCompanyRecruit{
-    width: 660px !important;
-    height: 320px !important;
-    margin-left : 180px !important
-  }
+.carouselWrapperMyPageCompanyRecruit {
+  width: 660px !important;
+  height: 320px !important;
+  margin-left: 180px !important;
+}
 </style>

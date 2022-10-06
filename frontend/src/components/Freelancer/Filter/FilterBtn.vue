@@ -61,6 +61,9 @@
             <b-container id="FilterCategory">
               <div class="FilterKeyword">기술</div>
               <hr />
+              <h5 class="fw-blod warnFilter" style="color : royalblue">
+                적어도 한 개 이상의 필터를 적용해주세요!
+              </h5>
               <div id="skillSelectCtnr">
                 <FilterSkillSelect
                   v-for="(skillItem, index) in FilterSkillLst"

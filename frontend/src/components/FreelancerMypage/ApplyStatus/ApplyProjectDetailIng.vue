@@ -27,7 +27,7 @@
           class="ProjectDetailApplyBtn freelancerFloatBtn"
           style="z-index : 2"
         >
-          계약서 보기
+          ㅋ
         </button>
         <button
           @click="closeContractPaper"
@@ -935,7 +935,8 @@ export default {
       projectDetailNavItemProject: "projectDetailNavItemProject",
       resumeDetailNavItemProject: "resumeDetailNavItemProject",
       // freelancerAccount: "",
-      companyAccount: ""
+      companyAccount: "",
+      contractId: 0,
     };
   },
   computed: {
@@ -1334,7 +1335,9 @@ export default {
         result
       );
       console.log("기업 전자서명 출력");
-      console.log(companyEncrypt);
+      console.log(companyEncrypt.encryptData);
+      console.log(companyEncrypt.publicKey);
+
 
       //프리랜서 암호화
       let freelancerEncrypt = await signInstance.getUserSign(
@@ -1342,9 +1345,26 @@ export default {
         result
       );
       console.log("프리랜서 전자서명 출력");
-      console.log(freelancerEncrypt);
+      console.log(freelancerEncrypt.encryptData);
+      console.log(freelancerEncrypt.publicKey);
 
-      freelancerSignEscrow(accounts[0], this.companyAccount, result);
+      console.log("출력하기");
+      console.log(this.$store.state.accounts.loginUserInfo.id)
+      console.log(this.projectDataReceive.projectId)
+      await createInstance()
+        .get(`/contracts`, {
+          params: {projectId: this.projectDataReceive.projectId,userId: this.$store.state.accounts.loginUserInfo.id}
+        })
+        .then(res => {
+          console.log("찍히냐", res.data.contractId);
+          this.contractId = res.data.contractId;
+        })
+        // .catch(err => { 
+        //   console.log("에러출력");
+        //   console.log(err);
+        // })
+
+      freelancerSignEscrow(accounts[0], this.companyAccount, this.contractId, result, companyEncrypt.encryptData, companyEncrypt.publicKey, freelancerEncrypt.encryptData, freelancerEncrypt.publicKey);
 
       // 계약 테이블 저장
       createInstance()

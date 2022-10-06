@@ -27,30 +27,36 @@
               <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
             </div>
           </div>
-          {{ Math.round((ratingToPercent) / 20 * 100) / 100}} 
-          <span style="font-size : 12px; color : gray"> / 평가 {{ estimate.length }} 개</span>
-        </b-card-text>
-      </div>
-      <div class="row justify-content-end my-2">
-        <b-card-text class="col-7">
-          <div class="mb-2">
-            {{ profile.title }}
+          <div class="star-ratings-base space-x-2 text-lg">
+            <span>★</span><span>★</span><span>★</span><span>★</span
+            ><span>★</span>
           </div>
-          <FreelancerCardSkill
+        </div>
+        {{ Math.round((ratingToPercent / 20) * 100) / 100 }}
+        <span style="font-size : 12px; color : gray">
+          / 평가 {{ estimate.length }} 개</span
+        >
+      </b-card-text>
+    </div>
+    <div class="row justify-content-end my-2">
+      <b-card-text class="col-7">
+        <div class="mb-2">
+          {{ profile.title }}
+        </div>
+        <FreelancerCardSkill
           v-for="skillItem in profileTech"
           :key="skillItem"
           :skillItem="skillItem"
-          >
-          </FreelancerCardSkill> 
-        </b-card-text>
-        <div class="col-5">
-          <hr>
-          <div class="row justify-content-between">
-            <div class="col-8">계약한 프로젝트 : </div>
-            <div class="col-4">총 {{ projectCareer.length }} 건 </div>
-          </div>
-          <hr>
+        >
+        </FreelancerCardSkill>
+      </b-card-text>
+      <div class="col-5">
+        <hr />
+        <div class="row justify-content-between">
+          <div class="col-8">계약한 프로젝트 :</div>
+          <div class="col-4">총 {{ projectCareer.length }} 건</div>
         </div>
+        <hr />
       </div>
       <div id="calWrpr" class="d-none calWrpr">
         <div class="cal text-center">
@@ -58,9 +64,10 @@
           <button @click="calClose(), withdraw()" class="estimateCompleteBtn mt-3">네</button>
         </div>
       </div>
-      <recruitApplyMemberItemDetailIng
-      :id=freelancerCardIdModal
-      :id_=freelancerCardId
+    </div>
+    <recruitApplyMemberItemDetailIng
+      :id="freelancerCardIdModal"
+      :id_="freelancerCardId"
       :nameErase="nameErase"
       :projectCareer="projectCareer"
       :resume="resume"
@@ -76,155 +83,175 @@
       :projectId="projectId"
       :state="state"
       @moveToIngContract="moveToIngContract"
-      ></recruitApplyMemberItemDetailIng>
+    ></recruitApplyMemberItemDetailIng>
   </b-card>
 </template>
 
 <script>
-  import FreelancerCardSkill from '@/components/Freelancer/FreelancerCardSkill.vue';
-  import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
-  import recruitApplyMemberItemDetailIng from '@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetailIng.vue'
-  import { createInstance } from "@/api/index.js";
-  import { enterprisePayFreelancer } from "@/utils/EscrowFactory.js";
-  import * as userInstance from "@/api/user.js";
+import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
+import FreelancerDetail from "@/components/Freelancer/FreelancerDetail.vue";
+import recruitApplyMemberItemDetailIng from "@/components/EnterpriseMypage/ProjectStatus/recruitApplyMemberItemDetailIng.vue";
+import { createInstance } from "@/api/index.js";
+import { enterprisePayFreelancer } from "@/utils/EscrowFactory.js";
+import * as userInstance from "@/api/user.js";
 
-  export default {
-    name : 'recruitApplyMemberItemAfter',
-    data() {
-      return {
-        freelancerAccount: "",
-        escrowAddress: "0xC404bD07bcd3131433a2489CE8Ac5Cb2c41B967b",
-        nameErase : "",
-        ratingToPercent : 0,
-        freelancerCardIdEdit : "#id",
-        freelancerCardIdModal: "id",
-        projectCareer : [],
-        resume : {},
-        profile : {},
-        estimate : [],
-        profileTech : [],
-        profession : 0,
-        ontime : 0,
-        active : 0,
-        communication : 0,
-        reEmployment : 0,
-        username : '',
-        estimateModalWrpr : "estimateModalWrpr",
-        completeDetailBtn : "completeDetailBtn",
-        completeEstimateBtn : "completeEstimateBtn",
-        completeCalBtn : "completeCalBtn"
-      }
-    },
-    props : {
-      freelancerCardId : Number,
-      projectId : Number,
-      state : String,
-      stateTmp : String,
-    },
-    mounted() {
-      this.freelancerCardIdModal += this.freelancerCardId
-      this.completeCalBtn += this.freelancerCardId
-      createInstance().get('/users/username/' + String(this.freelancerCardId)).then(res => {
-        let username = res.data
-        this.username = res.data
-        createInstance().get('/users/project/' + username).then(res => {
-          for (let i = 0; i < res.data.length; i++) {
-            this.projectCareer.push({
-              body : res.data[i]
-            })
-          }
-        })
-        createInstance().get('/users/resume/' + username).then(res => {
-          this.resume = res.data
-        })
-        createInstance().get('/users/profile/' + username).then(res => {
-          this.profile = res.data
-          for (let i = 0; i < this.profile.name.length; i++){
-            if (i == 1) this.nameErase += "*"
-            else this.nameErase += this.profile.name[i]
-          }
-          createInstance().get('/users/profile/tech/' + String(res.data.profileId)).then(res => {
+export default {
+  name: "recruitApplyMemberItemAfter",
+  data() {
+    return {
+      freelancerAccount: "",
+      escrowAddress: "0xC404bD07bcd3131433a2489CE8Ac5Cb2c41B967b",
+      nameErase: "",
+      ratingToPercent: 0,
+      freelancerCardIdEdit: "#id",
+      freelancerCardIdModal: "id",
+      projectCareer: [],
+      resume: {},
+      profile: {},
+      estimate: [],
+      profileTech: [],
+      profession: 0,
+      ontime: 0,
+      active: 0,
+      communication: 0,
+      reEmployment: 0,
+      username: "",
+      estimateModalWrpr: "estimateModalWrpr",
+      completeDetailBtn: "completeDetailBtn",
+      completeEstimateBtn: "completeEstimateBtn",
+      completeCalBtn: "completeCalBtn"
+    };
+  },
+  props: {
+    freelancerCardId: Number,
+    projectId: Number,
+    state: String,
+    stateTmp: String
+  },
+  mounted() {
+    this.freelancerCardIdModal += this.freelancerCardId;
+    this.completeCalBtn += this.freelancerCardId;
+    createInstance()
+      .get("/users/username/" + String(this.freelancerCardId))
+      .then(res => {
+        let username = res.data;
+        this.username = res.data;
+        createInstance()
+          .get("/users/project/" + username)
+          .then(res => {
             for (let i = 0; i < res.data.length; i++) {
-              this.profileTech.push(res.data[i].techName)
+              this.projectCareer.push({
+                body: res.data[i]
+              });
             }
-          })
-        })
-        createInstance().get('/estimates/' + username).then(res => {
-          for (let i = 0; i < res.data.length; i++) {
-            this.estimate.push(res.data[i])
-          }
+          });
+        createInstance()
+          .get("/users/resume/" + username)
+          .then(res => {
+            this.resume = res.data;
+          });
+        createInstance()
+          .get("/users/profile/" + username)
+          .then(res => {
+            this.profile = res.data;
+            for (let i = 0; i < this.profile.name.length; i++) {
+              if (i == 1) this.nameErase += "*";
+              else this.nameErase += this.profile.name[i];
+            }
+            createInstance()
+              .get("/users/profile/tech/" + String(res.data.profileId))
+              .then(res => {
+                for (let i = 0; i < res.data.length; i++) {
+                  this.profileTech.push(res.data[i].techName);
+                }
+              });
+          });
+        createInstance()
+          .get("/estimates/" + username)
+          .then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+              this.estimate.push(res.data[i]);
+            }
 
-          for (let i = 0; i < this.estimate.length; i++) {
-            this.profession += this.estimate[i].profession
-            this.ontime += this.estimate[i].ontime 
-            this.active += this.estimate[i].active
-            this.communication += this.estimate[i].communication 
-            this.reEmployment += this.estimate[i].reEmployment
-          }
-          
-          this.profession = this.profession / (this.estimate.length)
-          this.ontime = this.ontime / (this.estimate.length)
-          this.active = this.active / (this.estimate.length)
-          this.communication = this.communication / (this.estimate.length)
-          this.reEmployment = this.reEmployment / (this.estimate.length)
-          this.ratingToPercent = (this.profession + this.ontime + this.active + this.communication + this.reEmployment) / 5
-          this.ratingToPercent = this.ratingToPercent * 20
-          console.log(this.profession)
-        })
-      })
-      this.completeDetailBtn += String(this.freelancerCardId)
-      this.completeEstimateBtn += String(this.freelancerCardId)
-      this.estimateModalWrpr += String(this.freelancerCardId)
-      if (this.stateTmp === "complete") {
-        for (let item of document.querySelectorAll('#completeDetailBtn')) {
-          item.setAttribute('style','top : 15px;')
-        }
-        for (let item of document.querySelectorAll('.completeEstimateAfterBtn')) {
-          item.classList.remove('d-none')
-        }
+            for (let i = 0; i < this.estimate.length; i++) {
+              this.profession += this.estimate[i].profession;
+              this.ontime += this.estimate[i].ontime;
+              this.active += this.estimate[i].active;
+              this.communication += this.estimate[i].communication;
+              this.reEmployment += this.estimate[i].reEmployment;
+            }
 
-        
+            this.profession = this.profession / this.estimate.length;
+            this.ontime = this.ontime / this.estimate.length;
+            this.active = this.active / this.estimate.length;
+            this.communication = this.communication / this.estimate.length;
+            this.reEmployment = this.reEmployment / this.estimate.length;
+            this.ratingToPercent =
+              (this.profession +
+                this.ontime +
+                this.active +
+                this.communication +
+                this.reEmployment) /
+              5;
+            this.ratingToPercent = this.ratingToPercent * 20;
+            console.log(this.profession);
+          });
+      });
+    this.completeDetailBtn += String(this.freelancerCardId);
+    this.completeEstimateBtn += String(this.freelancerCardId);
+    this.estimateModalWrpr += String(this.freelancerCardId);
+    if (this.stateTmp === "complete") {
+      for (let item of document.querySelectorAll("#completeDetailBtn")) {
+        item.setAttribute("style", "top : 15px;");
       }
-      this.freelancerCardIdEdit += String(this.freelancerCardId)
-      userInstance.getUserAccountAddress(this.freelancerCardId, res => {this.freelancerAccount = res.data})
-      // createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.freelancerCardId),
-      //   ).then(res => {this.escrowAddress = res.data.escrowAddress})
-    },
+      for (let item of document.querySelectorAll(".completeEstimateAfterBtn")) {
+        item.classList.remove("d-none");
+      }
+    }
+    this.freelancerCardIdEdit += String(this.freelancerCardId);
+    userInstance.getUserAccountAddress(this.freelancerCardId, res => {
+      this.freelancerAccount = res.data;
+    });
+    // createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.freelancerCardId),
+    //   ).then(res => {this.escrowAddress = res.data.escrowAddress})
+  },
 
-    methods: {
-      withdraw: async function() {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  methods: {
+    withdraw: async function() {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
       enterprisePayFreelancer(accounts[0], this.freelancerAccount);
-      },
-
-      moveToIngContract(value) {
-        this.$emit('moveToIngContract',value)
-      },
-
-      clickEstimateBtn() {
-        this.$emit("clickEstimateBtn",{
-          nameErase : this.nameErase,
-          freelancerCardId : this.freelancerCardId,
-          username : this.username
-        })
-      },
-
-      clickCalBtn() {
-        document.querySelector('body').style.overflow = 'hidden'
-        document.querySelector('#calWrpr').classList.remove('d-none')
-      },
-
-      calClose() {
-        document.querySelector('body').style.overflow = 'scroll'
-        document.querySelector('#calWrpr').classList.add('d-none')
-      }
     },
-    components : {
+
+    moveToIngContract(value) {
+      this.$emit("moveToIngContract", value);
+    },
+
+    clickEstimateBtn() {
+      this.$emit("clickEstimateBtn", {
+        nameErase: this.nameErase,
+        freelancerCardId: this.freelancerCardId,
+        username: this.username
+      });
+    },
+
+    clickCalBtn() {
+      document.querySelector("body").style.overflow = "hidden";
+      document.querySelector("#calWrpr").classList.remove("d-none");
+    },
+
+    calClose() {
+      document.querySelector("body").style.overflow = "scroll";
+      document.querySelector("#calWrpr").classList.add("d-none");
+    }
+  },
+  components: {
     FreelancerCardSkill,
     FreelancerDetail,
     recruitApplyMemberItemDetailIng
-}
-  };
+  }
+};
 </script>
 
 <style>
