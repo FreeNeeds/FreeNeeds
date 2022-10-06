@@ -1,7 +1,7 @@
 <template>
   <b-card
     class="freelancer-contents myPageFreelancerCardWrpr"
-    img-src="https://placekitten.com/300/300"
+    img-src="@/assets/images/freech.png"
     img-left
     style="overflow : hidden"
     >

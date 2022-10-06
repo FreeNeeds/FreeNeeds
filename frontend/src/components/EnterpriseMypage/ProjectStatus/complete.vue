@@ -4,7 +4,6 @@
       <no-project-view-vue></no-project-view-vue>
     </div>
     <div
-      v-else
       class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
       data-bs-touch="false"
       id="completeCarouselWrapperMyPageCompanyRecruit"
