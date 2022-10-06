@@ -805,7 +805,8 @@ export default {
       contractImg : "contractImg",
       contractInputItem : "contractInputItem",
       signatureComplete : "signatureComplete",
-      alreadyDoneContract : "alreadyDoneContract"
+      alreadyDoneContract : "alreadyDoneContract",
+      contractId : "",
     }
   },
   mounted() {
@@ -846,6 +847,27 @@ export default {
     this.notSign += id__
     this.sureContractModal += id__
     this.coinModal += id__
+
+    let contractInputs = document.querySelectorAll(
+      "#" + this.contractInputItem
+    );
+    if (!this.isContractOpen) {
+      createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
+      ).then(res => {
+        console.log(res.data)
+        let tmp = res.data.content.split('`')
+        for(let i = 0; i < contractInputs.length; i++) {
+          contractInputs[i].innerText = tmp[i]
+        }
+        document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+        console.log(tmp.length)
+        if (tmp.length === 23) {
+          document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
+          document.querySelector('#' + this.imgSign).src = tmp[22]
+        }
+      })
+      this.isContractOpen = true
+    }
   },
   props : {
     nameErase : String,
@@ -928,26 +950,6 @@ export default {
         "#" + this.myPageFreelancerDetailModalContentWrpr
       );
 
-      let contractInputs = document.querySelectorAll(
-        "#" + this.contractInputItem
-      );
-      if (!this.isContractOpen) {
-        createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
-        ).then(res => {
-          console.log(res.data)
-          let tmp = res.data.content.split('`')
-          for(let i = 0; i < contractInputs.length; i++) {
-            contractInputs[i].innerText = tmp[i]
-          }
-          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
-          console.log(tmp.length)
-          if (tmp.length === 23) {
-            document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
-            document.querySelector('#' + this.imgSign).src = tmp[22]
-          }
-        })
-        this.isContractOpen = true
-      }
       myPageFreelancerDetailModalContentTmp.classList.remove(
         "myPageFreelancerDetailCtnr"
       );
