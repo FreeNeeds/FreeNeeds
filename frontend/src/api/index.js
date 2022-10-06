@@ -3,6 +3,7 @@ import axios from "axios";
 
 const API_BASE_URL = "https://J7b104.p.ssafy.io/api/v1";
 
+
 function createInstance() {
   const instance = axios.create({
     baseURL: API_BASE_URL,
