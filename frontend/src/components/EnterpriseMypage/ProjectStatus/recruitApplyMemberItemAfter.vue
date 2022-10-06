@@ -129,7 +129,7 @@ export default {
     this.freelancerCardIdModal += this.freelancerCardId;
     this.completeCalBtn += this.freelancerCardId;
     this.representiveImgAfter += this.freelancerCardId
-    let randomImgs = ["/img/freech.178cb336.png","/img/freech3.1c86f4e1.png","/img/freech4.da4bdf39.png","/img/freech5.e069d918.png"]
+    let randomImgs = ["/img/freech3.1c86f4e1.png","/img/freech4.da4bdf39.png","/img/freech5.e069d918.png"]
     this.randomImg = randomImgs[Math.floor(Math.random()*randomImgs.length)]
     setTimeout(() => {
       document.querySelector('#' + this.representiveImgAfter + '> img').src = this.randomImg

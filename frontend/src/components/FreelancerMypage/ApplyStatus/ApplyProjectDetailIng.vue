@@ -262,7 +262,7 @@
                 style="width : 50vw;"
               />
               <div class="contractCtnr" :id="contractImg">
-                <h3>프리랜서 근로계약서</h3>
+                <h3>프리랜서 고용계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
