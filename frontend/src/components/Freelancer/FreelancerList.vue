@@ -10,6 +10,7 @@
       :freelancerCard="freelancerCard"
       class="freelancer-list-card-wrapper col-6"
       style="padding : 0px"
+      @logo="logo"
     ></FreelancerCard>
   </div>
 </template>
@@ -40,6 +41,9 @@ export default {
     this.isDataLoaded = true;
   },
   methods: {
+    logo(value) {
+      this.$emit('logo',value)
+    },
     async settingFreelancer() {
       // thos.totalUserList: [],
       this.freelancerDataReceive = [];

@@ -1,8 +1,9 @@
 <template>
   <b-card
     class="freelancer-contents myPageFreelancerCardWrpr"
-    img-src="@/assets/images/freech.png"
+    img-src=".."
     img-left
+    :id="representiveImgAfter"
     style="overflow : hidden"
     >
       <div class="hoverProjectCard d-none" style="height : 0px !important;">
@@ -75,6 +76,7 @@
       :ratingToPercent="ratingToPercent"
       :projectId="projectId"
       :state="state"
+      :imgSrc="randomImg"
       @moveToIngContract="moveToIngContract"
     ></recruitApplyMemberItemDetailIng>
   </b-card>
@@ -109,6 +111,8 @@ export default {
       communication: 0,
       reEmployment: 0,
       username: "",
+      randomImg : '',
+      representiveImgAfter : "representiveImgAfter",
       estimateModalWrpr: "estimateModalWrpr",
       completeDetailBtn: "completeDetailBtn",
       completeEstimateBtn: "completeEstimateBtn",
@@ -124,6 +128,12 @@ export default {
   mounted() {
     this.freelancerCardIdModal += this.freelancerCardId;
     this.completeCalBtn += this.freelancerCardId;
+    this.representiveImgAfter += this.freelancerCardId
+    let randomImgs = ["/img/freech.178cb336.png","/img/freech3.1c86f4e1.png","/img/freech4.da4bdf39.png","/img/freech5.e069d918.png"]
+    this.randomImg = randomImgs[Math.floor(Math.random()*randomImgs.length)]
+    setTimeout(() => {
+      document.querySelector('#' + this.representiveImgAfter + '> img').src = this.randomImg
+    },10)
     createInstance()
       .get("/users/username/" + String(this.freelancerCardId))
       .then(res => {
