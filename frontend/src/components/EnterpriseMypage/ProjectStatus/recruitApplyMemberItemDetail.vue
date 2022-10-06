@@ -4,7 +4,7 @@
       <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button @click="closeFreelancerProjectDetail" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
         <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 작성</button>
-        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
+        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
@@ -339,7 +339,7 @@
                   </div>
                   <div
                     class="d-flex mx-3 mt-2"
-                    
+
                     v-for="freelancerCareerItem in resume.certificateList"
                   >
                     <div class="freelancerEducationName">
@@ -436,7 +436,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block" style="width : 78px">
-                    
+
                     </p>
                     <div
                       contenteditable="true"
@@ -462,7 +462,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block" style="width : 84px">
-                    
+
                     </p>
                     <p class="d-inline-block">
                       갑과 을의 합의 하에 본 계약 기간은 연장 될 수 있다.
@@ -475,7 +475,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex mt-2">
                     <p class="d-inline-block">
-                      총 계약금액은 
+                      총 계약금액은
                     </p>
                     <div
                       contenteditable="true"
@@ -618,7 +618,7 @@
                   </div>
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block">
-                      계약일자 : 
+                      계약일자 :
                     </p>
                     <div
                       contenteditable="true"
@@ -636,7 +636,7 @@
                       style="width : 50px"
                     ></div>
                     <p class="d-inline-block">
-                      월 
+                      월
                     </p>
                     <div
                       contenteditable="true"
@@ -740,7 +740,7 @@
           </h5>
           <div class="m-auto">
             <button
-              @click="clickSendContract(), createContract()"
+              @click="clickSendContract"
               class="signatureBtn my-3 mx-2"
             >
               네
@@ -879,12 +879,7 @@ export default {
     userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   methods: {
-    createContract: async function() {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts"
-      });
-      createEscrow(accounts[0], this.freelancerAccount, this.amount);
-    },
+
 
     clickFreelancerDetailNavProject() {
       let removeProjectDetailItem = document.querySelector(
@@ -1162,7 +1157,7 @@ export default {
       }
     },
 
-    clickSendContract() {
+    async clickSendContract() {
       let contractInputs = document.querySelectorAll(
         "#" + this.contractInputItem
       );
@@ -1170,11 +1165,21 @@ export default {
       let btnSelect = "";
       for (let i = 0; i < contractInputs.length; i++) {
         totalContent += contractInputs[i].innerText + "`";
-        
+
         if (i === 8) this.amount = parseInt(contractInputs[i].innerText)
       }
       totalContent += document.querySelector("#" + this.imgSign).src;
       console.log(this.amount)
+
+
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+
+      var test = await createEscrow(accounts[0], this.freelancerAccount, this.amount);
+      console.log(test);
+
+
       createInstance()
         .post(
           "/contracts?projectId=" +
@@ -1284,7 +1289,7 @@ export default {
   }
 
   .modal-content {
-    border-radius: 20px !important; 
+    border-radius: 20px !important;
     border : 0px !important;
   }
 
@@ -1343,7 +1348,7 @@ export default {
     left: 30.5vw;
     background-color: white;
     border-radius: 20px;
-    height: 400px; 
+    height: 400px;
     border: 1px solid lightgray;
     width: 600px;
     margin: auto;
@@ -1366,7 +1371,7 @@ export default {
     left: 37vw;
     background-color: white;
     border-radius: 20px;
-    height: 230px; 
+    height: 230px;
     border: 1px solid lightgray;
     width: 430px;
     margin: auto;
