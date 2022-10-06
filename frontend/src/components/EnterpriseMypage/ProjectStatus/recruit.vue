@@ -4,7 +4,6 @@
       <no-project-view-vue></no-project-view-vue>
     </div>
     <div
-      v-else
       class="carousel-wrapper-mine carouselWrapperMyPageCompanyRecruit mx-auto mt-4"
       data-bs-touch="false"
       id="recruitCarouselWrapperMyPageCompanyRecruit"
@@ -24,7 +23,7 @@
         :idEdit="projectCardItem.projectIdEdit"
         :projectDataReceive="projectCardItem"
       >
-      </recruitProjectDetail> 
+      </recruitProjectDetail>
     </div>
     <button @click="prevBtnClick" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
@@ -37,7 +36,7 @@
         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
       </svg>
       <span class="visually-hidden">Next</span>
-    </button>   
+    </button>
   </div>
 </template>
 
@@ -119,7 +118,7 @@ export default {
     top : -314px !important;
     left : 90px;
     height : 314px;
-    z-index: 2; 
+    z-index: 2;
     background-color: #f9f9f9;
     border : 0px;
   }
@@ -129,7 +128,7 @@ export default {
     top : -314px !important;
     left : 800px;
     height : 314px;
-    z-index: 2; 
+    z-index: 2;
     background-color: #f9f9f9;
     border : 0px;
   }
