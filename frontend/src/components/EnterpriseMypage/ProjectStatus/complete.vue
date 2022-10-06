@@ -4,7 +4,6 @@
       <no-project-view-vue></no-project-view-vue>
     </div>
     <div
-      v-else
       class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
       data-bs-touch="false"
       id="completeCarouselWrapperMyPageCompanyRecruit"
@@ -24,7 +23,7 @@
         :idEdit="projectCardItem.projectIdEdit"
         :projectDataReceive="projectCardItem"
       >
-      </recruitProjectDetail>   
+      </recruitProjectDetail>
     </div>
     <button @click="prevBtnClick" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
@@ -53,7 +52,7 @@
         />
       </svg>
       <span class="visually-hidden">Next</span>
-    </button> 
+    </button>
   </div>
 </template>
 
