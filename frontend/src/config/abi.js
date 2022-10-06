@@ -1,6 +1,96 @@
 const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 	`[
 		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_amount",
+					"type": "uint256"
+				}
+			],
+			"name": "createEscrow",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_enterprise",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				}
+			],
+			"name": "enterprisePayFreelancer",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_enterprise",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_contractId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "_hashData",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterpriseEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_enterprisePublicKey",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerEncrypt",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_freelancerPublicKey",
+					"type": "string"
+				}
+			],
+			"name": "freelancerSignEscrow",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
 			"inputs": [
 				{
 					"internalType": "address",
@@ -100,6 +190,21 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "event"
 		},
 		{
+			"constant": false,
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "newOwner",
+					"type": "address"
+				}
+			],
+			"name": "transferOwnership",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
 			"constant": true,
 			"inputs": [],
 			"name": "admin",
@@ -127,46 +232,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			],
 			"payable": false,
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_amount",
-					"type": "uint256"
-				}
-			],
-			"name": "createEscrow",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_enterprise",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				}
-			],
-			"name": "enterprisePayFreelancer",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
@@ -217,56 +282,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"type": "function"
 		},
 		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_enterprise",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_contractId",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "_hashData",
-					"type": "string"
-				},
-				{
-					"internalType": "string",
-					"name": "_enterpriseEncrypt",
-					"type": "string"
-				},
-				{
-					"internalType": "string",
-					"name": "_enterprisePublicKey",
-					"type": "string"
-				},
-				{
-					"internalType": "string",
-					"name": "_freelancerEncrypt",
-					"type": "string"
-				},
-				{
-					"internalType": "string",
-					"name": "_freelancerPublicKey",
-					"type": "string"
-				}
-			],
-			"name": "freelancerSignEscrow",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
 			"constant": true,
 			"inputs": [],
 			"name": "owner",
@@ -280,21 +295,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 			"payable": false,
 			"stateMutability": "view",
 			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "newOwner",
-					"type": "address"
-				}
-			],
-			"name": "transferOwnership",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
 		}
 	]`
 );
@@ -302,108 +302,6 @@ const ESCROWFACTORY_CONTRACT_ABI = JSON.parse(
 
 const ESCROW_CONTRACT_ABI = JSON.parse(
 	`[
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_contractAddress",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_enterprise",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "_freelancer",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_amount",
-					"type": "uint256"
-				}
-			],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "constructor"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "cashContract",
-			"outputs": [
-				{
-					"internalType": "contract CashInterface",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "getEnterprise",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "getFreelancer",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "getHashData",
-			"outputs": [
-				{
-					"internalType": "string",
-					"name": "",
-					"type": "string"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [],
-			"name": "getamount",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
 		{
 			"constant": false,
 			"inputs": [
@@ -455,6 +353,33 @@ const ESCROW_CONTRACT_ABI = JSON.parse(
 			"type": "function"
 		},
 		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_contractAddress",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_enterprise",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_freelancer",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_amount",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
+		{
 			"constant": false,
 			"inputs": [],
 			"name": "withdraw",
@@ -467,6 +392,81 @@ const ESCROW_CONTRACT_ABI = JSON.parse(
 			],
 			"payable": false,
 			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "cashContract",
+			"outputs": [
+				{
+					"internalType": "contract CashInterface",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "getamount",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "getEnterprise",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "getFreelancer",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "getHashData",
+			"outputs": [
+				{
+					"internalType": "string",
+					"name": "",
+					"type": "string"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
 			"type": "function"
 		}
 	]`
