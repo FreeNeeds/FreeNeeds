@@ -4,7 +4,7 @@
       <no-project-view-vue></no-project-view-vue>
     </div>
     <!-- {{ projectDataList }} -->
-    <div v-for="(item, index) of projectDataList" :key="index">
+    <div v-else v-for="(item, index) of projectDataList" :key="index">
       <!-- {{ item }} -->
       <div class="requested-project-card-wrapper">
         <project-card

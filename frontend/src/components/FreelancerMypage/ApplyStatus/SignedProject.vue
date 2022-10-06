@@ -5,6 +5,7 @@
     </div>
     <!-- {{ projectDataList }} -->
     <div
+      v-else
       class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
       id="carouselWrapperMyPageCompanyRecruit"
     >
