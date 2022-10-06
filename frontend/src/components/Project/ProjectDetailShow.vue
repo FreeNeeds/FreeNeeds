@@ -1,7 +1,7 @@
 <template>
   <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
     <div class="modal-dialog modal-lg" id="ProjectDetailModalWrapper">
-      <div class="modal-content" id="ProjectDetailModalContent">
+      <div class="modal-content modal-content-project-show" id="ProjectDetailModalContent">
         <button @click=clickClosePjtDetail type="button" id="ProjectDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <div id="projectDetailCtnr">
           <div id="remainDateInProjectTitle" class="text-start"> {{ projectDataReceive.title}} </div>
@@ -26,7 +26,7 @@
                 </div> 
                 <div class="row">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  금액</div>
-                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }}만원 ~ {{ projectDataReceive.highPrice }}만원/월
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }}FC ~ {{ projectDataReceive.highPrice }}FC/월
                     <br>(근무 확정시, 단가 확정)</div>
                 </div>
               </div>
@@ -239,5 +239,8 @@
 </script>
 
 <style>
-
+  .modal-content-project-show {
+    width : 50vw !important;
+    left : 25.5% !important;
+  }
 </style>

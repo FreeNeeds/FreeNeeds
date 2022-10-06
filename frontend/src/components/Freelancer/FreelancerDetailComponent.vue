@@ -256,6 +256,7 @@
         <FreelancerProjectCard
           v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
           :key="freelancerProjectCard.id"
+          style="margin-left : 0px !important"
           :freelancerProjectCard="{
             body: freelancerProjectCard
           }"
@@ -313,7 +314,6 @@
         </div>
         <div
           class="d-flex mx-3 mt-2"
-          style="margin-bottom : 60px"
           v-for="freelancerCareerItem in freelancerEducation.certificateList"
         >
           <div class="freelancerEducationName">
@@ -438,18 +438,18 @@ export default {
         i
       ].reEmployment;
     }
-    this.profession = this.profession / 5;
-    this.ontime = this.ontime / 5;
-    this.active = this.active / 5;
-    this.communication = this.communication / 5;
-    this.reEmployment = this.reEmployment / 5;
+    this.profession = this.profession / this.freelancerDetailReceive.estimate.length;
+    this.ontime = this.ontime / this.freelancerDetailReceive.estimate.length;
+    this.active = this.active / this.freelancerDetailReceive.estimate.length;
+    this.communication = this.communication / this.freelancerDetailReceive.estimate.length;
+    this.reEmployment = this.reEmployment / this.freelancerDetailReceive.estimate.length;
     this.ratingToPercent =
       (this.profession +
         this.ontime +
         this.active +
         this.communication +
         this.reEmployment) /
-      this.freelancerDetailReceive.estimate.length;
+      5
     this.ratingToPercent = this.ratingToPercent * 20;
     await userInstance.getUserResume(
       this.freelancerDetailReceive.username,
@@ -660,12 +660,6 @@ export default {
   font-size: 15px;
 }
 
-#freelancerDetailModalCloseBtn {
-  position: fixed;
-  top: 55px;
-  right: 400px;
-}
-
 .freelancerFloatBtn {
   position: fixed;
   top: 620px;
@@ -682,18 +676,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.freelancerProjectModal {
-  position: fixed;
-  top: 140px;
-  right: 325px;
-  background-color: white;
-  border-radius: 20px;
-  height: 400px;
-  border: 1px solid lightgray;
-  width: 900px;
-  margin: auto;
-  display: none;
-}
+
 .carousel-wrapper-mine {
   overflow: hidden;
 }
@@ -703,27 +686,5 @@ export default {
   transition: transform 0.2s;
 }
 
-.prev {
-  position: fixed;
-  top: 265px;
-  left: 360px;
-  height: 219px;
-  background-color: white;
-  border: 0px;
-}
 
-.next {
-  position: fixed;
-  top: 265px;
-  right: 370px;
-  height: 219px;
-  background-color: white;
-  border: 0px;
-}
-
-#selectProjectFreelancerCloseModal {
-  position: fixed;
-  top: 160px;
-  right: 350px;
-}
 </style>

@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="margin-top:50px">
+    <div class="d-flex justify-content-end">
       <button
         @click="startInterval"
         id="freelancerFilterBtn"
         data-bs-toggle="modal"
         data-bs-target="#ffilterModal"
+        style="position : relative; top : 8px; right : 8px"
       >
-        <div style="position:absolute">
+        <div style="position:absolute;">
           <img
             class="freelancericon btnimg"
             width="55px"
@@ -33,7 +34,7 @@
         <div
           class="modal-content"
           id="FFilterModalContent"
-          style="height : 500px; overflow-y: scroll;"
+          style="overflow-y: scroll;"
         >
           <button
             @click="clickFilterModalCloseBtn"
@@ -48,19 +49,18 @@
             type="button"
             id="FilterModalApplyBtn"
             class="d-none"
-            style="top : 500px"
+            style="bottom : 11vh !important"
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
+            <h5 class="fw-blod warnFilter mb-3" style="color : royalblue">
+                적어도 한 개 이상의 필터를 적용해주세요!
+            </h5>
             <b-container id="FilterCategory">
               <div class="FilterKeyword">기술</div>
-              <hr />
-              <h5 class="fw-blod warnFilter" style="color : royalblue">
-                적어도 한 개 이상의 필터를 적용해주세요!
-              </h5>
+              <hr>
               <div id="skillSelectCtnr">
                 <FilterSkillSelect
                   v-for="(skillItem, index) in FilterSkillLst"
@@ -301,19 +301,6 @@ export default {
   font-weight: bold;
   text-align: center;
 }
-#filterBtn {
-  border-radius: 30px !important;
-  width: 100px !important;
-  height: 40px !important;
-  border: 2px solid rgb(209, 207, 207);
-  text-align: center;
-  font-size: 17px;
-  font-weight: bold;
-  background-color: white;
-  margin-left: 64%;
-  margin-top: 3px;
-  margin-bottom: 8px;
-}
 
 #filterBtn:hover {
   background-color: #6ecdb1;
@@ -324,28 +311,11 @@ export default {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
-#FFilterModalWrapper {
-  margin-top: 50px;
-}
 
 #FilterModalContent {
   border-radius: 15px;
   height: 650px;
   overflow-y: scroll;
-}
-
-#FilterModalApplyBtn {
-  position: fixed;
-  top: 645px;
-  right: 540px;
-  z-index: 2;
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 105px;
-  height: 40px;
 }
 
 #FilterModalApplyBtn:hover {
@@ -362,12 +332,6 @@ export default {
 
 #FilterModalContent::-webkit-scrollbar {
   width: 0px !important;
-}
-
-#FilterModalCloseBtn {
-  position: fixed;
-  top: 65px;
-  right: 540px;
 }
 
 #FilterModalTitle {
@@ -389,16 +353,6 @@ export default {
   margin-bottom: 3px;
 }
 
-.FilterBtn {
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 15px;
-  border: 1px solid lightgray;
-  background-color: white;
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 .FilterBtn:hover {
   border: 1px solid black;
@@ -583,5 +537,11 @@ export default {
 
 #FFilterModalContent::-webkit-scrollbar {
   width: 0px;
+}
+
+#freelancerFilterBtn:hover {
+  background-color: #6ecdb1;
+  border: 0px;
+  font-weight: bold;
 }
 </style>

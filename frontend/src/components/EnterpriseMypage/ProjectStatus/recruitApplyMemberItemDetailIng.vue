@@ -1,53 +1,13 @@
 <template>
-  <div
-    class="modal text-center"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="false"
-    style="background-color: rgba(0, 0, 0, 0.15);"
-  >
-    <div
-      class="modal-dialog modal-lg"
-      id="freelancerModalWrapper"
-      style="z-index : -1"
-    >
-      <div class="modal-content" style="z-index : -1">
-        <button
-          type="button"
-          id="freelancerDetailModalCloseBtn"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          style="z-index : 2"
-        ></button>
-        <button
-          @click="openContractPaper"
-          :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
-        >
-          계약서 보기
-        </button>
-        <button
-          @click="closeContractPaper"
-          :id="closeContractPaperBtn"
-          class="d-none contractBackBtn"
-          style="z-index : 1"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-arrow-left"
-            style="margin-bottom: 5.5px;"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
+  <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
+    <div class="modal-dialog modal-lg" id="freelancerModalWrapper" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
+        <button @click="closeFreelancerProjectDetailIng" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
+        <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 보기</button>
+        <button @click="openCoinPaper" class="ProjectDetailApplyBtn coinModalBtn" style="z-index : 2" v-if="state === 'After'">코인보기</button>
+        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
           뒤로가기
         </button>
@@ -61,12 +21,7 @@
               :id="myPageFreelancerDetailModalContent"
             >
               <div style="height : 0px">
-                <img
-                  class="wrapperImgProjectCarousel"
-                  src="@/assets/images/하얀색.png"
-                  alt=""
-                  style="width : 800px;"
-                />
+                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               </div>
               <div id="freelancerDetailCtnr">
                 <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
@@ -327,9 +282,10 @@
                 <hr class="project-card-line" style="margin-bottom : 40px" />
                 <div :id="projectDetailNavItem">
                   <FreelancerProjectCard
-                    v-for="freelancerProjectCard in projectCareer"
-                    :key="freelancerProjectCard.body.projectCareerId"
-                    :freelancerProjectCard="freelancerProjectCard"
+                  v-for="freelancerProjectCard in projectCareer"
+                  :key="freelancerProjectCard.body.projectCareerId"
+                  :freelancerProjectCard="freelancerProjectCard"
+                  style="margin-left : 0px !important"
                   >
                   </FreelancerProjectCard>
                 </div>
@@ -398,12 +354,7 @@
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
-              <img
-                class="wrapperImgProjectCarousel"
-                src="@/assets/images/하얀색.png"
-                alt=""
-                style="width : 800px;"
-              />
+              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
@@ -869,12 +820,8 @@
                   >
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
-                    <p style="margin-left : 7px">자 :</p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p style="margin-left : 7px">자 : </p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <div style="width : 0px">
                       <p
                         style="position : relative; top : 6px; left : 50px; width : 100px"
@@ -919,14 +866,8 @@
                     style="margin-left : 65px"
                   >
                     <p class="d-inline-block">성</p>
-                    <p class="d-inline-block" style="margin-left : 30px">
-                      명 :
-                    </p>
-                    <div
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p class="d-inline-block" style="margin-left : 30px">명 : </p>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <div style="width : 0px">
                       <p
                         style="position : relative; top : 6px; left : 50px; width : 100px"
@@ -938,6 +879,51 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div :id="coinModal" class="d-none">
+      <div class="coinModalCtnrWrpr">
+        <div class="coinModalCtnr">
+          <button @click="clickCloseCoinModal" type="button" class="btn-close closeCoinModalBtn" style="z-index : 2"></button>
+          <div div class="mx-4" style="box-shadow : 0px 1px 10px rgba(0,0,0,0.25); background-color: ;">
+            <div class="d-flex" style="font-weight : bold; line-height: 50px; font-size : 24px; height: 50px; background-color: rgb(230, 239, 255);">
+              <div style="width : 27px"></div>
+              블록체인 데이터 정보
+            </div>
+          </div>
+          <div class="mt-3 mx-4" style="box-shadow : 0px 5px 10px rgba(0,0,0,0.25);">
+            <div class="d-flex" style="height: 50px;">
+              <div style="width: 20px"></div>
+              <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
+              <div class="test"></div>
+              <div style="font-size : 22px">...</div>
+            </div>
+            <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
+              <div style="width: 20px"></div>
+              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
+              <div class="test"></div>
+              <div style="font-size : 22px">...</div>
+            </div>
+            <div class="d-flex" style="height: 50px">
+              <div style="width: 20px"></div>
+              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
+              <div class="test"></div>
+              <div style="font-size : 22px">...</div>
+            </div>
+            <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
+              <div style="width: 20px"></div>
+              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
+              <div class="test"></div>
+              <div style="font-size : 22px">...</div>
+            </div>
+            <div class="d-flex " style="height: 50px">
+              <div style="width: 20px"></div>
+              <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
+              <div class="test"></div>
+              <div style="font-size : 22px">...</div>
             </div>
           </div>
         </div>
@@ -965,102 +951,104 @@ export default {
     ProjectCardCarousel
   },
   data() {
-    return {
-      idx: 0,
-      myPageFreelancerDetailModalContent: "myPageFreelancerDetailModalContent",
-      selectProjectFreelancerName: "",
-      contract: "contract",
-      isContractOpen: false,
-      ProjectDetailApplyBtn: "ProjectDetailApplyBtn",
-      closeContractPaperBtn: "closeContractPaperBtn",
-      freelancerProjectModalId: "freeProModal",
-      freelancerProjectModalCtnrId: "freeProModalCtnr",
-      carouselWrapperMine: "carouselWrpp",
-      carouselMine: "carouselMyPage",
-      incentiveBtn: "incentiveBtn",
-      notIncentiveBtn: "notIncentiveBtn",
-      recruitInsureBtn: "recruitInsureBtn",
-      accidentInsureBtn: "accidentInsureBtn",
-      personInsureBtn: "personInsureBtn",
-      healthInsureBtn: "healthInsureBtn",
-      sureContractModal: "sureContractModal",
-      myPageFreelancerDetailModalContentWrpr:
-        "myPageFreelancerDetailModalContentWrpr",
-      FreelancerDetailNavProject: "FreelancerDetailNavProject",
-      FreelancerDetailNavResume: "FreelancerDetailNav",
-      projectDetailNavItem: "프로젝트item",
-      resumeDetailNavItem: "이력서item",
-      representiveSignature: "representiveSignature",
-      representiveSignatureBtn: "representiveSignatureBtn",
-      signatureModal: "signatureModal",
-      canvas: "canvas",
-      erase: "erase",
-      imgSign: "imgSign",
-      imgSignCompany: "imgSignCompany",
-      notSign: "notSign",
-      freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"],
-      contractImg: "contractImg",
-      contractInputItem: "contractInputItem",
-      signatureComplete: "signatureComplete",
-      alreadyDoneContract: "alreadyDoneContract"
-    };
+    return{
+      idx : 0,
+      myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
+      selectProjectFreelancerName : "",
+      contract : "contract",
+      coinModal : "coinModal",
+      isContractOpen : false,
+      ProjectDetailApplyBtn : "ProjectDetailApplyBtn",
+      closeContractPaperBtn : "closeContractPaperBtn",
+      freelancerProjectModalId : "freeProModal",
+      freelancerProjectModalCtnrId : "freeProModalCtnr",
+      carouselWrapperMine : "carouselWrpp",
+      carouselMine : "carouselMyPage",
+      incentiveBtn : "incentiveBtn",
+      notIncentiveBtn : "notIncentiveBtn",
+      recruitInsureBtn : "recruitInsureBtn",
+      accidentInsureBtn : "accidentInsureBtn",
+      personInsureBtn : "personInsureBtn",
+      healthInsureBtn : "healthInsureBtn",
+      sureContractModal : "sureContractModal",
+      myPageFreelancerDetailModalContentWrpr : "myPageFreelancerDetailModalContentWrpr",
+      FreelancerDetailNavProject : "FreelancerDetailNavProject",
+      FreelancerDetailNavResume : "FreelancerDetailNav",
+      projectDetailNavItem : "프로젝트item",
+      resumeDetailNavItem : "이력서item",
+      representiveSignature : "representiveSignature",
+      representiveSignatureBtn : "representiveSignatureBtn",
+      signatureModal : "signatureModal",
+      canvas : "canvas",
+      erase : "erase",
+      imgSign : "imgSign",
+      imgSignCompany : "imgSignCompany",
+      notSign : "notSign",
+      freelancerDetailNavLst : ["프로젝트","이력서"],
+      freelancerDetailLst : ["프로젝트item","이력서item"],
+      contractImg : "contractImg",
+      contractInputItem : "contractInputItem",
+      signatureComplete : "signatureComplete",
+      alreadyDoneContract : "alreadyDoneContract"
+    }
   },
   mounted() {
-    let id__ = String(this.id_);
-    this.ifSign = false;
-    this.signatureComplete += id__;
-    this.alreadyDoneContract += id__;
-    this.freelancerProjectModalId += id__;
-    this.freelancerProjectModalCtnrId += id__;
-    this.contractInputItem += id__;
-    this.contractImg += id__;
-    this.carouselWrapperMine += id__;
-    this.carouselMine += id__;
-    this.FreelancerDetailNavProject += id__;
-    this.FreelancerDetailNavResume += id__;
-    this.projectDetailNavItem += id__;
-    this.resumeDetailNavItem += id__;
-    this.normalProjectFreelancerModal += id__;
-    this.sureSelectProjectFreelancer += id__;
-    this.myPageFreelancerDetailModalContent += id__;
-    this.contract += id__;
-    this.ProjectDetailApplyBtn += id__;
-    this.closeContractPaperBtn += id__;
-    this.incentiveBtn += id__;
-    this.notIncentiveBtn += id__;
-    this.myPageFreelancerDetailModalContentWrpr += id__;
-    this.recruitInsureBtn += id__;
-    this.accidentInsureBtn += id__;
-    this.personInsureBtn += id__;
-    this.healthInsureBtn += id__;
-    this.representiveSignature += id__;
-    this.representiveSignatureBtn += id__;
-    this.signatureModal += id__;
-    this.imgSign += id__;
-    this.imgSignCompany += id__;
-    this.erase += id__;
-    this.canvas += id__;
-    this.notSign += id__;
-    this.sureContractModal += id__;
+    let id__ = String(this.id_)
+    this.ifSign = false
+    this.signatureComplete += id__
+    this.alreadyDoneContract += id__
+    this.freelancerProjectModalId += id__
+    this.freelancerProjectModalCtnrId += id__
+    this.contractInputItem += id__
+    this.contractImg += id__
+    this.carouselWrapperMine += id__
+    this.carouselMine += id__
+    this.FreelancerDetailNavProject += id__
+    this.FreelancerDetailNavResume += id__
+    this.projectDetailNavItem += id__
+    this.resumeDetailNavItem += id__
+    this.normalProjectFreelancerModal += id__
+    this.sureSelectProjectFreelancer += id__
+    this.myPageFreelancerDetailModalContent += id__
+    this.contract += id__
+    this.ProjectDetailApplyBtn += id__
+    this.closeContractPaperBtn += id__
+    this.incentiveBtn += id__
+    this.notIncentiveBtn += id__
+    this.myPageFreelancerDetailModalContentWrpr += id__
+    this.recruitInsureBtn += id__
+    this.accidentInsureBtn += id__
+    this.personInsureBtn += id__
+    this.healthInsureBtn += id__
+    this.representiveSignature += id__
+    this.representiveSignatureBtn += id__
+    this.signatureModal += id__
+    this.imgSign += id__
+    this.imgSignCompany += id__
+    this.erase += id__
+    this.canvas += id__
+    this.notSign += id__
+    this.sureContractModal += id__
+    this.coinModal += id__
   },
-  props: {
-    nameErase: String,
-    projectCareer: Array,
-    profile: Object,
-    resume: Object,
-    profileTech: Array,
-    estimate: Array,
-    projectData: Object,
-    ratingToPercent: Number,
-    profession: Number,
-    ontime: Number,
-    active: Number,
-    communication: Number,
-    reEmployment: Number,
-    id_: Number,
-    projectId: Number
-  },
+  props : {
+    nameErase : String,
+    projectCareer : Array,
+    profile : Object,
+    resume : Object,
+    profileTech : Array,
+    estimate : Array,
+    projectData : Object,
+    ratingToPercent : Number,
+    profession : Number,
+    ontime : Number,
+    active : Number,
+    communication : Number,
+    reEmployment : Number,
+    id_ : Number,
+    projectId : Number,
+    state : String
+  },  
   methods: {
     clickFreelancerDetailNavProject() {
       let removeProjectDetailItem = document.querySelector(
@@ -1128,56 +1116,27 @@ export default {
         "#" + this.contractInputItem
       );
       if (!this.isContractOpen) {
-        createInstance()
-          .get(
-            "/contracts?projectId=" +
-              this.projectId +
-              "&userId=" +
-              String(this.id_)
-          )
-          .then(res => {
-            console.log(res.data);
-            let tmp = res.data.content.split("`");
-            for (let i = 0; i < contractInputs.length; i++) {
-              contractInputs[i].innerText = tmp[i];
-            }
-            if (res.data.imgSRC[0] === "1")
-              document
-                .querySelector("#" + this.incentiveBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[1] === "1")
-              document
-                .querySelector("#" + this.notIncentiveBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[2] === "1")
-              document
-                .querySelector("#" + this.recruitInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[3] === "1")
-              document
-                .querySelector("#" + this.accidentInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[4] === "1")
-              document
-                .querySelector("#" + this.personInsureBtn)
-                .classList.remove("d-none");
-            if (res.data.imgSRC[5] === "1")
-              document
-                .querySelector("#" + this.healthInsureBtn)
-                .classList.remove("d-none");
-            document.querySelector("#" + this.imgSignCompany).src = tmp[33];
-            console.log(tmp.length);
-            if (tmp.length === 35) {
-              document
-                .querySelector("#" + this.imgSign)
-                .setAttribute(
-                  "style",
-                  "width: 132.6px; height: 67.6px; margin-bottom: 10px"
-                );
-              document.querySelector("#" + this.imgSign).src = tmp[34];
-            }
-          });
-        this.isContractOpen = true;
+        createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
+        ).then(res => {
+          console.log(res.data)
+          let tmp = res.data.content.split('`')
+          for(let i = 0; i < contractInputs.length; i++) {
+            contractInputs[i].innerText = tmp[i]
+          }
+          if (res.data.imgSRC[0] === '1') document.querySelector('#' + this.incentiveBtn).classList.remove('d-none')
+          if (res.data.imgSRC[1] === '1') document.querySelector('#' + this.notIncentiveBtn).classList.remove('d-none')
+          if (res.data.imgSRC[2] === '1') document.querySelector('#' + this.recruitInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[3] === '1') document.querySelector('#' + this.accidentInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[4] === '1') document.querySelector('#' + this.personInsureBtn).classList.remove('d-none')
+          if (res.data.imgSRC[5] === '1') document.querySelector('#' + this.healthInsureBtn).classList.remove('d-none')
+          document.querySelector('#' + this.imgSignCompany).src = tmp[33]
+          console.log(tmp.length)
+          if (tmp.length === 35) {
+            document.querySelector('#' + this.imgSign).setAttribute('style',"width: 132.6px; height: 67.6px; margin-bottom: 10px")
+            document.querySelector('#' + this.imgSign).src = tmp[34]
+          }
+        })
+        this.isContractOpen = true
       }
       myPageFreelancerDetailModalContentTmp.classList.remove(
         "myPageFreelancerDetailCtnr"
@@ -1219,21 +1178,42 @@ export default {
       ProjectDetailApplyBtnTmp.classList.remove("d-none");
       closeContractPaperBtnTmp.classList.add("d-none");
       setTimeout(function() {
-        carouselTmp.classList.remove("carousel-mine-fast");
-        carouselTmp.classList.add("carousel-mine");
-        carouselTmp.style.transform = "translate3d(0, 0, 0)";
-        myPageFreelancerDetailModalContentTmp.classList.add(
-          "myPageFreelancerDetailCtnr"
-        );
-        myPageFreelancerDetailModalContentTmp.classList.remove(
-          "myPageFreelancerDetailCtnrAfter"
-        );
-        contractTmp.classList.add("d-none");
-      }, 100);
+        carouselTmp.classList.remove('carousel-mine-fast')
+        carouselTmp.classList.add('carousel-mine')
+        carouselTmp.style.transform = 'translate3d(0, 0, 0)'
+        myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnr')
+        myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnrAfter')
+        contractTmp.classList.add('d-none')
+      },100)
+    },
+
+    openCoinPaper() {
+      document.querySelector('#' + this.coinModal).classList.remove('d-none')
+    },
+
+    clickCloseCoinModal() {
+      document.querySelector('#' + this.coinModal).classList.add('d-none')
+    },
+
+    openLongLetter() {
+      console.log(document.querySelector('.test'))
+      document.querySelector('.test').classList.add('test1')
+    },
+
+    closeFreelancerProjectDetailIng() {
+      document.querySelector('body').style.overflow = 'scroll'
     }
-  }
+  },
 };
 </script>
+
+<style>
+  .test {
+    width : 500px; overflow : hidden; font-size: 22px; line-height: 42px;
+  }
+
+</style>
+
 <style scoped>
 .modal:hover {
   cursor: default;

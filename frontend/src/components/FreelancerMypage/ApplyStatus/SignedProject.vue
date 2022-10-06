@@ -24,7 +24,9 @@
         :companyDataReceive="item.companyData"
         :idEdit="`pmc${item.projectData.projectId}`"
       ></apply-project-detail-after>
-      <button
+    </div>
+    <button
+    v-if="projectDataList.length != 0"
         @click="prevBtnClick"
         style="top: 230px"
         class="prevMyPageCompany"
@@ -48,6 +50,7 @@
         <span class="visually-hidden">Previous</span>
       </button>
       <button
+      v-if="projectDataList.length != 0"
         @click="nextBtnClick"
         style="top: 230px"
         class="nextMyPageCompany"
@@ -70,7 +73,6 @@
         </svg>
         <span class="visually-hidden">Next</span>
       </button>
-    </div>
   </div>
 </template>
 <script>

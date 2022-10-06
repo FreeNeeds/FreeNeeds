@@ -55,74 +55,6 @@
         </div>
       </div>
     </div>
-    <!--<div style="height : 0px; background-color: white;">
-    <div class="endWorkTime">
-        <div class="mx-3">예상종료기간</div>
-        <div class="mx-3">
-          {{ projectData.deadline.getFullYear() }}.{{
-            projectData.deadline.getMonth() + 1
-          }}.{{ projectData.deadline.getDate() }}
-        </div>
-    </div>
-    </div>-->
-    <!--<div class="row project-card-devide-row">
-      <div class="col-2  ">
-        <div class="project-card-category">{{ projectData.category }}</div>
-      </div>
-      <div class="col-10">
-        <div class="project-card-domain">
-          {{ projectData.demain }}
-        </div>
-      </div>
-    </div>
-    <div class="row project-card-devide-row">
-      <div class="col-2  ">
-        <div class="project-card-skill-title">필요기술</div>
-      </div>
-      <div class="col-10">
-        <div class="project-card-skill">
-          {{ projectData.skill }}
-        </div>
-      </div>
-    </div>
-    <div class="row project-card-devide-row">
-      <div class="project-card-content-wrapper">
-        {{ projectData.content }}
-      </div>
-    </div>
-    <div class="row project-card-devide-row">
-      <div>
-        <img
-          src="@/assets/images/People.png"
-          style="width:20px;height: 20px; object-fit: cover; padding: 0;"
-        />
-        <div style="display:inline; margin-left: 10px;">
-          모집 {{ projectData.recruitNumber }}명
-        </div>
-      </div>
-    </div>
-    <div class="row project-card-devide-row">
-      <div>
-        <img
-          src="@/assets/images/Apartment.png"
-          style="width:20px;height:20px;object-fit:cover"
-        />
-        <div style="display:inline;margin-left:10px">
-          {{ projectData.workstyle }}
-        </div>
-      </div>
-    </div>
-    <div class="row project-card-devide-row">
-      <div>
-        <img
-          src="@/assets/images/Location on.png"
-          style="width:20px;height:20px;object-fit:cover"
-        />
-        <div style="display:inline;margin-left:10px">
-          {{ projectData.location }}
-        </div>
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -214,7 +146,7 @@
 };
 </script>
 
-<style scoped>
+<style>
   .endWorkTime {
     position: relative;
     right : -240px;
@@ -222,16 +154,13 @@
     width : 200px;
   }
 
-.project-card-header-round {
-
-  padding: 6px 3px 0px 3px;
-  margin-top: 5px;
-  margin-left: 13px;
-  width: 83px;
-  height: 35px;
-  border-radius: 20px;
-  background-color: #0064ff;
-  color: white;
-  text-align: center;
+  .project-card-header-round {
+      padding: 10px;
+      width: 100px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: #fc7494 !important;
+      font-weight: bold;
+      text-align: center;
 }
 </style>

@@ -1,53 +1,12 @@
 <template>
-  <div
-    class="modal text-center"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="false"
-    style="background-color: rgba(0, 0, 0, 0.15);"
-  >
-    <div
-      class="modal-dialog modal-lg"
-      id="freelancerModalWrapper"
-      style="z-index : -1"
-    >
-      <div class="modal-content" style="z-index : -1">
-        <button
-          type="button"
-          id="freelancerDetailModalCloseBtn"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          style="z-index : 2"
-        ></button>
-        <button
-          @click="openContractPaper"
-          :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
-        >
-          계약서 작성
-        </button>
-        <button
-          @click="closeContractPaper"
-          :id="closeContractPaperBtn"
-          class="d-none contractBackBtn"
-          style="z-index : 1"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-arrow-left"
-            style="margin-bottom: 5.5px;"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
+  <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
+    <div class="modal-dialog modal-lg" id="freelancerModalWrapper" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
+        <button @click="closeFreelancerProjectDetail" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
+        <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 작성</button>
+        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
           뒤로가기
         </button>
@@ -61,12 +20,7 @@
               :id="myPageFreelancerDetailModalContent"
             >
               <div style="height : 0px">
-                <img
-                  class="wrapperImgProjectCarousel"
-                  src="@/assets/images/하얀색.png"
-                  alt=""
-                  style="width : 800px;"
-                />
+                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw">
               </div>
               <div id="freelancerDetailCtnr">
                 <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
@@ -327,9 +281,10 @@
                 <hr class="project-card-line" style="margin-bottom : 40px" />
                 <div :id="projectDetailNavItem">
                   <FreelancerProjectCard
-                    v-for="freelancerProjectCard in projectCareer"
-                    :key="freelancerProjectCard.body.projectCareerId"
-                    :freelancerProjectCard="freelancerProjectCard"
+                  v-for="freelancerProjectCard in projectCareer"
+                  :key="freelancerProjectCard.body.projectCareerId"
+                  :freelancerProjectCard="freelancerProjectCard"
+                  style="margin-left : 0px !important"
                   >
                   </FreelancerProjectCard>
                 </div>
@@ -384,7 +339,7 @@
                   </div>
                   <div
                     class="d-flex mx-3 mt-2"
-                    style="margin-bottom : 60px"
+                    
                     v-for="freelancerCareerItem in resume.certificateList"
                   >
                     <div class="freelancerEducationName">
@@ -398,12 +353,7 @@
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
-              <img
-                class="wrapperImgProjectCarousel"
-                src="@/assets/images/하얀색.png"
-                alt=""
-                style="width : 800px;"
-              />
+              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
@@ -910,13 +860,8 @@
                   >
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
-                    <p style="margin-left : 7px">자 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p style="margin-left : 7px">자 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <div style="width : 0px">
                       <p
                         class="d-none"
@@ -967,15 +912,8 @@
                     style="margin-left : 65px"
                   >
                     <p class="d-inline-block">성</p>
-                    <p class="d-inline-block" style="margin-left : 30px">
-                      명 :
-                    </p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p class="d-inline-block" style="margin-left : 30px">명 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
@@ -1071,100 +1009,99 @@ export default {
     return {
       amount: 3000, // 계약금
       freelancerAccount: "", // 프리랜서 지갑 주소
-      idx: 0,
-      myPageFreelancerDetailModalContent: "myPageFreelancerDetailModalContent",
-      selectProjectFreelancerName: "",
-      contract: "contract",
-      ProjectDetailApplyBtn: "ProjectDetailApplyBtn",
-      closeContractPaperBtn: "closeContractPaperBtn",
-      freelancerProjectModalId: "freeProModal",
-      freelancerProjectModalCtnrId: "freeProModalCtnr",
-      carouselWrapperMine: "carouselWrpp",
-      carouselMine: "carouselMyPage",
-      incentiveBtn: "incentiveBtn",
-      notIncentiveBtn: "notIncentiveBtn",
-      recruitInsureBtn: "recruitInsureBtn",
-      accidentInsureBtn: "accidentInsureBtn",
-      personInsureBtn: "personInsureBtn",
-      healthInsureBtn: "healthInsureBtn",
-      sureContractModal: "sureContractModal",
-      myPageFreelancerDetailModalContentWrpr:
-        "myPageFreelancerDetailModalContentWrpr",
-      FreelancerDetailNavProject: "FreelancerDetailNavProject",
-      FreelancerDetailNavResume: "FreelancerDetailNav",
-      projectDetailNavItem: "프로젝트item",
-      resumeDetailNavItem: "이력서item",
-      representiveSignature: "representiveSignature",
-      representiveSignatureBtn: "representiveSignatureBtn",
-      signatureModal: "signatureModal",
-      canvas: "canvas",
-      erase: "erase",
-      imgSign: "imgSign",
-      notSign: "notSign",
-      freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"],
-      contractImg: "contractImg",
-      contractInputItem: "contractInputItem",
-      signatureComplete: "signatureComplete",
-      alreadyDoneContract: "alreadyDoneContract"
-    };
+      idx : 0,
+      coinModal : "coinModal",
+      myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
+      selectProjectFreelancerName : "",
+      contract : "contract",
+      ProjectDetailApplyBtn : "ProjectDetailApplyBtn",
+      closeContractPaperBtn : "closeContractPaperBtn",
+      freelancerProjectModalId : "freeProModal",
+      freelancerProjectModalCtnrId : "freeProModalCtnr",
+      carouselWrapperMine : "carouselWrpp",
+      carouselMine : "carouselMyPage",
+      incentiveBtn : "incentiveBtn",
+      notIncentiveBtn : "notIncentiveBtn",
+      recruitInsureBtn : "recruitInsureBtn",
+      accidentInsureBtn : "accidentInsureBtn",
+      personInsureBtn : "personInsureBtn",
+      healthInsureBtn : "healthInsureBtn",
+      sureContractModal : "sureContractModal",
+      myPageFreelancerDetailModalContentWrpr : "myPageFreelancerDetailModalContentWrpr",
+      FreelancerDetailNavProject : "FreelancerDetailNavProject",
+      FreelancerDetailNavResume : "FreelancerDetailNav",
+      projectDetailNavItem : "프로젝트item",
+      resumeDetailNavItem : "이력서item",
+      representiveSignature : "representiveSignature",
+      representiveSignatureBtn : "representiveSignatureBtn",
+      signatureModal : "signatureModal",
+      canvas : "canvas",
+      erase : "erase",
+      imgSign : "imgSign",
+      notSign : "notSign",
+      freelancerDetailNavLst : ["프로젝트","이력서"],
+      freelancerDetailLst : ["프로젝트item","이력서item"],
+      contractImg : "contractImg",
+      contractInputItem : "contractInputItem",
+      signatureComplete : "signatureComplete",
+      alreadyDoneContract : "alreadyDoneContract"
+    }
   },
+  props : {
+    nameErase : String,
+    projectCareer : Array,
+    profile : Object,
+    resume : Object,
+    profileTech : Array,
+    estimate : Array,
+    projectData : Object,
+    ratingToPercent : Number,
+    profession : Number,
+    ontime : Number,
+    active : Number,
+    communication : Number,
+    reEmployment : Number,
+    id_ : Number,
+    projectId : Number,
+  },  
   mounted() {
-    let id__ = String(this.id_);
-    this.ifSign = false;
-    this.signatureComplete += id__;
-    this.alreadyDoneContract += id__;
-    this.freelancerProjectModalId += id__;
-    this.freelancerProjectModalCtnrId += id__;
-    this.contractInputItem += id__;
-    this.contractImg += id__;
-    this.carouselWrapperMine += id__;
-    this.carouselMine += id__;
-    this.FreelancerDetailNavProject += id__;
-    this.FreelancerDetailNavResume += id__;
-    this.projectDetailNavItem += id__;
-    this.resumeDetailNavItem += id__;
-    this.normalProjectFreelancerModal += id__;
-    this.sureSelectProjectFreelancer += id__;
-    this.myPageFreelancerDetailModalContent += id__;
-    this.contract += id__;
-    this.ProjectDetailApplyBtn += id__;
-    this.closeContractPaperBtn += id__;
-    this.incentiveBtn += id__;
-    this.notIncentiveBtn += id__;
-    this.myPageFreelancerDetailModalContentWrpr += id__;
-    this.recruitInsureBtn += id__;
-    this.accidentInsureBtn += id__;
-    this.personInsureBtn += id__;
-    this.healthInsureBtn += id__;
-    this.representiveSignature += id__;
-    this.representiveSignatureBtn += id__;
-    this.signatureModal += id__;
-    this.imgSign += id__;
-    this.erase += id__;
-    this.canvas += id__;
-    this.notSign += id__;
-    this.sureContractModal += id__;
-    userInstance.getUserAccountAddress(this.id_, res => {
-      this.freelancerAccount = res.data;
-    });
-  },
-  props: {
-    nameErase: String,
-    projectCareer: Array,
-    profile: Object,
-    resume: Object,
-    profileTech: Array,
-    estimate: Array,
-    projectData: Object,
-    ratingToPercent: Number,
-    profession: Number,
-    ontime: Number,
-    active: Number,
-    communication: Number,
-    reEmployment: Number,
-    id_: Number,
-    projectId: Number
+    let id__ = String(this.id_)
+    this.ifSign = false
+    this.signatureComplete += id__
+    this.alreadyDoneContract += id__
+    this.freelancerProjectModalId += id__
+    this.freelancerProjectModalCtnrId += id__
+    this.contractInputItem += id__
+    this.contractImg += id__
+    this.carouselWrapperMine += id__
+    this.carouselMine += id__
+    this.FreelancerDetailNavProject += id__
+    this.FreelancerDetailNavResume += id__
+    this.projectDetailNavItem += id__
+    this.resumeDetailNavItem += id__
+    this.normalProjectFreelancerModal += id__
+    this.sureSelectProjectFreelancer += id__
+    this.myPageFreelancerDetailModalContent += id__
+    this.contract += id__
+    this.ProjectDetailApplyBtn += id__
+    this.closeContractPaperBtn += id__
+    this.incentiveBtn += id__
+    this.notIncentiveBtn += id__
+    this.myPageFreelancerDetailModalContentWrpr += id__
+    this.recruitInsureBtn += id__
+    this.accidentInsureBtn += id__
+    this.personInsureBtn += id__
+    this.healthInsureBtn += id__
+    this.representiveSignature += id__
+    this.representiveSignatureBtn += id__
+    this.signatureModal += id__
+    this.imgSign += id__
+    this.erase += id__
+    this.canvas += id__
+    this.notSign += id__
+    this.sureContractModal += id__
+    this.coinModal += id__
+    userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   methods: {
     createContract: async function() {
@@ -1552,172 +1489,215 @@ export default {
     },
 
     clickNotSendContract() {
-      document
-        .querySelector("#" + this.sureContractModal)
-        .classList.add("d-none");
+      document.querySelector('#' + this.sureContractModal).classList.add('d-none')
+    },
+
+    openCoinPaper() {
+      document.querySelector('#' + this.coinModal).classList.remove('d-none')
+    },
+
+    clickCloseCoinModal() {
+      document.querySelector('#' + this.coinModal).classList.add('d-none')
+    },
+
+    closeFreelancerProjectDetail() {
+      document.querySelector('body').style.overflow = 'scroll'
     }
   }
 };
 </script>
 
 <style>
-.recruit-contract-check-wrapper:hover {
-  cursor: pointer;
-}
-.modal:hover {
-  cursor: default;
-}
-.myPageFreelancerDetailModalContent {
-  width: 800px;
-  height: 650px;
-  overflow: hidden;
-}
+  .myPageFreelancerDetailModalContent {
+    width: 50vw;
+    height: 80vh;
+    overflow: hidden;
+  }
 
-.myPageFreelancerDetailModalContentAfter {
-  width: 800px;
-  height: 650px;
-}
+  .myPageFreelancerDetailModalContentAfter {
+    width: 50vw;
+    height: 80vh;
+  }
 
-.myPageFreelancerDetailModalContent > .carousel-mine {
-  display: flex;
-  height: 650px;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.4s;
-}
+  .myPageFreelancerDetailModalContent > .carousel-mine {
+    display: flex;
+    height: 80vh;
+    transform: translate3d(0,0,0);
+    transition: transform 0.4s;
+  }
 
-.myPageFreelancerDetailModalContent > .carousel-mine-fast {
-  display: flex;
-  height: 650px;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0s;
-}
+  .myPageFreelancerDetailModalContent > .carousel-mine-fast {
+    display: flex;
+    height: 80vh;
+    transform: translate3d(0,0,0);
+    transition: transform 0s;
+  }
 
-.contractInput {
-  border-bottom: 1px solid black;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  width: 120px;
-  outline: none;
-}
-.contractInput:hover {
-  cursor: text;
-}
-.myPageFreelancerDetailCtnr {
-  width: 800px;
-  height: 650px;
-  overflow-y: scroll;
-}
+  .contractInput {
+    border-bottom : 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    width : 120px;
+    outline: none;
+  }
+  .myPageFreelancerDetailCtnr {
+    width: 50vw;
+    height: 80vh;
+    overflow-y: scroll;
+  }
 
-.myPageFreelancerDetailCtnrAfter {
-  width: 800px;
-  height: 650px;
-}
+  .myPageFreelancerDetailCtnrAfter {
+    width: 50vw;
+    height: 80vh;
+  }
 
-.myPageFreelancerDetailCtnr::-webkit-scrollbar {
-  width: 0px !important;
-}
+  .myPageFreelancerDetailCtnr::-webkit-scrollbar {
+    width: 0px !important;
+  }
 
-.modal-content {
-  border-radius: 20px !important;
-  border: 0px !important;
-}
+  .modal-content {
+    border-radius: 20px !important; 
+    border : 0px !important;
+  }
 
-.ProjectDetailApplyBtn {
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 120px;
-  height: 40px;
-}
+  .ProjectDetailApplyBtn {
+    border-radius: 40px;
+    border: 1px solid lightgray;
+    background-color: #6ecdb1;
+    font-size: 15px;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+  }
 
-.ProjectDetailApplyBtn:hover {
-  background-color: #3c74c9;
-  color: white;
-}
+  .ProjectDetailApplyBtn:hover {
+    background-color: #3C74C9;
+    color: white;
+  }
 
-.contractBackBtn {
-  position: fixed;
-  top: 54px;
-  left: 1000px;
-  border: 0px;
-  background-color: white;
-}
+  .contractBackBtn {
+    position: fixed;
+    bottom : 87%;
+    left : 66%;
+    border : 0px;
+    background-color: white;
+  }
 
-.contractCtnr {
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  width: 85%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
+  .contractCtnr {
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    width : 85%;
+    margin-left : auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 
-.signatureBtn {
-  width: 120px;
-  height: 35px;
-  border: 0.5px solid black;
-  border-radius: 20px;
-  margin-left: 25px;
-  background-color: rgb(240, 240, 240);
-  font-weight: bold;
-}
+  .signatureBtn {
+    width : 120px;
+    height : 35px;
+    border : 0.5px solid black;
+    border-radius: 20px;
+    margin-left : 25px;
+    background-color: rgb(240,240,240);
+    font-weight: bold;
+  }
 
-.signatureBtn:hover {
-  border: 0px;
-  background-color: #6ecdb1;
-}
+  .signatureBtn:hover{
+    border : 0px;
+    background-color: #6ecdb1;
+  }
 
-.signatureModalCtnr {
-  z-index: 2;
-  position: fixed;
-  top: 110px;
-  left: 468px;
-  background-color: white;
-  border-radius: 20px;
-  height: 400px;
-  border: 1px solid lightgray;
-  width: 600px;
-  margin: auto;
-}
+  .signatureModalCtnr {
+    z-index: 2;
+    position: fixed;
+    bottom : 26vh;
+    left: 30.5vw;
+    background-color: white;
+    border-radius: 20px;
+    height: 400px; 
+    border: 1px solid lightgray;
+    width: 600px;
+    margin: auto;
+  }
 
-.signatureModalCtnrWrpr {
-  z-index: -1;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.025);
-}
+  .signatureModalCtnrWrpr {
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.025);
+  }
 
-.sureContractModalCtnr {
-  z-index: 2;
-  position: fixed;
-  top: 150px;
-  left: 552px;
-  background-color: white;
-  border-radius: 20px;
-  height: 230px;
-  border: 1px solid lightgray;
-  width: 430px;
-  margin: auto;
-}
+  .sureContractModalCtnr {
+    z-index: 2;
+    position: fixed;
+    bottom : 40vh;
+    left: 37vw;
+    background-color: white;
+    border-radius: 20px;
+    height: 230px; 
+    border: 1px solid lightgray;
+    width: 430px;
+    margin: auto;
+  }
 
-.sureContractModalCtnrWrpr {
-  z-index: -1;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.025);
-}
+  .sureContractModalCtnrWrpr {
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.025);
+  }
 
-.modal:hover {
-  cursor: default;
-}
+  .freelancerFloatBtnTmp{
+    position: fixed;
+    bottom : 11vh;
+    left : 44.5vw;
+    width: 200px !important;
+  }
+
+  .coinModalBtn {
+    position: fixed;
+    bottom : 11vh;
+    left : 65.5vw;
+    background-color: #f98740;
+    width: 100px !important;
+    border-radius: 100px !important;
+  }
+
+  .coinModalBtn:hover {
+    background-color: rgb(255, 76, 76);
+  }
+
+  .coinModalCtnr {
+    position: fixed;
+    bottom : 35vh;
+    left: 20.5vw;
+    height : 410px;
+    width : 60vw;
+    border-radius: 20px;
+    background-color: white;
+  }
+
+  .coinModalCtnrWrpr{
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.15);
+  }
+
+  .closeCoinModalBtn {
+    position : relative;
+    top : 10px;
+    left : 27.5vw;
+  }
 </style>

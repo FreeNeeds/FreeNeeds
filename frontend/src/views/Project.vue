@@ -3,9 +3,9 @@
     <div id="banner">
       <img src="../assets/images/banner2.jpg" alt="" width="95%" />
     </div>
-    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
     <!--<SearchBar></SearchBar>-->
-    <div style="overflow : hidden; width: 1320px; height: 650px">
+    <FilterBtn @applyFilter="applyFilter"></FilterBtn>
+    <div style="overflow : hidden; width: 1300px; height: 650px">
       <div class="d-flex carouselProjectWrpr">
         <ProjectListWrpr
           v-for="projectList in projectCardMap"
@@ -25,11 +25,12 @@
       :periodWork="periodWork"
     >
     </ProjectDetailShow>
+    <div class="d-flex justify-content-between" style="height : 0px">
     <button
-      class="prev prevProjectvue"
       type="button"
       @click="clickPrevBtnProject"
-      style="top : 380px !important"
+      style="height : 650px !important; position: relative !important;  left: -3vw !important; top : -670px !important; background-color: #f9f9f9;
+    border: 0px;"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,11 +48,10 @@
       <span class="visually-hidden">Previous</span>
     </button>
     <button
-      class="next nextProjectvue"
       type="button"
       @click="clickNextBtnProject"
-      style="top : 380px !important"
-    >
+      style="height : 650px !important; position: relative !important;  left:  3vw !important; top : -670px !important; background-color: #f9f9f9;
+    border: 0px;">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="45"
@@ -67,6 +67,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
+    </div>
     <div class="text-center">
       <div
         @click="clickPageOne"
@@ -193,6 +194,12 @@ export default {
     };
   },
   mounted() {
+    console.log(document.querySelectorAll('.btn-close'))
+    for (let item of document.querySelectorAll('.btn-close')) {
+      item.addEventListener('click', () => {
+        document.querySelector('body').style.overflow = 'scroll'
+      })
+    }
     createInstance()
       .get("/project", {
         params: {
@@ -207,25 +214,19 @@ export default {
           body: []
         };
         for (let i = 0; i < res.data.length; i++) {
-          let remainDateTmp = Math.ceil(
-            (new Date(res.data[i].deadline).getTime() - new Date().getTime()) /
-              (1000 * 60 * 60 * 24) -
-              1
-          );
-          if (remainDateTmp >= 0) {
-            if (tmp.body.length == 6) {
-              this.projectCardMap.push(tmp);
-              cnt++;
-              tmp = {
-                id: cnt,
-                body: []
-              };
-            }
-            tmp.body.push(res.data[i]);
-            res.data[i].detailId = "projectDetail" + res.data[i].projectId;
-            this.projectCardTotal.push(res.data[i]);
+          if (tmp.body.length == 6) {
+            this.projectCardMap.push(tmp);
+            cnt++;
+            tmp = {
+              id: cnt,
+              body: []
+            };
           }
+          tmp.body.push(res.data[i]);
+          res.data[i].detailId = "projectDetail" + res.data[i].projectId;
+          this.projectCardTotal.push(res.data[i]);
         }
+        this.projectCardMap.push(tmp)
         this.pageIdx++;
       });
   },
@@ -257,25 +258,17 @@ export default {
             body: []
           };
           for (let i = 0; i < res.data.length; i++) {
-            let remainDateTmp = Math.ceil(
-              (new Date(res.data[i].deadline).getTime() -
-                new Date().getTime()) /
-                (1000 * 60 * 60 * 24) -
-                1
-            );
-            if (remainDateTmp >= 0) {
-              if (tmp.body.length == 6) {
-                this.projectCardMap.push(tmp);
-                cnt++;
-                tmp = {
-                  id: cnt,
-                  body: []
-                };
-              }
-              tmp.body.push(res.data[i]);
-              res.data[i].detailId = "projectDetail" + res.data[i].projectId;
-              this.projectCardTotal.push(res.data[i]);
+            if (tmp.body.length == 6) {
+              this.projectCardMap.push(tmp);
+              cnt++;
+              tmp = {
+                id: cnt,
+                body: []
+              };
             }
+            tmp.body.push(res.data[i]);
+            res.data[i].detailId = "projectDetail" + res.data[i].projectId;
+            this.projectCardTotal.push(res.data[i]);
           }
           this.projectCardMap.push(tmp);
           this.isFilter = true;
@@ -486,27 +479,20 @@ export default {
                 body: []
               };
               for (let i = 0; i < res.data.length; i++) {
-                let remainDateTmp = Math.ceil(
-                  (new Date(res.data[i].deadline).getTime() -
-                    new Date().getTime()) /
-                    (1000 * 60 * 60 * 24) -
-                    1
-                );
-                if (remainDateTmp >= 0) {
-                  if (tmp.body.length == 6) {
-                    this.projectCardMap.push(tmp);
-                    cnt++;
-                    tmp = {
-                      id: cnt,
-                      body: []
-                    };
-                  }
-                  tmp.body.push(res.data[i]);
-                  res.data[i].detailId =
-                    "projectDetail" + res.data[i].projectId;
-                  this.projectCardTotal.push(res.data[i]);
+                if (tmp.body.length == 6) {
+                  this.projectCardMap.push(tmp);
+                  cnt++;
+                  tmp = {
+                    id: cnt,
+                    body: []
+                  };
                 }
+                tmp.body.push(res.data[i]);
+                res.data[i].detailId =
+                  "projectDetail" + res.data[i].projectId;
+                this.projectCardTotal.push(res.data[i]);
               }
+              this.projectCardMap.push(tmp)
               this.pageIdx++;
             });
         }
