@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     prevBtnClick() {
+      //wowowowowo
       if (this.idx === 0) this.idx = this.myProjectLst.length - 1;
       else this.idx--;
       document.querySelector("#carouselMyPageCompanyRecruit").style.transform =
