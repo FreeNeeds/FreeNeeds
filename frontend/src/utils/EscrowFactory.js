@@ -65,6 +65,12 @@ function getState(escrowAddress) {
       .getState().call().then(res => console.log(res));
 }
 
+// 블록정보 불러오기
+function getEvents(_contractId) {
+  let contract = new web3.eth.Contract(ESCROWFACTORY_CONTRACT_ABI, ESCROWFACTORY_CONTRACT_ADDRESS);
+  return contract.getPastEvents('NewEscrow', { filter:{contractId: _contractId}, fromBlock: 0, toBlock: 'latest'})
+}
+
 
 export { 
   createEscrow,
@@ -73,5 +79,6 @@ export {
   pay,
   agree,
   enterprisePayFreelancer,
-  getState
+  getState,
+  getEvents,
 }

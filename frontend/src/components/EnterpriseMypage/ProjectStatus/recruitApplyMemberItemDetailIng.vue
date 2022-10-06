@@ -714,31 +714,31 @@
             <div class="d-flex" style="height: 50px;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
-              <div class="test"></div>
+              <div class="test">{{ hashData }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
-              <div class="test"></div>
+              <div class="test">{{ enterprisePublicKey }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex" style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
-              <div class="test"></div>
+              <div class="test">{{ enterpriseEncrypt }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
-              <div class="test"></div>
+              <div class="test">{{ freelancerPublicKey }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex " style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
-              <div class="test"></div>
+              <div class="test">{{ freelancerEncrypt }}</div>
               <div style="font-size : 22px">...</div>
             </div>
           </div>
@@ -755,6 +755,7 @@ import FreelancerProjectCard from "@/components/Freelancer/FreelancerProject/Fre
 import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
+import { getEvents } from "@/utils/EscrowFactory.js";
 import html2canvas from "html2canvas";
 
 export default {
@@ -807,6 +808,11 @@ export default {
       signatureComplete : "signatureComplete",
       alreadyDoneContract : "alreadyDoneContract",
       contractId : "",
+      hashData: "",
+      enterpriseEncrypt: "",
+      enterprisePublicKey: "",
+      freelancerEncrypt: "",
+      freelancerPublicKey: ""
     }
   },
   mounted() {
@@ -854,6 +860,7 @@ export default {
     if (!this.isContractOpen) {
       createInstance().get('/contracts?projectId=' + this.projectId + '&userId=' + String(this.id_),
       ).then(res => {
+        this.contractId = res.data.contractId;
         console.log(res.data)
         let tmp = res.data.content.split('`')
         for(let i = 0; i < contractInputs.length; i++) {
@@ -999,8 +1006,17 @@ export default {
       },100)
     },
 
-    openCoinPaper() {
+    async openCoinPaper() {
       document.querySelector('#' + this.coinModal).classList.remove('d-none')
+      // await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log(this.contractId);
+      let events = await getEvents(this.contractId - 1);
+      this.hashData = events[0].returnValues.hashData
+      this.enterpriseEncrypt = events[0].returnValues.enterpriseEncrypt
+      this.enterprisePublicKey = events[0].returnValues.enterprisePublicKey
+      this.freelancerEncrypt = events[0].returnValues.freelancerEncrypt
+      this.freelancerPublicKey = events[0].returnValues.freelancerPublicKey
+      console.log(events[0].returnValues.hashData)
     },
 
     clickCloseCoinModal() {
@@ -1021,7 +1037,7 @@ export default {
 
 <style>
   .test {
-    width : 500px; overflow : hidden; font-size: 22px; line-height: 42px;
+    width : 400px; overflow : hidden; font-size: 22px; line-height: 42px;
   }
 
 </style>
