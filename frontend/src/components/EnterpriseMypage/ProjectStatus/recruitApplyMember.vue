@@ -58,12 +58,14 @@
     </div>
     <div id="estimateModalWrpr" class="d-none estimateModalWrpr">
       <div class="estimateModal">
+        <div style="height : 0px">
         <button
         @click="clickEstimateModalCloseBtn"
         type="button"
         id="estimateModalCloseBtn"
         class="btn-close"
         ></button>
+        </div>
         <h5 class="mt-4 text-center">
           <h3 class="fw-bold d-inline-block">{{ nameErase }}</h3>
           님을 평가해주세요
@@ -73,16 +75,17 @@
           <h5 style="width: 15px; margin-top : 25px;"></h5>
           <div class="d-inline-block" style="margin-top: 20px">
             <div class="star-ratings d-inline-block mx-2">
-              <label for="radio1" id="select1" style="position: fixed; top : 220px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio2" id="select2" style="position: fixed; top : 220px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio3" id="select3" style="position: fixed; top : 220px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio4" id="select4" style="position: fixed; top : 220px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio5" id="select5" style="position: fixed; top : 220px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio6" id="select6" style="position: fixed; top : 220px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio7" id="select7" style="position: fixed; top : 220px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio8" id="select8" style="position: fixed; top : 220px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio9" id="select9" style="position: fixed; top : 220px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio10" id="select10" style="position: fixed; top : 220px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <div  style="height : 0px">
+              <label for="radio1" id="select1" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio2" id="select2" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio3" id="select3" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio4" id="select4" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio5" id="select5" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio6" id="select6" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio7" id="select7" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio8" id="select8" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio9" id="select9" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio10" id="select10" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
               <input id="radio0" type="radio" name="radioGroup1" class="radio">
               <input id="radio1" type="radio" name="radioGroup1" class="radio">
               <input id="radio2" type="radio" name="radioGroup1" class="radio">
@@ -123,6 +126,7 @@
                   </svg>
                 </span>
               </div>
+              </div>
               <div class="star-ratings-base space-x-2 text-lg">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -158,16 +162,17 @@
           <h5 style="width: 15px; margin-top : 25px;"></h5>
           <div class="d-inline-block" style="margin-top: 20px">
             <div class="star-ratings d-inline-block mx-2">
-              <label for="radio11" id="select1" style="position: fixed; top : 280px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio12" id="select2" style="position: fixed; top : 280px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio13" id="select3" style="position: fixed; top : 280px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio14" id="select4" style="position: fixed; top : 280px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio15" id="select5" style="position: fixed; top : 280px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio16" id="select6" style="position: fixed; top : 280px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio17" id="select7" style="position: fixed; top : 280px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio18" id="select8" style="position: fixed; top : 280px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio19" id="select9" style="position: fixed; top : 280px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio20" id="select10" style="position: fixed; top : 280px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <div style="height : 0px">
+              <label for="radio11" id="select1" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio12" id="select2" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio13" id="select3" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio14" id="select4" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio15" id="select5" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio16" id="select6" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio17" id="select7" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio18" id="select8" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio19" id="select9" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio20" id="select10" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
               <input id="radio0" type="radio" name="radioGroup2" class="radio">
               <input id="radio11" type="radio" name="radioGroup2" class="radio">
               <input id="radio12" type="radio" name="radioGroup2" class="radio">
@@ -208,6 +213,7 @@
                   </svg>
                 </span>
               </div>
+              </div>
               <div class="star-ratings-base space-x-2 text-lg">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -243,16 +249,17 @@
           <h5 style="width: 15px; margin-top : 25px;"></h5>
           <div class="d-inline-block" style="margin-top: 20px">
             <div class="star-ratings d-inline-block mx-2">
-              <label for="radio21" id="select1" style="position: fixed; top : 340px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio22" id="select2" style="position: fixed; top : 340px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio23" id="select3" style="position: fixed; top : 340px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio24" id="select4" style="position: fixed; top : 340px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio25" id="select5" style="position: fixed; top : 340px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio26" id="select6" style="position: fixed; top : 340px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio27" id="select7" style="position: fixed; top : 340px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio28" id="select8" style="position: fixed; top : 340px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio29" id="select9" style="position: fixed; top : 340px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio30" id="select10" style="position: fixed; top : 340px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <div style="height : 0px">
+              <label for="radio21" id="select1" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio22" id="select2" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio23" id="select3" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio24" id="select4" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio25" id="select5" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio26" id="select6" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio27" id="select7" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio28" id="select8" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio29" id="select9" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio30" id="select10" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
               <input id="radio0" type="radio" name="radioGroup3" class="radio">
               <input id="radio21" type="radio" name="radioGroup3" class="radio">
               <input id="radio22" type="radio" name="radioGroup3" class="radio">
@@ -293,6 +300,7 @@
                   </svg>
                 </span>
               </div>
+              </div>
               <div class="star-ratings-base space-x-2 text-lg">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -328,16 +336,17 @@
           <h5 style="width: 15px; margin-top : 25px;"></h5>
           <div class="d-inline-block" style="margin-top: 20px">
             <div class="star-ratings d-inline-block mx-2">
-              <label for="radio31" id="select1" style="position: fixed; top : 400px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio32" id="select2" style="position: fixed; top : 400px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio33" id="select3" style="position: fixed; top : 400px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio34" id="select4" style="position: fixed; top : 400px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio35" id="select5" style="position: fixed; top : 400px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio36" id="select6" style="position: fixed; top : 400px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio37" id="select7" style="position: fixed; top : 400px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio38" id="select8" style="position: fixed; top : 400px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio39" id="select9" style="position: fixed; top : 400px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio40" id="select10" style="position: fixed; top : 400px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <div style="height : 0px">
+              <label for="radio31" id="select1" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio32" id="select2" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio33" id="select3" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio34" id="select4" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio35" id="select5" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio36" id="select6" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio37" id="select7" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio38" id="select8" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio39" id="select9" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio40" id="select10" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
               <input id="radio0" type="radio" name="radioGroup4" class="radio">
               <input id="radio31" type="radio" name="radioGroup4" class="radio">
               <input id="radio32" type="radio" name="radioGroup4" class="radio">
@@ -378,6 +387,7 @@
                   </svg>
                 </span>
               </div>
+              </div>
               <div class="star-ratings-base space-x-2 text-lg">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -413,16 +423,17 @@
           <h5 style="width: 15px; margin-top : 25px;"></h5>
           <div class="d-inline-block" style="margin-top: 20px">
             <div class="star-ratings d-inline-block mx-2">
-              <label for="radio41" id="select1" style="position: fixed; top : 460px; left : 740px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio42" id="select2" style="position: fixed; top : 460px; left : 760px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio43" id="select3" style="position: fixed; top : 460px; left : 780px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio44" id="select4" style="position: fixed; top : 460px; left : 800px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio45" id="select5" style="position: fixed; top : 460px; left : 820px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio46" id="select6" style="position: fixed; top : 460px; left : 840px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio47" id="select7" style="position: fixed; top : 460px; left : 860px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio48" id="select8" style="position: fixed; top : 460px; left : 880px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio49" id="select9" style="position: fixed; top : 460px; left : 900px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
-              <label for="radio50" id="select10" style="position: fixed; top : 460px; left : 920px; border : 1px solid black; width : 20px; height : 50px" class="selectItem"></label>
+              <div style="height : 0px">
+              <label for="radio41" id="select1" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio42" id="select2" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio43" id="select3" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio44" id="select4" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio45" id="select5" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio46" id="select6" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio47" id="select7" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio48" id="select8" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio49" id="select9" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
+              <label for="radio50" id="select10" style="position: relative; border : 1px solid black; width : 20px; height : 40px" class="selectItem"></label>
               <input id="radio40" type="radio" name="radioGroup5" class="radio">
               <input id="radio41" type="radio" name="radioGroup5" class="radio">
               <input id="radio42" type="radio" name="radioGroup5" class="radio">
@@ -463,6 +474,7 @@
                   </svg>
                 </span>
               </div>
+              </div>
               <div class="star-ratings-base space-x-2 text-lg">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -493,7 +505,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-5 d-flex justify-content-center">
           <button @click="completeEstimate" class="estimateCompleteBtn">평가완료</button>
         </div>
       </div>

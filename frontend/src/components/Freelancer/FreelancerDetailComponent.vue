@@ -256,6 +256,7 @@
         <FreelancerProjectCard
           v-for="freelancerProjectCard in freelancerDetailReceive.projectCareer"
           :key="freelancerProjectCard.id"
+          style="margin-left : 0px !important"
           :freelancerProjectCard="{
             body: freelancerProjectCard
           }"
@@ -313,7 +314,6 @@
         </div>
         <div
           class="d-flex mx-3 mt-2"
-          style="margin-bottom : 60px"
           v-for="freelancerCareerItem in freelancerEducation.certificateList"
         >
           <div class="freelancerEducationName">

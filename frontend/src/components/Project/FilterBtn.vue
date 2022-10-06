@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="margin-top:50px">
+    <div class="d-flex justify-content-end" style="height : 0px !important">
       <button
         @click="startInterval"
         id="filterBtn"
@@ -469,42 +469,15 @@ export default {
             skillCandidateCtnrTmp.removeAttribute("style");
             skillCandidateCtnrTmp.setAttribute(
               "style",
-              "height: 250px; overflow-y: auto"
+              "height: 250px; overflow-y: auto; left : 0px"
             );
           } else {
             skillCandidateCtnrTmp.removeAttribute("style");
-            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto");
+            skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left : 0px");
           }
-          let post = inputBox.value;
-          if (pre != post) {
-            this.FilterSkillCandidate = [];
-            for (let candidate of searchSkillFunc(inputBox.value)) {
-              let isDuplicate = false;
-              for (let filterSkill of this.FilterSkillLst) {
-                if (filterSkill === candidate) {
-                  isDuplicate = true;
-                  break;
-                }
-              }
-              if (!isDuplicate) {
-                this.FilterSkillCandidate.push(candidate);
-              }
-            }
-
-            if (this.FilterSkillCandidate.length > 10) {
-              skillCandidateCtnrTmp.removeAttribute("style");
-              skillCandidateCtnrTmp.setAttribute(
-                "style",
-                "height: 250px; overflow-y: auto; left : 0px"
-              );
-            } else {
-              skillCandidateCtnrTmp.removeAttribute("style");
-              skillCandidateCtnrTmp.setAttribute("style", "overflow-y: auto; left : 0px");
-            }
-            pre = post;
-          }
-        }, 100);
-      }
+          pre = post;
+        }
+      }, 100);
     }
   }
 };
@@ -524,6 +497,8 @@ export default {
   margin-top: 3px;
   margin-bottom: 8px;
   margin-right: 50px;
+  position: relative !important;
+  top : -65px !important;
 }
 
 #filterBtn:hover {
@@ -543,23 +518,9 @@ export default {
 }
 
 #FilterModalApplyBtn {
-  position: fixed;
-  top: 645px;
-  right: 540px;
-  z-index: 2;
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 105px;
-  height: 40px;
-}
-
-  #FilterModalApplyBtn {
     position: fixed !important;
-    bottom : 11% !important;
-    left : 61% !important;
+    bottom : 12% !important;
+    left : 59% !important;
     z-index: 2;
     border-radius: 40px;
     border: 0px solid lightgray;

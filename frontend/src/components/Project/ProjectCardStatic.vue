@@ -52,8 +52,8 @@
           <div class="mx-3">
             월
             <span style="color:#0064ff"
-              >{{ projectData.lowPrice }}만원 ~
-              {{ projectData.highPrice }}만원</span
+              >{{ projectData.lowPrice }}FC ~
+              {{ projectData.highPrice }}FC</span
             >
           </div>
         </div>

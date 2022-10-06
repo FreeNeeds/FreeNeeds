@@ -1,10 +1,5 @@
 <template>
-  <div v-if="isDataLoaded">
-    <div v-if="projectDataList.length == 0">
-      <div class="apply-status-no-project-wrapper">
-        프로젝트가 없습니다
-      </div>
-    </div>
+  <div>
     <!-- {{ projectDataList }} -->
     <div v-for="(item, index) of projectDataList" :key="index">
       <!-- {{ item }} -->
@@ -50,7 +45,6 @@ import ProjectCard from "../../ProjectCard/ProjectMessageCard.vue";
 import { mapGetters } from "vuex";
 import * as applyInstance from "@/api/apply.js";
 import * as companyInstance from "@/api/company.js";
-import ProjectDetailVue from "../../Project/ProjectDetail.vue";
 export default {
   methods: {
     freelancerrefuseProject(index) {
@@ -76,7 +70,6 @@ export default {
   },
   data() {
     return {
-      isDataLoaded: false,
       projectDataList: [
         // {
         //   projectData: {
@@ -168,12 +161,6 @@ export default {
 </script>
 
 <style>
-.apply-status-no-project-wrapper {
-  color: royalblue;
-  font-size: 36px;
-  text-align: center;
-  padding-top: 100px;
-}
 .requested-project-card-btn-wrapper {
   text-align: center;
   padding-top: 400px;

@@ -26,7 +26,7 @@
                 </div> 
                 <div class="row">
                   <div class="col-3 projectDetailHeadItem projectDetailItem">  금액</div>
-                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }}만원 ~ {{ projectDataReceive.highPrice }}만원/월
+                  <div class="col-8 projectDetailItem"> {{ projectDataReceive.lowPrice }}FC ~ {{ projectDataReceive.highPrice }}FC/월
                     <br>(근무 확정시, 단가 확정)</div>
                 </div>
               </div>

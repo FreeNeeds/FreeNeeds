@@ -1,9 +1,10 @@
 <template>
   <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
     <div class="modal-dialog modal-lg" id="freelancerModalWrapper" style="z-index : -1">
-      <div class="modal-content" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
-        <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtn" style="z-index : 2">계약서 작성</button>
+        <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 작성</button>
+        <button @click="openCoinPaper" class="ProjectDetailApplyBtn coinModalBtn" style="z-index : 2">코인보기</button>
         <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -14,7 +15,7 @@
           <div class="carousel-mine" :id=carouselMine>
             <div class="myPageFreelancerDetailCtnr" :id=myPageFreelancerDetailModalContent>
               <div style="height : 0px">
-                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 800px;">
+                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw">
               </div>
               <div id="freelancerDetailCtnr">
                 <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
@@ -231,7 +232,7 @@
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
-              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 800px;">
+              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
@@ -412,7 +413,7 @@
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
                     <p style="margin-left : 7px">자 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <div style="width : 0px">
                     <p class='d-none' style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
                     </div>
@@ -434,7 +435,7 @@
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 350px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
@@ -502,6 +503,7 @@ export default {
       amount: 3000, // 계약금
       freelancerAccount: "", // 프리랜서 지갑 주소
       idx : 0,
+      coinModal : "coinModal",
       myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
       selectProjectFreelancerName : "",
       contract : "contract",
@@ -574,6 +576,7 @@ export default {
     this.canvas += id__
     this.notSign += id__
     this.sureContractModal += id__
+    this.coinModal += id__
     userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   props : {
@@ -871,6 +874,14 @@ export default {
     
     clickNotSendContract() {
       document.querySelector('#' + this.sureContractModal).classList.add('d-none')
+    },
+
+    openCoinPaper() {
+      document.querySelector('#' + this.coinModal).classList.remove('d-none')
+    },
+
+    clickCloseCoinModal() {
+      document.querySelector('#' + this.coinModal).classList.add('d-none')
     }
   },
 };
@@ -878,26 +889,26 @@ export default {
 
 <style>
   .myPageFreelancerDetailModalContent {
-    width: 800px;
-    height: 650px;
+    width: 50vw;
+    height: 80vh;
     overflow: hidden;
   }
 
   .myPageFreelancerDetailModalContentAfter {
-    width: 800px;
-    height: 650px;
+    width: 50vw;
+    height: 80vh;
   }
 
   .myPageFreelancerDetailModalContent > .carousel-mine {
     display: flex;
-    height: 650px;
+    height: 80vh;
     transform: translate3d(0,0,0);
     transition: transform 0.4s;
   }
 
   .myPageFreelancerDetailModalContent > .carousel-mine-fast {
     display: flex;
-    height: 650px;
+    height: 80vh;
     transform: translate3d(0,0,0);
     transition: transform 0s;
   }
@@ -910,16 +921,15 @@ export default {
     width : 120px;
     outline: none;
   }
-
   .myPageFreelancerDetailCtnr {
-    width: 800px;
-    height: 650px;
+    width: 50vw;
+    height: 80vh;
     overflow-y: scroll;
   }
 
   .myPageFreelancerDetailCtnrAfter {
-    width: 800px;
-    height: 650px;
+    width: 50vw;
+    height: 80vh;
   }
 
   .myPageFreelancerDetailCtnr::-webkit-scrollbar {
@@ -948,8 +958,8 @@ export default {
 
   .contractBackBtn {
     position: fixed;
-    top : 54px;
-    left : 1000px;
+    bottom : 87%;
+    left : 66%;
     border : 0px;
     background-color: white;
   }
@@ -982,8 +992,8 @@ export default {
   .signatureModalCtnr {
     z-index: 2;
     position: fixed;
-    top: 110px;
-    left: 468px;
+    bottom : 26vh;
+    left: 30.5vw;
     background-color: white;
     border-radius: 20px;
     height: 400px; 
@@ -1005,8 +1015,8 @@ export default {
   .sureContractModalCtnr {
     z-index: 2;
     position: fixed;
-    top: 150px;
-    left: 552px;
+    bottom : 40vh;
+    left: 37vw;
     background-color: white;
     border-radius: 20px;
     height: 230px; 
@@ -1023,5 +1033,51 @@ export default {
     width : 100vw;
     height : 100vh;
     background-color: rgba(0,0,0,0.025);
+  }
+
+  .freelancerFloatBtnTmp{
+    position: fixed;
+    bottom : 11vh;
+    left : 44.5vw;
+    width: 200px !important;
+  }
+
+  .coinModalBtn {
+    position: fixed;
+    bottom : 11vh;
+    left : 65.5vw;
+    background-color: #f98740;
+    width: 100px !important;
+    border-radius: 100px !important;
+  }
+
+  .coinModalBtn:hover {
+    background-color: rgb(255, 76, 76);
+  }
+
+  .coinModalCtnr {
+    position: fixed;
+    bottom : 35vh;
+    left: 20.5vw;
+    height : 410px;
+    width : 60vw;
+    border-radius: 20px;
+    background-color: white;
+  }
+
+  .coinModalCtnrWrpr{
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.15);
+  }
+
+  .closeCoinModalBtn {
+    position : relative;
+    top : 10px;
+    left : 27.5vw;
   }
 </style>

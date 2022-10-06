@@ -3,14 +3,8 @@
     <div id="banner">
       <img src="../assets/images/banner1.jpg" alt="" width="95%" />
     </div>
-<<<<<<< HEAD
     <FilterBtn></FilterBtn>
     <div style="overflow : hidden; width: 1300px; height: auto">
-=======
-
-    <FilterBtn style=""></FilterBtn>
-    <div style="overflow : hidden; width: 1320px; height: auto">
->>>>>>> 3e4dc0be7461f476cc2536dc841d9190e560fdc7
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
         <div
           clsss="freelancer-list-wrapper"

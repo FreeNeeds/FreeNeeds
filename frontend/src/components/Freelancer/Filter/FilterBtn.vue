@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="margin-top:50px">
+    <div class="d-flex justify-content-end" style="height : 0px">
       <button
         @click="startInterval"
         id="freelancerFilterBtn"
         data-bs-toggle="modal"
         data-bs-target="#ffilterModal"
+        style="position : relative; top : -65px; right : 70px"
       >
-        <div style="position:absolute">
+        <div style="position:absolute;">
           <img
             class="freelancericon btnimg"
             width="55px"
@@ -30,10 +31,13 @@
       style="background-color: rgba(0, 0, 0, 0.15);"
     >
       <div class="modal-dialog" id="FFilterModalWrapper">
+        <h5 class="fw-blod warnFilter" style="color : royalblue">
+            적어도 한 개 이상의 필터를 적용해주세요!
+        </h5>
         <div
           class="modal-content"
           id="FFilterModalContent"
-          style="height : 500px; overflow-y: scroll;"
+          style="overflow-y: scroll;"
         >
           <button
             @click="clickFilterModalCloseBtn"
@@ -48,13 +52,10 @@
             type="button"
             id="FilterModalApplyBtn"
             class="d-none"
-            style="top : 500px"
+            style="bottom : 11vh !important"
           >
             <div id="FilterModalApplyBtnLetter">필터 적용</div>
           </button>
-          <h5 class="fw-blod warnFilter" style="color : royalblue">
-            적어도 한 개 이상의 필터를 적용해주세요!
-          </h5>
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
             <b-container id="FilterCategory">
@@ -310,9 +311,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
-#FFilterModalWrapper {
-  margin-top: 50px;
-}
 
 #FilterModalContent {
   border-radius: 15px;
@@ -539,5 +537,11 @@ export default {
 
 #FFilterModalContent::-webkit-scrollbar {
   width: 0px;
+}
+
+#freelancerFilterBtn:hover {
+  background-color: #6ecdb1;
+  border: 0px;
+  font-weight: bold;
 }
 </style>

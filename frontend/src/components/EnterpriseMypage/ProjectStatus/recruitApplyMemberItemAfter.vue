@@ -55,7 +55,7 @@
       <div id="calWrpr" class="d-none calWrpr">
         <div class="cal text-center">
           <h4 class="mt-5">정산하시겠습니까?</h4>
-          <button @click="calClose(), withdraw()" class="estimateCompleteBtn" style="top : 300px">네</button>
+          <button @click="calClose(), withdraw()" class="estimateCompleteBtn mt-3">네</button>
         </div>
       </div>
       <recruitApplyMemberItemDetailIng
@@ -263,8 +263,8 @@
 
   .estimateModal {
     position: fixed;
-    top: 130px;
-    right: 560px;
+    bottom : 30%;
+    left: 40%;
     background-color: white;
     border-radius: 20px;
     height: 500px; 
@@ -274,9 +274,9 @@
   }
 
   #estimateModalCloseBtn {
-    position : fixed;
-    top : 150px;
-    right : 580px;
+    position : relative;
+    top : 15px;
+    left : 360px;
   }
 
   .selectItem {
@@ -546,9 +546,6 @@
     color : white;
     font-weight: bold;
     font-size : 18px;
-    position: fixed;
-    top : 550px;
-    left : 705px;
   }
 
   .calWrpr {
@@ -563,13 +560,13 @@
 
   .cal {
     position: fixed;
-    top: 180px;
-    right: 560px;
+    bottom : 50%;
+    left : 43%;
     background-color: white;
     border-radius: 30px;
-    height: 220px; 
+    height: 27vh;
     border: 1px solid lightgray;
-    width: 400px;
+    width: 30vw;
     margin: auto;
   }
 </style>

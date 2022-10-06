@@ -12,7 +12,7 @@
       id="freelancerModalWrapper"
       style="z-index : -1"
     >
-      <div class="modal-content" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button
           type="button"
           id="freelancerDetailModalCloseBtn"
@@ -258,7 +258,7 @@
                 class="wrapperImgProjectCarousel"
                 src="@/assets/images/하얀색.png"
                 alt=""
-                style="width : 800px;"
+                style="width : 50vw;"
               />
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
