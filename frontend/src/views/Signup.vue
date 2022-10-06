@@ -277,6 +277,10 @@ export default {
     },
     async getMetamask() {
       if (window.ethereum) {
+        await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0X3" }],
+        });
         // first we check if metamask is installed
         var accounts = await window.ethereum.request({
           method: "eth_requestAccounts"
@@ -377,9 +381,11 @@ export default {
 }
 .regist-terms-input-form .form-check-input {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-terms-input-form .form-check-label {
   zoom: 1.5;
+  font-size: 10px;
 }
 .regist-email-input-wrapper {
   padding: 10px;
