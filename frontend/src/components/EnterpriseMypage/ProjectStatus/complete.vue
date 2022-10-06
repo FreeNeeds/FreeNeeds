@@ -84,25 +84,17 @@ export default {
       )
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
-          let remainDateTmp = Math.ceil(
-            (new Date(res.data[i].endDate).getTime() - new Date().getTime()) /
-              (1000 * 60 * 60 * 24) -
-              1
-          );
-          if (remainDateTmp < 0) {
-            res.data[i].projectIdEdit =
-              "myPageProjectDetailId" + String(res.data[i].projectId);
-            res.data[i].skill = [];
-            this.myProjectLst.push(res.data[i]);
-          }
-
-          if (this.myProjectLst.length === 0) {
-            document.querySelector('.noProjectImg').classList.remove('d-none')
-            document.querySelector('#completeCarouselWrapperMyPageCompanyRecruit').classList.add('d-none')
-            document.querySelectorAll('button').forEach(item => {
-              item.classList.add('d-none')
-            })
-          }
+          res.data[i].projectIdEdit =
+            "myPageProjectDetailId" + String(res.data[i].projectId);
+          res.data[i].skill = [];
+          this.myProjectLst.push(res.data[i]);
+        }
+        if (this.myProjectLst.length === 0) {
+          document.querySelector('.noProjectImg').classList.remove('d-none')
+          document.querySelector('#completeCarouselWrapperMyPageCompanyRecruit').classList.add('d-none')
+          document.querySelectorAll('button').forEach(item => {
+            item.classList.add('d-none')
+          })
         }
       });
   },
