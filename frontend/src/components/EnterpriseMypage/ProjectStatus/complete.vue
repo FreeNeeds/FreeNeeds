@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="myProjectLst.length == 0">
+    <div class="d-none noProjectImg">
       <no-project-view-vue></no-project-view-vue>
     </div>
     <div
@@ -94,6 +94,14 @@ export default {
               "myPageProjectDetailId" + String(res.data[i].projectId);
             res.data[i].skill = [];
             this.myProjectLst.push(res.data[i]);
+          }
+
+          if (this.myProjectLst.length === 0) {
+            document.querySelector('.noProjectImg').classList.remove('d-none')
+            document.querySelector('#completeCarouselWrapperMyPageCompanyRecruit').classList.add('d-none')
+            document.querySelectorAll('button').forEach(item => {
+              item.classList.add('d-none')
+            })
           }
         }
       });

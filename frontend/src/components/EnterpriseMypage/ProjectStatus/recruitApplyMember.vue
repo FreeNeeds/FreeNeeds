@@ -628,6 +628,10 @@ export default {
   mounted() {
     this.projectIdTmp = this.$route.params.projectId
     this.stateTmp = this.$route.params.state
+    if (this.stateTmp === 'complete') {
+      document.querySelector('#clickAfter').classList.add('activeContract')
+      document.querySelector('#clickBefore').classList.remove('activeContract')
+    }
     createInstance().get('/apply/project' , {
       params : {
         projectId : String(this.$route.params.projectId)

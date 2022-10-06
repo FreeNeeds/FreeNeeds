@@ -331,7 +331,7 @@
             <button
               @click="openProjectModal"
               id="ProjectDetailApplyBtn"
-              class="freelancerFloatBtn"
+              style="width : 200px !important; position : fixed; bottom : 11vh;"
               v-if="loginType == 'company'"
             >
               인터뷰 요청하기
@@ -355,6 +355,7 @@
           </h5>
           <div
             class="carousel-wrapper-mine mx-auto mt-4"
+            style="width : 640px !important"
             data-bs-touch="false"
             :id="carouselWrapperMine"
           >
@@ -413,7 +414,7 @@
           </div>
           <button
             @click="clickSelectProjectFreelancer"
-            class="ProjectApplyBtn my-3"
+            class="ProjectApplyBtn"
           >
             선택
           </button>

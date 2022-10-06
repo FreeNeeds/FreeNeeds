@@ -24,10 +24,10 @@
         <button
           @click="openContractPaper"
           :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
+          class="ProjectDetailApplyBtn"
+          style="z-index : 2; position: fixed; width: 200px !important; bottom : 11vh; left: 44vw;"
         >
-          ㅋ
+          계약서보기
         </button>
         <button
           @click="closeContractPaper"
