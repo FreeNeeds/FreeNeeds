@@ -7,8 +7,8 @@
 프로젝트명 : FreeNeeds  
 팀명 : 놀면모하니   
 개발기간 : 2022.08.29 ~ 2022.10.06   
-프로젝트 개요 : 블록체인 기반 IT프리랜서 매칭 계약 서비스 
-[Notion](https://dynamic-lan-3fb.notion.site/749ba73d0de04b219cf2a8293bdbecfb) 
+프로젝트 개요 : 블록체인 기반 IT프리랜서 계약 서비스 <br/>
+[프리니즈의 Notion 바로가기](https://dynamic-lan-3fb.notion.site/749ba73d0de04b219cf2a8293bdbecfb) 
 
 
 ---
@@ -66,16 +66,18 @@
 | BackEnd  | DB                      | MySQL                | 8.0.29         |
 |          |                         | JPA                  | 5.0.0          |
 |          |                         | QueryDSL             | 5.0.0         |
-|          | Java                    | Zulu                 | 8   |
+|          | Java                    | Zulu                 | 11   |
 |          | Spring                  | Spring               | 5.3.22         |
 |          |                         | Spring Boot          | 2.5.2          |
+|          |                         | swagger2           | 3.0.0          |
 |          |                         | Spring Security          | 2.7.2          |
+|          |                         | JWT        | 3.10.3          |
 |          | IDE                     | Intellij             | 2022.2          |
 |          | Build                   | Gradle               | 7.5        |
 | FrontEnd | HTML5                   |                      | \-          |
 |          | CSS3                    |                      | \-          |
 |          | JavaScript(ES6)         |                      |\-           |
-|          | Vue         |                      |  3.2.13        |
+|          | Vue         |                      |  2.7.10        |
 |          | IDE                     | Visual Studio Code   |1.70.0          |
 
 
@@ -131,40 +133,53 @@
 
 - 프리랜서 상세 페이지에서 원하는 프리랜서에게 인터뷰를 요청할 수 있습니다.
 
+![image](/uploads/e527e0eef3791f84cd87825b20112f17/image.png)
+
 ### 마이페이지
 
 - 프로젝트 현황
+  - 구인중인 프로젝트, 진행중인 프로젝트, 완료된 프로젝트를 분류하여 기업이 등록한 프로젝트 현황을 제공합니다.
 
 ![image](/uploads/ad19f90e604416da20e7150b88df8200/image.png)
 
-  - 구인중인 프로젝트, 진행중인 프로젝트, 완료된 프로젝트를 분류하여 기업이 등록한 프로젝트 현황을 제공합니다.
+  
+
+- 지원자에게 계약서를 작성해서 서명 후 보냅니다.
+
+![기업계약서작성](/uploads/8eec4c14c22239d9fcda90391b8cffe2/기업계약서작성.gif)
 
 - 프로젝트 등록
+  - 프로젝트 등록이 가능합니다.
 
 ![image](/uploads/023f6e0e49b06a827b051e930bdfdc61/image.png)
   
-  - 프로젝트 등록이 가능합니다.
 
 - 기업 정보 관리
+  - 기업 정보 등록이 가능합니다.
 
 ![image](/uploads/0c6f8211028938e9598caf78bab44bd2/image.png)
 
-  - 기업 정보 등록이 가능합니다.
+
 
 
 ## 계약 과정 (프리랜서 관점)
 
 ### 프로젝트 지원하기
 
+![image](/uploads/316077ac85807a950c3c2a51e252af53/image.png)
+
 - 프로젝트 상세 페이지에서 원하는 프로젝트에 지원할 수 있습니다.
 
 ### 마이페이지
 
 - 나의 지원현황
+ - 제의받은 프로젝트, 지원한 프로젝트, 계약중인 프로젝트, 체결된 프로젝트를 분류하여 프리랜서가 진행중인 프로젝트 현황을 제공합니다.
 
 ![image](/uploads/ea6b731c1d930f086dc75730bd88e864/image.png)
 
-  - 제의받은 프로젝트, 지원한 프로젝트, 계약중인 프로젝트, 체결된 프로젝트를 분류하여 프리랜서가 진행중인 프로젝트 현황을 제공합니다.
+- 계약 중인 프로젝트 탭에서 기업 측에서 작성한 계약서를 확인하고 서명합니다. 
+
+![프리랜서계약서작성](/uploads/7b51080afc40aab61e597991792979db/프리랜서계약서작성.gif)
 
 - 커리어 관리
 
@@ -224,58 +239,3 @@
 | MySQL         | 3306                 | 
 
 ## 배포 플로우 
-<!-- 필수 항목 -->
-
-
-## 카테고리
-
-| Application | Domain | Language | Framework |
-| ---- | ---- | ---- | ---- |
-| :white_check_mark: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
-| :white_check_mark: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
-| :white_check_mark: Responsive Web | :black_square_button: Blockchain | :black_square_button: C/C++ | :black_square_button: Angular |
-| :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :black_square_button: Node.js |
-| :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :white_check_mark: Python | :white_check_mark: Flask/Django |
-| :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
-| | | :black_square_button: Kotlin | |
-
-<!-- 필수 항목 -->
-
-## 프로젝트 소개
-
-* 프로젝트명: 그룹 비디오 컨퍼런스 서비스
-* 서비스 특징: 웹/모바일(웹 기술) 프로젝트를 위한 스켈레톤 프로젝트
-* 주요 기능
-  - 회원 관리
-  - 화상 미팅룸
-  - 그룹 채팅
-* 주요 기술
-  - WebRTC
-  - WebSocket
-  - JWT Authentication
-  - REST API
-* 참조 리소스
-  * Vuetify: 디자인 전반 적용
-  * Vue Argon Design System: 디자인 전반 적용
-  * Vue Black Dashboard Pro(유료): 캘린더 컴포넌트 사용
-  * AR Core: 구글에서 제공하는 AR 지원 라이브러리. 이미지 인식 및 오버레이 영상에 활용
-  * Color Thief: 이미지 색상 추출 라이브러리. 커버 사진 색상 추출 및 배경 변경에 활용
-  * Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
-* 배포 환경
-  - URL: // 웹 서비스, 랜딩 페이지, 프로젝트 소개 등의 배포 URL 기입
-  - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
-
-<!-- 자유 양식 -->
-
-## 팀 소개
-* 김ㅇㅇ: 팀장, 프론트엔드 개발
-* 이ㅇㅇ: 부팀장, 기획 및 와이어프레임 작성, 프론트엔드 개발
-* 박ㅇㅇ: 백엔드 개발 및 QA 담당
-* 홍ㅇㅇ: 백엔드 개발, Swagger API 문서 관리
-* 전ㅇㅇ: 코드 리뷰 및 인프라 담당, CI/CD, HTTPS, Docker 구성
-
-<!-- 자유 양식 -->
-
-## 프로젝트 상세 설명
-
-// 개발 환경, 기술 스택, 시스템 구성도, ERD, 기능 상세 설명 등
