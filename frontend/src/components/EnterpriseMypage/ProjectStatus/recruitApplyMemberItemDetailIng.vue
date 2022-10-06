@@ -697,32 +697,37 @@
             <div class="d-flex" style="height: 50px;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
-              <div class="test"></div>
+              <div class="test" :id="longLetterOne"></div>
               <div style="font-size : 22px">...</div>
+              <img src="@/assets/images/copy_512.png" @click="clickOneLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
             </div>
             <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
-              <div class="test"></div>
+              <div class="test" :id="longLetterTwo"></div>
               <div style="font-size : 22px">...</div>
+              <img src="@/assets/images/copy_512.png" @click="clickTwoLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
             </div>
             <div class="d-flex" style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
-              <div class="test"></div>
+              <div class="test" :id="longLetterThree"></div>
               <div style="font-size : 22px">...</div>
+              <img src="@/assets/images/copy_512.png" @click="clickThreeLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
             </div>
             <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
-              <div class="test"></div>
+              <div class="test" :id="longLetterFour"></div>
               <div style="font-size : 22px">...</div>
+              <img src="@/assets/images/copy_512.png" @click="clickFourLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
             </div>
             <div class="d-flex " style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
-              <div class="test"></div>
+              <div class="test" :id="longLetterFive"></div>
               <div style="font-size : 22px">...</div>
+              <img src="@/assets/images/copy_512.png" @click="clickFiveLong" style="width : 25px; height : 25px; margin: auto; margin-left : 5px; margin-right : 5px">
             </div>
           </div>
         </div>
@@ -790,6 +795,11 @@ export default {
       signatureComplete : "signatureComplete",
       alreadyDoneContract : "alreadyDoneContract",
       contractId : "",
+      longLetterOne : "longLetterOne",
+      longLetterTwo : "longLetterTwo",
+      longLetterThree : "longLetterThree",
+      longLetterFour : "longLetterFour",
+      longLetterFive : "longLetterFive"
     }
   },
   mounted() {
@@ -830,6 +840,11 @@ export default {
     this.notSign += id__
     this.sureContractModal += id__
     this.coinModal += id__
+    this.longLetterOne += id__
+    this.longLetterTwo += id__
+    this.longLetterThree += id__
+    this.longLetterFour += id__
+    this.longLetterFive += id__
 
     let contractInputs = document.querySelectorAll(
       "#" + this.contractInputItem
@@ -998,7 +1013,68 @@ export default {
 
     closeFreelancerProjectDetailIng() {
       document.querySelector('body').style.overflow = 'scroll'
-    }
+    },
+
+    clickOneLong() {
+      let tmp = document.querySelector('#' + this.longLetterOne).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickTwoLong() {
+      let tmp = document.querySelector('#' + this.longLetterTwo).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickThreeLong() {
+      let tmp = document.querySelector('#' + this.longLetterThree).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickFourLong() {
+      let tmp = document.querySelector('#' + this.longLetterFour).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
+    clickFiveLong() {
+      let tmp = document.querySelector('#' + this.longLetterFive).innerHTML
+
+      navigator.clipboard.writeText(tmp)
+          .then(() => {
+          console.log("Text copied to clipboard...")
+      })
+          .catch(err => {
+          console.log('Something went wrong', err);
+      })
+    },
+
   },
 };
 </script>
