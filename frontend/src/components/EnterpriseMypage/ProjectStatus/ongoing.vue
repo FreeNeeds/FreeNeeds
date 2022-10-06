@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div v-if="myProjectLst.length == 0">
+    <div class="d-none noProjectImg">
       <no-project-view-vue></no-project-view-vue>
     </div>
     <div
+      v-else
       class="carousel-wrapper-mine mx-auto mt-4 carouselWrapperMyPageCompanyRecruit"
       data-bs-touch="false"
       id="ongoingCarouselWrapperMyPageCompanyRecruit"
@@ -23,53 +24,37 @@
         :idEdit="projectCardItem.projectIdEdit"
         :projectDataReceive="projectCardItem"
       >
-      </recruitProjectDetail>
-      <button
-        @click="prevBtnClick"
-        class="prevMyPageCompany"
-        type="button"
-        data-bs-target="#carouselExampleControlsNoTouching"
-        data-bs-slide="prev"
+      </recruitProjectDetail> 
+    </div>
+    <button @click="prevBtnClick" class="prevMyPageCompany" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      @click="nextBtnClick"
+      class="nextMyPageCompany"
+      type="button"
+      data-bs-target="#carouselExampleControlsNoTouching"
+      data-bs-slide="next"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="25"
+        fill="black"
+        class="bi bi-chevron-right"
+        viewBox="0 0 16 16"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="black"
-          class="bi bi-chevron-left"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-          />
-        </svg>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        @click="nextBtnClick"
-        class="nextMyPageCompany"
-        type="button"
-        data-bs-target="#carouselExampleControlsNoTouching"
-        data-bs-slide="next"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="black"
-          class="bi bi-chevron-right"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-          />
-        </svg>
-        <span class="visually-hidden">Next</span>
+        <path
+          fill-rule="evenodd"
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+      <span class="visually-hidden">Next</span>
       </button>
     </div>
-  </div>
 </template>
 
 <script>
@@ -110,6 +95,14 @@ export default {
               "myPageProjectDetailId" + String(res.data[i].projectId);
             res.data[i].skill = [];
             this.myProjectLst.push(res.data[i]);
+          }
+
+          if (this.myProjectLst.length === 0) {
+            document.querySelector('.noProjectImg').classList.remove('d-none')
+            document.querySelector('#ongoingCarouselWrapperMyPageCompanyRecruit').classList.add('d-none')
+            document.querySelectorAll('button').forEach(item => {
+              item.classList.add('d-none')
+            })
           }
         }
       });

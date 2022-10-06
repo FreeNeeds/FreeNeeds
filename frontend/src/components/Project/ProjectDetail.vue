@@ -281,8 +281,8 @@ export default {
 
   #ProjectDetailModalCloseBtn {
     position: fixed;
-    top : 55px;
-    right : 400px;
+    bottom : 86.5% !important;
+    left : 72% !important;
   }
 
   .project-card-wrapper {
@@ -294,6 +294,7 @@ export default {
     border-radius: 15px;
     box-shadow: 0px 4px 20px rgba(0,0,0, 0.25);
   }
+  
   #remainDateWrapperInProjectDetail {
     position: absolute;
     top : 18px;
@@ -390,8 +391,8 @@ export default {
 
   #applyModal {
     position: fixed;
-    top: 130px;
-    right: 600px;
+    bottom : 50% !important;
+    left : 41.5% !important;
     background-color: white;
     border-radius: 20px;
     height: 170px; 

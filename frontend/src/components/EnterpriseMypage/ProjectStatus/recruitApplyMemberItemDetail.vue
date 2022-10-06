@@ -1,53 +1,12 @@
 <template>
-  <div
-    class="modal text-center"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="false"
-    style="background-color: rgba(0, 0, 0, 0.15);"
-  >
-    <div
-      class="modal-dialog modal-lg"
-      id="freelancerModalWrapper"
-      style="z-index : -1"
-    >
-      <div class="modal-content" style="z-index : -1">
-        <button
-          type="button"
-          id="freelancerDetailModalCloseBtn"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          style="z-index : 2"
-        ></button>
-        <button
-          @click="openContractPaper"
-          :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
-        >
-          계약서 작성
-        </button>
-        <button
-          @click="closeContractPaper"
-          :id="closeContractPaperBtn"
-          class="d-none contractBackBtn"
-          style="z-index : 1"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-arrow-left"
-            style="margin-bottom: 5.5px;"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
+  <div class="modal text-center" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false" style="background-color: rgba(0, 0, 0, 0.15);" >
+    <div class="modal-dialog modal-lg" id="freelancerModalWrapper" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
+        <button @click="closeFreelancerProjectDetail" type="button" id="freelancerDetailModalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="z-index : 2"></button>
+        <button @click="openContractPaper" :id=ProjectDetailApplyBtn class="ProjectDetailApplyBtn freelancerFloatBtnTmp" style="z-index : 2">계약서 작성</button>
+        <button @click="closeContractPaper" :id=closeContractPaperBtn class="d-none contractBackBtn" style="z-index : 1"> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" style="margin-bottom: 5.5px;" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
           </svg>
           뒤로가기
         </button>
@@ -61,12 +20,7 @@
               :id="myPageFreelancerDetailModalContent"
             >
               <div style="height : 0px">
-                <img
-                  class="wrapperImgProjectCarousel"
-                  src="@/assets/images/하얀색.png"
-                  alt=""
-                  style="width : 800px;"
-                />
+                <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw">
               </div>
               <div id="freelancerDetailCtnr">
                 <div class="container my-4 py-4" id="freelancerDetailHeadCtnr">
@@ -327,9 +281,10 @@
                 <hr class="project-card-line" style="margin-bottom : 40px" />
                 <div :id="projectDetailNavItem">
                   <FreelancerProjectCard
-                    v-for="freelancerProjectCard in projectCareer"
-                    :key="freelancerProjectCard.body.projectCareerId"
-                    :freelancerProjectCard="freelancerProjectCard"
+                  v-for="freelancerProjectCard in projectCareer"
+                  :key="freelancerProjectCard.body.projectCareerId"
+                  :freelancerProjectCard="freelancerProjectCard"
+                  style="margin-left : 0px !important"
                   >
                   </FreelancerProjectCard>
                 </div>
@@ -384,7 +339,7 @@
                   </div>
                   <div
                     class="d-flex mx-3 mt-2"
-                    style="margin-bottom : 60px"
+                    
                     v-for="freelancerCareerItem in resume.certificateList"
                   >
                     <div class="freelancerEducationName">
@@ -398,584 +353,341 @@
               </div>
             </div>
             <div :id="contract" class="d-none myPageFreelancerDetailCtnrAfter">
-              <img
-                class="wrapperImgProjectCarousel"
-                src="@/assets/images/하얀색.png"
-                alt=""
-                style="width : 800px;"
-              />
+              <img class="wrapperImgProjectCarousel" src="@/assets/images/하얀색.png" alt="" style="width : 50vw;">
               <div class="contractCtnr" :id="contractImg">
-                <h3>표준근로계약서</h3>
+                <h3>프리랜서 고용계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
-                  <div contenteditable="false" class="d-flex">
+                  <div contenteditable="false" class="d-flex justify-content-center">
+                    <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
+                      @keyup.enter="keyEnter"
+                      style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
-                    <p class="d-inline-block">(이하 "사업주"라 함)과(와)</p>
+                  </div>
+                  <div contenteditable="false" class="d-flex justify-content-center mb-3">
+                    <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
+                      @keyup.enter="keyEnter"
+                      style="padding-left: 7px; padding-right: 7px; border-left : 1px solid black; border-top: 1px solid black; border-bottom: 3px solid black; border-right: 3px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
-                    <p class="d-inline-block">(이하 "근로자"라 함)은</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">
-                      다음과 같이 근로계약을 체결한다.
+                      (이하 "갑"이라 한다.)와 (이하 "을"이라 한다.)은 계약건명에 명시된 업무작업을
                     </p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">1. 근로개시일 및 종료일 :</p>
+                    <p class="d-inline-block">
+                      수행하기 위해 다음과 같이 계약을 체결한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex" style="height : 30px">
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block fw-bold" style="font-size : 18px">
+                      제1조 【 목 적 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-2">
+                    <p class="d-inline-block">
+                      본 계약은 "갑"이 "을"에게 의뢰한 OOO의 업무를 "갑"에게 공급함에 있어 "갑"과 "을"사이에
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      필요한 사항을 정하는 것을 목적으로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제2조 【 계 약 기 간 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-2">
+                    <p class="d-inline-block">
+                      계약 기간은
+                    </p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
+                    <p>년</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">월</p>
+                    <p>월</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">일부터</p>
+                    <p>일로부터</p>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 165px"
-                  >
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block" style="width : 78px">
+                    
+                    </p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
+                    <p>년</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">월</p>
+                    <p>월</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
-                    <p class="d-inline-block">일까지</p>
+                    <p>일까지로 하며,</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">2. 근무장소 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">3. 업무의 내용 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">4. 소정근로시간 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분부터</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분까지</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block" style="margin-left : 130px">
-                      (휴게시간 :
+                    <p class="d-inline-block" style="width : 84px">
+                    
                     </p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분~</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">시</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">분)</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">5. 근무일/휴일 : 매주</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
                     <p class="d-inline-block">
-                      일(또는 매일단위)근무, 주휴일 매주
+                      갑과 을의 합의 하에 본 계약 기간은 연장 될 수 있다.
                     </p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">요일</p>
                   </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">6. 임금</p>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제3조 【 계 약 금 액 】
+                    </p>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">- 월(일, 시간)급 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 250px"
-                    ></div>
-                    <p class="d-inline-block">원</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">- 상여금 : 있음</p>
-                    <div
-                      @click="incentiveBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;"
-                      class="recruit-contract-check-wrapper"
-                    >
-                      <svg
-                        :id="incentiveBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 250px"
-                    ></div>
-                    <p class="d-inline-block">원 / 없음</p>
-                    <div
-                      @click="notIncentiveBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-top : 4px;"
-                      class="recruit-contract-check-wrapper"
-                    >
-                      <svg
-                        :id="notIncentiveBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
+                  <div contenteditable="false" class="d-flex mt-2">
                     <p class="d-inline-block">
-                      - 임금지급일 : 매월(매주 또는 매일)
+                      총 계약금액은 
                     </p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 30px"
-                    ></div>
-                    <p class="d-inline-block">일(휴일의 경우는 전일 지급)</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 지급방법 : 근로자에게 코인 지갑에 입금
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">7. 연차유급휴가</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 연차유급휴가는 근로기준법에서 정하는 바에 따라 부여함
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">
-                      8. 사회보험 적용여부(해당란에 체크)
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <div
-                      class="recruit-contract-check-wrapper"
-                      @click="recruitInsureBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px;  margin-right : 5px; margin-top : 4px;"
-                    >
-                      <svg
-                        :id="recruitInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      고용보험
-                    </p>
-                    <div
-                      @click="accidentInsureBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-right : 5px; margin-top : 4px;"
-                      class="recruit-contract-check-wrapper"
-                    >
-                      <svg
-                        :id="accidentInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      산재보험
-                    </p>
-                    <div
-                      @click="personInsureBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px;  margin-right : 5px; margin-top : 4px;"
-                      class="recruit-contract-check-wrapper"
-                    >
-                      <svg
-                        :id="personInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      국민연금
-                    </p>
-                    <div
-                      @click="healthInsureBtnClick"
-                      style="width: 16px; height: 16px; border: 1px solid black; margin-left : 5px; margin-right : 5px; margin-top : 4px;"
-                      class="recruit-contract-check-wrapper"
-                    >
-                      <svg
-                        :id="healthInsureBtn"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="color : red; position : relative; top: -15px; left: -12px"
-                        width="37"
-                        height="37"
-                        fill="currentColor"
-                        class="bi bi-check d-none"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
-                        />
-                      </svg>
-                    </div>
-                    <p class="d-inline-block" style="margin-right : 20px;">
-                      건강보험
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">9. 근로계약서 교부</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 사업주는 근로계약을 체결함과 동시에 본 계약서를 사본하여
-                      근로자의 교부요구와
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 42px;"
-                  >
-                    <p class="d-inline-block">
-                      관계없이 근로자에게 교부함(근로기준법 제17조 이행)
-                    </p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">
-                      10. 근로계약, 취업규칙 등의 성실한 이행의무
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 사업주와 근로자는 각자가 근로계약, 취업규칙, 단체협약을
-                      지키고 성실하게 이행
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 42px;"
-                  >
-                    <p class="d-inline-block">하여야 함</p>
-                  </div>
-                  <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">11. 기 타</p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 30px;"
-                  >
-                    <p class="d-inline-block">
-                      - 이 계약에 정함이 없는 사항은 근로기준법령에 의함
-                    </p>
-                  </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex justify-content-center"
-                    style="margin-left : 30px"
-                  >
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">년</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">월</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 50px"
-                    ></div>
-                    <p class="d-inline-block">일</p>
+                    <p class="d-inline-block">
+                      FC으로 하며,
+                    </p>
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">(사업주) 사업체명 :</p>
+                    <p class="d-inline-block">
+                      작업완료와 동시에 "갑"은 "을"에게 지급하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제4조 【 납 품 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      작업완료와 동시에 최종 결과물은 "을"이 "갑"에게 지급하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제5조 【 비 밀 유 지 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "을"은 본 작업과 관련된 어떠한 일체의 정보를 외부에 누설하거나 유출해서는 안되며
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      이로 인해 발생하는 모든 책임은 "을"이 진다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제6조 【 자 료 제 공 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "갑"은 "을"이 작업을 수행하는데 필요한 일체의 자료를 제공하기로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제7조 【 근 무 조 건 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (1) 본 계약 상의 업무를 수행하기 위해 출근 등과 관련된 사항은 자유로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (2) 본 계약 내용 외에도 다른 필요한 업무가 필요한 경우 "갑"은 "을"이 추가로 작업을 수행하는
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block" style="width: 25px"></p>
+                    <p class="d-inline-block">
+                      부분에 대한 인건비와 계약 기간은 상호 협의 하에 결정한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제8조 【 해 지 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mb-3">
+                    <p class="d-inline-block">
+                      "갑"과 "을"은 다음 각 호에 해당될 경우 본 계약을 해지할 수 있다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (1) 정당한 이유 없이 작업 진행이 이루어지지 않을 때
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (2) 정당한 이유 없이 계약기간에 작업완료가 불가능하다고 판단될 때
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      (3) "갑"이 계약금액을 지급하지 않았을 경우
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제9조 【 손 해 배 상 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      "을"의 귀책사유로 인하여 본 계약이 불이행이 되었을 경우 "을"은 "갑"이 제시한 손해배상의
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">
+                      책임을 진다. (이 때, 손해배상은
+                    </p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      style="width : 200px"
+                      style="width : 80px"
                     ></div>
-                    <p class="d-inline-block">(전화 :</p>
+                    <p class="d-inline-block">
+                      FC로 한다.)
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mt-4" style="font-size : 18px">
+                    <p class="d-inline-block fw-bold">
+                      제10조 【 소 송 분 할 】
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex mb-3">
+                    <p class="d-inline-block">
+                      본 계약으로 발생하는 분쟁은
+                    </p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      style="width : 200px"
+                      style="width : 80px"
                     ></div>
+                    <p class="d-inline-block">
+                      법원을 관할법원으로 한다.
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex justify-content-center mb-3">
+                    <p class="d-inline-block">
+                      계약일자 : 
+                    </p>
+                    <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 80px"
+                    ></div>
+                    <p class="d-inline-block">
+                      년
+                    </p>
+                    <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 50px"
+                    ></div>
+                    <p class="d-inline-block">
+                      월 
+                    </p>
+                    <div
+                      contenteditable="true"
+                      :id="contractInputItem"
+                      class="contractInput d-inline-block"
+                      style="width : 50px"
+                    ></div>
+                    <p class="d-inline-block">
+                      일
+                    </p>
+                  </div>
+                  <div contenteditable="false" class="d-flex">
+                    <p class="d-inline-block">(사업주) 사업체명 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
+                    <p class="d-inline-block">(전화 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
                     <p class="d-inline-block">)</p>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 65px"
-                  >
+                  <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">주</p>
-                    <p style="margin-left : 30px">소 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 470px"
-                    ></div>
+                    <p style="margin-left : 30px">소 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex align-items-center"
-                    style="margin-left : 65px"
-                  >
+                  <div contenteditable="false" class="d-flex align-items-center" style="margin-left : 65px">
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
-                    <p style="margin-left : 7px">자 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p style="margin-left : 7px">자 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
                     <div style="width : 0px">
-                      <p
-                        class="d-none"
-                        style="position : relative; top : 6px; left : 50px; width : 100px"
-                        :id="representiveSignature"
-                      >
-                        (서명)
-                      </p>
+                    <p class='d-none' style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
                     </div>
-                    <button
-                      @click="clickRepresentiveSignature"
-                      class="signatureBtn"
-                      :id="representiveSignatureBtn"
-                    >
-                      서명하기
-                    </button>
-                    <img :id="imgSign" src="" alt="" />
+                    <button @click="clickRepresentiveSignature" class="signatureBtn" :id="representiveSignatureBtn">서명하기</button>
+                    <img :id=imgSign src="" alt="">
                   </div>
                   <div contenteditable="false" class="d-flex">
-                    <p class="d-inline-block">(근로자)</p>
+                    <p class="d-inline-block">(근로자) </p>
                     <p class="d-inline-block" style="margin-left : 7px">주</p>
-                    <p style="margin-left : 30px">소 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 470px"
-                    ></div>
+                    <p style="margin-left : 30px">소 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 65px"
-                  >
+                  <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">연</p>
                     <p style="margin-left : 7px">락</p>
-                    <p style="margin-left : 7px">처 :</p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 470px"
-                    ></div>
+                    <p style="margin-left : 7px">처 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
                   </div>
-                  <div
-                    contenteditable="false"
-                    class="d-flex"
-                    style="margin-left : 65px"
-                  >
+                  <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
-                    <p class="d-inline-block" style="margin-left : 30px">
-                      명 :
-                    </p>
-                    <div
-                      contenteditable="true"
-                      :id="contractInputItem"
-                      class="contractInput d-inline-block"
-                      style="width : 350px"
-                    ></div>
+                    <p class="d-inline-block" style="margin-left : 30px">명 : </p>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
@@ -1071,100 +783,99 @@ export default {
     return {
       amount: 3000, // 계약금
       freelancerAccount: "", // 프리랜서 지갑 주소
-      idx: 0,
-      myPageFreelancerDetailModalContent: "myPageFreelancerDetailModalContent",
-      selectProjectFreelancerName: "",
-      contract: "contract",
-      ProjectDetailApplyBtn: "ProjectDetailApplyBtn",
-      closeContractPaperBtn: "closeContractPaperBtn",
-      freelancerProjectModalId: "freeProModal",
-      freelancerProjectModalCtnrId: "freeProModalCtnr",
-      carouselWrapperMine: "carouselWrpp",
-      carouselMine: "carouselMyPage",
-      incentiveBtn: "incentiveBtn",
-      notIncentiveBtn: "notIncentiveBtn",
-      recruitInsureBtn: "recruitInsureBtn",
-      accidentInsureBtn: "accidentInsureBtn",
-      personInsureBtn: "personInsureBtn",
-      healthInsureBtn: "healthInsureBtn",
-      sureContractModal: "sureContractModal",
-      myPageFreelancerDetailModalContentWrpr:
-        "myPageFreelancerDetailModalContentWrpr",
-      FreelancerDetailNavProject: "FreelancerDetailNavProject",
-      FreelancerDetailNavResume: "FreelancerDetailNav",
-      projectDetailNavItem: "프로젝트item",
-      resumeDetailNavItem: "이력서item",
-      representiveSignature: "representiveSignature",
-      representiveSignatureBtn: "representiveSignatureBtn",
-      signatureModal: "signatureModal",
-      canvas: "canvas",
-      erase: "erase",
-      imgSign: "imgSign",
-      notSign: "notSign",
-      freelancerDetailNavLst: ["프로젝트", "이력서"],
-      freelancerDetailLst: ["프로젝트item", "이력서item"],
-      contractImg: "contractImg",
-      contractInputItem: "contractInputItem",
-      signatureComplete: "signatureComplete",
-      alreadyDoneContract: "alreadyDoneContract"
-    };
+      idx : 0,
+      coinModal : "coinModal",
+      myPageFreelancerDetailModalContent : "myPageFreelancerDetailModalContent",
+      selectProjectFreelancerName : "",
+      contract : "contract",
+      ProjectDetailApplyBtn : "ProjectDetailApplyBtn",
+      closeContractPaperBtn : "closeContractPaperBtn",
+      freelancerProjectModalId : "freeProModal",
+      freelancerProjectModalCtnrId : "freeProModalCtnr",
+      carouselWrapperMine : "carouselWrpp",
+      carouselMine : "carouselMyPage",
+      incentiveBtn : "incentiveBtn",
+      notIncentiveBtn : "notIncentiveBtn",
+      recruitInsureBtn : "recruitInsureBtn",
+      accidentInsureBtn : "accidentInsureBtn",
+      personInsureBtn : "personInsureBtn",
+      healthInsureBtn : "healthInsureBtn",
+      sureContractModal : "sureContractModal",
+      myPageFreelancerDetailModalContentWrpr : "myPageFreelancerDetailModalContentWrpr",
+      FreelancerDetailNavProject : "FreelancerDetailNavProject",
+      FreelancerDetailNavResume : "FreelancerDetailNav",
+      projectDetailNavItem : "프로젝트item",
+      resumeDetailNavItem : "이력서item",
+      representiveSignature : "representiveSignature",
+      representiveSignatureBtn : "representiveSignatureBtn",
+      signatureModal : "signatureModal",
+      canvas : "canvas",
+      erase : "erase",
+      imgSign : "imgSign",
+      notSign : "notSign",
+      freelancerDetailNavLst : ["프로젝트","이력서"],
+      freelancerDetailLst : ["프로젝트item","이력서item"],
+      contractImg : "contractImg",
+      contractInputItem : "contractInputItem",
+      signatureComplete : "signatureComplete",
+      alreadyDoneContract : "alreadyDoneContract"
+    }
   },
+  props : {
+    nameErase : String,
+    projectCareer : Array,
+    profile : Object,
+    resume : Object,
+    profileTech : Array,
+    estimate : Array,
+    projectData : Object,
+    ratingToPercent : Number,
+    profession : Number,
+    ontime : Number,
+    active : Number,
+    communication : Number,
+    reEmployment : Number,
+    id_ : Number,
+    projectId : Number,
+  },  
   mounted() {
-    let id__ = String(this.id_);
-    this.ifSign = false;
-    this.signatureComplete += id__;
-    this.alreadyDoneContract += id__;
-    this.freelancerProjectModalId += id__;
-    this.freelancerProjectModalCtnrId += id__;
-    this.contractInputItem += id__;
-    this.contractImg += id__;
-    this.carouselWrapperMine += id__;
-    this.carouselMine += id__;
-    this.FreelancerDetailNavProject += id__;
-    this.FreelancerDetailNavResume += id__;
-    this.projectDetailNavItem += id__;
-    this.resumeDetailNavItem += id__;
-    this.normalProjectFreelancerModal += id__;
-    this.sureSelectProjectFreelancer += id__;
-    this.myPageFreelancerDetailModalContent += id__;
-    this.contract += id__;
-    this.ProjectDetailApplyBtn += id__;
-    this.closeContractPaperBtn += id__;
-    this.incentiveBtn += id__;
-    this.notIncentiveBtn += id__;
-    this.myPageFreelancerDetailModalContentWrpr += id__;
-    this.recruitInsureBtn += id__;
-    this.accidentInsureBtn += id__;
-    this.personInsureBtn += id__;
-    this.healthInsureBtn += id__;
-    this.representiveSignature += id__;
-    this.representiveSignatureBtn += id__;
-    this.signatureModal += id__;
-    this.imgSign += id__;
-    this.erase += id__;
-    this.canvas += id__;
-    this.notSign += id__;
-    this.sureContractModal += id__;
-    userInstance.getUserAccountAddress(this.id_, res => {
-      this.freelancerAccount = res.data;
-    });
-  },
-  props: {
-    nameErase: String,
-    projectCareer: Array,
-    profile: Object,
-    resume: Object,
-    profileTech: Array,
-    estimate: Array,
-    projectData: Object,
-    ratingToPercent: Number,
-    profession: Number,
-    ontime: Number,
-    active: Number,
-    communication: Number,
-    reEmployment: Number,
-    id_: Number,
-    projectId: Number
+    let id__ = String(this.id_)
+    this.ifSign = false
+    this.signatureComplete += id__
+    this.alreadyDoneContract += id__
+    this.freelancerProjectModalId += id__
+    this.freelancerProjectModalCtnrId += id__
+    this.contractInputItem += id__
+    this.contractImg += id__
+    this.carouselWrapperMine += id__
+    this.carouselMine += id__
+    this.FreelancerDetailNavProject += id__
+    this.FreelancerDetailNavResume += id__
+    this.projectDetailNavItem += id__
+    this.resumeDetailNavItem += id__
+    this.normalProjectFreelancerModal += id__
+    this.sureSelectProjectFreelancer += id__
+    this.myPageFreelancerDetailModalContent += id__
+    this.contract += id__
+    this.ProjectDetailApplyBtn += id__
+    this.closeContractPaperBtn += id__
+    this.incentiveBtn += id__
+    this.notIncentiveBtn += id__
+    this.myPageFreelancerDetailModalContentWrpr += id__
+    this.recruitInsureBtn += id__
+    this.accidentInsureBtn += id__
+    this.personInsureBtn += id__
+    this.healthInsureBtn += id__
+    this.representiveSignature += id__
+    this.representiveSignatureBtn += id__
+    this.signatureModal += id__
+    this.imgSign += id__
+    this.erase += id__
+    this.canvas += id__
+    this.notSign += id__
+    this.sureContractModal += id__
+    this.coinModal += id__
+    userInstance.getUserAccountAddress(this.id_, res => {this.freelancerAccount = res.data})
   },
   methods: {
     createContract: async function() {
@@ -1461,60 +1172,6 @@ export default {
       }
       totalContent += document.querySelector("#" + this.imgSign).src;
 
-      if (
-        document
-          .querySelector("#" + this.incentiveBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
-      if (
-        document
-          .querySelector("#" + this.notIncentiveBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
-      if (
-        document
-          .querySelector("#" + this.recruitInsureBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
-      if (
-        document
-          .querySelector("#" + this.accidentInsureBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
-      if (
-        document
-          .querySelector("#" + this.personInsureBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
-      if (
-        document
-          .querySelector("#" + this.healthInsureBtn)
-          .classList.contains("d-none")
-      ) {
-        btnSelect += "0";
-      } else {
-        btnSelect += "1";
-      }
       createInstance()
         .post(
           "/contracts?projectId=" +
@@ -1552,172 +1209,219 @@ export default {
     },
 
     clickNotSendContract() {
-      document
-        .querySelector("#" + this.sureContractModal)
-        .classList.add("d-none");
+      document.querySelector('#' + this.sureContractModal).classList.add('d-none')
+    },
+
+    openCoinPaper() {
+      document.querySelector('#' + this.coinModal).classList.remove('d-none')
+    },
+
+    clickCloseCoinModal() {
+      document.querySelector('#' + this.coinModal).classList.add('d-none')
+    },
+
+    closeFreelancerProjectDetail() {
+      document.querySelector('body').style.overflow = 'scroll'
+    },
+
+    keyEnter() {
+
     }
   }
 };
 </script>
 
 <style>
-.recruit-contract-check-wrapper:hover {
-  cursor: pointer;
-}
-.modal:hover {
-  cursor: default;
-}
-.myPageFreelancerDetailModalContent {
-  width: 800px;
-  height: 650px;
-  overflow: hidden;
-}
+  .myPageFreelancerDetailModalContent {
+    width: 50vw;
+    height: 80vh;
+    overflow: hidden;
+  }
 
-.myPageFreelancerDetailModalContentAfter {
-  width: 800px;
-  height: 650px;
-}
+  .myPageFreelancerDetailModalContentAfter {
+    width: 50vw;
+    height: 80vh;
+  }
 
-.myPageFreelancerDetailModalContent > .carousel-mine {
-  display: flex;
-  height: 650px;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.4s;
-}
+  .myPageFreelancerDetailModalContent > .carousel-mine {
+    display: flex;
+    height: 80vh;
+    transform: translate3d(0,0,0);
+    transition: transform 0.4s;
+  }
 
-.myPageFreelancerDetailModalContent > .carousel-mine-fast {
-  display: flex;
-  height: 650px;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0s;
-}
+  .myPageFreelancerDetailModalContent > .carousel-mine-fast {
+    display: flex;
+    height: 80vh;
+    transform: translate3d(0,0,0);
+    transition: transform 0s;
+  }
 
-.contractInput {
-  border-bottom: 1px solid black;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  width: 120px;
-  outline: none;
-}
-.contractInput:hover {
-  cursor: text;
-}
-.myPageFreelancerDetailCtnr {
-  width: 800px;
-  height: 650px;
-  overflow-y: scroll;
-}
+  .contractInput {
+    border-bottom : 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    width : 120px;
+    outline: none;
+  }
+  .myPageFreelancerDetailCtnr {
+    width: 50vw;
+    height: 80vh;
+    overflow-y: scroll;
+  }
 
-.myPageFreelancerDetailCtnrAfter {
-  width: 800px;
-  height: 650px;
-}
+  .myPageFreelancerDetailCtnrAfter {
+    width: 50vw;
+    height: 80vh;
+  }
 
-.myPageFreelancerDetailCtnr::-webkit-scrollbar {
-  width: 0px !important;
-}
+  .myPageFreelancerDetailCtnr::-webkit-scrollbar {
+    width: 0px !important;
+  }
 
-.modal-content {
-  border-radius: 20px !important;
-  border: 0px !important;
-}
+  .modal-content {
+    border-radius: 20px !important; 
+    border : 0px !important;
+  }
 
-.ProjectDetailApplyBtn {
-  border-radius: 40px;
-  border: 1px solid lightgray;
-  background-color: #6ecdb1;
-  font-size: 15px;
-  font-weight: bold;
-  width: 120px;
-  height: 40px;
-}
+  .ProjectDetailApplyBtn {
+    border-radius: 40px;
+    border: 1px solid lightgray;
+    background-color: #6ecdb1;
+    font-size: 15px;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+  }
 
-.ProjectDetailApplyBtn:hover {
-  background-color: #3c74c9;
-  color: white;
-}
+  .ProjectDetailApplyBtn:hover {
+    background-color: #3C74C9;
+    color: white;
+  }
 
-.contractBackBtn {
-  position: fixed;
-  top: 54px;
-  left: 1000px;
-  border: 0px;
-  background-color: white;
-}
+  .contractBackBtn {
+    position: fixed;
+    bottom : 87%;
+    left : 66%;
+    border : 0px;
+    background-color: white;
+  }
 
-.contractCtnr {
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  width: 85%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
+  .contractCtnr {
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    width : 85%;
+    margin-left : auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 
-.signatureBtn {
-  width: 120px;
-  height: 35px;
-  border: 0.5px solid black;
-  border-radius: 20px;
-  margin-left: 25px;
-  background-color: rgb(240, 240, 240);
-  font-weight: bold;
-}
+  .signatureBtn {
+    width : 120px;
+    height : 35px;
+    border : 0.5px solid black;
+    border-radius: 20px;
+    margin-left : 25px;
+    background-color: rgb(240,240,240);
+    font-weight: bold;
+  }
 
-.signatureBtn:hover {
-  border: 0px;
-  background-color: #6ecdb1;
-}
+  .signatureBtn:hover{
+    border : 0px;
+    background-color: #6ecdb1;
+  }
 
-.signatureModalCtnr {
-  z-index: 2;
-  position: fixed;
-  top: 110px;
-  left: 468px;
-  background-color: white;
-  border-radius: 20px;
-  height: 400px;
-  border: 1px solid lightgray;
-  width: 600px;
-  margin: auto;
-}
+  .signatureModalCtnr {
+    z-index: 2;
+    position: fixed;
+    bottom : 26vh;
+    left: 30.5vw;
+    background-color: white;
+    border-radius: 20px;
+    height: 400px; 
+    border: 1px solid lightgray;
+    width: 600px;
+    margin: auto;
+  }
 
-.signatureModalCtnrWrpr {
-  z-index: -1;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.025);
-}
+  .signatureModalCtnrWrpr {
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.025);
+  }
 
-.sureContractModalCtnr {
-  z-index: 2;
-  position: fixed;
-  top: 150px;
-  left: 552px;
-  background-color: white;
-  border-radius: 20px;
-  height: 230px;
-  border: 1px solid lightgray;
-  width: 430px;
-  margin: auto;
-}
+  .sureContractModalCtnr {
+    z-index: 2;
+    position: fixed;
+    bottom : 40vh;
+    left: 37vw;
+    background-color: white;
+    border-radius: 20px;
+    height: 230px; 
+    border: 1px solid lightgray;
+    width: 430px;
+    margin: auto;
+  }
 
-.sureContractModalCtnrWrpr {
-  z-index: -1;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.025);
-}
+  .sureContractModalCtnrWrpr {
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.025);
+  }
 
-.modal:hover {
-  cursor: default;
-}
+  .freelancerFloatBtnTmp{
+    position: fixed;
+    bottom : 11vh;
+    left : 44.5vw;
+    width: 200px !important;
+  }
+
+  .coinModalBtn {
+    position: fixed;
+    bottom : 11vh;
+    left : 65.5vw;
+    background-color: #f98740;
+    width: 100px !important;
+    border-radius: 100px !important;
+  }
+
+  .coinModalBtn:hover {
+    background-color: rgb(255, 76, 76);
+  }
+
+  .coinModalCtnr {
+    position: fixed;
+    bottom : 35vh;
+    left: 20.5vw;
+    height : 410px;
+    width : 60vw;
+    border-radius: 20px;
+    background-color: white;
+  }
+
+  .coinModalCtnrWrpr{
+    z-index: -1;
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0,0,0,0.15);
+  }
+
+  .closeCoinModalBtn {
+    position : relative;
+    top : 10px;
+    left : 27.5vw;
+  }
 </style>

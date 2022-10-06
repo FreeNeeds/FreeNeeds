@@ -5,7 +5,7 @@ import "./Ownable.sol";
 contract EscrowFactory is Ownable{
     
     event CreateEscrow(address indexed freelancer, address indexed enterprise, address _address);
-    event NewEscrow(address indexed freelancer, address indexed enterprise, string hashData);
+    event NewEscrow(address indexed freelancer, address indexed enterprise, string hashData,string enterpriseEncrypt,string freelancerEncrypt,string enterprisePublicKey,string freelancerPublicKey);
 
     address public admin;
     address public cashContractAddress;
@@ -27,9 +27,9 @@ contract EscrowFactory is Ownable{
         emit CreateEscrow(_freelancer, msg.sender, address(escrow));
     }
 
-    function freelancerSignEscrow(address _freelancer, address _enterprise, string memory _hashData) public {
-        enterpriseToFreelancerToEscrow[_enterprise][_freelancer].inputHash(_hashData);
-        emit NewEscrow(_freelancer, _enterprise, _hashData);
+    function freelancerSignEscrow(address _freelancer, address _enterprise, string memory _hashData,string memory _enterpriseEncrypt,string memory _enterprisePublicKey,string memory _freelancerEncrypt,string memory _freelancerPublicKey) public {
+        enterpriseToFreelancerToEscrow[_enterprise][_freelancer].inputData(_hashData,_enterpriseEncrypt, _enterprisePublicKey, _freelancerEncrypt, _freelancerPublicKey);
+        emit NewEscrow(_freelancer, _enterprise, _hashData,_enterpriseEncrypt, _enterprisePublicKey, _freelancerEncrypt, _freelancerPublicKey);
     }
 
     function enterprisePayFreelancer(address _enterprise, address _freelancer) public {
@@ -49,6 +49,10 @@ contract Escrow {
     CashInterface public cashContract;
 
     string private hashData;
+    string private enterpriseEncrypt;
+    string private freelancerEncrypt;
+    string private enterprisePublicKey;
+    string private freelancerPublicKey;
     address private enterprise;
     address private freelancer;
     uint256 private amount;
@@ -71,8 +75,12 @@ contract Escrow {
         amount = _amount;
     }
 
-    function inputHash(string memory _hashData) public {
+    function inputData(string memory _hashData, string memory _enterpriseEncrypt,string memory _enterprisePublicKey,string memory _freelancerEncrypt,string memory _freelancerPublicKey) public {
         hashData = _hashData;
+        enterpriseEncrypt = _enterpriseEncrypt;
+        freelancerEncrypt = _freelancerEncrypt;
+        enterprisePublicKey = _enterprisePublicKey;
+        freelancerPublicKey = _freelancerPublicKey;
     }
 
     function getFreelancer() view external returns (address){
