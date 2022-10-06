@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="height : 0px">
+    <div class="d-flex justify-content-end">
       <button
         @click="startInterval"
         id="freelancerFilterBtn"
         data-bs-toggle="modal"
         data-bs-target="#ffilterModal"
-        style="position : relative; top : -65px; right : 70px"
+        style="position : relative; top : 8px; right : 8px"
       >
         <div style="position:absolute;">
           <img
@@ -31,9 +31,6 @@
       style="background-color: rgba(0, 0, 0, 0.15);"
     >
       <div class="modal-dialog" id="FFilterModalWrapper">
-        <h5 class="fw-blod warnFilter" style="color : royalblue">
-            적어도 한 개 이상의 필터를 적용해주세요!
-        </h5>
         <div
           class="modal-content"
           id="FFilterModalContent"
@@ -58,12 +55,12 @@
           </button>
           <b-container>
             <div id="FilterModalTitle">필터 추가하기</div>
+            <h5 class="fw-blod warnFilter mb-3" style="color : royalblue">
+                적어도 한 개 이상의 필터를 적용해주세요!
+            </h5>
             <b-container id="FilterCategory">
               <div class="FilterKeyword">기술</div>
-              <hr />
-              <h5 class="fw-blod warnFilter" style="color : royalblue">
-                적어도 한 개 이상의 필터를 적용해주세요!
-              </h5>
+              <hr>
               <div id="skillSelectCtnr">
                 <FilterSkillSelect
                   v-for="(skillItem, index) in FilterSkillLst"

@@ -25,10 +25,11 @@
       :periodWork="periodWork"
     >
     </ProjectDetailShow>
+    <div class="d-flex justify-content-between" style="height : 0px">
     <button
       type="button"
       @click="clickPrevBtnProject"
-      style="height : 650px !important; position: absolute !important;  left: 4% !important; bottom : -18.5% !important; background-color: #f9f9f9;
+      style="height : 650px !important; position: relative !important;  left: -3vw !important; top : -670px !important; background-color: #f9f9f9;
     border: 0px;"
     >
       <svg
@@ -49,7 +50,7 @@
     <button
       type="button"
       @click="clickNextBtnProject"
-      style="height : 650px !important; position: absolute !important;  left: 92% !important; bottom : -18.5% !important; background-color: #f9f9f9;
+      style="height : 650px !important; position: relative !important;  left:  3vw !important; top : -670px !important; background-color: #f9f9f9;
     border: 0px;">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +67,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
+    </div>
     <div class="text-center">
       <div
         @click="clickPageOne"
@@ -206,25 +208,19 @@ export default {
           body: []
         };
         for (let i = 0; i < res.data.length; i++) {
-          let remainDateTmp = Math.ceil(
-            (new Date(res.data[i].deadline).getTime() - new Date().getTime()) /
-              (1000 * 60 * 60 * 24) -
-              1
-          );
-          if (remainDateTmp >= 0) {
-            if (tmp.body.length == 6) {
-              this.projectCardMap.push(tmp);
-              cnt++;
-              tmp = {
-                id: cnt,
-                body: []
-              };
-            }
-            tmp.body.push(res.data[i]);
-            res.data[i].detailId = "projectDetail" + res.data[i].projectId;
-            this.projectCardTotal.push(res.data[i]);
+          if (tmp.body.length == 6) {
+            this.projectCardMap.push(tmp);
+            cnt++;
+            tmp = {
+              id: cnt,
+              body: []
+            };
           }
+          tmp.body.push(res.data[i]);
+          res.data[i].detailId = "projectDetail" + res.data[i].projectId;
+          this.projectCardTotal.push(res.data[i]);
         }
+        this.projectCardMap.push(tmp)
         this.pageIdx++;
       });
   },
@@ -256,25 +252,17 @@ export default {
             body: []
           };
           for (let i = 0; i < res.data.length; i++) {
-            let remainDateTmp = Math.ceil(
-              (new Date(res.data[i].deadline).getTime() -
-                new Date().getTime()) /
-                (1000 * 60 * 60 * 24) -
-                1
-            );
-            if (remainDateTmp >= 0) {
-              if (tmp.body.length == 6) {
-                this.projectCardMap.push(tmp);
-                cnt++;
-                tmp = {
-                  id: cnt,
-                  body: []
-                };
-              }
-              tmp.body.push(res.data[i]);
-              res.data[i].detailId = "projectDetail" + res.data[i].projectId;
-              this.projectCardTotal.push(res.data[i]);
+            if (tmp.body.length == 6) {
+              this.projectCardMap.push(tmp);
+              cnt++;
+              tmp = {
+                id: cnt,
+                body: []
+              };
             }
+            tmp.body.push(res.data[i]);
+            res.data[i].detailId = "projectDetail" + res.data[i].projectId;
+            this.projectCardTotal.push(res.data[i]);
           }
           this.projectCardMap.push(tmp);
           this.isFilter = true;
@@ -485,27 +473,20 @@ export default {
                 body: []
               };
               for (let i = 0; i < res.data.length; i++) {
-                let remainDateTmp = Math.ceil(
-                  (new Date(res.data[i].deadline).getTime() -
-                    new Date().getTime()) /
-                    (1000 * 60 * 60 * 24) -
-                    1
-                );
-                if (remainDateTmp >= 0) {
-                  if (tmp.body.length == 6) {
-                    this.projectCardMap.push(tmp);
-                    cnt++;
-                    tmp = {
-                      id: cnt,
-                      body: []
-                    };
-                  }
-                  tmp.body.push(res.data[i]);
-                  res.data[i].detailId =
-                    "projectDetail" + res.data[i].projectId;
-                  this.projectCardTotal.push(res.data[i]);
+                if (tmp.body.length == 6) {
+                  this.projectCardMap.push(tmp);
+                  cnt++;
+                  tmp = {
+                    id: cnt,
+                    body: []
+                  };
                 }
+                tmp.body.push(res.data[i]);
+                res.data[i].detailId =
+                  "projectDetail" + res.data[i].projectId;
+                this.projectCardTotal.push(res.data[i]);
               }
+              this.projectCardMap.push(tmp)
               this.pageIdx++;
             });
         }

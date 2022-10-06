@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end" style="height : 0px !important">
+    <div class="d-flex justify-content-end">
       <button
         @click="startInterval"
         id="filterBtn"
@@ -29,7 +29,6 @@
       data-bs-backdrop="false"
       style="background-color: rgba(0, 0, 0, 0.3);"
     >
-    <h5 class="fw-blod warnFilter" style="color : red">적어도 한 개 이상의 필터를 적용해주세요!</h5>
       <div class="modal-dialog" id="FilterModalWrapper">
         <div class="modal-content" id="FilterModalContent">
           <button
@@ -501,7 +500,7 @@ export default {
   margin-bottom: 8px;
   margin-right: 50px;
   position: relative !important;
-  top : -65px !important;
+  
 }
 
 #filterBtn:hover {

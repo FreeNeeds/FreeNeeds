@@ -27,16 +27,9 @@
               <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
             </div>
           </div>
-          <div class="star-ratings-base space-x-2 text-lg">
-            <span>★</span><span>★</span><span>★</span><span>★</span
-            ><span>★</span>
-          </div>
-        </div>
-        {{ Math.round((ratingToPercent / 20) * 100) / 100 }}
-        <span style="font-size : 12px; color : gray">
-          / 평가 {{ estimate.length }} 개</span
-        >
-      </b-card-text>
+          {{ Math.round((ratingToPercent) / 20 * 100) / 100}} 
+          <span style="font-size : 12px; color : gray"> / 평가 {{ estimate.length }} 개</span>
+        </b-card-text>
     </div>
     <div class="row justify-content-end my-2">
       <b-card-text class="col-7">
