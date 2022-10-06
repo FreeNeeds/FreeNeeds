@@ -12,8 +12,8 @@
     </div>
     <div class="d-flex mx-2 ">
       <div style="color: gray">
-        {{ freelancerProjectCard.body.startDate }} ~
-        {{ freelancerProjectCard.body.endDate }}
+        {{ freelancerProjectCard.body.start_date }} ~
+        {{ freelancerProjectCard.body.end_date }}
       </div>
     </div>
     <div class="d-flex mx-2 my-4">
@@ -40,6 +40,7 @@ export default {
     FreelancerCardSkill
   },
   mounted() {
+    console.log('wow')
     console.log(this.freelancerProjectCard);
   }
 };

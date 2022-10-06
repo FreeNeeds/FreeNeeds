@@ -339,7 +339,7 @@
                   </div>
                   <div
                     class="d-flex mx-3 mt-2"
-                    style="margin-bottom : 60px"
+                    
                     v-for="freelancerCareerItem in resume.certificateList"
                   >
                     <div class="freelancerEducationName">
@@ -1047,6 +1047,23 @@ export default {
       alreadyDoneContract : "alreadyDoneContract"
     }
   },
+  props : {
+    nameErase : String,
+    projectCareer : Array,
+    profile : Object,
+    resume : Object,
+    profileTech : Array,
+    estimate : Array,
+    projectData : Object,
+    ratingToPercent : Number,
+    profession : Number,
+    ontime : Number,
+    active : Number,
+    communication : Number,
+    reEmployment : Number,
+    id_ : Number,
+    projectId : Number,
+  },  
   mounted() {
     let id__ = String(this.id_)
     this.ifSign = false
