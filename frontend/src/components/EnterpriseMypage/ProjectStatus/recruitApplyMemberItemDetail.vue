@@ -364,7 +364,7 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
-                    ></div>
+                    >FreeNeeds</div>
                   </div>
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
@@ -374,7 +374,7 @@
                       class="contractInput d-inline-block"
                       @keyup.enter="keyEnter"
                       style="padding-left: 7px; padding-right: 7px; border-left : 1px solid black; border-top: 1px solid black; border-bottom: 3px solid black; border-right: 3px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
-                    ></div>
+                    >2022.11.01 - 2023.10.31</div>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">
@@ -417,21 +417,21 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
-                    ></div>
+                    >2022</div>
                     <p>년</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >11</div>
                     <p>월</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >01</div>
                     <p>일로부터</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
@@ -443,21 +443,21 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
-                    ></div>
+                    >2023</div>
                     <p>년</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >10</div>
                     <p>월</p>
                     <div
                       contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >31</div>
                     <p>일까지로 하며,</p>
                   </div>
                   <div contenteditable="false" class="d-flex">
@@ -592,7 +592,7 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
-                    ></div>
+                    >1000</div>
                     <p class="d-inline-block">
                       FC로 한다.)
                     </p>
@@ -611,7 +611,7 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
-                    ></div>
+                    >대전지방</div>
                     <p class="d-inline-block">
                       법원을 관할법원으로 한다.
                     </p>
@@ -625,7 +625,7 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
-                    ></div>
+                    >2022</div>
                     <p class="d-inline-block">
                       년
                     </p>
@@ -634,7 +634,7 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >10</div>
                     <p class="d-inline-block">
                       월
                     </p>
@@ -643,28 +643,28 @@
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
-                    ></div>
+                    >07</div>
                     <p class="d-inline-block">
                       일
                     </p>
                   </div>
                   <div contenteditable="false" class="d-flex">
                     <p class="d-inline-block">(사업주) 사업체명 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px">놀모컴퍼니</div>
                     <p class="d-inline-block">(전화 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 200px">042-231-3627</div>
                     <p class="d-inline-block">)</p>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">주</p>
                     <p style="margin-left : 30px">소 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px">대전 유성구 수통골로 47-3</div>
                   </div>
                   <div contenteditable="false" class="d-flex align-items-center" style="margin-left : 65px">
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
                     <p style="margin-left : 7px">자 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw">박수근</div>
                     <div style="width : 0px">
                     <p class='d-none' style="position : relative; top : 6px; left : 50px; width : 100px" :id=representiveSignature>(서명)</p>
                     </div>
@@ -675,18 +675,18 @@
                     <p class="d-inline-block">(근로자) </p>
                     <p class="d-inline-block" style="margin-left : 7px">주</p>
                     <p style="margin-left : 30px">소 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px">대전 유성구 계룡로 84</div>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">연</p>
                     <p style="margin-left : 7px">락</p>
                     <p style="margin-left : 7px">처 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 470px">010-3923-9592</div>
                   </div>
                   <div contenteditable="false" class="d-flex" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
-                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
+                    <div contenteditable="true" :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw">박재영</div>
                     <p style="position : relative; top : 0px;">(서명)</p>
                   </div>
                   <div class="d-flex justify-content-center">
