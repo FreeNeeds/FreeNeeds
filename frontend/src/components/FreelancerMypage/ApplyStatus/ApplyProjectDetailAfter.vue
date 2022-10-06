@@ -119,7 +119,6 @@
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       @keyup.enter="keyEnter"
@@ -129,7 +128,6 @@
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       @keyup.enter="keyEnter"
@@ -173,21 +171,18 @@
                       계약 기간은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -199,21 +194,18 @@
                     
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -238,7 +230,6 @@
                       총 계약금액은 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -348,7 +339,6 @@
                       책임을 진다. (이 때, 손해배상은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -367,7 +357,6 @@
                       본 계약으로 발생하는 분쟁은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -381,7 +370,6 @@
                       계약일자 : 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -390,7 +378,6 @@
                       년
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -399,7 +386,6 @@
                       월 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -472,31 +458,31 @@
             <div class="d-flex" style="height: 50px;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px; margin-right: 10px; font-size: 22px; line-height: 42px;">계약서 원본 해시값</div>
-              <div class="test"></div>
+              <div class="test">{{ hashData }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex" style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 Public Key</div>
-              <div class="test"></div>
+              <div class="test">{{ enterprisePublicKey }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex" style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">기업 전자서명</div>
-              <div class="test"></div>
+              <div class="test">{{ enterpriseEncrypt }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex " style="height: 50px; background-color: #f6f6f6;">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 Public Key</div>
-              <div class="test"></div>
+              <div class="test">{{ freelancerPublicKey }}</div>
               <div style="font-size : 22px">...</div>
             </div>
             <div class="d-flex " style="height: 50px">
               <div style="width: 20px"></div>
               <div style="text-align : start; width : 300px;  margin-right: 10px; font-size: 22px; line-height: 42px;">프리랜서 전자서명</div>
-              <div class="test"></div>
+              <div class="test">{{ freelancerEncrypt }}</div>
               <div style="font-size : 22px">...</div>
             </div>
           </div>
@@ -514,6 +500,7 @@ import FreelancerCardSkill from "@/components/Freelancer/FreelancerCardSkill.vue
 import ProjectDetailSkill from "../../Project/ProjectDetailSkill.vue";
 import ProjectCardCarousel from "@/components/Project/ProjectCardCarousel.vue";
 import { createInstance } from "@/api/index.js";
+import { getEvents } from "@/utils/EscrowFactory.js";
 import html2canvas from 'html2canvas'
 
 export default {
@@ -567,7 +554,13 @@ export default {
       alreadyDoneContract : "alreadyDoneContract",
       projectDetailNavItemProject : "projectDetailNavItemProject",
       resumeDetailNavItemProject : "resumeDetailNavItemProject",
-      coinModal : "coinModal"
+      coinModal : "coinModal",
+      contractId : 0,
+      hashData: "",
+      enterpriseEncrypt: "",
+      enterprisePublicKey: "",
+      freelancerEncrypt: "",
+      freelancerPublicKey: ""
     }
   },
   mounted() {
@@ -630,6 +623,24 @@ export default {
     this.remainDate = "D - " + String(this.remainDate)
     this.periodWork = parseInt((new Date(this.projectDataReceive.endDate).getTime() - new Date(this.projectDataReceive.startDate).getTime()) /
         (1000 * 60 * 60 * 24))
+
+    let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
+      if (!this.isContractOpen) {
+        createInstance().get('/contracts?projectId=' + this.projectDataReceive.projectId + '&userId=' + String(this.$store.state.accounts.loginUserInfo.id),
+        ).then(res => {
+          this.contractId = res.data.contractId;
+          let tmp = res.data.content.split('`')
+          for(let i = 0; i < contractInputs.length; i++) {
+            contractInputs[i].innerText = tmp[i]
+          }
+
+          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
+          if (tmp.length === 23) {
+            document.querySelector('#' + this.imgSign).src = tmp[22]
+          }
+        })
+        this.isContractOpen = true
+      }
   },
   props : {
     projectDataReceive : Object,
@@ -671,22 +682,6 @@ export default {
       let closeContractPaperBtnTmp = document.querySelector('#' + this.closeContractPaperBtn)
       let myPageFreelancerDetailModalContentWrpr = document.querySelector('#' + this.myPageFreelancerDetailModalContentWrpr)
 
-      let contractInputs = document.querySelectorAll('#' + this.contractInputItem)
-      if (!this.isContractOpen) {
-        createInstance().get('/contracts?projectId=' + this.projectDataReceive.projectId + '&userId=' + String(this.$store.state.accounts.loginUserInfo.id),
-        ).then(res => {
-          let tmp = res.data.content.split('`')
-          for(let i = 0; i < contractInputs.length; i++) {
-            contractInputs[i].innerText = tmp[i]
-          }
-
-          document.querySelector('#' + this.imgSignCompany).src = tmp[21]
-          if (tmp.length === 23) {
-            document.querySelector('#' + this.imgSign).src = tmp[22]
-          }
-        })
-        this.isContractOpen = true
-      }
 
       myPageFreelancerDetailModalContentTmp.classList.remove('myPageFreelancerDetailCtnr')
       myPageFreelancerDetailModalContentTmp.classList.add('myPageFreelancerDetailCtnrAfter')
@@ -733,8 +728,16 @@ export default {
       document.querySelector('body').style.overflow = 'scroll'
     },
 
-    openCoinPaper() {
+    async openCoinPaper() {
       document.querySelector('#' + this.coinModal).classList.remove('d-none')
+      console.log("여기", this.contractId);
+      let events = await getEvents(this.contractId - 1);
+      this.hashData = events[0].returnValues.hashData
+      this.enterpriseEncrypt = events[0].returnValues.enterpriseEncrypt
+      this.enterprisePublicKey = events[0].returnValues.enterprisePublicKey
+      this.freelancerEncrypt = events[0].returnValues.freelancerEncrypt
+      this.freelancerPublicKey = events[0].returnValues.freelancerPublicKey
+      console.log(events[0].returnValues.hashData)
     },
 
     clickCloseCoinModal() {
