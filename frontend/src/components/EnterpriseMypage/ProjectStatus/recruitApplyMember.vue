@@ -631,6 +631,8 @@ export default {
     if (this.stateTmp === 'complete') {
       document.querySelector('#clickAfter').classList.add('activeContract')
       document.querySelector('#clickBefore').classList.remove('activeContract')
+      document.querySelector('#afterFreelancerCardLst').classList.remove('deactiveProjectDetailItem')
+      document.querySelector('#beforeFreelancerCardLst').classList.add('deactiveProjectDetailItem')
     }
     createInstance().get('/apply/project' , {
       params : {
