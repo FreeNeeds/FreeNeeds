@@ -53,7 +53,7 @@
 import FreelancerCardSkill from "./FreelancerCardSkill.vue";
 import { mapActions } from "vuex";
 import * as userInstance from "@/api/user.js";
-import logo from "@/assets/images/freech.png"
+
 export default {
   data() {
     return {
@@ -62,13 +62,16 @@ export default {
       projectNumber: 0,
       estimateNumber: 0,
       isDataLoad: false,
-      logo
+      logo: ''
     };
   },
   props: {
     freelancerCard: Object
   },
   async mounted() {
+    let randomImgs = ["/img/freech.178cb336.png","/img/freech3.1c86f4e1.png","/img/freech4.da4bdf39.png","/img/freech5.e069d918.png"]
+    this.logo = randomImgs[Math.floor(Math.random()*randomImgs.length)]
+    
     console.log(this.freelancerCard);
     for (let j = 0; j < this.freelancerCard.body.projectCareer.length; j++) {
       await userInstance.getUserProjectTech(
@@ -117,6 +120,7 @@ export default {
     ...mapActions(["setFreelancerInfoDetail", "setIsModalOn"]),
 
     openFreelancerListModal() {
+      this.$emit('logo',this.logo)
       this.setFreelancerInfoDetail(this.freelancerCard.body);
       // this.setIsModalOn(true);
       console.log("????");

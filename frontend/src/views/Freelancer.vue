@@ -16,13 +16,15 @@
               :idx="idx"
               :pageIdx="pageIdx"
               :btnIdx="value"
+              @logo="logo"
               class="row"
             ></FreelancerList>
           </div>
         </div>
       </div>
     </div>
-    <freelancer-detail></freelancer-detail>
+    <freelancer-detail
+    :logo="logoTmp"></freelancer-detail>
     <div class="d-flex justify-content-between" style="height : 0px">
     <button
       class="prev prevFreelancervue"
@@ -176,7 +178,8 @@ export default {
 
       remainDate: 0,
       periodWork: 0,
-      reLoad: true
+      reLoad: true,
+      logoTmp : '',
     };
   },
   watch: {
@@ -195,6 +198,9 @@ export default {
     }
   },
   methods: {
+    logo(value) {
+      this.logoTmp = value
+    },
     clickPageOne() {
       let tmp = document.querySelectorAll(".pageItem");
       for (let i = 0; i < tmp.length; i++) {

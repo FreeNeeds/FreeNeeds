@@ -262,12 +262,11 @@
                 style="width : 50vw;"
               />
               <div class="contractCtnr" :id="contractImg">
-                <h3>표준근로계약서</h3>
+                <h3>프리랜서 근로계약서</h3>
                 <div class="text-start mt-5 container align-items-start">
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       @keyup.enter="keyEnter"
@@ -277,7 +276,6 @@
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       @keyup.enter="keyEnter"
@@ -321,21 +319,18 @@
                       계약 기간은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -347,21 +342,18 @@
                     
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -386,7 +378,6 @@
                       총 계약금액은 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -496,7 +487,6 @@
                       책임을 진다. (이 때, 손해배상은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -515,7 +505,6 @@
                       본 계약으로 발생하는 분쟁은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -529,7 +518,6 @@
                       계약일자 : 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -538,7 +526,6 @@
                       년
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -547,7 +534,6 @@
                       월 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -595,7 +581,7 @@
                     <div
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      style="width : 350px"
+                      style="width : 20vw"
                     ></div>
                     <div style="width : 0px">
                       <p
@@ -647,7 +633,7 @@
                     <div
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      style="width : 350px"
+                      style="width : 20vw"
                     ></div>
                     <div style="width : 0px">
                       <p

@@ -52,7 +52,7 @@
                   </div>
                   <div class="d-flex mt-4">
                     <div class="d-inline-block" id="freelancerDetailResumeImg">
-                      <img src="https://placekitten.com/300/300" alt="" />
+                      <img :src="imgSrc" alt="" />
                     </div>
                     <div class="d-inline-block" style="width: 270px">
                       <div class="d-flex mt-3 mb-2 justify-content-between">
@@ -361,20 +361,15 @@
                   <div contenteditable="false" class="d-flex justify-content-center">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left : 3px solid black; border-right: 1px solid black; border-bottom : 1px solid black; border-top: 3px solid black; line-height: 50px; height : 50px; margin : 0px">계약건명</p>
                     <div
-                      contenteditable="true"
-                      :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      @keyup.enter="keyEnter"
                       style="padding-left: 7px; padding-right: 7px; border-top : 3px solid black; border-right : 3px solid black; border-left : 1px solid black; border-bottom: 1px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
                   </div>
                   <div contenteditable="false" class="d-flex justify-content-center mb-3">
                     <p class="d-inline-block" style="padding-left: 7px; padding-right: 7px; border-left: 3px solid black; border-right: 1px solid black; border-bottom : 3px solid black; border-top: 1px solid black; height : 50px; line-height: 50px;">계약기간</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
-                      @keyup.enter="keyEnter"
                       style="padding-left: 7px; padding-right: 7px; border-left : 1px solid black; border-top: 1px solid black; border-bottom: 3px solid black; border-right: 3px solid black; margin : 0px; width: 250px; height : 50px; line-height: 50px;"
                     ></div>
                   </div>
@@ -415,21 +410,18 @@
                       계약 기간은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -441,21 +433,18 @@
                     
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
                     ></div>
                     <p>년</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
                     ></div>
                     <p>월</p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -480,7 +469,6 @@
                       총 계약금액은 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -590,7 +578,6 @@
                       책임을 진다. (이 때, 손해배상은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -609,7 +596,6 @@
                       본 계약으로 발생하는 분쟁은
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -623,7 +609,6 @@
                       계약일자 : 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 80px"
@@ -632,7 +617,6 @@
                       년
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -641,7 +625,6 @@
                       월 
                     </p>
                     <div
-                      contenteditable="true"
                       :id="contractInputItem"
                       class="contractInput d-inline-block"
                       style="width : 50px"
@@ -666,7 +649,7 @@
                     <p class="d-inline-block">대</p>
                     <p style="margin-left : 7px">표</p>
                     <p style="margin-left : 7px">자 : </p>
-                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
                     <div style="width : 0px">
                     <p style="position : relative; top : 6px; left : 50px; width : 100px">(서명)</p>
                     </div>
@@ -687,7 +670,7 @@
                   <div contenteditable="false" class="d-flex align-items-center" style="margin-left : 65px">
                     <p class="d-inline-block">성</p>
                     <p class="d-inline-block" style="margin-left : 30px">명 : </p>
-                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 22vw"></div>
+                    <div :id="contractInputItem" class="contractInput d-inline-block" style="width : 20vw"></div>
                     <div style="width : 0px">
                     <p style="position : relative; top : 6px; left : 50px; width : 100px">(서명)</p>
                     </div>
@@ -885,7 +868,8 @@ export default {
     reEmployment : Number,
     id_ : Number,
     projectId : Number,
-    state : String
+    state : String,
+    imgSrc : String,
   },  
   methods: {
     clickFreelancerDetailNavProject() {
