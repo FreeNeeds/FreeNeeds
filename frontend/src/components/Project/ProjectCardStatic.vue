@@ -31,11 +31,14 @@
     </div>
     <div class="row project-card-header-item">
       <div class="col-4">
-        <div class="project-card-header-round" v-if="remainDate != 0">
+        <div class="project-card-header-round" v-if="remainDate > 0">
           D - {{ remainDate }}
         </div>
-        <div class="project-card-header-round" v-else>
+        <div class="project-card-header-round" v-else-if="remainDate == 0">
           D-Day
+        </div>
+        <div class="project-card-header-round" v-else>
+          마감
         </div>
       </div>
       <div class="project-card-title col-8">
@@ -52,8 +55,8 @@
           <div class="mx-3">
             월
             <span style="color:#0064ff"
-              >{{ projectData.lowPrice }}만원 ~
-              {{ projectData.highPrice }}만원</span
+              >{{ projectData.lowPrice }}FC ~
+              {{ projectData.highPrice }}FC</span
             >
           </div>
         </div>

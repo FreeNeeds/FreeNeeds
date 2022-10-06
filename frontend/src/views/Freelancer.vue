@@ -3,9 +3,8 @@
     <div id="banner">
       <img src="../assets/images/banner1.jpg" alt="" width="95%" />
     </div>
-
-    <FilterBtn style=""></FilterBtn>
-    <div style="overflow : hidden; width: 1320px; height: auto">
+    <FilterBtn></FilterBtn>
+    <div style="overflow : hidden; width: 1300px; height: auto">
       <div class="d-flex carouselProjectWrpr" v-if="reLoad">
         <div
           clsss="freelancer-list-wrapper"
@@ -24,12 +23,12 @@
       </div>
     </div>
     <freelancer-detail></freelancer-detail>
-
+    <div class="d-flex justify-content-between" style="height : 0px">
     <button
       class="prev prevFreelancervue"
       type="button"
       @click="clickPrevBtnProject"
-      style="top : 275px !important; left : 40px !important"
+      style="height : 470px !important; position: relative !important;  left: -5vw !important; top : -460px !important; background-color: #f9f9f9;"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +49,7 @@
       class="next nextFreelancervue"
       type="button"
       @click="clickNextBtnProject"
-      style="top : 275px !important; right : 40px !important"
+      style="height : 470px !important; position: relative !important;  left: 5vw !important; top : -460px !important; background-color: #f9f9f9;"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +66,7 @@
       </svg>
       <span class="visually-hidden">Next</span>
     </button>
+    </div>
     <div class="text-center paging mt-3">
       <div
         @click="clickPageOne"
@@ -153,6 +153,14 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["freelancerFilter", "freelancerInfoDetail", "isModalOn"])
+  },
+  mounted() {
+    console.log(document.querySelectorAll('.btn-close'))
+    for (let item of document.querySelectorAll('.btn-close')) {
+      item.addEventListener('click', () => {
+        document.querySelector('body').style.overflow = 'scroll'
+      })
+    }
   },
   data() {
     return {

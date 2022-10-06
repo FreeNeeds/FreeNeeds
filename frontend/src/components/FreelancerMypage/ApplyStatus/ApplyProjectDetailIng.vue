@@ -12,8 +12,9 @@
       id="freelancerModalWrapper"
       style="z-index : -1"
     >
-      <div class="modal-content" style="z-index : -1">
+      <div class="modal-content modal-content-project-show" style="z-index : -1">
         <button
+          @click="closeFreelancerDetailIng"
           type="button"
           id="freelancerDetailModalCloseBtn"
           class="btn-close"
@@ -24,10 +25,10 @@
         <button
           @click="openContractPaper"
           :id="ProjectDetailApplyBtn"
-          class="ProjectDetailApplyBtn freelancerFloatBtn"
-          style="z-index : 2"
+          class="ProjectDetailApplyBtn"
+          style="z-index : 2; position: fixed; width: 200px !important; bottom : 11vh; left: 44vw;"
         >
-          ㅋ
+          계약서보기
         </button>
         <button
           @click="closeContractPaper"
@@ -258,7 +259,7 @@
                 class="wrapperImgProjectCarousel"
                 src="@/assets/images/하얀색.png"
                 alt=""
-                style="width : 800px;"
+                style="width : 50vw;"
               />
               <div class="contractCtnr" :id="contractImg">
                 <h3>표준근로계약서</h3>
@@ -1392,6 +1393,10 @@ export default {
       document
         .querySelector("#" + this.sureContractModal)
         .classList.add("d-none");
+    },
+
+    closeFreelancerDetailIng() {
+      document.querySelector('body').style.overflow = 'scroll'
     }
   }
 };

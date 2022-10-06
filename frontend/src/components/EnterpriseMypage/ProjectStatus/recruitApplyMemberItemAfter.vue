@@ -3,59 +3,33 @@
     class="freelancer-contents myPageFreelancerCardWrpr"
     img-src="https://placekitten.com/300/300"
     img-left
-  >
-    <div class="hoverProjectCard d-none" style="height : 0px !important;">
-      <button
-        id="completeDetailBtn"
-        data-bs-toggle="modal"
-        :data-bs-target="freelancerCardIdEdit"
-        class="myPageApplyMemberDetailBtn"
-      >
-        상세보기
-      </button>
-      <button
-        @click="clickEstimateBtn"
-        :id="completeEstimateBtn"
-        class="completeEstimateAfterBtn myPageProjectDetailBtn d-none"
-        style="top : 65px; left : -30px"
-      >
-        평가하기
-      </button>
-      <button
-        @click="clickCalBtn"
-        :id="completeCalBtn"
-        class="completeEstimateAfterBtn myPageProjectDetailBtn newClrBtn d-none"
-        style="top : 115px; left : -180px"
-      >
-        정산하기
-      </button>
-    </div>
-    <div class="row justify-content-between">
-      <b-card-title class="col-6">
-        {{ nameErase }}
-        <span style="font-size : 14px"
-          >| {{ profile.creer_period }}년 경력</span
-        >
-      </b-card-title>
-      <b-card-text class="col-6 text-end align-items-center">
-        <div class="star-ratings d-inline-block mx-2">
-          <div
-            class="star-ratings-fill space-x-2 text-lg"
-            :style="{ width: ratingToPercent + '%' }"
-          >
-            <span>★</span><span>★</span><span>★</span><span>★</span
-            ><span>★</span>
+    style="overflow : hidden"
+    >
+      <div class="hoverProjectCard d-none" style="height : 0px !important;">
+        <button id="completeDetailBtn" data-bs-toggle="modal" :data-bs-target=freelancerCardIdEdit class="myPageApplyMemberDetailBtn">상세보기</button>
+        <button @click=clickEstimateBtn :id="completeEstimateBtn" class="completeEstimateAfterBtn myPageProjectDetailBtn d-none" style="top : 65px; left : -30px">평가하기</button>
+        <button @click=clickCalBtn :id="completeCalBtn" class="completeEstimateAfterBtn myPageProjectDetailBtn newClrBtn d-none" style="top : 115px; left : -180px">정산하기</button>
+      </div>
+      <div class="row justify-content-between">
+        <b-card-title class="col-6">
+          {{ nameErase }}
+          <span style="font-size : 14px">| {{ profile.creer_period }}년 경력</span>
+        </b-card-title>
+        <b-card-text class="col-6 text-end align-items-center">
+          <div class="star-ratings d-inline-block mx-2">
+            <div 
+              class="star-ratings-fill space-x-2 text-lg"
+              :style="{ width: ratingToPercent + '%' }"
+            >
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="star-ratings-base space-x-2 text-lg">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
           </div>
-          <div class="star-ratings-base space-x-2 text-lg">
-            <span>★</span><span>★</span><span>★</span><span>★</span
-            ><span>★</span>
-          </div>
-        </div>
-        {{ Math.round((ratingToPercent / 20) * 100) / 100 }}
-        <span style="font-size : 12px; color : gray">
-          / 평가 {{ estimate.length }} 개</span
-        >
-      </b-card-text>
+          {{ Math.round((ratingToPercent) / 20 * 100) / 100}} 
+          <span style="font-size : 12px; color : gray"> / 평가 {{ estimate.length }} 개</span>
+        </b-card-text>
     </div>
     <div class="row justify-content-end my-2">
       <b-card-text class="col-7">
@@ -77,17 +51,11 @@
         </div>
         <hr />
       </div>
-    </div>
-    <div id="calWrpr" class="d-none calWrpr">
-      <div class="cal text-center">
-        <h4 class="mt-5">정산하시겠습니까?</h4>
-        <button
-          @click="calClose(), withdraw()"
-          class="estimateCompleteBtn"
-          style="top : 300px"
-        >
-          네
-        </button>
+      <div id="calWrpr" class="d-none calWrpr">
+        <div class="cal text-center">
+          <h4 class="mt-5">정산하시겠습니까?</h4>
+          <button @click="calClose(), withdraw()" class="estimateCompleteBtn mt-3">네</button>
+        </div>
       </div>
     </div>
     <recruitApplyMemberItemDetailIng
@@ -280,354 +248,345 @@ export default {
 </script>
 
 <style>
-.modal:hover {
-  cursor: default;
-}
-.myPageFreelancerCardWrpr:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-.myPageFreelancerCardWrpr:hover > .card-body > .hoverProjectCard {
-  display: block !important;
-}
-
-.myPageApplyMemberDetailBtn {
-  border-radius: 40px;
-  position: relative;
-  top: 63px;
-  left: 120px;
-  z-index: 2;
-  border: 1px solid lightgray;
-  background-color: #3c74c9;
-  font-size: 17px;
-  color: white;
-  font-weight: bold;
-  width: 150px;
-  height: 40px;
-}
-
-.estimateModalWrpr {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 2;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.estimateModal {
-  position: fixed;
-  top: 130px;
-  right: 560px;
-  background-color: white;
-  border-radius: 20px;
-  height: 500px;
-  border: 1px solid lightgray;
-  width: 400px;
-  margin: auto;
-}
-
-#estimateModalCloseBtn {
-  position: fixed;
-  top: 150px;
-  right: 580px;
-}
-
-.selectItem {
-  z-index: 2;
-  border: 0px !important;
-}
-
-.star-ratings-fill-start {
-  width: 0%;
-}
-
-.newClrBtn {
-  background-color: rgb(252, 121, 91);
-}
-
-#select1:hover ~ .star-ratings-fill {
-  width: 10% !important;
-}
-
-#select2:hover ~ .star-ratings-fill {
-  width: 20% !important;
-}
-
-#select3:hover ~ .star-ratings-fill {
-  width: 30% !important;
-}
-
-#select4:hover ~ .star-ratings-fill {
-  width: 40% !important;
-}
-
-#select5:hover ~ .star-ratings-fill {
-  width: 50% !important;
-}
-
-#select6:hover ~ .star-ratings-fill {
-  width: 60% !important;
-}
-
-#select7:hover ~ .star-ratings-fill {
-  width: 70% !important;
-}
-
-#select8:hover ~ .star-ratings-fill {
-  width: 80% !important;
-}
-
-#select9:hover ~ .star-ratings-fill {
-  width: 90% !important;
-}
-
-#select10:hover ~ .star-ratings-fill {
-  width: 100% !important;
-}
-
-.radio {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-
-#radio1:checked ~ .star-ratings-fill {
-  width: 10%;
-}
-
-#radio2:checked ~ .star-ratings-fill {
-  width: 20%;
-}
-
-#radio3:checked ~ .star-ratings-fill {
-  width: 30%;
-}
-
-#radio4:checked ~ .star-ratings-fill {
-  width: 40%;
-}
-
-#radio5:checked ~ .star-ratings-fill {
-  width: 50%;
-}
-
-#radio6:checked ~ .star-ratings-fill {
-  width: 60%;
-}
-
-#radio7:checked ~ .star-ratings-fill {
-  width: 70%;
-}
-
-#radio8:checked ~ .star-ratings-fill {
-  width: 80%;
-}
-
-#radio9:checked ~ .star-ratings-fill {
-  width: 90%;
-}
-
-#radio10:checked ~ .star-ratings-fill {
-  width: 100%;
-}
-
-#radio11:checked ~ .star-ratings-fill {
-  width: 10%;
-}
-
-#radio12:checked ~ .star-ratings-fill {
-  width: 20%;
-}
-
-#radio13:checked ~ .star-ratings-fill {
-  width: 30%;
-}
-
-#radio14:checked ~ .star-ratings-fill {
-  width: 40%;
-}
-
-#radio15:checked ~ .star-ratings-fill {
-  width: 50%;
-}
-
-#radio16:checked ~ .star-ratings-fill {
-  width: 60%;
-}
-
-#radio17:checked ~ .star-ratings-fill {
-  width: 70%;
-}
-
-#radio18:checked ~ .star-ratings-fill {
-  width: 80%;
-}
-
-#radio19:checked ~ .star-ratings-fill {
-  width: 90%;
-}
-
-#radio20:checked ~ .star-ratings-fill {
-  width: 100%;
-}
-
-#radio21:checked ~ .star-ratings-fill {
-  width: 10%;
-}
-
-#radio22:checked ~ .star-ratings-fill {
-  width: 20%;
-}
-
-#radio23:checked ~ .star-ratings-fill {
-  width: 30%;
-}
-
-#radio24:checked ~ .star-ratings-fill {
-  width: 40%;
-}
-
-#radio25:checked ~ .star-ratings-fill {
-  width: 50%;
-}
-
-#radio26:checked ~ .star-ratings-fill {
-  width: 60%;
-}
-
-#radio27:checked ~ .star-ratings-fill {
-  width: 70%;
-}
-
-#radio28:checked ~ .star-ratings-fill {
-  width: 80%;
-}
-
-#radio29:checked ~ .star-ratings-fill {
-  width: 90%;
-}
-
-#radio30:checked ~ .star-ratings-fill {
-  width: 100%;
-}
-
-#radio31:checked ~ .star-ratings-fill {
-  width: 10%;
-}
-
-#radio32:checked ~ .star-ratings-fill {
-  width: 20%;
-}
-
-#radio33:checked ~ .star-ratings-fill {
-  width: 30%;
-}
-
-#radio34:checked ~ .star-ratings-fill {
-  width: 40%;
-}
-
-#radio35:checked ~ .star-ratings-fill {
-  width: 50%;
-}
-
-#radio36:checked ~ .star-ratings-fill {
-  width: 60%;
-}
-
-#radio37:checked ~ .star-ratings-fill {
-  width: 70%;
-}
-
-#radio38:checked ~ .star-ratings-fill {
-  width: 80%;
-}
-
-#radio39:checked ~ .star-ratings-fill {
-  width: 90%;
-}
-
-#radio40:checked ~ .star-ratings-fill {
-  width: 100%;
-}
-
-#radio41:checked ~ .star-ratings-fill {
-  width: 10%;
-}
-
-#radio42:checked ~ .star-ratings-fill {
-  width: 20%;
-}
-
-#radio43:checked ~ .star-ratings-fill {
-  width: 30%;
-}
-
-#radio44:checked ~ .star-ratings-fill {
-  width: 40%;
-}
-
-#radio45:checked ~ .star-ratings-fill {
-  width: 50%;
-}
-
-#radio46:checked ~ .star-ratings-fill {
-  width: 60%;
-}
-
-#radio47:checked ~ .star-ratings-fill {
-  width: 70%;
-}
-
-#radio48:checked ~ .star-ratings-fill {
-  width: 80%;
-}
-
-#radio49:checked ~ .star-ratings-fill {
-  width: 90%;
-}
-
-#radio50:checked ~ .star-ratings-fill {
-  width: 100%;
-}
-
-.estimateCompleteBtn {
-  width: 130px;
-  height: 40px;
-  border-radius: 20px;
-  border: 0px;
-  background-color: #3c74c9;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  position: fixed;
-  top: 550px;
-  left: 705px;
-}
-
-.calWrpr {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 2;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.cal {
-  position: fixed;
-  top: 180px;
-  right: 560px;
-  background-color: white;
-  border-radius: 30px;
-  height: 220px;
-  border: 1px solid lightgray;
-  width: 400px;
-  margin: auto;
-}
+  .myPageFreelancerCardWrpr:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .myPageFreelancerCardWrpr:hover > .card-body > .hoverProjectCard{
+    display: block !important;
+  }
+
+  .myPageApplyMemberDetailBtn {
+    border-radius: 40px;
+    position: relative;
+    top : 63px;
+    left : 120px;
+    z-index: 2;
+    border: 1px solid lightgray;
+    background-color: #3c74c9;
+    font-size: 17px;
+    color : white;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+  }
+
+  .estimateModalWrpr {
+    position: fixed;
+    top : 0px;
+    left : 0px;
+    z-index: 2;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .estimateModal {
+    position: fixed;
+    bottom : 30%;
+    left: 40%;
+    background-color: white;
+    border-radius: 20px;
+    height: 500px; 
+    border: 1px solid lightgray;
+    width: 400px;
+    margin: auto;
+  }
+
+  #estimateModalCloseBtn {
+    position : relative;
+    top : 15px;
+    left : 360px;
+  }
+
+  .selectItem {
+    z-index: 2;
+    border : 0px !important;
+  }
+
+  .star-ratings-fill-start {
+    width : 0%;
+  }
+
+  .newClrBtn {
+    background-color: rgb(252, 121, 91);
+  }
+  
+  #select1:hover ~ .star-ratings-fill {
+    width: 10% !important;
+  }
+
+  #select2:hover ~ .star-ratings-fill {
+    width: 20% !important;
+  }
+  
+  #select3:hover ~ .star-ratings-fill {
+    width: 30% !important;
+  }
+
+  #select4:hover ~ .star-ratings-fill {
+    width: 40% !important;
+  }
+
+  #select5:hover ~ .star-ratings-fill {
+    width: 50% !important;
+  }
+
+  #select6:hover ~ .star-ratings-fill {
+    width: 60% !important;
+  }
+
+  #select7:hover ~ .star-ratings-fill {
+    width: 70% !important;
+  }
+
+  #select8:hover ~ .star-ratings-fill {
+    width: 80% !important;
+  }
+
+  #select9:hover ~ .star-ratings-fill {
+    width: 90% !important;
+  }
+
+  #select10:hover ~ .star-ratings-fill {
+    width: 100% !important;
+  }
+
+  .radio {
+    opacity:0;width:0;height:0;position:absolute;
+  }
+
+  #radio1:checked ~ .star-ratings-fill {
+    width: 10%;
+  }
+
+  #radio2:checked ~ .star-ratings-fill {
+    width: 20%;
+  }
+
+  #radio3:checked ~ .star-ratings-fill {
+    width: 30%;
+  }
+
+  #radio4:checked ~ .star-ratings-fill {
+    width: 40%;
+  }
+
+  #radio5:checked ~ .star-ratings-fill {
+    width: 50%;
+  }
+
+  #radio6:checked ~ .star-ratings-fill {
+    width: 60%;
+  }
+
+  #radio7:checked ~ .star-ratings-fill {
+    width: 70%;
+  }
+
+  #radio8:checked ~ .star-ratings-fill {
+    width: 80%;
+  }
+
+  #radio9:checked ~ .star-ratings-fill {
+    width: 90%;
+  }
+
+  #radio10:checked ~ .star-ratings-fill {
+    width: 100%;
+  }
+
+  #radio11:checked ~ .star-ratings-fill {
+    width: 10%;
+  }
+
+  #radio12:checked ~ .star-ratings-fill {
+    width: 20%;
+  }
+
+  #radio13:checked ~ .star-ratings-fill {
+    width: 30%;
+  }
+
+  #radio14:checked ~ .star-ratings-fill {
+    width: 40%;
+  }
+
+  #radio15:checked ~ .star-ratings-fill {
+    width: 50%;
+  }
+
+  #radio16:checked ~ .star-ratings-fill {
+    width: 60%;
+  }
+
+  #radio17:checked ~ .star-ratings-fill {
+    width: 70%;
+  }
+
+  #radio18:checked ~ .star-ratings-fill {
+    width: 80%;
+  }
+
+  #radio19:checked ~ .star-ratings-fill {
+    width: 90%;
+  }
+
+  #radio20:checked ~ .star-ratings-fill {
+    width: 100%;
+  }
+
+  #radio21:checked ~ .star-ratings-fill {
+    width: 10%;
+  }
+
+  #radio22:checked ~ .star-ratings-fill {
+    width: 20%;
+  }
+
+  #radio23:checked ~ .star-ratings-fill {
+    width: 30%;
+  }
+
+  #radio24:checked ~ .star-ratings-fill {
+    width: 40%;
+  }
+
+  #radio25:checked ~ .star-ratings-fill {
+    width: 50%;
+  }
+
+  #radio26:checked ~ .star-ratings-fill {
+    width: 60%;
+  }
+
+  #radio27:checked ~ .star-ratings-fill {
+    width: 70%;
+  }
+
+  #radio28:checked ~ .star-ratings-fill {
+    width: 80%;
+  }
+
+  #radio29:checked ~ .star-ratings-fill {
+    width: 90%;
+  }
+
+  #radio30:checked ~ .star-ratings-fill {
+    width: 100%;
+  }
+
+  #radio31:checked ~ .star-ratings-fill {
+    width: 10%;
+  }
+
+  #radio32:checked ~ .star-ratings-fill {
+    width: 20%;
+  }
+
+  #radio33:checked ~ .star-ratings-fill {
+    width: 30%;
+  }
+
+  #radio34:checked ~ .star-ratings-fill {
+    width: 40%;
+  }
+
+  #radio35:checked ~ .star-ratings-fill {
+    width: 50%;
+  }
+
+  #radio36:checked ~ .star-ratings-fill {
+    width: 60%;
+  }
+
+  #radio37:checked ~ .star-ratings-fill {
+    width: 70%;
+  }
+
+  #radio38:checked ~ .star-ratings-fill {
+    width: 80%;
+  }
+
+  #radio39:checked ~ .star-ratings-fill {
+    width: 90%;
+  }
+
+  #radio40:checked ~ .star-ratings-fill {
+    width: 100%;
+  }
+
+  #radio41:checked ~ .star-ratings-fill {
+    width: 10%;
+  }
+
+  #radio42:checked ~ .star-ratings-fill {
+    width: 20%;
+  }
+
+  #radio43:checked ~ .star-ratings-fill {
+    width: 30%;
+  }
+
+  #radio44:checked ~ .star-ratings-fill {
+    width: 40%;
+  }
+
+  #radio45:checked ~ .star-ratings-fill {
+    width: 50%;
+  }
+
+  #radio46:checked ~ .star-ratings-fill {
+    width: 60%;
+  }
+
+  #radio47:checked ~ .star-ratings-fill {
+    width: 70%;
+  }
+
+  #radio48:checked ~ .star-ratings-fill {
+    width: 80%;
+  }
+
+  #radio49:checked ~ .star-ratings-fill {
+    width: 90%;
+  }
+
+  #radio50:checked ~ .star-ratings-fill {
+    width: 100%;
+  }
+
+  .estimateCompleteBtn {
+    width : 130px;
+    height : 40px;
+    border-radius: 20px;
+    border : 0px;
+    background-color: #3c74c9;
+    text-align: center;
+    color : white;
+    font-weight: bold;
+    font-size : 18px;
+  }
+
+  .calWrpr {
+    position: fixed;
+    top : 0px;
+    left : 0px;
+    z-index: 2;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .cal {
+    position: fixed;
+    bottom : 50%;
+    left : 43%;
+    background-color: white;
+    border-radius: 30px;
+    height: 27vh;
+    border: 1px solid lightgray;
+    width: 30vw;
+    margin: auto;
+  }
 </style>
