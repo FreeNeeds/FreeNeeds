@@ -971,6 +971,7 @@ export default {
               String(this.$store.state.accounts.loginUserInfo.id)
           )
           .then(res => {
+            this.contractId = res.data.contractId;
             let tmp = res.data.content.split("`");
             for (let i = 0; i < contractInputs.length; i++) {
               contractInputs[i].innerText = tmp[i];
@@ -1193,18 +1194,7 @@ export default {
       console.log("출력하기");
       console.log(this.$store.state.accounts.loginUserInfo.id)
       console.log(this.projectDataReceive.projectId)
-      await createInstance()
-        .get(`/contracts`, {
-          params: {projectId: this.projectDataReceive.projectId,userId: this.$store.state.accounts.loginUserInfo.id}
-        })
-        .then(res => {
-          console.log("찍히냐", res.data.contractId);
-          this.contractId = res.data.contractId;
-        })
-        // .catch(err => { 
-        //   console.log("에러출력");
-        //   console.log(err);
-        // })
+
 
       freelancerSignEscrow(accounts[0], this.companyAccount, this.contractId, result, companyEncrypt.encryptData, companyEncrypt.publicKey, freelancerEncrypt.encryptData, freelancerEncrypt.publicKey);
 
