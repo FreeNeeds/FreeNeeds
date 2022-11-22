@@ -1,32 +1,42 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import accounts from "@/store/modules/accounts.js";
+import mypage from "@/store/modules/mypage.js";
+import message from "@/store/modules/message.js";
+import project from "@/store/modules/project.js";
+import user from "@/store/modules/user.js";
+import filter from "@/store/modules/filter.js"
+import apply from "@/store/modules/apply.js"
+import { createVuexPersistedState } from "vue-persistedstate";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    isSigned: false, // 로그인 여부
-    user: {
-      id: 0, // 사용자 아이디 저장
-      walletAddress: null
-    },
-  },
   mutations: {
     setIsSigned(state, isSigned) {
-      state.isSigned = isSigned;
+      state.status.isSigned = isSigned;
     },
-    setUserId(state, id) {
-      state.user.id = id;
+    setUser(state, data) {
+      if (data.accessToken) {
+        sessionStorage.setItem("user", JSON.stringify(data));
+        state.user = data;
+      }
     },
+    /*
     setWalletAddress(state, address) {
       state.user.walletAddress = address;
-    },
+    },*/
     logout(state) {
-      state.isSigned = false;
-      state.user.id = 0;
-      state.user.walletAddress = null;
+      sessionStorage.removeItem("user");
+      state.status.isSigned = false;
+      state.user = null;
+      //state.user.walletAddress = null;
     }
   },
   actions: {},
-  modules: {}
+  modules: { accounts, mypage, message, user, project, filter, apply },
+  plugins: [
+    createVuexPersistedState({
+      storage: window.sessionStorage
+    })
+  ]
 });

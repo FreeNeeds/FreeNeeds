@@ -1,0 +1,20 @@
+{
+  "projectStatus": {
+    "name": "프로젝트 현황",
+    "hidden": false,
+    "path": "/mypage/company/projectstatus",
+    "children": []
+  },
+  "projectRegist": {
+    "name": "프로젝트 등록",
+    "hidden": false,
+    "path": "/mypage/company/projectregist",
+    "children": []
+  },
+  "companyInfoAdmin": {
+    "name": "기업 정보 관리",
+    "hidden": false,
+    "path": "/mypage/company/companyinfoadmin",
+    "children": []
+  }
+}

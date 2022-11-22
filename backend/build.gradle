@@ -1,0 +1,101 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE")
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation("org.springframework.security:spring-security-test")
+    annotationProcessor("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("mysql:mysql-connector-java")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+//  querydsl
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
+//  swagger
+    implementation("io.springfox:springfox-swagger2:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
+    implementation("io.springfox:springfox-data-rest:3.0.0")
+    implementation("io.springfox:springfox-bean-validators:3.0.0")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+    implementation('commons-io:commons-io:2.6')
+    implementation("org.apache.commons:commons-collections4:4.4")
+    implementation("org.apache.commons:commons-lang3:3.9")
+
+//    implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+//    implementation("com.querydsl:querydsl-apt:${querydslVer}")
+
+    //IntelliJ용
+    //IntelliJ에서는 하기 annotationProcessor를 쓰면 별도의 querydsl 플러그인 및 플러그인 설정이 불필요.
+//    annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
+//
+//    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+//    implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
+//    implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
+//
+    implementation("com.google.guava:guava:29.0-jre")
+    annotationProcessor("com.google.guava:guava:29.0-jre")
+//
+//    testImplementation("com.jayway.jsonpath:json-path:2.4.0")
+//
+    implementation("com.auth0:java-jwt:3.10.3")
+//
+//    compile("javax.annotation:javax.annotation-api:1.2")
+//
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
+//}
+//
+//tasks.named('test') {
+//    useJUnitPlatform()
+
+}
+    def querydslDir = "$buildDir/generated/querydsl"
+    querydsl {
+        jpa = true
+        querydslSourcesDir = querydslDir
+    }
+    sourceSets {
+        main.java.srcDir querydslDir
+    }
+    configurations {
+        querydsl.extendsFrom compileClasspath
+    }
+    compileQuerydsl {
+        options.annotationProcessorPath = configurations.querydsl
+    }

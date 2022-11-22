@@ -1,0 +1,14 @@
+{
+  "ApplyStatus": {
+    "name": "나의 지원현황",
+    "hidden": false,
+    "path": "/mypage/freelancer/applystatus",
+    "children": []
+  },
+  "manageCareer": {
+    "name": "커리어 관리",
+    "hidden": false,
+    "path": "/mypage/freelancer/managecareer",
+    "children": []
+  }
+}
