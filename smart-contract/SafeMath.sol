@@ -5,7 +5,7 @@ pragma solidity ^0.5.0;
  * checks.
  *
  * Arithmetic operations in Solidity wrap on overflow. This can easily result
- * in bugs, because programmers ausually assume that an overflow raises an
+ * in bugs, because programmers usually assume that an overflow raises an
  * error, which is the standard behavior in high level programming languages.
  * `SafeMath` restores this intuition by reverting the transaction when an
  * operation overflows.
